@@ -1,0 +1,93 @@
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
+/// 应用存储
+class AppStorage<T> {
+  static SharedPreferences? _prefs;
+  String keyName;
+
+  AppStorage(this.keyName) : assert(keyName.isNotEmpty);
+
+  Future<SharedPreferences> getPrefs() async {
+    _prefs ??= await SharedPreferences.getInstance();
+    return _prefs!;
+  }
+
+  Future<T> get() async {
+    SharedPreferences prefs = await getPrefs();
+    // ignore: prefer_typing_uninitialized_variables
+    var _value;
+    if (<T>[] is List<String?>) {
+      _value = prefs.getString(keyName);
+    } else if (<T>[] is List<bool?>) {
+      _value = prefs.getBool(keyName);
+    } else if (<T>[] is List<int?>) {
+      _value = prefs.getInt(keyName);
+    } else if (<T>[] is List<double?>) {
+      _value = prefs.getDouble(keyName);
+    } else if (<T>[] is List<List<String>>) {
+      _value = prefs.getStringList(keyName);
+    } else {
+      _value = prefs.getString(keyName);
+      if (_value != null) {
+        _value = json.decode(_value);
+      }
+    }
+    return _value as T;
+  }
+
+  Future set(T value) async {
+    SharedPreferences prefs = await getPrefs();
+    if (value is String) {
+      await prefs.setString(keyName, value);
+    } else if (value is bool) {
+      await prefs.setBool(keyName, value);
+    } else if (value is int) {
+      await prefs.setInt(keyName, value);
+    } else if (value is double) {
+      await prefs.setDouble(keyName, value);
+    } else if (value is List<String>) {
+      await prefs.setStringList(keyName, value);
+    } else {
+      await prefs.setString(keyName, json.encode(value));
+    }
+    return value;
+  }
+
+  Future<bool> remove() async {
+    SharedPreferences prefs = await getPrefs();
+    bool result = await prefs.remove(keyName);
+    return result;
+  }
+}
+
+/// 记录是否首次打开app
+AppStorage<bool?> firstEntryApp = AppStorage('firstEntryApp');
+
+/// 是否拥有开发者选项
+AppStorage<bool?> hasDeveloperOptions = AppStorage('hasDeveloperOptions');
+
+/// 认证token
+AppStorage<String?> authToken = AppStorage('authToken');
+
+/// 登录用户信息
+AppStorage<Map<String, dynamic>?> loginUser = AppStorage('loginUser');
+
+/// 租户id
+AppStorage<String?> customerId = AppStorage('customerId');
+
+/// 安仓登记表单
+AppStorage<Map<String, dynamic>?> acRegister = AppStorage('acRegister');
+
+/// 上传任务列表
+AppStorage<List<dynamic>?> ossUploadTask = AppStorage('ossUploadTask');
+
+/// 收货登记，货主选择搜索历史记录
+AppStorage<List<String>> enterOwnerHistory = AppStorage('enterOwnerHistory');
+
+/// 收货登记表单
+AppStorage<Map<String, dynamic>?> enterRegister = AppStorage('enterRegister');
+
+/// 发货登记表单
+AppStorage<Map<String, dynamic>?> leaveRegister = AppStorage('leaveRegister');
