@@ -1,4 +1,4 @@
-// import 'package:yo_gift/src/home/home_page.dart';
+import 'package:yo_gift/src/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 abstract class TabBarPage implements Widget {
@@ -20,7 +20,7 @@ class TabBarRoute {
 }
 
 final List<TabBarRoute> tabBarRoutes = [
-  // TabBarRoute(
-  //   page: HomePage(),
-  // ),
+  const TabBarRoute(
+    page: HomePage(),
+  ),
 ];

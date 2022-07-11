@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yo_gift">
    <application
+        android:requestLegacyExternalStorage="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:label="yo_gift"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -30,5 +32,16 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+       <provider
+               android:name="sk.fourq.otaupdate.OtaUpdateFileProvider"
+               android:authorities="${applicationId}.ota_update_provider"
+               android:exported="false"
+               android:grantUriPermissions="true">
+           <meta-data
+                   android:name="android.support.FILE_PROVIDER_PATHS"
+                   android:resource="@xml/filepaths"/>
+       </provider>
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>
