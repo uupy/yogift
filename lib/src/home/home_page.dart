@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget implements TabBarPage {
     final c = Get.put(HomeController());
     return AppBar(
       leading: null,
-      title: Obx(() => const Text('Home')),
+      title: const Text('Home'),
       actions: [
         IconButton(
           onPressed: () {
