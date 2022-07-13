@@ -5,7 +5,7 @@ class AppTheme {
   AppTheme._();
 
   /// 主题色
-  static const Color primaryColor = Color(0xff1C40EE);
+  static const Color primaryColor = Color(0xffffe100);
 
   /// 成功颜色
   static const Color successColor = Color(0xff00C227);

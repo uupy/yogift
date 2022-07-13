@@ -109,7 +109,6 @@ class _MaterialHome extends State<MaterialHome> {
     appController.checkUpdate(
       context,
       onComplete: (data) async {
-        /// 设备已授权
         String _token = await authToken.get() ?? '';
         if (_token.isNotEmpty) {
           Get.offNamed('index');
@@ -124,11 +123,10 @@ class _MaterialHome extends State<MaterialHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        alignment: Alignment.center,
+        alignment: Alignment.bottomCenter,
         child: Container(
           width: 120.w,
-          height: 120.w,
-          margin: EdgeInsets.only(bottom: 150.w),
+          margin: EdgeInsets.only(bottom: 90.h),
           child: const Image(
             image: AssetImage('lib/assets/images/logo.png'),
             alignment: Alignment.center,
