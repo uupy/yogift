@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/common/app_theme_data.dart';
-import 'package:yo_gift/config/config.dart';
+import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/router/router.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +80,7 @@ class _RootApp extends State<RootApp> {
         initialRoute: appRouter.initialRoute,
         getPages: appRouter.getPages,
         unknownRoute: appRouter.getPages[0],
-        debugShowCheckedModeBanner: !AppConfig.isProdEnv,
+        debugShowCheckedModeBanner: !Env.isProd,
       ),
     );
   }

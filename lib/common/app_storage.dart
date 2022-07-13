@@ -74,20 +74,6 @@ AppStorage<String?> authToken = AppStorage('authToken');
 /// 登录用户信息
 AppStorage<Map<String, dynamic>?> loginUser = AppStorage('loginUser');
 
-/// 租户id
-AppStorage<String?> customerId = AppStorage('customerId');
-
-/// 安仓登记表单
-AppStorage<Map<String, dynamic>?> acRegister = AppStorage('acRegister');
-
 /// 上传任务列表
 AppStorage<List<dynamic>?> ossUploadTask = AppStorage('ossUploadTask');
 
-/// 收货登记，货主选择搜索历史记录
-AppStorage<List<String>> enterOwnerHistory = AppStorage('enterOwnerHistory');
-
-/// 收货登记表单
-AppStorage<Map<String, dynamic>?> enterRegister = AppStorage('enterRegister');
-
-/// 发货登记表单
-AppStorage<Map<String, dynamic>?> leaveRegister = AppStorage('leaveRegister');

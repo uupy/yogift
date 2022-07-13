@@ -25,6 +25,31 @@ def keystorePropertiesFile = rootProject.file("key.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
+def dartDefine = [
+        APP_ENV: 'debug',
+]
+def appName = 'YO!GIFT'
+def appIcon = '@mipmap/logo_test'
+def appKeyAlias = keystoreProperties['testKeyAlias']
+def appStoreFile = keystoreProperties['testStoreFile']
+
+if (project.hasProperty('dart-defines')) {
+    dartDefine = dartDefine + project.property('dart-defines')
+            .split(',')
+            .collectEntries { entry ->
+                // 1.22.6 版本
+                //def pair = URLDecoder.decode(entry).split('=')
+                // 2.2 版本
+                def pair = new String(entry.decodeBase64(), 'UTF-8').split('=')
+                [(pair.first()): pair.last()]
+            }
+}
+if (dartDefine.APP_ENV == 'production') {
+    appIcon = '@mipmap/logo'
+    appKeyAlias = keystoreProperties['prodKeyAlias']
+    appStoreFile = keystoreProperties['prodStoreFile']
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -47,18 +72,20 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId keystoreProperties['keyAlias']
+        applicationId appKeyAlias
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        resValue "string", "app_name", "${appName}"
+        resValue "string", "app_icon", "${appIcon}"
     }
 
     signingConfigs {
         release {
-            keyAlias keystoreProperties['keyAlias']
+            keyAlias appKeyAlias
             keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
+            storeFile file(appStoreFile)
             storePassword keystoreProperties['storePassword']
         }
     }
@@ -68,6 +95,17 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+        }
+    }
+    // 重命名 apk
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (variant.buildType.name == "release") {
+                println "APP_ENV: ${dartDefine.APP_ENV}"
+                // 设置新名称
+                def newApkName = "app_${dartDefine.APP_ENV}_v${defaultConfig.versionName}.apk"
+                outputFileName = new File(newApkName)
+            }
         }
     }
 }

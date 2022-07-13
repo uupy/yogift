@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:yo_gift/config/config.dart';
 import 'package:dio/dio.dart';
+import 'package:yo_gift/config/env_config.dart';
 
 import 'app.dart';
 import 'app_storage.dart';
@@ -70,7 +70,7 @@ Interceptor requestInterceptor() {
 
 class Http {
   Dio dio = Dio(BaseOptions(
-    baseUrl: AppConfig.baseUrl,
+    baseUrl: Env.config.baseUrl,
     connectTimeout: 60000,
   ));
 
@@ -79,9 +79,6 @@ class Http {
   factory Http.getInstance() => _instance ??= Http._internal();
 
   Http._internal() {
-    if (app.isTestEnv) {
-      dio.options.baseUrl = AppConfig.testBaseUrl;
-    }
     dio.interceptors.add(requestInterceptor());
   }
 

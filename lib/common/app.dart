@@ -17,12 +17,6 @@ class App {
 
   static FToast? fToast;
 
-  /// 是否是测试包
-  bool isTestEnv = false;
-
-  /// 是否是安仓环境的
-  bool isACDEnv = false;
-
   /// 是否有网络
   bool hasNetWork = true;
 
@@ -181,7 +175,6 @@ class App {
   Future logout() async {
     await authToken.remove();
     await loginUser.remove();
-    await customerId.remove();
     if (Get.currentRoute != '/login') {
       Get.offAllNamed('/login');
     }
