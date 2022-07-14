@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_theme.dart';
 import 'package:yo_gift/common/oss/oss.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/widgets/AssetImgIcon.dart';
 
 import 'index_controller.dart';
 
@@ -53,19 +55,43 @@ class _IndexView extends State<IndexPage> {
                 ),
           bottomNavigationBar: c.navBarItems.length < 2
               ? null
-              : BottomNavigationBar(
-                  backgroundColor: const Color.fromRGBO(249, 249, 249, 0.94),
-                  selectedItemColor: AppTheme.primaryColor,
-                  unselectedItemColor: const Color(0xffA6A39E),
-                  currentIndex: c.currentIndex,
-                  type: BottomNavigationBarType.fixed,
-                  showSelectedLabels: false,
-                  showUnselectedLabels: false,
-                  onTap: (index) {
-                    c.switchTabBar(index);
-                  },
-                  items: c.navBarItems,
+              : Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.r),
+                      topRight: Radius.circular(20.r),
+                    ),
+                    image: const DecorationImage(
+                      image: AssetImage('lib/assets/images/bg_navbar.png'),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  child: BottomNavigationBar(
+                    elevation: 0,
+                    backgroundColor: Colors.transparent,
+                    selectedItemColor: Colors.black,
+                    unselectedItemColor: Colors.black.withOpacity(0.6),
+                    currentIndex: c.currentIndex,
+                    type: BottomNavigationBarType.fixed,
+                    onTap: (index) {
+                      c.switchTabBar(index);
+                    },
+                    items: c.navBarItems,
+                  ),
                 ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: AppTheme.primaryColor,
+            child: Center(
+              child: AssetImgIcon(
+                width: 24.w,
+                img: 'icon_gift.png',
+              ),
+            ),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
         );
       },
     );

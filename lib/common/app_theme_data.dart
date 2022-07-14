@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'app_theme.dart';
 
 /// 配置MaterialApp主题
 final ThemeData appThemeData = ThemeData(
-  primaryColor: Colors.white,
-  scaffoldBackgroundColor: const Color(0xffEDEFFE),
+  // primaryColor: Colors.white,
+  scaffoldBackgroundColor: Colors.white,
 
   appBarTheme: AppBarTheme(
     centerTitle: true,
     elevation: 0,
     backgroundColor: AppTheme.primaryColor,
     titleTextStyle: TextStyle(
-      color: Colors.white,
-      fontSize: 18.sp,
+      color: Colors.black.withOpacity(0.9),
+      fontSize: 16.sp,
+      fontWeight: FontWeight.w600,
     ),
-    iconTheme: const IconThemeData(color: Colors.white),
-    systemOverlayStyle: SystemUiOverlayStyle.light,
+    iconTheme: IconThemeData(color: Colors.black.withOpacity(0.9)),
   ),
 
   textTheme: TextTheme(
