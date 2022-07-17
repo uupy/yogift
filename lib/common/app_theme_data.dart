@@ -45,21 +45,13 @@ final ThemeData appThemeData = ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       elevation: MaterialStateProperty.all(0),
-      minimumSize: MaterialStateProperty.all(Size(double.infinity, 30.h)),
-      padding: MaterialStateProperty.all(
-        EdgeInsets.fromLTRB(10.w, 12.h, 10.w, 12.h),
-      ),
       backgroundColor: MaterialStateProperty.all(
         AppTheme.primaryColor,
       ),
       textStyle: MaterialStateProperty.all(
         TextStyle(
           fontSize: 15.sp,
-        ),
-      ),
-      shape: MaterialStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4.r),
+          color: const Color.fromRGBO(0, 0, 0, 0.9),
         ),
       ),
     ),

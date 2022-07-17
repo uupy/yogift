@@ -10,17 +10,17 @@ import 'package:flutter/material.dart';
 ///
 /// EdgeInsetsGeometry? [margin]
 ///
-/// List<Widget>? [header]
+/// List<Widget>? [prefix]
 ///
 /// Widget? [body]
 ///
-/// List<Widget>? [footer]
+/// List<Widget>? [suffix]
 ///
 /// void Function()? [onTap]
 class AppRow extends StatelessWidget {
   final Widget? body;
-  final List<Widget>? header;
-  final List<Widget>? footer;
+  final List<Widget>? prefix;
+  final List<Widget>? suffix;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
   final Color? color;
@@ -37,9 +37,9 @@ class AppRow extends StatelessWidget {
 
   const AppRow({
     Key? key,
-    this.header,
+    this.prefix,
     this.body,
-    this.footer,
+    this.suffix,
     this.width,
     this.height,
     this.margin,
@@ -88,7 +88,7 @@ class AppRow extends StatelessWidget {
         mainAxisAlignment: mainAxisAlignment,
         crossAxisAlignment: crossAxisAlignment,
         children: [
-          ...(header ?? []),
+          ...(prefix ?? []),
           if (body != null)
             Expanded(
               child: onBodyTap != null
@@ -99,7 +99,7 @@ class AppRow extends StatelessWidget {
                     )
                   : body!,
             ),
-          ...(footer ?? []),
+          ...(suffix ?? []),
         ],
       ),
     );

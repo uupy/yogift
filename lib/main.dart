@@ -105,9 +105,7 @@ class _MaterialHome extends State<MaterialHome> {
   }
 
   void init() async {
-    /// 检测更新
-    appController.checkUpdate(
-      context,
+    appController.init(
       onComplete: (data) async {
         String _token = await authToken.get() ?? '';
         if (_token.isNotEmpty) {

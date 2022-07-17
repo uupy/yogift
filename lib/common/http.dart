@@ -39,6 +39,24 @@ Interceptor requestInterceptor() {
       }
     },
     onResponse: (options, handler) {
+      final req = options.requestOptions;
+      final res = options.data ?? {};
+      final code = res['code'];
+      final msg = res['message'] ?? errorMessages[code];
+      bool isSilent = req.extra['silent'] ?? false;
+
+      if (code != null && code != 200) {
+        if (!isSilent) {
+          app.showToast(msg ?? '');
+        }
+
+        req.extra['silent'] = true;
+        handler.reject(
+          DioError(requestOptions: req, response: options),
+          true,
+        );
+      }
+
       return handler.next(options);
     },
     onError: (error, handler) {

@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ota_update/ota_update.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:yo_gift/models/common.dart';
+import 'package:yo_gift/services/common.dart';
 
 class AppController extends GetxController {
   BuildContext? _context;
@@ -28,11 +30,25 @@ class AppController extends GetxController {
   /// 包的下载地址
   String fileUrl = '';
 
+  AppConfigVo? config;
+
   /// 完成回调（不论成功，失败，还是取消）
   handleComplete([data]) {
     _completeCallback?.call(data);
   }
 
+  /// 应用初始化
+  Future init({Function(dynamic)? onComplete}) async {
+    _completeCallback = onComplete;
+    try {
+      final res = await CommonService.getConfig();
+      final data = res.data['data'] ?? {};
+      config = AppConfigVo.fromJson(data);
+      update();
+    } finally {
+      handleComplete();
+    }
+  }
 
   /// 检查更新
   Future<void> checkUpdate(
