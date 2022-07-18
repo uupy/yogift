@@ -13,16 +13,24 @@ final ThemeData appThemeData = ThemeData(
     elevation: 0,
     backgroundColor: AppTheme.primaryColor,
     titleTextStyle: TextStyle(
-      color: Colors.black.withOpacity(0.9),
+      color: const Color.fromRGBO(0, 0, 0, 0.9),
       fontSize: 16.sp,
       fontWeight: FontWeight.w600,
     ),
-    iconTheme: IconThemeData(color: Colors.black.withOpacity(0.9)),
+    iconTheme: const IconThemeData(
+      color: Color.fromRGBO(0, 0, 0, 0.9),
+    ),
   ),
 
   textTheme: TextTheme(
-    button: const TextStyle(color: Colors.white),
-    bodyText2: TextStyle(fontSize: 15.sp, color: const Color(0xff333333)),
+    bodyText1: TextStyle(
+      fontSize: 14.sp,
+      color: const Color.fromRGBO(0, 0, 0, 0.9),
+    ),
+    bodyText2: TextStyle(
+      fontSize: 13.sp,
+      color: const Color.fromRGBO(0, 0, 0, 0.9),
+    ),
   ),
 
   /// 输入框

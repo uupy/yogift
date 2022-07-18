@@ -9,6 +9,7 @@ import 'package:yo_gift/widgets/header_background.dart';
 import 'package:yo_gift/widgets/module_title.dart';
 
 import 'widgets/banners.dart';
+import 'widgets/top_7_days.dart';
 
 class HomePage extends StatelessWidget implements TabBarPage {
   const HomePage({Key? key}) : super(key: key);
@@ -36,11 +37,7 @@ class HomePage extends StatelessWidget implements TabBarPage {
               ),
             ],
           ),
-          const ModuleTitle(
-            textCn: '7天人氣排行榜',
-            textEn: 'RANK',
-            suffixAssetImg: 'icon_label_1.png',
-          ),
+          const HomeTop7Days(),
           Container(
             padding: EdgeInsets.fromLTRB(0, 10.h, 0, 30.h),
             color: const Color(0xfffefdee),
