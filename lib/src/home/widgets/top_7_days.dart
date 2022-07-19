@@ -11,6 +11,7 @@ class HomeTop7Days extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
+      id: 'top13Wrapper',
       builder: (c) {
         if (c.top7DaysList.isEmpty) {
           return Container();
@@ -32,6 +33,7 @@ class HomeTop7Days extends StatelessWidget {
                   final item = c.top7DaysList[index];
                   return GoodsItem(
                     width: 182.w,
+                    topIndex: index + 1,
                     name: item.giftName,
                     desc: item.bussinessName,
                     coverImg: item.cCoverImg,

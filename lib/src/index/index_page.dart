@@ -65,7 +65,7 @@ class _IndexView extends State<IndexPage> {
                     ),
                     image: const DecorationImage(
                       image: AssetImage('lib/assets/images/bg_navbar.png'),
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   child: BackdropFilter(

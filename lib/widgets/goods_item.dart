@@ -4,6 +4,9 @@ import 'package:yo_gift/common/app_theme.dart';
 import 'package:yo_gift/widgets/AssetImgIcon.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 
+import 'goods_sending_tag.dart';
+import 'goods_top_tag.dart';
+
 class GoodsItem extends StatelessWidget {
   final double? width;
   final double? height;
@@ -16,6 +19,7 @@ class GoodsItem extends StatelessWidget {
   final int? sendingMethod;
   final int? buy1Get1Free;
   final EdgeInsetsGeometry? margin;
+  final int? topIndex;
 
   const GoodsItem({
     Key? key,
@@ -30,6 +34,7 @@ class GoodsItem extends StatelessWidget {
     this.sendingMethod,
     this.buy1Get1Free,
     this.margin,
+    this.topIndex,
   }) : super(key: key);
 
   @override
@@ -80,7 +85,7 @@ class GoodsItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  buildImgContainer(),
+                  buildImgContainer(topIndex),
                   SizedBox(height: 8.h),
                   Row(
                     children: [
@@ -142,7 +147,7 @@ class GoodsItem extends StatelessWidget {
     );
   }
 
-  Widget buildImgContainer() {
+  Widget buildImgContainer(int? index) {
     return Expanded(
       child: Stack(
         children: [
@@ -150,6 +155,21 @@ class GoodsItem extends StatelessWidget {
             url: coverImg,
             color: Colors.white,
             radius: 12.r,
+          ),
+          if (index != null)
+            Positioned(
+              top: 0,
+              left: 10.w,
+              child: GoodsTopTag(
+                index: index,
+              ),
+            ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: GoodsSendingTag(
+              method: sendingMethod ?? 1,
+            ),
           ),
         ],
       ),

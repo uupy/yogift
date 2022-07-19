@@ -10,4 +10,8 @@ class CommonService {
   /// 获取banner图
   static Future getBanners(String type) =>
       http.postJson('/Common/GetBannerImageList', data: {'type1': type});
+
+  /// 搜索推荐关键字
+  static Future getRecommendList(String type) =>
+      http.postJson('/Common/GetRecomment', data: {'type1': type});
 }

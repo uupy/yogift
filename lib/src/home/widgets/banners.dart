@@ -3,46 +3,54 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/models/common.dart';
+import 'package:yo_gift/src/home/home_controller.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/carousel_pagination.dart';
 import 'package:yo_gift/widgets/skeleton.dart';
 
 class HomeBanners extends StatelessWidget {
-  final bool loading;
-  final List<BannerVo> items;
-  final int currentBannerIndex;
-  final Function(int index)? onChanged;
-
   const HomeBanners({
     Key? key,
-    required this.items,
-    this.loading = false,
-    this.currentBannerIndex = 0,
-    this.onChanged,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 8.h, bottom: 10.h),
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          buildSlider(),
-          CarouselPagination(
-            margin: EdgeInsets.only(bottom: 20.h),
-            current: currentBannerIndex,
-            itemsCount: items.length,
-          )
-        ],
-      ),
+    return GetBuilder<HomeController>(
+      init: HomeController(),
+      id: 'bannerWrapper',
+      builder: (c) {
+        return Container(
+          margin: EdgeInsets.only(top: 8.h, bottom: 10.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              buildSlider(
+                loading: c.bannerLoading,
+                items: c.banners,
+                onChanged: (index) {
+                  c.onBannerChanged(index);
+                },
+              ),
+              CarouselPagination(
+                margin: EdgeInsets.only(bottom: 20.h),
+                current: c.currentBannerIndex,
+                itemsCount: c.banners.length,
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 
-  Widget buildSlider() {
+  Widget buildSlider({
+    bool loading = false,
+    List<BannerVo> items = const [],
+    Function(int index)? onChanged,
+  }) {
     if (loading) {
-      return Skeleton(radius: 24.r);
+      return Skeleton(radius: 24.r, height: 138.h);
     }
     if (items.isEmpty) {
       return Container(

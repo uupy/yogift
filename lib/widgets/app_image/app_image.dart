@@ -79,7 +79,7 @@ class AppImage extends StatelessWidget {
     }
     String urlPrefix = url!.split('/').first;
     bool isRemote = urlPrefix.contains('http');
-    bool isAssets = urlPrefix.contains('assets');
+    bool isAssets = url!.contains('lib/assets');
     if (isRemote) {
       String imageUrl = url ?? '';
       if (crop) {
@@ -120,7 +120,7 @@ class AppImage extends StatelessWidget {
     } else if (isAssets) {
       return buildGestureDetector(
         image: DecorationImage(
-          image: ExactAssetImage(url!),
+          image: AssetImage(url!),
           fit: fit ?? BoxFit.cover,
         ),
         child: child,

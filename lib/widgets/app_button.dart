@@ -9,6 +9,7 @@ class AppButton extends StatelessWidget {
   final bool block;
   final bool round;
   final Color? backgroundColor;
+  final Color? borderColor;
   final EdgeInsetsGeometry? padding;
   final Size? fixedSize;
   final Size? minimumSize;
@@ -23,7 +24,8 @@ class AppButton extends StatelessWidget {
     this.child,
     this.block = false,
     this.round = true,
-    this.backgroundColor,
+    this.backgroundColor = AppTheme.primaryColor,
+    this.borderColor = AppTheme.primaryColor,
     this.padding,
     this.fixedSize,
     this.minimumSize,
@@ -63,7 +65,7 @@ class AppButton extends StatelessWidget {
       onPressed: onPressed,
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          backgroundColor ?? AppTheme.primaryColor,
+          backgroundColor,
         ),
         fixedSize: MaterialStateProperty.all(_fixedSize),
         minimumSize: MaterialStateProperty.all(_minimumSize),
@@ -74,6 +76,12 @@ class AppButton extends StatelessWidget {
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(_radius),
+          ),
+        ),
+        side: MaterialStateProperty.all(
+          BorderSide(
+            color: borderColor ?? AppTheme.primaryColor,
+            width: 1,
           ),
         ),
       ),

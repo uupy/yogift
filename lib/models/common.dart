@@ -228,3 +228,21 @@ class BannerVo {
     return data;
   }
 }
+
+class RecommendTitleVo {
+  String? title;
+
+  RecommendTitleVo({
+    this.title,
+  });
+
+  RecommendTitleVo.fromJson(Map<String, dynamic> json) {
+    title = json['Title'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Title'] = title;
+    return data;
+  }
+}
