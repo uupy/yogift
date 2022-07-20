@@ -57,12 +57,12 @@ class AppInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: height,
+      height: height ?? 46.w,
       margin: margin,
       padding: padding ?? EdgeInsets.symmetric(horizontal: 10.w),
       decoration: BoxDecoration(
-        color: backgroundColor ?? Colors.white,
-        borderRadius: BorderRadius.all(radius ?? Radius.circular(4.r)),
+        color: backgroundColor ?? const Color(0xfff5f5f5),
+        borderRadius: BorderRadius.all(radius ?? Radius.circular(8.r)),
         border: border,
       ),
       child: Row(
@@ -74,7 +74,7 @@ class AppInput extends StatelessWidget {
               keyboardType: keyboardType,
               textAlign: TextAlign.left,
               textInputAction: textInputAction,
-              autofocus: autofocus ?? true,
+              autofocus: autofocus ?? false,
               readOnly: readOnly ?? false,
               decoration: InputDecoration(
                 hintText: hintText ?? '请输入关键词',
