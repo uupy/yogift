@@ -59,10 +59,10 @@ class AppInput extends StatelessWidget {
       width: width,
       height: height,
       margin: margin,
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 14.w),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 10.w),
       decoration: BoxDecoration(
         color: backgroundColor ?? Colors.white,
-        borderRadius: BorderRadius.all(radius ?? Radius.circular(40.r)),
+        borderRadius: BorderRadius.all(radius ?? Radius.circular(4.r)),
         border: border,
       ),
       child: Row(

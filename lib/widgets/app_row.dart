@@ -45,7 +45,7 @@ class AppRow extends StatelessWidget {
     this.margin,
     this.padding,
     this.color,
-    this.radius = 4,
+    this.radius,
     this.onTap,
     this.onBodyTap,
     this.mainAxisAlignment = MainAxisAlignment.start,
@@ -103,14 +103,5 @@ class AppRow extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  BorderRadiusGeometry? getBorderRadius() {
-    if (borderRadius != null) {
-      return borderRadius;
-    } else if (radius != null) {
-      return BorderRadius.all(Radius.circular(radius!));
-    }
-    return null;
   }
 }

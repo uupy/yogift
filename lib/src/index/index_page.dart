@@ -85,7 +85,9 @@ class _IndexView extends State<IndexPage> {
                   ),
                 ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              _controller.switchTabBar(3);
+            },
             backgroundColor: AppTheme.primaryColor,
             child: Center(
               child: AssetImgIcon(
