@@ -8,12 +8,17 @@ import 'package:yo_gift/widgets/app_card.dart';
 class UserMenuGroup extends StatelessWidget {
   final List<UserMenuItem> menus;
 
-  const UserMenuGroup({Key? key, required this.menus,}) : super(key: key);
+  const UserMenuGroup({
+    Key? key,
+    required this.menus,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppCard(
+      width: double.maxFinite,
       margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.w),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.w),
       child: Column(
         children: menus.asMap().keys.map((index) {
           final item = menus[index];

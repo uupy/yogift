@@ -27,19 +27,20 @@ class MenuRow extends StatelessWidget {
       _border = const Border(
         bottom: BorderSide(
           width: 0.5,
-          color: Color.fromRGBO(0, 0, 0, 0.6),
+          color: Color.fromRGBO(230, 230, 230, 0.5),
         ),
       );
     }
 
     return AppRow(
       onTap: onTap,
-      padding: EdgeInsets.symmetric(vertical: 8.w),
+      padding: EdgeInsets.symmetric(vertical: 18.w),
+      mainAxisAlignment: MainAxisAlignment.center,
       border: _border,
       prefix: [
         AssetImgIcon(
           img: icon,
-          width: 24.w,
+          width: 20.w,
           margin: EdgeInsets.only(right: 8.w),
         ),
       ],
@@ -53,7 +54,7 @@ class MenuRow extends StatelessWidget {
         if (arrow)
           AssetImgIcon(
             img: 'icon_arrow_right2.png',
-            width: 24.w,
+            width: 10.w,
           ),
       ],
     );

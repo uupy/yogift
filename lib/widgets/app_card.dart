@@ -8,6 +8,7 @@ class AppCard extends StatelessWidget {
   final double? radius;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
+
   const AppCard({
     Key? key,
     this.child,
