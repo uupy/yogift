@@ -1,7 +1,9 @@
 import 'package:yo_gift/router/tab_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/widgets/app_card.dart';
+import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
 import 'user_controller.dart';
@@ -22,6 +24,16 @@ class UserPage extends StatelessWidget implements TabBarPage {
               Stack(
                 children: [
                   const HeaderBackground(),
+                  Row(
+                    children: [
+                      AppImage(
+                        width: 100.r,
+                        height: 100.r,
+                        radius: 100.r,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
                   AppCard(
                     child: Column(),
                   ),
