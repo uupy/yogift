@@ -19,6 +19,7 @@ class UserMenuGroup extends StatelessWidget {
       width: double.maxFinite,
       margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.w),
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.w),
+      blurRadius: 4.r,
       child: Column(
         children: menus.asMap().keys.map((index) {
           final item = menus[index];

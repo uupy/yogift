@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yo_gift/src/donate/donate_page.dart';
+import 'package:yo_gift/src/charity/index/index_page.dart';
 import 'package:yo_gift/src/friends/friends_page.dart';
 import 'package:yo_gift/src/search/search_page.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
@@ -42,7 +42,7 @@ final List<TabBarRoute> tabBarRoutes = [
     ),
   ),
   TabBarRoute(
-    page: const DonatePage(),
+    page: const CharityIndexPage(),
     navBarItem: BottomNavigationBarItem(
       label: '捐贈',
       icon: AppAssetImage(

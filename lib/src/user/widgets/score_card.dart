@@ -13,6 +13,7 @@ class UserScoreCard extends StatelessWidget {
       width: double.maxFinite,
       padding: EdgeInsets.zero,
       margin: EdgeInsets.only(top: 20.w, bottom: 10.w),
+      blurRadius: 4.r,
       child: Stack(
         children: [
           Positioned(

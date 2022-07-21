@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/src/user/widgets/score_card.dart';
-import 'package:yo_gift/widgets/app_image/app_image.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 
 class UserBaseInfo extends StatelessWidget {
   const UserBaseInfo({Key? key}) : super(key: key);
@@ -14,12 +14,20 @@ class UserBaseInfo extends StatelessWidget {
         children: [
           Row(
             children: [
-              AppImage(
+              Container(
                 width: 86.r,
                 height: 86.r,
-                radius: 86.r,
                 margin: EdgeInsets.only(right: 20.w),
-                color: Colors.white,
+                padding: EdgeInsets.all(10.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(86.r),
+                  ),
+                ),
+                child: const AppAssetImage(
+                  img: 'icon_star.png',
+                ),
               ),
               buildTextButton(text: '登入'),
               Padding(
@@ -38,17 +46,18 @@ class UserBaseInfo extends StatelessWidget {
   Widget buildTextButton({String text = '', Function()? onPressed}) {
     return TextButton(
       onPressed: onPressed,
-      child: buildBoldText(text),
+      child: buildBoldText(text, true),
     );
   }
 
-  Widget buildBoldText(String text) {
+  Widget buildBoldText(String text, [bool underline = false]) {
     return Text(
       text,
       style: TextStyle(
         fontSize: 18.sp,
         fontWeight: FontWeight.w600,
         color: const Color(0xff414042),
+        decoration: underline ? TextDecoration.underline : null,
       ),
     );
   }

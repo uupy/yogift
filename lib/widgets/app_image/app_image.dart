@@ -29,6 +29,7 @@ class AppImage extends StatelessWidget {
   final double? width;
   final double? height;
   final double? radius;
+  final double imageScale;
   final int? cropWidth;
   final int? cropHeight;
   final BoxBorder? border;
@@ -51,6 +52,7 @@ class AppImage extends StatelessWidget {
     this.width,
     this.height,
     this.radius,
+    this.imageScale = 1.0,
     this.cropWidth = 350,
     this.cropHeight = 350,
     this.border,
@@ -97,6 +99,7 @@ class AppImage extends StatelessWidget {
             image: DecorationImage(
               image: imageProvider,
               fit: fit ?? BoxFit.cover,
+              scale: imageScale,
             ),
             child: child,
           );
@@ -122,6 +125,7 @@ class AppImage extends StatelessWidget {
         image: DecorationImage(
           image: AssetImage(url!),
           fit: fit ?? BoxFit.cover,
+          scale: imageScale,
         ),
         child: child,
       );
@@ -133,6 +137,7 @@ class AppImage extends StatelessWidget {
         fit: fit ?? BoxFit.cover,
         width: double.maxFinite,
         height: double.maxFinite,
+        scale: imageScale,
       ),
     );
   }
