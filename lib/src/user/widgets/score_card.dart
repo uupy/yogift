@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yo_gift/widgets/AssetImgIcon.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/app_row.dart';
 
@@ -20,7 +20,7 @@ class UserScoreCard extends StatelessWidget {
             bottom: -30.w,
             height: 110.w,
             width: 110.w,
-            child: const AssetImgIcon(
+            child: const AppAssetImage(
               img: 'img_star.png',
             ),
           ),
@@ -30,7 +30,7 @@ class UserScoreCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    AssetImgIcon(
+                    AppAssetImage(
                       width: 20.w,
                       margin: EdgeInsets.only(right: 4.w),
                       img: 'icon_star_small.png',
@@ -62,7 +62,7 @@ class UserScoreCard extends StatelessWidget {
                         color: const Color.fromRGBO(0, 0, 0, 0.4),
                       ),
                     ),
-                    AssetImgIcon(
+                    AppAssetImage(
                       width: 9.w,
                       margin: EdgeInsets.only(left: 4.w),
                       img: 'icon_arrow_right.png',

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yo_gift/widgets/AssetImgIcon.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/app_tag.dart';
@@ -191,7 +191,7 @@ class RecommendItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            AssetImgIcon(
+            AppAssetImage(
               img: icon,
               width: 16.w,
               margin: EdgeInsets.only(right: 5.w),

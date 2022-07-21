@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/src/home/home_controller.dart';
-import 'package:yo_gift/widgets/AssetImgIcon.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/app_radio.dart';
@@ -81,7 +81,7 @@ class HomeBrandList extends StatelessWidget {
                         color: Color.fromRGBO(0, 0, 0, 0.9),
                       ),
                     ),
-                    AssetImgIcon(
+                    AppAssetImage(
                       width: 10.w,
                       margin: EdgeInsets.only(left: 4.w),
                       img: 'icon_arrow_right2.png',

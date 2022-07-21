@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/src/donate/donate_page.dart';
 import 'package:yo_gift/src/friends/friends_page.dart';
 import 'package:yo_gift/src/search/search_page.dart';
-import 'package:yo_gift/widgets/AssetImgIcon.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 
 import 'package:yo_gift/src/home/home_page.dart';
 import 'package:yo_gift/src/user/user_page.dart';
@@ -31,11 +31,11 @@ final List<TabBarRoute> tabBarRoutes = [
     page: const HomePage(),
     navBarItem: BottomNavigationBarItem(
       label: '首頁',
-      icon: AssetImgIcon(
+      icon: AppAssetImage(
         width: 24.w,
         img: 'icon_0_0.png',
       ),
-      activeIcon: AssetImgIcon(
+      activeIcon: AppAssetImage(
         width: 24.w,
         img: 'icon_0_1.png',
       ),
@@ -45,11 +45,11 @@ final List<TabBarRoute> tabBarRoutes = [
     page: const DonatePage(),
     navBarItem: BottomNavigationBarItem(
       label: '捐贈',
-      icon: AssetImgIcon(
+      icon: AppAssetImage(
         width: 24.w,
         img: 'icon_1_0.png',
       ),
-      activeIcon: AssetImgIcon(
+      activeIcon: AppAssetImage(
         width: 24.w,
         img: 'icon_1_1.png',
       ),
@@ -59,7 +59,7 @@ final List<TabBarRoute> tabBarRoutes = [
     page: const SearchPage(),
     navBarItem: BottomNavigationBarItem(
       label: '搜禮物',
-      icon: AssetImgIcon(
+      icon: AppAssetImage(
         width: 24.w,
         height: 24.w,
       ),
@@ -69,11 +69,11 @@ final List<TabBarRoute> tabBarRoutes = [
     page: const FriendsPage(),
     navBarItem: BottomNavigationBarItem(
       label: '好友',
-      icon: AssetImgIcon(
+      icon: AppAssetImage(
         width: 24.w,
         img: 'icon_3_0.png',
       ),
-      activeIcon: AssetImgIcon(
+      activeIcon: AppAssetImage(
         width: 24.w,
         img: 'icon_3_1.png',
       ),
@@ -83,11 +83,11 @@ final List<TabBarRoute> tabBarRoutes = [
     page: const UserPage(),
     navBarItem: BottomNavigationBarItem(
       label: '我的',
-      icon: AssetImgIcon(
+      icon: AppAssetImage(
         width: 24.w,
         img: 'icon_4_0.png',
       ),
-      activeIcon: AssetImgIcon(
+      activeIcon: AppAssetImage(
         width: 24.w,
         img: 'icon_4_1.png',
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/common/app_theme.dart';
-import 'package:yo_gift/widgets/AssetImgIcon.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 
 import 'goods_sending_tag.dart';
@@ -185,7 +185,7 @@ class GoodsItem extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 12.h),
           child: Column(
             children: [
-              AssetImgIcon(
+              AppAssetImage(
                 img: icon,
                 width: 20.w,
               ),

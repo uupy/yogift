@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AssetImgIcon extends StatelessWidget {
+class AppAssetImage extends StatelessWidget {
   final String? img;
   final double? width;
   final double? height;
@@ -9,7 +9,7 @@ class AssetImgIcon extends StatelessWidget {
   final AlignmentGeometry alignment;
   final void Function()? onTap;
 
-  const AssetImgIcon({
+  const AppAssetImage({
     Key? key,
     this.img,
     this.width,

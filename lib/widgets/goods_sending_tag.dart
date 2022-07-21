@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yo_gift/widgets/AssetImgIcon.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 
 class GoodsSendingTag extends StatelessWidget {
   final int method;
@@ -32,7 +32,7 @@ class GoodsSendingTag extends StatelessWidget {
       ),
       child: Row(
         children: [
-          AssetImgIcon(
+          AppAssetImage(
             width: 14.w,
             margin: EdgeInsets.only(right: 3.w),
             img: 'icon_get_type_$method.png',

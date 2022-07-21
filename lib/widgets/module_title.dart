@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yo_gift/widgets/AssetImgIcon.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_row.dart';
 
 class ModuleTitle extends StatelessWidget {
@@ -59,7 +59,7 @@ class ModuleTitle extends StatelessWidget {
       ),
       suffix: [
         suffix ??
-            AssetImgIcon(
+            AppAssetImage(
               img: suffixAssetImg,
               width: 50.w,
             ),

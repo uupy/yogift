@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_theme.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/widgets/AssetImgIcon.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 
 import 'index_controller.dart';
 
@@ -90,7 +90,7 @@ class _IndexView extends State<IndexPage> {
             },
             backgroundColor: AppTheme.primaryColor,
             child: Center(
-              child: AssetImgIcon(
+              child: AppAssetImage(
                 width: 24.w,
                 img: 'icon_gift.png',
               ),

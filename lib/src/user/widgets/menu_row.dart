@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yo_gift/widgets/AssetImgIcon.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_row.dart';
 
 class MenuRow extends StatelessWidget {
@@ -38,7 +38,7 @@ class MenuRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       border: _border,
       prefix: [
-        AssetImgIcon(
+        AppAssetImage(
           img: icon,
           width: 20.w,
           margin: EdgeInsets.only(right: 8.w),
@@ -52,7 +52,7 @@ class MenuRow extends StatelessWidget {
       ),
       suffix: [
         if (arrow)
-          AssetImgIcon(
+          AppAssetImage(
             img: 'icon_arrow_right2.png',
             width: 10.w,
           ),
