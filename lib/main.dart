@@ -107,12 +107,13 @@ class _MaterialHome extends State<MaterialHome> {
   void init() async {
     appController.init(
       onComplete: (data) async {
-        String _token = await authToken.get() ?? '';
-        if (_token.isNotEmpty) {
-          Get.offNamed('index');
-        } else {
-          Get.offNamed('login');
-        }
+        // String _token = await authToken.get() ?? '';
+        // if (_token.isNotEmpty) {
+        //   Get.offNamed('index');
+        // } else {
+        //   Get.offNamed('login');
+        // }
+        Get.offNamed('index');
       },
     );
   }

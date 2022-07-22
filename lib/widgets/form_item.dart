@@ -59,6 +59,7 @@ class FormItem extends StatelessWidget {
   Widget build(BuildContext context) {
     if (label?.isNotEmpty ?? false) {
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [

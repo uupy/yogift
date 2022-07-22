@@ -1,7 +1,6 @@
 import 'package:yo_gift/router/tab_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:yo_gift/widgets/empty_box.dart';
 
 import 'friends_controller.dart';
 
@@ -10,13 +9,11 @@ class FriendsPage extends StatelessWidget implements TabBarPage {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<FriendsController>(
-      init: FriendsController(),
-      builder: (c) {
-        return const Center(
-          child: Text('friends'),
-        );
-      },
+    return Column(
+      children: const [
+        Expanded(child: EmptyBox()),
+        SizedBox(height: 90),
+      ],
     );
   }
 

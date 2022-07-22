@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:yo_gift/src/user/widgets/score_card.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 
@@ -29,12 +30,22 @@ class UserBaseInfo extends StatelessWidget {
                   img: 'icon_star.png',
                 ),
               ),
-              buildTextButton(text: '登入'),
+              buildTextButton(
+                text: '登入',
+                onPressed: () {
+                  Get.toNamed('/login');
+                },
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
                 child: buildBoldText('/'),
               ),
-              buildTextButton(text: '註冊'),
+              buildTextButton(
+                text: '註冊',
+                onPressed: () {
+                  Get.toNamed('/register');
+                },
+              ),
             ],
           ),
           const UserScoreCard(),

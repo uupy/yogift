@@ -26,6 +26,7 @@ class EmptyBox extends StatelessWidget {
       margin: margin,
       padding: padding ?? EdgeInsets.symmetric(horizontal: 50.w),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const AppAssetImage(
             img: 'img_no_data.png',

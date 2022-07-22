@@ -8,6 +8,7 @@ class AppButton extends StatelessWidget {
   final Widget? child;
   final bool block;
   final bool round;
+  final bool disabled;
   final Color? backgroundColor;
   final Color? borderColor;
   final EdgeInsetsGeometry? padding;
@@ -24,6 +25,7 @@ class AppButton extends StatelessWidget {
     this.child,
     this.block = false,
     this.round = true,
+    this.disabled = false,
     this.backgroundColor = AppTheme.primaryColor,
     this.borderColor = AppTheme.primaryColor,
     this.padding,
@@ -40,6 +42,9 @@ class AppButton extends StatelessWidget {
     Size? _fixedSize = fixedSize;
     Size? _minimumSize = minimumSize;
     double _radius = 4.r;
+    Color? _background = backgroundColor;
+    Color? _borderColor = borderColor;
+    Color? _textColor = const Color.fromRGBO(0, 0, 0, 0.9);
 
     if (fixedSize == null) {
       if (block) {
@@ -61,11 +66,17 @@ class AppButton extends StatelessWidget {
       }
     }
 
+    if (disabled) {
+      _background = const Color(0xffe6e6e6);
+      _borderColor = const Color(0xffe6e6e6);
+      _textColor = const Color.fromRGBO(0, 0, 0, 0.26);
+    }
+
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          backgroundColor,
+          _background,
         ),
         fixedSize: MaterialStateProperty.all(_fixedSize),
         minimumSize: MaterialStateProperty.all(_minimumSize),
@@ -80,7 +91,7 @@ class AppButton extends StatelessWidget {
         ),
         side: MaterialStateProperty.all(
           BorderSide(
-            color: borderColor ?? AppTheme.primaryColor,
+            color: _borderColor ?? AppTheme.primaryColor,
             width: 1,
           ),
         ),
@@ -92,7 +103,7 @@ class AppButton extends StatelessWidget {
               style: style ??
                   TextStyle(
                     fontSize: 14.sp,
-                    color: const Color.fromRGBO(0, 0, 0, 0.9),
+                    color: _textColor,
                   ),
             ),
       ),
