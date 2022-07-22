@@ -56,7 +56,7 @@ final List<TabBarRoute> tabBarRoutes = [
     ),
   ),
   TabBarRoute(
-    page: const SearchPage(),
+    page: SearchPage(),
     navBarItem: BottomNavigationBarItem(
       label: '搜禮物',
       icon: AppAssetImage(

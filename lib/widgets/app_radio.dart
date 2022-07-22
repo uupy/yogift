@@ -6,12 +6,14 @@ class AppRadio {
   final String? label;
   final dynamic value;
   final Widget? child;
+  final EdgeInsetsGeometry? padding;
   final Widget Function(bool selected)? builder;
 
   AppRadio({
     this.label,
     this.value,
     this.child,
+    this.padding,
     this.builder,
   }) : assert((label != null || child != null) && value != null);
 }
@@ -22,6 +24,9 @@ class AppRadioGroup extends StatefulWidget {
   final Color? labelColor;
   final Color? selectedColor;
   final Color? selectedLabelColor;
+  final double? spacing;
+  final double? runSpacing;
+  final EdgeInsetsGeometry? itemPadding;
   final dynamic value;
   final bool cancelAble;
   final Function(dynamic value, int index)? onChanged;
@@ -36,6 +41,9 @@ class AppRadioGroup extends StatefulWidget {
     this.labelColor,
     this.selectedLabelColor,
     this.cancelAble = false,
+    this.spacing,
+    this.runSpacing,
+    this.itemPadding,
   })  : assert(items != null),
         super(key: key);
   @override
@@ -55,8 +63,8 @@ class _AppRadioGroup extends State<AppRadioGroup> {
   Widget build(BuildContext context) {
     List<AppRadio> items = widget.items ?? [];
     return Wrap(
-      spacing: 8.w,
-      runSpacing: 8.w,
+      spacing: widget.spacing ?? 8.w,
+      runSpacing: widget.runSpacing ?? 8.w,
       children: [
         ...items.asMap().keys.map((index) {
           final item = items[index];
@@ -94,6 +102,7 @@ class _AppRadioGroup extends State<AppRadioGroup> {
                     labelColor: labelColor,
                     child: item.child,
                     label: item.label,
+                    padding: item.padding ?? widget.itemPadding,
                   )
                 : item.builder!.call(currentValue == item.value),
           );
@@ -108,9 +117,10 @@ class _AppRadioGroup extends State<AppRadioGroup> {
     Color? labelColor,
     Widget? child,
     String? label,
+    EdgeInsetsGeometry? padding,
   }) {
     return Container(
-      padding: EdgeInsets.fromLTRB(10.w, 7.h, 10.w, 7.h),
+      padding: padding ?? EdgeInsets.fromLTRB(10.w, 7.h, 10.w, 7.h),
       constraints: BoxConstraints(
         minWidth: 72.w,
         // maxWidth: 110.w,

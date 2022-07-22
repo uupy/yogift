@@ -20,6 +20,7 @@ class AppInput extends StatelessWidget {
   final Color? backgroundColor;
   final BoxBorder? border;
   final Radius? radius;
+  final List<Widget>? prefix;
   final List<Widget>? actions;
   final void Function(String?)? onChanged;
   final void Function(String?)? onSubmitted;
@@ -46,6 +47,7 @@ class AppInput extends StatelessWidget {
     this.backgroundColor,
     this.border,
     this.radius,
+    this.prefix,
     this.actions,
     this.onChanged,
     this.onSubmitted,
@@ -67,6 +69,7 @@ class AppInput extends StatelessWidget {
       ),
       child: Row(
         children: [
+          ...(prefix ?? []),
           Expanded(
             child: TextField(
               controller: controller,

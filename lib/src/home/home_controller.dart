@@ -102,7 +102,7 @@ class HomeController extends GetxController {
     if (currentRecommendTitle?.isNotEmpty ?? false) {
       params['giftname'] = currentRecommendTitle;
     }
-    final res = await GiftService.queryGiftList(params);
+    final res = await GiftService.queryPage(params);
     final List data = res.data['data'] ?? [];
     recommendGiftList = data.map((e) => GiftVo.fromJson(e)).toList();
     update(['recommendWrapper']);

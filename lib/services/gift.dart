@@ -8,6 +8,12 @@ class GiftService {
   static Future queryTop7Days() => http.get('/Gift/HomePage_List_Top7Days');
 
   /// 清单(带搜索)
-  static Future queryGiftList(data) =>
+  static Future queryPage(data) =>
       http.postJson('/Gift/List_Search', data: data);
+
+  /// 类型清单
+  static Future queryClassList() => http.get('/Gift/List_Class');
+
+  /// 送礼场景清单
+  static Future querySceneList() => http.get('/Gift/List_Scene');
 }
