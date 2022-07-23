@@ -17,9 +17,9 @@ class UserMenuGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppCard(
       width: double.maxFinite,
-      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.w),
+      margin: EdgeInsets.fromLTRB(20.w, 0, 20.w, 12.w),
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.w),
-      blurRadius: 4.r,
+      blurRadius: 2.r,
       child: Column(
         children: menus.asMap().keys.map((index) {
           final item = menus[index];

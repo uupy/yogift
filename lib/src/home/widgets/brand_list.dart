@@ -43,7 +43,7 @@ class HomeBrandList extends StatelessWidget {
             ),
             Container(
               height: 100.w,
-              margin: EdgeInsets.only(top: 15.h, bottom: 30.h),
+              margin: EdgeInsets.only(top: 15.w, bottom: 30.w),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: c.currentBrandList.length,
@@ -69,7 +69,7 @@ class HomeBrandList extends StatelessWidget {
             ),
             Container(
               width: 120.w,
-              margin: EdgeInsets.only(bottom: 15.h),
+              margin: EdgeInsets.only(bottom: 15.w),
               child: AppButton(
                 backgroundColor: const Color(0xfffffdeb),
                 child: Row(

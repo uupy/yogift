@@ -28,6 +28,8 @@ class SearchPage extends StatelessWidget implements TabBarPage {
       fetch: controller.queryList,
       controller: controller.listController,
       colCount: 2,
+      footerHeight: 120,
+      footerPadding: EdgeInsets.only(top: 10.w),
       prefix: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [

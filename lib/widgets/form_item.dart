@@ -102,6 +102,7 @@ class FormItem extends StatelessWidget {
               textInputAction: textInputAction,
               autofocus: autofocus ?? false,
               readOnly: readOnly ?? false,
+              cursorColor: const Color.fromRGBO(0, 0, 0, 0.9),
               decoration: InputDecoration(
                 hintText: hintText ?? '请输入关键词',
                 hintStyle: const TextStyle(color: Color(0xff969696)),

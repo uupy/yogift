@@ -22,14 +22,14 @@ class UserPage extends StatelessWidget implements TabBarPage {
             children: [
               Stack(
                 children: [
-                  HeaderBackground(height: 210.h),
+                  HeaderBackground(height: 210.w),
                   const UserBaseInfo(),
                 ],
               ),
               UserMenuGroup(menus: c.menus1),
               UserMenuGroup(menus: c.menus2),
               UserMenuGroup(menus: c.menus3),
-              const SizedBox(height: 90),
+              const SizedBox(height: 100),
             ],
           ),
         );

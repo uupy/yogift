@@ -32,12 +32,12 @@ class ModuleTitle extends StatelessWidget {
       padding: padding ??
           EdgeInsets.symmetric(
             horizontal: 20.w,
-            vertical: 16.h,
+            vertical: 14.w,
           ),
       body: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 10.h),
+            padding: EdgeInsets.only(top: 8.w),
             child: Text(
               textEn ?? '',
               style: TextStyle(

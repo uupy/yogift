@@ -25,7 +25,7 @@ class HomeTop7Days extends StatelessWidget {
               suffixAssetImg: 'icon_label_1.png',
             ),
             SizedBox(
-              height: 320.h,
+              height: 316.w,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: c.top7DaysList.length,

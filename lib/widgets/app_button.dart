@@ -38,7 +38,7 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _height = height ?? 44.h;
+    final _height = height ?? 44.w;
     Size? _fixedSize = fixedSize;
     Size? _minimumSize = minimumSize;
     double _radius = 4.r;

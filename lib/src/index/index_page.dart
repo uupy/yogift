@@ -53,6 +53,7 @@ class _IndexView extends State<IndexPage> {
                   physics: const NeverScrollableScrollPhysics(),
                 ),
           extendBody: true,
+          resizeToAvoidBottomInset: false,
           bottomNavigationBar: c.navBarItems.length < 2
               ? null
               : Container(

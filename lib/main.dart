@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/common/app_theme_data.dart';
 import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/router/router.dart';

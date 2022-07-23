@@ -9,7 +9,7 @@ class HomeHowToGift extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, 10.h, 0, 30.h),
+      padding: EdgeInsets.fromLTRB(0, 10.w, 0, 30.w),
       color: const Color(0xfffefdee),
       child: Column(
         children: [
@@ -23,7 +23,7 @@ class HomeHowToGift extends StatelessWidget {
           ),
           Container(
             width: 160.w,
-            margin: EdgeInsets.only(top: 30.h),
+            margin: EdgeInsets.only(top: 30.w),
             child: AppButton(
               text: '查看使用流程',
               onPressed: () {},

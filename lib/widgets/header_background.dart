@@ -21,7 +21,7 @@ class HeaderBackground extends StatelessWidget {
     return ClipPath(
       clipper: BackgroundClipper(radius: radius),
       child: Container(
-        height: height ?? 152.h,
+        height: height ?? 152.w,
         color: color ?? AppTheme.primaryColor,
         child: child,
       ),
@@ -36,7 +36,7 @@ class BackgroundClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    double roundnessFactor = radius ?? 66.h;
+    double roundnessFactor = radius ?? 70.w;
     Path path = Path();
 
     //移动到A点

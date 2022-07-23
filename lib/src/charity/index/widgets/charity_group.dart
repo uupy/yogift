@@ -23,12 +23,16 @@ class CharityListGroup extends StatelessWidget {
               final itemCount = t.childModel?.length ?? 0;
               children.addAll([
                 ModuleTitle(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 12.w,
+                  ),
                   textCn: t.className,
                   textEn: t.classNameEn,
                 ),
                 Container(
-                  height: 105.w,
-                  margin: EdgeInsets.only(bottom: 10.h),
+                  height: 115.w,
+                  margin: EdgeInsets.only(bottom: 5.w),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: itemCount,
@@ -38,11 +42,7 @@ class CharityListGroup extends StatelessWidget {
                         width: 105.w,
                         height: 105.w,
                         padding: EdgeInsets.zero,
-                        margin: index == 0
-                            ? EdgeInsets.fromLTRB(20.w, 0, 6.w, 0)
-                            : (index == itemCount - 1
-                                ? EdgeInsets.fromLTRB(6.w, 0, 20.w, 0)
-                                : EdgeInsets.symmetric(horizontal: 6.w)),
+                        margin: getItemMargin(index, itemCount - 1),
                         child: AppImage(
                           url: item.charityImg,
                           radius: 20.r,
@@ -62,5 +62,14 @@ class CharityListGroup extends StatelessWidget {
         },
       ),
     );
+  }
+
+  EdgeInsetsGeometry? getItemMargin(int index, int last) {
+    if (index == 0) {
+      return EdgeInsets.fromLTRB(20.w, 5.w, 6.w, 5.w);
+    } else if (index == last) {
+      return EdgeInsets.fromLTRB(6.w, 5.w, 20.w, 5.w);
+    }
+    return EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.w);
   }
 }

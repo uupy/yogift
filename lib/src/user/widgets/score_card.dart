@@ -12,8 +12,8 @@ class UserScoreCard extends StatelessWidget {
     return AppCard(
       width: double.maxFinite,
       padding: EdgeInsets.zero,
-      margin: EdgeInsets.only(top: 20.w, bottom: 10.w),
-      blurRadius: 4.r,
+      margin: EdgeInsets.only(top: 20.w, bottom: 20.w),
+      blurRadius: 2.r,
       child: Stack(
         children: [
           Positioned(

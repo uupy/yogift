@@ -50,7 +50,7 @@ class HomeRecommendList extends StatelessWidget {
                 }).toList(),
               ),
             ),
-            SizedBox(height: 30.h),
+            SizedBox(height: 20.w),
             ...c.recommendGiftList.map((e) {
               return RecommendItem(
                 name: e.giftName,
@@ -64,7 +64,7 @@ class HomeRecommendList extends StatelessWidget {
             }).toList(),
             Container(
               width: 120.w,
-              margin: EdgeInsets.only(bottom: 15.h, top: 20.h),
+              margin: EdgeInsets.only(bottom: 15.w, top: 20.w),
               child: AppButton(
                 backgroundColor: const Color(0xfffffdeb),
                 child: Row(

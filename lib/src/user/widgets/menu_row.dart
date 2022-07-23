@@ -54,7 +54,7 @@ class MenuRow extends StatelessWidget {
         if (arrow)
           AppAssetImage(
             img: 'icon_arrow_right2.png',
-            width: 10.w,
+            width: 8.w,
           ),
       ],
     );

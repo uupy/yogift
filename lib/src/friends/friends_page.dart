@@ -2,8 +2,6 @@ import 'package:yo_gift/router/tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:yo_gift/widgets/empty_box.dart';
 
-import 'friends_controller.dart';
-
 class FriendsPage extends StatelessWidget implements TabBarPage {
   const FriendsPage({Key? key}) : super(key: key);
 

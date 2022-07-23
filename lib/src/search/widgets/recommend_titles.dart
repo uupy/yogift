@@ -14,7 +14,7 @@ class SearchRecommendTitles extends StatelessWidget {
       init: SearchController(),
       builder: (c) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.w),
+          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.w),
           child: Wrap(
             spacing: 8.w,
             runSpacing: 12.w,

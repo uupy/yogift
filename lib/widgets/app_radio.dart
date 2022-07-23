@@ -120,7 +120,7 @@ class _AppRadioGroup extends State<AppRadioGroup> {
     EdgeInsetsGeometry? padding,
   }) {
     return Container(
-      padding: padding ?? EdgeInsets.fromLTRB(10.w, 7.h, 10.w, 7.h),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.w),
       constraints: BoxConstraints(
         minWidth: 72.w,
         // maxWidth: 110.w,

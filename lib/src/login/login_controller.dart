@@ -19,8 +19,7 @@ class LoginController extends GetxController {
       form?.save();
       submitting(true);
       try {
-        final res = await AuthService.loginByPassword(formData);
-        final data = res.data['data'] ?? {};
+        await AuthService.loginByPassword(formData);
       } finally {
         submitting(false);
         update();

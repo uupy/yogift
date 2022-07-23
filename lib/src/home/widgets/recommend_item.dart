@@ -41,7 +41,7 @@ class RecommendItem extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      margin: margin ?? EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.w),
+      margin: margin ?? EdgeInsets.symmetric(horizontal: 20.w, vertical: 7.w),
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -68,7 +68,7 @@ class RecommendItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 20.h,
+                      height: 20.w,
                       child: Text(
                         name ?? '',
                         overflow: TextOverflow.ellipsis,
@@ -130,7 +130,7 @@ class RecommendItem extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 15.h),
+          SizedBox(height: 15.w),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

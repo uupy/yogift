@@ -24,6 +24,7 @@ class AppListView<T> extends StatefulWidget {
   final Widget? empty;
   final Widget? firstTimeLoading;
   final double? footerHeight;
+  final EdgeInsetsGeometry? footerPadding;
   final int colCount;
 
   const AppListView({
@@ -37,6 +38,7 @@ class AppListView<T> extends StatefulWidget {
     this.empty,
     this.firstTimeLoading,
     this.footerHeight,
+    this.footerPadding,
     this.colCount = 1,
   })  : assert(fetch != null && itemBuilder != null && colCount > 0),
         super(key: key);
@@ -90,8 +92,9 @@ class _AppListView<T> extends State<AppListView<T>> {
         refresh: AppListLoading(),
       ),
       footer: CustomFooter(
+        height: widget.footerHeight ?? 60,
         builder: (BuildContext context, mode) {
-          Widget child;
+          Widget child = _buildProgressIndicator();
           TextStyle textStyle = const TextStyle(color: Colors.grey);
           if (mode == LoadStatus.idle) {
             child = Text("上拉加載", style: textStyle);
@@ -102,10 +105,11 @@ class _AppListView<T> extends State<AppListView<T>> {
           } else if (mode == LoadStatus.canLoading) {
             child = Text("釋放加載更多", style: textStyle);
           } else {
-            child = Text("已加載全部", style: textStyle);
+            child = Text("-- 已加載全部 --", style: textStyle);
           }
-          return SizedBox(
-            height: widget.footerHeight ?? 50,
+          return Padding(
+            padding: widget.footerPadding ??
+                const EdgeInsets.symmetric(vertical: 20),
             child: Center(
               child: child,
             ),

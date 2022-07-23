@@ -65,7 +65,7 @@ class GoodsItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 20.h,
+                    height: 20.w,
                     child: Text(
                       name ?? '',
                       overflow: TextOverflow.ellipsis,
@@ -75,7 +75,7 @@ class GoodsItem extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 4.h, bottom: 10.h),
+                    padding: EdgeInsets.only(top: 4.w, bottom: 10.w),
                     child: Text(
                       desc ?? '',
                       overflow: TextOverflow.ellipsis,
@@ -86,7 +86,7 @@ class GoodsItem extends StatelessWidget {
                     ),
                   ),
                   buildImgContainer(topIndex),
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 8.w),
                   Row(
                     children: [
                       Text(
@@ -182,7 +182,7 @@ class GoodsItem extends StatelessWidget {
         onTap: onTap,
         behavior: HitTestBehavior.opaque,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 12.h),
+          padding: EdgeInsets.symmetric(vertical: 12.w),
           child: Column(
             children: [
               AppAssetImage(

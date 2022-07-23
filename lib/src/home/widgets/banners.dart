@@ -20,8 +20,8 @@ class HomeBanners extends StatelessWidget {
       id: 'bannerWrapper',
       builder: (c) {
         return Container(
-          margin: EdgeInsets.only(top: 8.h, bottom: 10.h),
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+          margin: EdgeInsets.symmetric(vertical: 8.w),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.w),
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
@@ -33,7 +33,7 @@ class HomeBanners extends StatelessWidget {
                 },
               ),
               CarouselPagination(
-                margin: EdgeInsets.only(bottom: 20.h),
+                margin: EdgeInsets.only(bottom: 20.w),
                 current: c.currentBannerIndex,
                 itemsCount: c.banners.length,
               )
@@ -50,11 +50,11 @@ class HomeBanners extends StatelessWidget {
     Function(int index)? onChanged,
   }) {
     if (loading) {
-      return Skeleton(radius: 24.r, height: 138.h);
+      return Skeleton(radius: 24.r, height: 138.w);
     }
     if (items.isEmpty) {
       return Container(
-        height: 138.h,
+        height: 138.w,
         decoration: BoxDecoration(
           color: const Color(0xffF6F6F6),
           borderRadius: BorderRadius.all(
@@ -74,7 +74,7 @@ class HomeBanners extends StatelessWidget {
     return CarouselSlider(
       options: CarouselOptions(
         autoPlay: true,
-        height: 138.h,
+        height: 138.w,
         viewportFraction: 1.0,
         enlargeCenterPage: false,
         onPageChanged: (index, reason) {
