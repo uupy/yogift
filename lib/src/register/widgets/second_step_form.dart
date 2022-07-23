@@ -45,7 +45,7 @@ class RegisterSecondStepForm extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(top: 28.w),
                 child: AppButton(
-                  disabled: !c.nextStepAble || c.submitting.value,
+                  disabled: !c.submitAble,
                   text: c.submitting.value ? '提交中...' : '註冊',
                   onPressed: () {
                     c.onSubmit();

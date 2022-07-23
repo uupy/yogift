@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/models/verification.dart';
 import 'package:yo_gift/services/user.dart';
@@ -24,15 +25,26 @@ class RegisterController extends GetxController {
   /// 发送验证码倒计时
   int countdown = 0;
 
-  bool get getCodeAble {
+  bool get phoneNotEmpty {
     final prefixNotEmpty = formData.phoneprefix?.isNotEmpty ?? false;
     final phoneNotEmpty = formData.phone?.isNotEmpty ?? false;
-    return prefixNotEmpty && phoneNotEmpty && countdown <= 0;
+    return prefixNotEmpty && phoneNotEmpty;
+  }
+
+  bool get getCodeAble {
+    return phoneNotEmpty && countdown <= 0;
   }
 
   bool get nextStepAble {
     final codeNotEmpty = formData.code?.isNotEmpty ?? false;
-    return codeNotEmpty && getCodeAble;
+    return codeNotEmpty && phoneNotEmpty;
+  }
+
+  bool get submitAble {
+    final pwdNotEmpty = formData.password?.isNotEmpty ?? false;
+    return !submitting.value &&
+        pwdNotEmpty &&
+        (confirmPassword?.isNotEmpty ?? false);
   }
 
   Future getCode() async {
@@ -44,7 +56,7 @@ class RegisterController extends GetxController {
     runTimer();
   }
 
-  /// 登录提交
+  /// 提交
   Future onSubmit() async {
     final form = formKey.currentState;
     if (submitting.value) return;
@@ -53,6 +65,8 @@ class RegisterController extends GetxController {
       submitting(true);
       try {
         await UserService.register(formData);
+        app.toastSuccess('註冊成功');
+        Get.back(result: true);
       } finally {
         submitting(false);
         update();
