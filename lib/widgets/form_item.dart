@@ -7,6 +7,7 @@ class FormItem extends StatelessWidget {
   final String? initialValue;
   final bool? autofocus;
   final bool? readOnly;
+  final bool? obscureText;
   final double? width;
   final double? height;
   final EdgeInsetsGeometry? margin;
@@ -22,6 +23,7 @@ class FormItem extends StatelessWidget {
   final BoxBorder? border;
   final Radius? radius;
   final List<Widget>? actions;
+  final Widget? customInput;
   final void Function(String?)? onChanged;
   final void Function(String?)? onSubmitted;
   final void Function()? onTap;
@@ -34,6 +36,7 @@ class FormItem extends StatelessWidget {
     this.initialValue,
     this.autofocus,
     this.readOnly,
+    this.obscureText,
     this.width,
     this.height,
     this.margin,
@@ -49,6 +52,7 @@ class FormItem extends StatelessWidget {
     this.border,
     this.radius,
     this.actions,
+    this.customInput,
     this.onChanged,
     this.onSubmitted,
     this.onTap,
@@ -94,29 +98,31 @@ class FormItem extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              controller: controller,
-              focusNode: focusNode,
-              keyboardType: keyboardType,
-              textAlign: TextAlign.left,
-              textInputAction: textInputAction,
-              autofocus: autofocus ?? false,
-              readOnly: readOnly ?? false,
-              cursorColor: const Color.fromRGBO(0, 0, 0, 0.9),
-              decoration: InputDecoration(
-                hintText: hintText ?? '请输入关键词',
-                hintStyle: const TextStyle(color: Color(0xff969696)),
-                contentPadding: contentPadding ?? EdgeInsets.zero,
-                isCollapsed: true,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                focusedErrorBorder: InputBorder.none,
-              ),
-              onChanged: onChanged,
-              onSubmitted: onSubmitted,
-              onTap: onTap,
-            ),
+            child: customInput ??
+                TextField(
+                  controller: controller,
+                  focusNode: focusNode,
+                  keyboardType: keyboardType,
+                  textAlign: TextAlign.left,
+                  textInputAction: textInputAction,
+                  autofocus: autofocus ?? false,
+                  readOnly: readOnly ?? false,
+                  obscureText: obscureText ?? false,
+                  cursorColor: const Color.fromRGBO(0, 0, 0, 0.9),
+                  decoration: InputDecoration(
+                    hintText: hintText ?? '请输入关键词',
+                    hintStyle: const TextStyle(color: Color(0xff969696)),
+                    contentPadding: contentPadding ?? EdgeInsets.zero,
+                    isCollapsed: true,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none,
+                  ),
+                  onChanged: onChanged,
+                  onSubmitted: onSubmitted,
+                  onTap: onTap,
+                ),
           ),
           if (icon != null)
             GestureDetector(

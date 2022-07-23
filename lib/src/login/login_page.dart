@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/form_item.dart';
+import 'package:yo_gift/widgets/phone_prefix_select.dart';
 
 import 'login_controller.dart';
 import 'widgets/tab_bar.dart';
@@ -77,13 +78,21 @@ class _LoginPageState extends State<LoginPage>
                     width: 96.w,
                     margin: EdgeInsets.only(right: 8.w),
                     label: '區號',
-                    hintText: '請選擇',
-                    readOnly: true,
+                    customInput: PhonePrefixSelect(
+                      onChanged: (value) {
+                        c.formData.phoneprefix = value;
+                        c.update();
+                      },
+                    ),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: FormItem(
                       label: '手機號碼',
                       hintText: '請輸入手機號碼',
+                      keyboardType: TextInputType.phone,
+                      onChanged: (value) {
+                        c.formData.phone = value;
+                      },
                     ),
                   ),
                 ],
@@ -93,6 +102,7 @@ class _LoginPageState extends State<LoginPage>
                 const FormItem(
                   label: '密码',
                   hintText: '请输入密码',
+                  obscureText: true,
                 ),
               if (c.loginType == 1)
                 FormItem(
@@ -105,7 +115,7 @@ class _LoginPageState extends State<LoginPage>
                       child: const AppButton(
                         round: false,
                         disabled: true,
-                        child: Text('獲取驗證碼'),
+                        text: '獲取驗證碼',
                       ),
                     ),
                   ],
@@ -114,7 +124,7 @@ class _LoginPageState extends State<LoginPage>
                 margin: EdgeInsets.only(top: 28.w),
                 child: AppButton(
                   disabled: true,
-                  child: Obx(() => Text(c.submitting.value ? '登入中...' : '登入')),
+                  text: c.submitting.value ? '登入中...' : '登入',
                 ),
               ),
               Container(

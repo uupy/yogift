@@ -1,6 +1,5 @@
 import 'package:yo_gift/common/http.dart';
 import 'package:yo_gift/models/auth.dart';
-import 'package:dio/dio.dart';
 
 class AuthService {
   AuthService._();

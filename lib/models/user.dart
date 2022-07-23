@@ -95,56 +95,52 @@ class ModifyPwdFormVo {
   }
 }
 
-class UserVo {
-  String? avatar;
-  String? clientId;
-  String? idNumber;
-  List<String>? permissionCodes;
-  String? realName;
-  List<String>? roleCodes;
-  String? systemId;
-  String? telephone;
-  String? userId;
-  String? username;
+class RegisterFormVo {
+  String? phone;
+  String? phoneprefix;
+  String? password;
+  String? code;
+  String? introducer;
+  int? acceptnotice;
+  String? recommendationcode;
+  String? gener;
+  String? birthday;
 
-  UserVo({
-    this.avatar,
-    this.clientId,
-    this.idNumber,
-    this.permissionCodes,
-    this.realName,
-    this.roleCodes,
-    this.systemId,
-    this.telephone,
-    this.userId,
-    this.username,
+  RegisterFormVo({
+    this.phone,
+    this.phoneprefix,
+    this.password,
+    this.code,
+    this.introducer,
+    this.acceptnotice,
+    this.recommendationcode,
+    this.gener,
+    this.birthday,
   });
 
-  UserVo.fromJson(Map<String, dynamic> json) {
-    avatar = json['avatar'];
-    clientId = json['clientId'];
-    idNumber = json['idNumber'];
-    permissionCodes = json['permissionCodes'].cast<String>();
-    realName = json['realName'];
-    roleCodes = json['roleCodes'].cast<String>();
-    systemId = json['systemId'];
-    telephone = json['telephone'];
-    userId = json['userId'];
-    username = json['username'];
+  RegisterFormVo.fromJson(Map<String, dynamic> json) {
+    phone = json['phone'];
+    phoneprefix = json['phoneprefix'];
+    password = json['password'];
+    code = json['code'];
+    introducer = json['introducer'];
+    acceptnotice = json['acceptnotice'];
+    recommendationcode = json['recommendationcode'];
+    gener = json['gener'];
+    birthday = json['birthday'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['avatar'] = avatar;
-    data['clientId'] = clientId;
-    data['idNumber'] = idNumber;
-    data['permissionCodes'] = permissionCodes;
-    data['realName'] = realName;
-    data['roleCodes'] = roleCodes;
-    data['systemId'] = systemId;
-    data['telephone'] = telephone;
-    data['userId'] = userId;
-    data['username'] = username;
+    data['phone'] = phone;
+    data['phoneprefix'] = phoneprefix;
+    data['password'] = password;
+    data['code'] = code;
+    data['introducer'] = introducer;
+    data['acceptnotice'] = acceptnotice;
+    data['recommendationcode'] = recommendationcode;
+    data['gener'] = gener;
+    data['birthday'] = birthday;
     return data;
   }
 }

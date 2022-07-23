@@ -1,14 +1,48 @@
-import 'package:yo_gift/common/app_controller.dart';
-import 'package:yo_gift/models/auth.dart';
-import 'package:yo_gift/services/auth.dart';
+import 'dart:async';
+
+import 'package:yo_gift/models/user.dart';
+import 'package:yo_gift/models/verification.dart';
+import 'package:yo_gift/services/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/services/verification.dart';
 
 class RegisterController extends GetxController {
-  final formData = PhonePasswordVo();
-  final appController = Get.put(AppController());
+  final formData = RegisterFormVo();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final submitting = false.obs;
+  final step = 1.obs;
+
+  String? confirmPassword;
+
+  /// 轮询间隔时间
+  static const _timeout = Duration(seconds: 1);
+
+  /// 定时器
+  Timer? _timer;
+
+  /// 发送验证码倒计时
+  int countdown = 0;
+
+  bool get getCodeAble {
+    final prefixNotEmpty = formData.phoneprefix?.isNotEmpty ?? false;
+    final phoneNotEmpty = formData.phone?.isNotEmpty ?? false;
+    return prefixNotEmpty && phoneNotEmpty && countdown <= 0;
+  }
+
+  bool get nextStepAble {
+    final codeNotEmpty = formData.code?.isNotEmpty ?? false;
+    return codeNotEmpty && getCodeAble;
+  }
+
+  Future getCode() async {
+    final data = SendDataVo(
+      phone: formData.phone,
+      prefix: formData.phoneprefix,
+    );
+    await VerificationService.getCodeForRegister(data);
+    runTimer();
+  }
 
   /// 登录提交
   Future onSubmit() async {
@@ -18,11 +52,36 @@ class RegisterController extends GetxController {
       form?.save();
       submitting(true);
       try {
-        await AuthService.loginByPassword(formData);
+        await UserService.register(formData);
       } finally {
         submitting(false);
         update();
       }
     }
+  }
+
+  /// 开启定时器
+  void runTimer() {
+    stopTimer();
+    countdown = 60;
+    update(['firstStepForm']);
+    _timer = Timer.periodic(_timeout, (timer) {
+      countdown--;
+      if (countdown <= 0) {
+        stopTimer();
+      }
+      update(['firstStepForm']);
+    });
+  }
+
+  /// 关闭定时器
+  void stopTimer() async {
+    _timer?.cancel();
+  }
+
+  @override
+  void dispose() {
+    stopTimer();
+    super.dispose();
   }
 }

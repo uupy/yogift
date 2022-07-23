@@ -16,6 +16,7 @@ class AppButton extends StatelessWidget {
   final Size? minimumSize;
   final Size? maximumSize;
   final double? height;
+  final double? fontSize;
   final Function()? onPressed;
 
   const AppButton({
@@ -33,6 +34,7 @@ class AppButton extends StatelessWidget {
     this.minimumSize,
     this.maximumSize,
     this.height,
+    this.fontSize,
     this.onPressed,
   }) : super(key: key);
 
@@ -73,7 +75,10 @@ class AppButton extends StatelessWidget {
     }
 
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: () {
+        if (disabled) return;
+        onPressed?.call();
+      },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
           _background,
@@ -102,7 +107,7 @@ class AppButton extends StatelessWidget {
               text ?? 'button',
               style: style ??
                   TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: fontSize ?? 14.sp,
                     color: _textColor,
                   ),
             ),
