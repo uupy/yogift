@@ -88,7 +88,9 @@ class HomeBrandList extends StatelessWidget {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed('/brand-index');
+                },
               ),
             ),
           ],

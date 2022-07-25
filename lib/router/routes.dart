@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:yo_gift/src/brand/index/index_page.dart';
 import 'package:yo_gift/src/index/index_page.dart';
 import 'package:yo_gift/src/login/login_page.dart';
 import 'package:yo_gift/src/register/register_page.dart';
@@ -18,5 +19,9 @@ final List<AppRoute> routes = [
   const AppRoute(
     name: '/register',
     page: RegisterPage(),
+  ),
+  const AppRoute(
+    name: '/brand-index',
+    page: BrandIndexPage(),
   ),
 ];
