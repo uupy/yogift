@@ -42,9 +42,8 @@ class RegisterController extends GetxController {
 
   bool get submitAble {
     final pwdNotEmpty = formData.password?.isNotEmpty ?? false;
-    return !submitting.value &&
-        pwdNotEmpty &&
-        (confirmPassword?.isNotEmpty ?? false);
+    final pwdNotEmpty2 = confirmPassword?.isNotEmpty ?? false;
+    return !submitting.value && pwdNotEmpty && pwdNotEmpty2;
   }
 
   Future getCode() async {

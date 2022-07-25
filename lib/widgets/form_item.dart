@@ -24,8 +24,8 @@ class FormItem extends StatelessWidget {
   final Radius? radius;
   final List<Widget>? actions;
   final Widget? customInput;
+  final String? Function(String?)? validator;
   final void Function(String?)? onChanged;
-  final void Function(String?)? onSubmitted;
   final void Function()? onTap;
   final void Function()? onIconTap;
 
@@ -53,8 +53,8 @@ class FormItem extends StatelessWidget {
     this.radius,
     this.actions,
     this.customInput,
+    this.validator,
     this.onChanged,
-    this.onSubmitted,
     this.onTap,
     this.onIconTap,
   }) : super(key: key);
@@ -99,7 +99,7 @@ class FormItem extends StatelessWidget {
         children: [
           Expanded(
             child: customInput ??
-                TextField(
+                TextFormField(
                   controller: controller,
                   focusNode: focusNode,
                   keyboardType: keyboardType,
@@ -120,8 +120,8 @@ class FormItem extends StatelessWidget {
                     focusedErrorBorder: InputBorder.none,
                   ),
                   onChanged: onChanged,
-                  onSubmitted: onSubmitted,
                   onTap: onTap,
+                  validator: validator,
                 ),
           ),
           if (icon != null)
