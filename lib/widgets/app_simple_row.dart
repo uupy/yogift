@@ -13,13 +13,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 ///
 /// Widget? [prefix]
 ///
-/// Widget? [body]
+/// Widget? [expanded]
 ///
 /// Widget? [suffix]
 class AppSimpleRow extends StatelessWidget {
-  final Widget? body;
+  final Widget? expanded;
   final Widget? prefix;
   final Widget? suffix;
+  final List<Widget>? children;
   final String? label;
   final String? content;
   final EdgeInsetsGeometry? margin;
@@ -36,9 +37,10 @@ class AppSimpleRow extends StatelessWidget {
 
   const AppSimpleRow({
     Key? key,
-    this.body,
+    this.expanded,
     this.prefix,
     this.suffix,
+    this.children,
     this.label,
     this.content,
     this.width,
@@ -58,8 +60,8 @@ class AppSimpleRow extends StatelessWidget {
   Widget build(BuildContext context) {
     BorderRadiusGeometry? _borderRadius = borderRadius;
     Widget? _prefix = prefix;
-    Widget? _body = body;
-    List<Widget> children = [];
+    Widget? _body = expanded;
+    List<Widget> _children = children ?? [];
 
     if (prefix == null && (label?.isNotEmpty ?? false)) {
       _prefix = SizedBox(
@@ -70,7 +72,8 @@ class AppSimpleRow extends StatelessWidget {
         ),
       );
     }
-    if (body == null && (content?.isNotEmpty ?? false)) {
+
+    if (expanded == null && (content?.isNotEmpty ?? false)) {
       _body = Text(
         content ?? '',
         style: TextStyle(fontSize: 14.sp),
@@ -78,15 +81,15 @@ class AppSimpleRow extends StatelessWidget {
     }
 
     if (_prefix != null) {
-      children.add(_prefix);
+      _children.insert(0, _prefix);
     }
 
     if (_body != null) {
-      children.add(Expanded(child: _body));
+      _children.add(Expanded(child: _body));
     }
 
     if (suffix != null) {
-      children.add(suffix!);
+      _children.add(suffix!);
     }
 
     if (_borderRadius == null && ((radius ?? 0) > 0)) {
@@ -108,7 +111,7 @@ class AppSimpleRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: mainAxisAlignment,
         crossAxisAlignment: crossAxisAlignment,
-        children: children,
+        children: _children,
       ),
     );
   }

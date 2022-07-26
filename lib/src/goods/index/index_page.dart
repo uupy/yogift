@@ -10,17 +10,17 @@ import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
 import 'package:yo_gift/widgets/goods_item.dart';
 import 'package:yo_gift/widgets/module_title.dart';
 
-import 'search_controller.dart';
+import 'index_controller.dart';
 import 'widgets/category_list.dart';
 import 'widgets/price_filter_bar.dart';
 import 'widgets/recommend_titles.dart';
 import 'widgets/scene_list.dart';
 import 'widgets/sort_bar.dart';
 
-class SearchPage extends StatelessWidget implements TabBarPage {
-  SearchPage({Key? key}) : super(key: key);
+class GoodsIndexPage extends StatelessWidget implements TabBarPage {
+  GoodsIndexPage({Key? key}) : super(key: key);
 
-  final controller = Get.put(SearchController());
+  final controller = Get.put(GoodsIndexController());
 
   @override
   Widget build(BuildContext context) {
