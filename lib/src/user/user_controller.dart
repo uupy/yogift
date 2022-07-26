@@ -45,6 +45,7 @@ class UserController extends GetxController {
     UserMenuItem(
       icon: 'icon_mine_terms.png',
       label: '條款及細則',
+      path: './clause'
     ),
   ];
 

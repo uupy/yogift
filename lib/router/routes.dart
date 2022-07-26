@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/src/brand/index/index_page.dart';
+import 'package:yo_gift/src/clause/clause_page.dart';
 import 'package:yo_gift/src/index/index_page.dart';
 import 'package:yo_gift/src/login/login_page.dart';
 import 'package:yo_gift/src/register/register_page.dart';
@@ -24,4 +26,8 @@ final List<AppRoute> routes = [
     name: '/brand-index',
     page: BrandIndexPage(),
   ),
+  const AppRoute(
+    name: '/clause',
+    page: ClausePage()
+  )
 ];

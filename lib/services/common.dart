@@ -14,4 +14,8 @@ class CommonService {
   /// 搜索推荐关键字
   static Future getRecommendList(String type) =>
       http.postJson('/Common/GetRecomment', data: {'type1': type});
+
+  /// 條款及細則
+  static Future queryClassContent(String type) =>
+      http.postJson('/Common/GetMyContent', data: {'type1': type});
 }
