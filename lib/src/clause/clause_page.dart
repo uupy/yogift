@@ -11,22 +11,26 @@ class ClausePage extends StatefulWidget {
 }
 
 class _ClausePageState extends State<ClausePage> {
-  final controller = Get.put(ClauseController());
+  // final controller = Get.put(ClauseController());
 
   get textAlign => null;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('條款及細則'),
-        ),
-        body: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            padding: EdgeInsets.all(20.w),
-            child: Text(
-              controller.content,
-              textAlign: TextAlign.left,
-              style: const TextStyle(fontSize: 13.0),
-            )));
+    return GetBuilder<ClauseController>(
+        init: ClauseController(),
+        builder: (e) {
+          return Scaffold(
+              appBar: AppBar(
+                title: const Text('條款及細則'),
+              ),
+              body: SingleChildScrollView(
+                  physics: const ClampingScrollPhysics(),
+                  padding: EdgeInsets.all(20.w),
+                  child: Text(
+                    e.content,
+                    textAlign: TextAlign.left,
+                    // style: const TextStyle(fontSize: 13.0),
+                  )));
+        });
   }
 }

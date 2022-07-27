@@ -6,6 +6,7 @@ class ClauseController extends GetxController {
   String content = "";
   @override
   void onInit() {
+    // init();
     queryList();
     super.onInit();
   }
