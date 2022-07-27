@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/search/search_controller.dart';
+import 'package:yo_gift/src/goods/index/index_controller.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 
 class SearchSceneList extends StatelessWidget {
@@ -10,7 +10,7 @@ class SearchSceneList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SearchController>(
+    return GetBuilder<GoodsIndexController>(
       id: 'sceneList',
       builder: (c) {
         return SizedBox(

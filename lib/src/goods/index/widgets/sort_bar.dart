@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/search/search_controller.dart';
+import 'package:yo_gift/src/goods/index/index_controller.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 
 class SearchSortBar extends StatelessWidget {
@@ -9,7 +9,7 @@ class SearchSortBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SearchController>(
+    return GetBuilder<GoodsIndexController>(
       id: 'sortBar',
       builder: (c) {
         String img = 'icon_order_none.png';
