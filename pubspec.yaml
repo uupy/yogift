@@ -53,11 +53,13 @@ dependencies:
   # ota升级
   ota_update: ^3.0.2
   url_launcher: ^6.0.9
+  # 獲取設備信息
+  device_info: ^2.0.2
   # app包信息
   package_info_plus: ^1.0.4
   package_info: ^2.0.2
   # 选择媒体文件
-#  image_picker: ^0.8.4+9
+  # image_picker: ^0.8.4+9
   crypto: ^3.0.1
   # 网络图片（带加载、缓存功能）
   cached_network_image: ^3.2.0

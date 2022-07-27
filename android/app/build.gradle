@@ -32,6 +32,8 @@ def appName = 'YO!GIFT'
 def appIcon = '@mipmap/logo_test'
 def appKeyAlias = keystoreProperties['testKeyAlias']
 def appStoreFile = keystoreProperties['testStoreFile']
+def appKeyPassword = keystoreProperties['testKeyPassword']
+def appStorePassword = keystoreProperties['testStorePassword']
 
 if (project.hasProperty('dart-defines')) {
     dartDefine = dartDefine + project.property('dart-defines')
@@ -48,6 +50,8 @@ if (dartDefine.APP_ENV == 'production') {
     appIcon = '@mipmap/logo'
     appKeyAlias = keystoreProperties['prodKeyAlias']
     appStoreFile = keystoreProperties['prodStoreFile']
+    appKeyPassword = keystoreProperties['prodKeyPassword']
+    appStorePassword = keystoreProperties['prodStorePassword']
 }
 
 apply plugin: 'com.android.application'
@@ -84,9 +88,9 @@ android {
     signingConfigs {
         release {
             keyAlias appKeyAlias
-            keyPassword keystoreProperties['keyPassword']
+            keyPassword appKeyPassword
             storeFile file(appStoreFile)
-            storePassword keystoreProperties['storePassword']
+            storePassword appStorePassword
         }
     }
 

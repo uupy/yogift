@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:device_info/device_info.dart';
 import 'package:yo_gift/assets/fonts/iconfont.dart';
 import 'package:yo_gift/common/app_theme.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,10 +22,22 @@ class App {
 
   /// 是否有网络
   bool hasNetWork = true;
+  String deviceModel = '';
 
   void init(BuildContext context) {
     fToast ??= FToast();
     fToast?.init(context);
+  }
+
+  Future getDeviceModel() async {
+    final deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      final adi = await deviceInfo.androidInfo;
+      deviceModel = adi.model;
+    } else if (Platform.isIOS) {
+      final iosInfo = await deviceInfo.iosInfo;
+      deviceModel = iosInfo.utsname.machine;
+    }
   }
 
   /// showToast
