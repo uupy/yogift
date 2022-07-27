@@ -28,6 +28,9 @@ Interceptor requestInterceptor() {
           options.headers['Authorization'] = 'Bearer $_token';
         }
 
+        options.headers['deviceModel'] = app.deviceModel;
+        options.headers['platform'] = 3;
+
         return handler.next(options);
       } else {
         return handler.reject(
