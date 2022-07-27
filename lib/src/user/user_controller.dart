@@ -37,6 +37,7 @@ class UserController extends GetxController {
     UserMenuItem(
       icon: 'icon_mine_question.png',
       label: '常見問題',
+      path: './problem'
     ),
     UserMenuItem(
       icon: 'icon_mine_contact.png',

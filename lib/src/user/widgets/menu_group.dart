@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -30,6 +31,33 @@ class UserMenuGroup extends StatelessWidget {
             onTap: () {
               if (item.path?.isNotEmpty ?? false) {
                 Get.toNamed(item.path!);
+              } else {
+                //弹出
+                showDialog<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SimpleDialog(
+                      children: <Widget>[
+                        SimpleDialogOption(
+                          child: const Text('选项 1'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        SimpleDialogOption(
+                          child: const Text('选项 2'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                ).then((val) {
+                  // if (kDebugMode) {
+                  //   // print(val);
+                  // }
+                });
               }
             },
           );

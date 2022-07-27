@@ -4,6 +4,7 @@ import 'package:yo_gift/src/clause/clause_page.dart';
 import 'package:yo_gift/src/goods/detail/detail_page.dart';
 import 'package:yo_gift/src/index/index_page.dart';
 import 'package:yo_gift/src/login/login_page.dart';
+import 'package:yo_gift/src/problem/problem_page.dart';
 import 'package:yo_gift/src/register/register_page.dart';
 
 import 'route.dart';
@@ -30,5 +31,6 @@ final List<AppRoute> routes = [
     name: '/brand-index',
     page: BrandIndexPage(),
   ),
-  const AppRoute(name: '/clause', page: ClausePage())
+  const AppRoute(name: '/clause', page: ClausePage()),
+  const AppRoute(name: '/problem', page: ProblemPage())
 ];
