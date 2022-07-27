@@ -4,9 +4,9 @@ import 'package:yo_gift/services/common.dart';
 class ClauseController extends GetxController {
   String type = "";
   String content = "";
+
   @override
   void onInit() {
-    // init();
     queryList();
     super.onInit();
   }
@@ -16,11 +16,8 @@ class ClauseController extends GetxController {
     final data = res.data ?? {};
     final obj = data['data'] ?? {};
     type = obj['Type1'];
-    content = obj['Content'];
-    update();
-  }
-
-  Future init() async {
+    content = obj['Content'] ?? '';
+    content = content.replaceAll('\n', '<br />');
     update();
   }
 }
