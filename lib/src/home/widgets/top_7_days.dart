@@ -32,6 +32,7 @@ class HomeTop7Days extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final item = c.top7DaysList[index];
                   return GoodsItem(
+                    guid: item.gGuid,
                     width: 182.w,
                     topIndex: index + 1,
                     name: item.giftName,

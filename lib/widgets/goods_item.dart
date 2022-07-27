@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:yo_gift/common/app_theme.dart';
 import 'package:yo_gift/common/logger.dart';
+import 'package:yo_gift/services/user_favorites.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 
 import 'goods_sending_tag.dart';
 import 'goods_top_tag.dart';
 
-class GoodsItem extends StatelessWidget {
+class GoodsItem extends StatefulWidget {
   final double? width;
   final double? height;
   final double? buyPrice;
@@ -21,6 +23,7 @@ class GoodsItem extends StatelessWidget {
   final int? buy1Get1Free;
   final EdgeInsetsGeometry? margin;
   final int? topIndex;
+  final String? guid;
   final Function()? onTap;
 
   const GoodsItem({
@@ -37,20 +40,40 @@ class GoodsItem extends StatelessWidget {
     this.buy1Get1Free,
     this.margin,
     this.topIndex,
+    this.guid,
     this.onTap,
   }) : super(key: key);
 
   @override
+  _GoodsItemState createState() => _GoodsItemState();
+}
+
+class _GoodsItemState extends State<GoodsItem> {
+  int _favorite = 0;
+
+  @override
+  void initState() {
+    setState(() {
+      _favorite = widget.favorite ?? 0;
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final buy1Get1Free = widget.buy1Get1Free;
+    final originalPrice = widget.originalPrice;
+
     return GestureDetector(
       onTap: () {
         logger.i('view');
+        Get.toNamed('/goods/detail', arguments: widget.guid);
       },
       behavior: HitTestBehavior.deferToChild,
       child: Container(
-        width: width,
-        height: height,
-        margin: margin,
+        width: widget.width,
+        height: widget.height,
+        margin: widget.margin,
         decoration: BoxDecoration(
           color: AppTheme.primaryColor,
           borderRadius: BorderRadius.all(
@@ -75,7 +98,7 @@ class GoodsItem extends StatelessWidget {
                     SizedBox(
                       height: 20.w,
                       child: Text(
-                        name ?? '',
+                        widget.name ?? '',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 14.sp,
@@ -85,7 +108,7 @@ class GoodsItem extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(top: 4.w, bottom: 10.w),
                       child: Text(
-                        desc ?? '',
+                        widget.desc ?? '',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: const Color.fromRGBO(0, 0, 0, .4),
@@ -93,12 +116,12 @@ class GoodsItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    buildImgContainer(topIndex),
+                    buildImgContainer(widget.topIndex),
                     SizedBox(height: 8.w),
                     Row(
                       children: [
                         Text(
-                          '\$$buyPrice',
+                          '\$${widget.buyPrice}',
                           style: TextStyle(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.bold,
@@ -139,16 +162,24 @@ class GoodsItem extends StatelessWidget {
                 buildFooterItem(
                   text: '贈送好友',
                   icon: 'icon_mine_gift.png',
+                  onTap: () {},
                 ),
                 buildFooterItem(
                   text: '拜託好友',
                   icon: 'icon_please.png',
+                  onTap: () {},
                 ),
                 buildFooterItem(
                   text: '願望清單',
-                  icon: 'icon_heart_0.png',
-                  onTap: () {
+                  icon: 'icon_heart_$_favorite.png',
+                  onTap: () async {
                     logger.i('願望清單');
+                    if (widget.guid != null) {
+                      await UserFavoritesService.addOrDelete(widget.guid!);
+                      setState(() {
+                        _favorite = _favorite == 0 ? 1 : 0;
+                      });
+                    }
                   },
                 ),
               ],
@@ -164,7 +195,7 @@ class GoodsItem extends StatelessWidget {
       child: Stack(
         children: [
           AppImage(
-            url: coverImg,
+            url: widget.coverImg,
             color: Colors.white,
             radius: 12.r,
           ),
@@ -180,7 +211,7 @@ class GoodsItem extends StatelessWidget {
             bottom: 0,
             right: 0,
             child: GoodsSendingTag(
-              method: sendingMethod ?? 1,
+              method: widget.sendingMethod ?? 1,
             ),
           ),
         ],
