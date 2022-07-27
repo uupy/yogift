@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/src/size_extension.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/src/clause/clause_controller.dart';
@@ -26,10 +27,8 @@ class _ClausePageState extends State<ClausePage> {
               body: SingleChildScrollView(
                   physics: const ClampingScrollPhysics(),
                   padding: EdgeInsets.all(20.w),
-                  child: Text(
-                    e.content,
-                    textAlign: TextAlign.left,
-                    // style: const TextStyle(fontSize: 13.0),
+                  child: Html(
+                   data:e.content
                   )));
         });
   }
