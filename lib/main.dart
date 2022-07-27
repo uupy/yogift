@@ -104,6 +104,7 @@ class _MaterialHome extends State<MaterialHome> {
   }
 
   void init() async {
+    await app.init(context);
     appController.init(
       onComplete: (data) async {
         // String _token = await authToken.get() ?? '';

@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_theme.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
@@ -22,7 +21,6 @@ class _IndexView extends State<IndexPage> {
 
   @override
   void initState() {
-    initPage();
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
       overlays: SystemUiOverlay.values,
@@ -31,10 +29,6 @@ class _IndexView extends State<IndexPage> {
       DeviceOrientation.portraitUp,
     ]);
     super.initState();
-  }
-
-  Future initPage() async {
-    app.init(context);
   }
 
   @override

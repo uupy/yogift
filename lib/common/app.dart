@@ -24,9 +24,10 @@ class App {
   bool hasNetWork = true;
   String deviceModel = '';
 
-  void init(BuildContext context) {
+  Future init(BuildContext context) async {
     fToast ??= FToast();
     fToast?.init(context);
+    await getDeviceModel();
   }
 
   Future getDeviceModel() async {
