@@ -16,4 +16,8 @@ class GiftService {
 
   /// 送礼场景清单
   static Future querySceneList() => http.get('/Gift/List_Scene');
+
+  /// 送礼场景清单
+  static Future getGift(String id) =>
+      http.postJson('/Gift/Item', data: {'id_guid': id});
 }

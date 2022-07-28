@@ -15,9 +15,8 @@ class GoodsDetailImages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GoodsDetailController>(
-      id: 'GoodsDetailImages',
       builder: (c) {
-        final images = [];
+        final images = c.detail?.cDetailImg ?? [];
 
         return Container(
           margin: EdgeInsets.symmetric(vertical: 8.w),
@@ -46,15 +45,15 @@ class GoodsDetailImages extends StatelessWidget {
 
   Widget buildSlider({
     bool loading = false,
-    List items = const [],
+    List<String> items = const [],
     Function(int index)? onChanged,
   }) {
     if (loading) {
-      return Skeleton(radius: 24.r, height: 310.w);
+      return Skeleton(radius: 24.r, height: 330.w);
     }
     if (items.isEmpty) {
       return Container(
-        height: 310.w,
+        height: 330.w,
         decoration: BoxDecoration(
           color: const Color(0xffF6F6F6),
           borderRadius: BorderRadius.all(
@@ -73,8 +72,8 @@ class GoodsDetailImages extends StatelessWidget {
     }
     return CarouselSlider(
       options: CarouselOptions(
-        autoPlay: true,
-        height: 310.w,
+        autoPlay: false,
+        height: 330.w,
         viewportFraction: 1.0,
         enlargeCenterPage: false,
         onPageChanged: (index, reason) {
@@ -82,14 +81,7 @@ class GoodsDetailImages extends StatelessWidget {
         },
       ),
       items: items.map((item) {
-        return buildItem(
-          image: item.bannerImg,
-          onTap: () {
-            if (item.link?.isNotEmpty ?? false) {
-              Get.toNamed(item.link!);
-            }
-          },
-        );
+        return buildItem(image: item);
       }).toList(),
     );
   }

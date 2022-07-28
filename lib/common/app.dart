@@ -192,7 +192,7 @@ class App {
     await authToken.remove();
     await loginUser.remove();
     if (Get.currentRoute != '/login') {
-      Get.offAllNamed('/login');
+      Get.toNamed('/login');
     }
   }
 

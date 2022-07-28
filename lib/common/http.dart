@@ -49,11 +49,15 @@ Interceptor requestInterceptor() {
       bool isSilent = req.extra['silent'] ?? false;
 
       if (code != null && code != 200) {
-        if (!isSilent) {
+        if (code == 401) {
+          app.showToast('請先登入');
+          app.logout();
+        } else if (!isSilent) {
           app.showToast(msg ?? '');
         }
 
         req.extra['silent'] = true;
+
         handler.reject(
           DioError(requestOptions: req, response: options),
           true,
