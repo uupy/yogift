@@ -1,9 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/src/user/user_controller.dart';
 import 'package:yo_gift/src/user/widgets/menu_row.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 
 class UserMenuGroup extends StatelessWidget {
@@ -32,32 +32,96 @@ class UserMenuGroup extends StatelessWidget {
               if (item.path?.isNotEmpty ?? false) {
                 Get.toNamed(item.path!);
               } else {
-                //弹出
-                showDialog<void>(
+                showModalBottomSheet<int>(
                   context: context,
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30)),
+                  ),
                   builder: (BuildContext context) {
-                    return SimpleDialog(
-                      children: <Widget>[
-                        SimpleDialogOption(
-                          child: const Text('选项 1'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
+                    return Container(
+                        height: 200, //这里调整高度即可，建议按照屏幕高度比例来计算
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30)),
                         ),
-                        SimpleDialogOption(
-                          child: const Text('选项 2'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
+                        child: Column(
+                          children: [
+                            Container(
+                                alignment: Alignment.topLeft,
+                                margin:
+                                    EdgeInsets.fromLTRB(30.w, 10.w, 10.w, 10.w),
+                                child: const Text(
+                                  "您可通過以下方式聯繫：",
+                                  textAlign: TextAlign.start,
+                                )),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    alignment: Alignment.topCenter,
+                                    // margin: EdgeInsets.all(10.w),
+                                    child: Column(
+                                      children: [
+                                        AppAssetImage(
+                                          width: 44.w,
+                                          height: 44.w,
+                                          margin: EdgeInsets.fromLTRB(
+                                              50.w, 30.w, 30.w, 10.w),
+                                          img: 'icon_email.png',
+                                        ),
+                                        Text(
+                                          "郵件",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 11.sp,
+                                            color: const Color.fromRGBO(
+                                                0, 0, 0, 0.9),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    alignment: Alignment.topCenter,
+                                    // margin: EdgeInsets.all(10.w),
+                                    child: Column(
+                                      children: [
+                                        AppAssetImage(
+                                          width: 44.w,
+                                          height: 44.w,
+                                          margin: EdgeInsets.fromLTRB(
+                                              50.w, 30.w, 30.w, 10.w),
+                                          img: 'icon_online.png',
+                                        ),
+                                        Text(
+                                          "在線客服",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 11.sp,
+                                            color: const Color.fromRGBO(
+                                                0, 0, 0, 0.9),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ));
                   },
-                ).then((val) {
-                  // if (kDebugMode) {
-                  //   // print(val);
-                  // }
-                });
+                );
               }
             },
           );

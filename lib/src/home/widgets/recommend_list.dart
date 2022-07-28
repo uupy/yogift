@@ -81,6 +81,13 @@ class HomeRecommendList extends StatelessWidget {
                       margin: EdgeInsets.only(left: 4.w),
                       img: 'icon_arrow_right2.png',
                     ),
+                    Text(
+                      "郵件",
+                      style: TextStyle(
+                        fontSize: 11.sp,
+                        color: const Color.fromRGBO(0, 0, 0, 0.9),
+                      ),
+                    ),
                   ],
                 ),
                 onPressed: () {},
