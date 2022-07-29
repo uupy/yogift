@@ -139,7 +139,7 @@ class _AppListView<T> extends State<AppListView<T>> {
           }
 
           for (int i = startIndex; i < endIndex; i++) {
-            if (i < len - 1) {
+            if (i < len) {
               items.add(list[i]);
             }
           }
