@@ -41,13 +41,20 @@ class BrandBussinessVo {
   String? bussinessNo;
   String? bussinessName;
   String? bussinessImg;
+  String? bussinessImgBg;
+  String? cDetail;
+  List<String>? keywords;
 
-  BrandBussinessVo(
-      {this.id,
-      this.bGuid,
-      this.bussinessNo,
-      this.bussinessName,
-      this.bussinessImg});
+  BrandBussinessVo({
+    this.id,
+    this.bGuid,
+    this.bussinessNo,
+    this.bussinessName,
+    this.bussinessImg,
+    this.bussinessImgBg,
+    this.cDetail,
+    this.keywords,
+  });
 
   BrandBussinessVo.fromJson(Map<String, dynamic> json) {
     id = json['Id'];
@@ -55,6 +62,9 @@ class BrandBussinessVo {
     bussinessNo = json['BussinessNo'];
     bussinessName = json['BussinessName'];
     bussinessImg = json['BussinessImg'];
+    bussinessImgBg = json['BussinessImg_bg'];
+    cDetail = json['C_Detail'];
+    keywords = json['Keywords']?.cast<String>();
   }
 
   Map<String, dynamic> toJson() {
@@ -64,6 +74,9 @@ class BrandBussinessVo {
     data['BussinessNo'] = bussinessNo;
     data['BussinessName'] = bussinessName;
     data['BussinessImg'] = bussinessImg;
+    data['BussinessImg_bg'] = bussinessImgBg;
+    data['C_Detail'] = cDetail;
+    data['Keywords'] = keywords?.map((e) => e.toString()).toList();
     return data;
   }
 }

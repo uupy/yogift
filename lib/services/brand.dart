@@ -10,4 +10,8 @@ class BrandService {
 
   /// 列出所有品牌icon
   static Future queryBrandList() => http.get('/Brand/List_icon');
+
+  /// 单个
+  static Future getItem(String id) =>
+      http.postJson('/Brand/Item', data: {'id_guid': id});
 }

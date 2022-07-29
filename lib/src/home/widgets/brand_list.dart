@@ -50,6 +50,9 @@ class HomeBrandList extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final item = c.currentBrandList[index];
                   return AppImage(
+                    onTap: () {
+                      Get.toNamed('/pages/shop/detail/index?id=${item.bGuid}');
+                    },
                     width: 100.w,
                     height: 100.w,
                     url: item.bussinessImg,
@@ -89,7 +92,7 @@ class HomeBrandList extends StatelessWidget {
                   ],
                 ),
                 onPressed: () {
-                  Get.toNamed('/brand-index');
+                  Get.toNamed('/pages/shop/all-brands/index');
                 },
               ),
             ),
