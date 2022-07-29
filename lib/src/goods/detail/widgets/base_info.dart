@@ -64,7 +64,7 @@ class GoodsDetailBaseInfo extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '\$${c.detail?.buyPrice}',
+                    '\$${c.detail?.buyPrice ?? ''}',
                     style: TextStyle(
                       fontSize: 22.sp,
                       fontWeight: FontWeight.bold,

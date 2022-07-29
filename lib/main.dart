@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:yo_gift/common/app_theme_data.dart';
 import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/router/router.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -68,14 +68,13 @@ class _RootApp extends State<RootApp> {
         /// 主题设置
         theme: appThemeData,
         home: const MaterialHome(),
-        builder: EasyLoading.init(
-          builder: (context, widget) {
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-              child: widget!,
-            );
-          },
-        ),
+        navigatorObservers: [FlutterSmartDialog.observer],
+        builder: FlutterSmartDialog.init(builder: (context, widget) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: widget!,
+          );
+        }),
         initialRoute: appRouter.initialRoute,
         getPages: appRouter.getPages,
         unknownRoute: appRouter.getPages[0],
@@ -107,12 +106,6 @@ class _MaterialHome extends State<MaterialHome> {
     await app.init(context);
     appController.init(
       onComplete: (data) async {
-        // String _token = await authToken.get() ?? '';
-        // if (_token.isNotEmpty) {
-        //   Get.offNamed('index');
-        // } else {
-        //   Get.offNamed('login');
-        // }
         Get.offNamed('index');
       },
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/module_title.dart';
 
@@ -26,7 +27,9 @@ class HomeHowToGift extends StatelessWidget {
             margin: EdgeInsets.only(top: 30.w),
             child: AppButton(
               text: '查看使用流程',
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed('/p2/guide/index');
+              },
             ),
           ),
         ],

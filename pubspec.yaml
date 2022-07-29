@@ -85,6 +85,8 @@ dependencies:
   permission_handler: ^9.2.0
   # 富文本
   flutter_html: ^2.2.1
+  # 弹窗
+  flutter_smart_dialog: ^4.0.9+5
 
 dev_dependencies:
   flutter_test:
@@ -111,6 +113,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/assets/images/
+    - lib/assets/images/guide/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
