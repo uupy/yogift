@@ -53,6 +53,7 @@ class HomeRecommendList extends StatelessWidget {
             SizedBox(height: 20.w),
             ...c.recommendGiftList.map((e) {
               return RecommendItem(
+                guid: e.gGuid,
                 name: e.giftName,
                 desc: e.bussinessName,
                 coverImg: e.cCoverImg,

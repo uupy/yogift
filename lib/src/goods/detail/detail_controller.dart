@@ -7,17 +7,19 @@ import 'package:yo_gift/services/gift.dart';
 import 'widgets/free_one_tips.dart';
 
 class GoodsDetailController extends GetxController {
-  final goodsId = Get.arguments;
+  final goodsId = Get.parameters['id'];
   bool loading = false;
   int currentImageIndex = 0;
   GiftDetailVo? detail;
 
   void init() {
-    fetchData();
+    if (goodsId != null) {
+      fetchData();
+    }
   }
 
   Future fetchData() async {
-    final res = await GiftService.getGift(goodsId);
+    final res = await GiftService.getGift(goodsId!);
     final data = res.data ?? {};
     detail = GiftDetailVo.fromJson(data['data'] ?? {});
     update();

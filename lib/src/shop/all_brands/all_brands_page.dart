@@ -49,6 +49,10 @@ class _AllBrandsPageState extends State<AllBrandsPage> {
                         child: AppImage(
                           url: item.bussinessImg,
                           radius: 20.r,
+                          onTap: () {
+                            Get.toNamed(
+                                '/pages/shop/detail/index?id=${item.bGuid}');
+                          },
                         ),
                       );
                     }).toList(),

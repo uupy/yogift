@@ -66,8 +66,9 @@ class _GoodsItemState extends State<GoodsItem> {
 
     return GestureDetector(
       onTap: () {
-        logger.i('view');
-        Get.toNamed('/goods/detail', arguments: widget.guid);
+        Get.toNamed('/pages/goods/detail/index', parameters: {
+          'id': widget.guid!,
+        });
       },
       behavior: HitTestBehavior.deferToChild,
       child: Container(
