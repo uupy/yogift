@@ -6,6 +6,8 @@ class AppInput extends StatelessWidget {
   final String? initialValue;
   final bool? autofocus;
   final bool? readOnly;
+  final bool? enableSuggestions;
+  final bool showCounter;
   final double? width;
   final double? height;
   final EdgeInsetsGeometry? margin;
@@ -18,10 +20,15 @@ class AppInput extends StatelessWidget {
   final IconData? icon;
   final Color? iconColor;
   final Color? backgroundColor;
+  final Color? cursorColor;
   final BoxBorder? border;
   final Radius? radius;
   final List<Widget>? prefix;
   final List<Widget>? actions;
+  final TextAlign textAlign;
+  final TextStyle? style;
+  final int? maxLength;
+  final int? maxLines;
   final void Function(String?)? onChanged;
   final void Function(String?)? onSubmitted;
   final void Function()? onTap;
@@ -33,6 +40,7 @@ class AppInput extends StatelessWidget {
     this.initialValue,
     this.autofocus,
     this.readOnly,
+    this.showCounter = false,
     this.width,
     this.height,
     this.margin,
@@ -45,10 +53,16 @@ class AppInput extends StatelessWidget {
     this.icon,
     this.iconColor,
     this.backgroundColor,
+    this.cursorColor,
     this.border,
     this.radius,
     this.prefix,
     this.actions,
+    this.textAlign = TextAlign.left,
+    this.style,
+    this.maxLength,
+    this.maxLines,
+    this.enableSuggestions,
     this.onChanged,
     this.onSubmitted,
     this.onTap,
@@ -75,11 +89,15 @@ class AppInput extends StatelessWidget {
               controller: controller,
               focusNode: focusNode,
               keyboardType: keyboardType,
-              textAlign: TextAlign.left,
+              style: style,
+              textAlign: textAlign,
               textInputAction: textInputAction,
+              maxLength: maxLength,
+              maxLines: maxLines,
+              enableSuggestions: enableSuggestions ?? true,
               autofocus: autofocus ?? false,
               readOnly: readOnly ?? false,
-              cursorColor: const Color.fromRGBO(0, 0, 0, 0.9),
+              cursorColor: cursorColor ?? const Color.fromRGBO(0, 0, 0, 0.9),
               decoration: InputDecoration(
                 hintText: hintText ?? '请输入关键词',
                 hintStyle: const TextStyle(color: Color(0xff969696)),
@@ -89,6 +107,7 @@ class AppInput extends StatelessWidget {
                 focusedBorder: InputBorder.none,
                 errorBorder: InputBorder.none,
                 focusedErrorBorder: InputBorder.none,
+                counterText: showCounter ? null : '',
               ),
               onChanged: onChanged,
               onSubmitted: onSubmitted,

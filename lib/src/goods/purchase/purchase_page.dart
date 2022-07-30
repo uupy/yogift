@@ -5,6 +5,9 @@ import 'package:yo_gift/src/goods/purchase/purchase_controller.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
 import 'widgets/detail_info.dart';
+import 'widgets/footer.dart';
+import 'widgets/greeting_card.dart';
+import 'widgets/order_remark.dart';
 import 'widgets/purchase_step_bar.dart';
 
 class PurchasePage extends StatefulWidget {
@@ -29,6 +32,7 @@ class _PurchasePageState extends State<PurchasePage> {
       appBar: AppBar(
         title: const Text('填寫心意卡'),
       ),
+      extendBody: true,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -42,9 +46,14 @@ class _PurchasePageState extends State<PurchasePage> {
                 ),
               ],
             ),
+            SizedBox(height: 20.w),
+            const GreetingCard(),
+            const OrderRemark(),
+            SizedBox(height: 100.w),
           ],
         ),
       ),
+      bottomNavigationBar: const PurchaseFooter(),
     );
   }
 }

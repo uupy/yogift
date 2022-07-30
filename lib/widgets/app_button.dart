@@ -17,6 +17,7 @@ class AppButton extends StatelessWidget {
   final Size? maximumSize;
   final double? height;
   final double? fontSize;
+  final double? radius;
   final Function()? onPressed;
 
   const AppButton({
@@ -35,6 +36,7 @@ class AppButton extends StatelessWidget {
     this.maximumSize,
     this.height,
     this.fontSize,
+    this.radius,
     this.onPressed,
   }) : super(key: key);
 
@@ -43,7 +45,7 @@ class AppButton extends StatelessWidget {
     final _height = height ?? 44.w;
     Size? _fixedSize = fixedSize;
     Size? _minimumSize = minimumSize;
-    double _radius = 4.r;
+    double _radius = radius ?? 4.r;
     Color? _background = backgroundColor;
     Color? _borderColor = borderColor;
     Color? _textColor = const Color.fromRGBO(0, 0, 0, 0.9);
