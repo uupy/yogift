@@ -8,21 +8,36 @@ import 'widgets/free_one_tips.dart';
 
 class GoodsDetailController extends GetxController {
   final goodsId = Get.parameters['id'];
+  final buyType = Get.parameters['buyType'];
   bool loading = false;
   int currentImageIndex = 0;
   GiftDetailVo? detail;
 
-  void init() {
+  void init() async {
     if (goodsId != null) {
       fetchData();
     }
   }
 
-  Future fetchData() async {
-    final res = await GiftService.getGift(goodsId!);
-    final data = res.data ?? {};
-    detail = GiftDetailVo.fromJson(data['data'] ?? {});
-    update();
+  /// 跳转页面
+  void navTo(String type, [Function()? cb]) {
+    String routeName = '';
+
+    if (type == '2') {
+      routeName = '/pages/goods/purchase/index';
+    } else if (type == '3') {
+      routeName = '/pages/goods/ask-friend/index';
+    }
+    if (routeName.isNotEmpty) {
+      final parameters = Get.parameters.cast<String, String>();
+      Get.toNamed(routeName, parameters: parameters)?.then((value) {
+        cb?.call();
+      });
+    }
+  }
+
+  /// 显示买一赠一提示弹窗
+  void showTips() {
     if (detail!.buy1Get1FREE == 1) {
       SmartDialog.show(
         alignment: Alignment.center,
@@ -33,6 +48,21 @@ class GoodsDetailController extends GetxController {
     }
   }
 
+  /// 获取商品详情
+  Future fetchData() async {
+    final res = await GiftService.getGift(goodsId!);
+    final data = res.data ?? {};
+    detail = GiftDetailVo.fromJson(data['data'] ?? {});
+    update();
+
+    if (buyType != null) {
+      navTo(buyType!, showTips);
+    } else {
+      showTips();
+    }
+  }
+
+  /// 切换图片
   void onImageChanged(int index) {
     currentImageIndex = index;
     update(['GoodsDetailImages']);

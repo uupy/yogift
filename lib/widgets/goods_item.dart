@@ -59,6 +59,14 @@ class _GoodsItemState extends State<GoodsItem> {
     super.initState();
   }
 
+  void handleAction([Map<String, String>? params]) {
+    final parameters = params ?? {};
+    if (widget.guid != null) {
+      parameters['id'] = widget.guid!;
+      Get.toNamed('/pages/goods/detail/index', parameters: parameters);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final buy1Get1Free = widget.buy1Get1Free;
@@ -66,9 +74,7 @@ class _GoodsItemState extends State<GoodsItem> {
 
     return GestureDetector(
       onTap: () {
-        Get.toNamed('/pages/goods/detail/index', parameters: {
-          'id': widget.guid!,
-        });
+        handleAction();
       },
       behavior: HitTestBehavior.deferToChild,
       child: Container(
@@ -163,12 +169,16 @@ class _GoodsItemState extends State<GoodsItem> {
                 buildFooterItem(
                   text: '贈送好友',
                   icon: 'icon_mine_gift.png',
-                  onTap: () {},
+                  onTap: () {
+                    handleAction({'buyType': '2'});
+                  },
                 ),
                 buildFooterItem(
                   text: '拜託好友',
                   icon: 'icon_please.png',
-                  onTap: () {},
+                  onTap: () {
+                    handleAction({'buyType': '3'});
+                  },
                 ),
                 buildFooterItem(
                   text: '願望清單',

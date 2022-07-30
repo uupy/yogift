@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:yo_gift/src/clause/clause_page.dart';
 import 'package:yo_gift/src/goods/ask_friend/ask_friend_page.dart';
 import 'package:yo_gift/src/goods/detail/detail_page.dart';
+import 'package:yo_gift/src/goods/purchase/purchase_page.dart';
 import 'package:yo_gift/src/index/index_page.dart';
 import 'package:yo_gift/src/login/login_page.dart';
 import 'package:yo_gift/src/p2/guide/guide_page.dart';
@@ -27,6 +28,7 @@ final List<AppRoute> routes = [
   const AppRoute(name: '/pages/shop/detail/index', page: ShopDetailPage()),
   const AppRoute(name: '/pages/goods/detail/index', page: GoodsDetailPage()),
   const AppRoute(name: '/pages/goods/ask-friend/index', page: AskFriendPage()),
+  const AppRoute(name: '/pages/goods/purchase/index', page: PurchasePage()),
   const AppRoute(name: '/clause', page: ClausePage()),
   const AppRoute(name: '/problem', page: ProblemPage())
 ];
