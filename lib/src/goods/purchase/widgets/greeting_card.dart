@@ -18,7 +18,7 @@ class GreetingCard extends StatelessWidget {
       id: 'GreetingCard',
       builder: (c) {
         final list = c.currentCard?.content1 ?? [];
-        final textList = list.sublist(0, 3);
+        final textList = list.length > 3 ? list.sublist(0, 3) : list;
 
         if (c.currentCard == null) {
           return Container();

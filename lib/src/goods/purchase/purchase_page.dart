@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'widgets/footer.dart';
 import 'widgets/greeting_card.dart';
 import 'widgets/order_remark.dart';
 import 'widgets/purchase_step_bar.dart';
+import 'widgets/sender_info.dart';
 
 class PurchasePage extends StatefulWidget {
   const PurchasePage({Key? key}) : super(key: key);
@@ -35,6 +37,7 @@ class _PurchasePageState extends State<PurchasePage> {
       extendBody: true,
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               children: [
@@ -49,6 +52,7 @@ class _PurchasePageState extends State<PurchasePage> {
             SizedBox(height: 20.w),
             const GreetingCard(),
             const OrderRemark(),
+            const SenderInfo(),
             SizedBox(height: 100.w),
           ],
         ),
