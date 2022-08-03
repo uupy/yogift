@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/goods/index/index_controller.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
+
+import '../goods_controller.dart';
 
 class SearchSortBar extends StatelessWidget {
   const SearchSortBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GoodsIndexController>(
+    return GetBuilder<GoodsController>(
       id: 'sortBar',
       builder: (c) {
         String img = 'icon_order_none.png';

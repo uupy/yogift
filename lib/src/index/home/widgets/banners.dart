@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/models/common.dart';
-import 'package:yo_gift/src/home/home_controller.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/carousel_pagination.dart';
 import 'package:yo_gift/widgets/skeleton.dart';
+
+import '../home_controller.dart';
 
 class HomeBanners extends StatelessWidget {
   const HomeBanners({

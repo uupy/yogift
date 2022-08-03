@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/user/user_controller.dart';
-import 'package:yo_gift/src/user/widgets/menu_row.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_card.dart';
+
+import '../user_controller.dart';
+import 'menu_row.dart';
 
 class UserMenuGroup extends StatelessWidget {
   final List<UserMenuItem> menus;

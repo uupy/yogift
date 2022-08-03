@@ -1,8 +1,8 @@
-import 'package:yo_gift/models/gift.dart';
-import 'package:yo_gift/router/tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/models/gift.dart';
+import 'package:yo_gift/router/tab_bar.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_input.dart';
@@ -10,17 +10,17 @@ import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
 import 'package:yo_gift/widgets/goods_item.dart';
 import 'package:yo_gift/widgets/module_title.dart';
 
-import 'index_controller.dart';
+import 'goods_controller.dart';
 import 'widgets/category_list.dart';
 import 'widgets/price_filter_bar.dart';
 import 'widgets/recommend_titles.dart';
 import 'widgets/scene_list.dart';
 import 'widgets/sort_bar.dart';
 
-class GoodsIndexPage extends StatelessWidget implements TabBarPage {
-  GoodsIndexPage({Key? key}) : super(key: key);
+class GoodsPage extends StatelessWidget implements TabBarPage {
+  GoodsPage({Key? key}) : super(key: key);
 
-  final controller = Get.put(GoodsIndexController());
+  final controller = Get.put(GoodsController());
 
   @override
   Widget build(BuildContext context) {

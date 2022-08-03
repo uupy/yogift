@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/goods/index/index_controller.dart';
 import 'package:yo_gift/widgets/app_radio.dart';
+
+import '../goods_controller.dart';
 
 class SearchPriceFilterBar extends StatelessWidget {
   const SearchPriceFilterBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GoodsIndexController>(
+    return GetBuilder<GoodsController>(
       id: 'priceFilterBar',
       builder: (c) {
         return Padding(

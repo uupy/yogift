@@ -5,8 +5,15 @@ import 'package:yo_gift/widgets/app_asset_image.dart';
 
 import 'widgets/charity_group.dart';
 
-class CharityIndexPage extends StatelessWidget implements TabBarPage {
-  const CharityIndexPage({Key? key}) : super(key: key);
+class CharityPage extends StatelessWidget implements TabBarPage {
+  const CharityPage({Key? key}) : super(key: key);
+
+  @override
+  PreferredSizeWidget? get appBar {
+    return AppBar(
+      title: const Text('慈善捐贈'),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +31,6 @@ class CharityIndexPage extends StatelessWidget implements TabBarPage {
           const SizedBox(height: 90),
         ],
       ),
-    );
-  }
-
-  @override
-  PreferredSizeWidget? get appBar {
-    return AppBar(
-      title: const Text('慈善捐贈'),
     );
   }
 }

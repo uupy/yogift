@@ -2,28 +2,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/goods/index/index_controller.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 
-class SearchSceneList extends StatelessWidget {
-  const SearchSceneList({Key? key}) : super(key: key);
+import '../goods_controller.dart';
+
+class SearchCategoryList extends StatelessWidget {
+  const SearchCategoryList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<GoodsIndexController>(
-      id: 'sceneList',
+    return GetBuilder<GoodsController>(
+      id: 'categoryList',
       builder: (c) {
         return SizedBox(
           height: 110.w,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: c.sceneList.length,
+            itemCount: c.categoryList.length,
             itemBuilder: (_, i) {
-              final item = c.sceneList[i];
+              final item = c.categoryList[i];
               return Container(
                 margin: i == 0
                     ? EdgeInsets.fromLTRB(20.w, 0, 6.w, 0)
-                    : (i == c.sceneList.length - 1
+                    : (i == c.categoryList.length - 1
                         ? EdgeInsets.fromLTRB(6.w, 0, 20.w, 0)
                         : EdgeInsets.symmetric(horizontal: 6.w)),
                 child: Column(

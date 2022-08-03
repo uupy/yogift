@@ -5,7 +5,7 @@ import 'package:yo_gift/services/common.dart';
 import 'package:yo_gift/services/gift.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_controller.dart';
 
-class GoodsIndexController extends GetxController {
+class GoodsController extends GetxController {
   List<RecommendTitleVo> recommendTitles = [];
   List<GiftCategoryVo> categoryList = [];
   List<GiftSceneVo> sceneList = [];

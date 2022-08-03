@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/charity/index/index_controller.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/module_title.dart';
+
+import '../charity_controller.dart';
 
 class CharityListGroup extends StatelessWidget {
   const CharityListGroup({Key? key}) : super(key: key);
@@ -13,8 +14,8 @@ class CharityListGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.maxFinite,
-      child: GetBuilder<CharityIndexController>(
-        init: CharityIndexController(),
+      child: GetBuilder<CharityController>(
+        init: CharityController(),
         builder: (c) {
           List<Widget> children = [];
 

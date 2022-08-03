@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yo_gift/src/charity/index/index_page.dart';
-import 'package:yo_gift/src/friends/friends_page.dart';
-import 'package:yo_gift/src/goods/index/index_page.dart';
+import 'package:yo_gift/src/index/charity/charity_page.dart';
+import 'package:yo_gift/src/index/friends/friends_page.dart';
+import 'package:yo_gift/src/index/goods/goods_page.dart';
+import 'package:yo_gift/src/index/home/home_page.dart';
+import 'package:yo_gift/src/index/user/user_page.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
-
-import 'package:yo_gift/src/home/home_page.dart';
-import 'package:yo_gift/src/user/user_page.dart';
 
 abstract class TabBarPage implements Widget {
   PreferredSizeWidget? get appBar;
@@ -42,7 +41,7 @@ final List<TabBarRoute> tabBarRoutes = [
     ),
   ),
   TabBarRoute(
-    page: const CharityIndexPage(),
+    page: const CharityPage(),
     navBarItem: BottomNavigationBarItem(
       label: '捐贈',
       icon: AppAssetImage(
@@ -56,7 +55,7 @@ final List<TabBarRoute> tabBarRoutes = [
     ),
   ),
   TabBarRoute(
-    page: GoodsIndexPage(),
+    page: GoodsPage(),
     navBarItem: BottomNavigationBarItem(
       label: '搜禮物',
       icon: AppAssetImage(

@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:yo_gift/models/charity.dart';
 import 'package:yo_gift/services/charity.dart';
 
-class CharityIndexController extends GetxController {
+class CharityController extends GetxController {
   List<CharityListItemVo> list = [];
 
   @override

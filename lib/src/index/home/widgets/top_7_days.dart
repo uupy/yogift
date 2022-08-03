@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/home/home_controller.dart';
 import 'package:yo_gift/widgets/goods_item.dart';
 import 'package:yo_gift/widgets/module_title.dart';
+
+import '../home_controller.dart';
 
 class HomeTop7Days extends StatelessWidget {
   const HomeTop7Days({Key? key}) : super(key: key);
