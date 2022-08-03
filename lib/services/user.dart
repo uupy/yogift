@@ -16,7 +16,11 @@ class UserService {
   static Future modifyPassword(ModifyPwdFormVo data) =>
       http.postJson('/User/ChangePassword', data: data);
 
-  /// 修改密码
+  /// 注册
   static Future register(RegisterFormVo data) =>
       http.postJson('/User/Register', data: data);
+
+  /// 修改资料-综合
+  static Future updateInfo(UpdateInfoFormVo data) =>
+      http.postJson('/User/Info_set', data: data);
 }

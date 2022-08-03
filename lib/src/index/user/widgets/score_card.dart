@@ -48,7 +48,7 @@ class UserScoreCard extends StatelessWidget {
                   margin: EdgeInsets.only(top: 10.h),
                   mainAxisAlignment: MainAxisAlignment.center,
                   color: Colors.transparent,
-                  body: Text(
+                  expanded: Text(
                     '- -',
                     style: TextStyle(
                       fontSize: 32.sp,

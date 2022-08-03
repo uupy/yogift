@@ -34,7 +34,7 @@ class ModuleTitle extends StatelessWidget {
             horizontal: 20.w,
             vertical: 14.w,
           ),
-      body: Stack(
+      expanded: Stack(
         children: [
           Padding(
             padding: EdgeInsets.only(top: 8.w),

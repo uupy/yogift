@@ -12,7 +12,7 @@ class RegisterFirstStepForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<RegisterController>(
-      id: 'firstStepForm',
+      id: 'FirstStepForm',
       builder: (c) {
         return Column(
           children: [
@@ -25,7 +25,7 @@ class RegisterFirstStepForm extends StatelessWidget {
                   customInput: PhonePrefixSelect(
                     onChanged: (value) {
                       c.formData.phoneprefix = value;
-                      c.update(['firstStepForm']);
+                      c.update(['FirstStepForm']);
                     },
                   ),
                 ),
@@ -36,7 +36,7 @@ class RegisterFirstStepForm extends StatelessWidget {
                     keyboardType: TextInputType.phone,
                     onChanged: (value) {
                       c.formData.phone = value;
-                      c.update(['firstStepForm']);
+                      c.update(['FirstStepForm']);
                     },
                   ),
                 ),
@@ -65,7 +65,7 @@ class RegisterFirstStepForm extends StatelessWidget {
               ],
               onChanged: (value) {
                 c.formData.code = value;
-                c.update(['firstStepForm']);
+                c.update(['FirstStepForm']);
               },
             ),
             Container(

@@ -6,6 +6,7 @@ import 'package:yo_gift/widgets/app_asset_image.dart';
 
 import 'register_controller.dart';
 import 'widgets/first_step_form.dart';
+import 'widgets/third_step_form.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -38,6 +39,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   final step = controller.step.value;
                   if (step == 2) {
                     return const RegisterSecondStepForm();
+                  } else if (step == 3) {
+                    return const RegisterThirdStepForm();
                   }
                   return const RegisterFirstStepForm();
                 }),

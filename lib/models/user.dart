@@ -144,3 +144,37 @@ class RegisterFormVo {
     return data;
   }
 }
+
+class UpdateInfoFormVo {
+  int? acceptnotice;
+  int? gener;
+  String? email;
+  String? birthday;
+  String? nickname;
+
+  UpdateInfoFormVo({
+    this.acceptnotice,
+    this.gener,
+    this.email,
+    this.birthday,
+    this.nickname,
+  });
+
+  UpdateInfoFormVo.fromJson(Map<String, dynamic> json) {
+    acceptnotice = json['acceptnotice'];
+    gener = json['gener'];
+    email = json['email'];
+    birthday = json['birthday'];
+    nickname = json['nickname'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['acceptnotice'] = acceptnotice;
+    data['gener'] = gener;
+    data['email'] = email;
+    data['birthday'] = birthday;
+    data['nickname'] = nickname;
+    return data;
+  }
+}

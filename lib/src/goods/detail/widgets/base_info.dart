@@ -24,7 +24,7 @@ class GoodsDetailBaseInfo extends StatelessWidget {
             children: [
               AppRow(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                body: Column(
+                expanded: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -104,7 +104,7 @@ class GoodsDetailBaseInfo extends StatelessWidget {
                     img: 'icon_shop.png',
                   ),
                 ],
-                body: Text(
+                expanded: Text(
                   c.detail?.bussinessName ?? '',
                   style: TextStyle(
                     fontSize: 14.sp,
@@ -122,7 +122,7 @@ class GoodsDetailBaseInfo extends StatelessWidget {
                     img: 'icon_time.png',
                   ),
                 ],
-                body: Text.rich(
+                expanded: Text.rich(
                   TextSpan(
                     style: TextStyle(
                       fontSize: 12.sp,

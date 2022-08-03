@@ -10,11 +10,14 @@ import 'package:yo_gift/services/verification.dart';
 
 class RegisterController extends GetxController {
   final formData = RegisterFormVo();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final updateFormData = UpdateInfoFormVo();
+  final formKey = GlobalKey<FormState>();
+  final updateFormKey = GlobalKey<FormState>();
   final submitting = false.obs;
   final step = 1.obs;
 
   String? confirmPassword;
+  bool isAgreeTerms = true;
 
   /// 轮询间隔时间
   static const _timeout = Duration(seconds: 1);
@@ -40,10 +43,17 @@ class RegisterController extends GetxController {
     return codeNotEmpty && phoneNotEmpty;
   }
 
+  /// 是否可提交注册
   bool get submitAble {
     final pwdNotEmpty = formData.password?.isNotEmpty ?? false;
     final pwdNotEmpty2 = confirmPassword?.isNotEmpty ?? false;
     return !submitting.value && pwdNotEmpty && pwdNotEmpty2;
+  }
+
+  /// 是否可更新用户信息
+  bool get updateAble {
+    final notEmpty = updateFormData.birthday?.isNotEmpty ?? false;
+    return !submitting.value && notEmpty;
   }
 
   Future getCode() async {
@@ -65,6 +75,23 @@ class RegisterController extends GetxController {
       try {
         await UserService.register(formData);
         app.toastSuccess('註冊成功');
+        step(3);
+      } finally {
+        submitting(false);
+        update();
+      }
+    }
+  }
+
+  /// 更新用户信息
+  Future onSubmitUpdate() async {
+    final form = updateFormKey.currentState;
+    if (submitting.value) return;
+    if (form?.validate() ?? false) {
+      form?.save();
+      submitting(true);
+      try {
+        await UserService.updateInfo(updateFormData);
         Get.back(result: true);
       } finally {
         submitting(false);

@@ -123,7 +123,7 @@ class _SenderInfoState extends State<SenderInfo> {
                       },
                     ),
                   ],
-                  body: Row(
+                  expanded: Row(
                     children: [
                       Text(
                         '同意',
@@ -161,7 +161,7 @@ class _SenderInfoState extends State<SenderInfo> {
                           'icon_cb_${c.formData.acceptnotice == 1 ? 1 : 0}.png',
                     ),
                   ],
-                  body: Text(
+                  expanded: Text(
                     '同意收取YO! GIFT推廣電郵以及好友生日提醒',
                     style: TextStyle(
                       fontSize: 14.sp,

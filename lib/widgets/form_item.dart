@@ -23,6 +23,7 @@ class FormItem extends StatelessWidget {
   final BoxBorder? border;
   final Radius? radius;
   final List<Widget>? actions;
+  final Widget? child;
   final Widget? customInput;
   final String? Function(String?)? validator;
   final void Function(String?)? onChanged;
@@ -52,6 +53,7 @@ class FormItem extends StatelessWidget {
     this.border,
     this.radius,
     this.actions,
+    this.child,
     this.customInput,
     this.validator,
     this.onChanged,
@@ -77,7 +79,7 @@ class FormItem extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8.w),
-          buildInput(),
+          child ?? buildInput(),
         ],
       );
     }

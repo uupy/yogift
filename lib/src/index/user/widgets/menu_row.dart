@@ -44,7 +44,7 @@ class MenuRow extends StatelessWidget {
           margin: EdgeInsets.only(right: 8.w),
         ),
       ],
-      body: Text(
+      expanded: Text(
         label ?? '',
         style: TextStyle(
           fontSize: 14.sp,

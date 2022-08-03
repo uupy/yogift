@@ -11,7 +11,7 @@ class RegisterSecondStepForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<RegisterController>(
-      id: 'secondStepForm',
+      id: 'SecondStepForm',
       builder: (c) {
         return Column(
           children: [
@@ -21,7 +21,7 @@ class RegisterSecondStepForm extends StatelessWidget {
               obscureText: true,
               onChanged: (value) {
                 c.formData.password = value;
-                c.update(['secondStepForm']);
+                c.update(['SecondStepForm']);
               },
             ),
             SizedBox(height: 12.w),

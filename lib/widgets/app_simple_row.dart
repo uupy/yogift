@@ -34,6 +34,7 @@ class AppSimpleRow extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   final BoxBorder? border;
   final BorderRadiusGeometry? borderRadius;
+  final Function()? onTap;
 
   const AppSimpleRow({
     Key? key,
@@ -54,6 +55,7 @@ class AppSimpleRow extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.border,
     this.borderRadius,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -98,6 +100,25 @@ class AppSimpleRow extends StatelessWidget {
       );
     }
 
+    if (onTap != null) {
+      return GestureDetector(
+        child: buildContainer(
+          children: _children,
+          borderRadius: _borderRadius,
+        ),
+      );
+    }
+
+    return buildContainer(
+      children: _children,
+      borderRadius: _borderRadius,
+    );
+  }
+
+  Widget buildContainer({
+    List<Widget>? children,
+    BorderRadiusGeometry? borderRadius,
+  }) {
     return Container(
       width: width,
       height: height,
@@ -106,12 +127,12 @@ class AppSimpleRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: color ?? Colors.white,
         border: border,
-        borderRadius: _borderRadius,
+        borderRadius: borderRadius,
       ),
       child: Row(
         mainAxisAlignment: mainAxisAlignment,
         crossAxisAlignment: crossAxisAlignment,
-        children: _children,
+        children: children ?? [],
       ),
     );
   }

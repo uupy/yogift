@@ -12,13 +12,13 @@ import 'package:flutter/material.dart';
 ///
 /// List<Widget>? [prefix]
 ///
-/// Widget? [body]
+/// Widget? [expanded]
 ///
 /// List<Widget>? [suffix]
 ///
 /// void Function()? [onTap]
 class AppRow extends StatelessWidget {
-  final Widget? body;
+  final Widget? expanded;
   final List<Widget>? prefix;
   final List<Widget>? suffix;
   final EdgeInsetsGeometry? margin;
@@ -38,7 +38,7 @@ class AppRow extends StatelessWidget {
   const AppRow({
     Key? key,
     this.prefix,
-    this.body,
+    this.expanded,
     this.suffix,
     this.width,
     this.height,
@@ -89,15 +89,15 @@ class AppRow extends StatelessWidget {
         crossAxisAlignment: crossAxisAlignment,
         children: [
           ...(prefix ?? []),
-          if (body != null)
+          if (expanded != null)
             Expanded(
               child: onBodyTap != null
                   ? GestureDetector(
                       onTap: onBodyTap,
                       behavior: HitTestBehavior.opaque,
-                      child: body,
+                      child: expanded,
                     )
-                  : body!,
+                  : expanded!,
             ),
           ...(suffix ?? []),
         ],
