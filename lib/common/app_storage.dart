@@ -65,15 +65,8 @@ class AppStorage<T> {
 /// 记录是否首次打开app
 AppStorage<bool?> firstEntryApp = AppStorage('firstEntryApp');
 
-/// 是否拥有开发者选项
-AppStorage<bool?> hasDeveloperOptions = AppStorage('hasDeveloperOptions');
-
 /// 认证token
 AppStorage<String?> authToken = AppStorage('authToken');
 
 /// 登录用户信息
 AppStorage<Map<String, dynamic>?> loginUser = AppStorage('loginUser');
-
-/// 上传任务列表
-AppStorage<List<dynamic>?> ossUploadTask = AppStorage('ossUploadTask');
-

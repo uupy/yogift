@@ -60,8 +60,17 @@ class _AppRadioGroup extends State<AppRadioGroup> {
   }
 
   @override
+  void didUpdateWidget(covariant AppRadioGroup oldWidget) {
+    setState(() {
+      currentValue = widget.value;
+    });
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<AppRadio> items = widget.items ?? [];
+
     return Wrap(
       spacing: widget.spacing ?? 8.w,
       runSpacing: widget.runSpacing ?? 8.w,
@@ -84,15 +93,16 @@ class _AppRadioGroup extends State<AppRadioGroup> {
           return GestureDetector(
             onTap: () {
               setState(() {
+                dynamic _value;
                 if (widget.cancelAble && currentValue == item.value) {
-                  currentValue = null;
+                  _value = null;
                 } else {
-                  currentValue = item.value;
+                  _value = item.value;
                 }
-                widget.onChanged?.call(
-                  currentValue,
-                  currentValue == null ? -1 : index,
-                );
+                if (currentValue != _value) {
+                  currentValue = _value;
+                  widget.onChanged?.call(_value, _value == null ? -1 : index);
+                }
               });
             },
             child: item.builder == null
