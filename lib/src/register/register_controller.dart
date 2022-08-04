@@ -1,16 +1,18 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/models/verification.dart';
 import 'package:yo_gift/services/user.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:yo_gift/services/verification.dart';
 
 class RegisterController extends GetxController {
   final formData = RegisterFormVo();
-  final updateFormData = UpdateInfoFormVo();
+  final updateFormData = UpdateInfoFormVo(
+    acceptnotice: 1,
+  );
   final formKey = GlobalKey<FormState>();
   final updateFormKey = GlobalKey<FormState>();
   final submitting = false.obs;

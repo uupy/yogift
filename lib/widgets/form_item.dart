@@ -25,6 +25,8 @@ class FormItem extends StatelessWidget {
   final List<Widget>? actions;
   final Widget? child;
   final Widget? customInput;
+  final Widget? suffixIcon;
+  final BoxConstraints? suffixIconConstraints;
   final String? Function(String?)? validator;
   final void Function(String?)? onChanged;
   final void Function()? onTap;
@@ -55,6 +57,8 @@ class FormItem extends StatelessWidget {
     this.actions,
     this.child,
     this.customInput,
+    this.suffixIcon,
+    this.suffixIconConstraints,
     this.validator,
     this.onChanged,
     this.onTap,
@@ -116,6 +120,11 @@ class FormItem extends StatelessWidget {
                     hintStyle: const TextStyle(color: Color(0xff969696)),
                     contentPadding: contentPadding ?? EdgeInsets.zero,
                     isCollapsed: true,
+                    suffixIcon: suffixIcon,
+                    suffixIconConstraints: suffixIconConstraints ??
+                        BoxConstraints(
+                          maxWidth: 14.w,
+                        ),
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     errorBorder: InputBorder.none,

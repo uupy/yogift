@@ -102,6 +102,8 @@ class AppSimpleRow extends StatelessWidget {
 
     if (onTap != null) {
       return GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
         child: buildContainer(
           children: _children,
           borderRadius: _borderRadius,
