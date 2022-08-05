@@ -27,27 +27,23 @@ class _RegisterPageState extends State<RegisterPage> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
-        child: Form(
-          key: controller.formKey,
-          child: Column(
-            children: [
-              const AppAssetImage(img: 'img_gift.png'),
-              Container(
-                margin: EdgeInsets.only(bottom: 30.w, top: 32.w),
-                padding: EdgeInsets.symmetric(horizontal: 38.w),
-                child: Obx(() {
-                  final step = controller.step.value;
-                  // return const RegisterThirdStepForm();
-                  if (step == 2) {
-                    return const RegisterSecondStepForm();
-                  } else if (step == 3) {
-                    return const RegisterThirdStepForm();
-                  }
-                  return const RegisterFirstStepForm();
-                }),
-              ),
-            ],
-          ),
+        child: Column(
+          children: [
+            const AppAssetImage(img: 'img_gift.png'),
+            Container(
+              margin: EdgeInsets.only(bottom: 30.w, top: 32.w),
+              padding: EdgeInsets.symmetric(horizontal: 38.w),
+              child: Obx(() {
+                final step = controller.step.value;
+                if (step == 2) {
+                  return const RegisterSecondStepForm();
+                } else if (step == 3) {
+                  return RegisterThirdStepForm();
+                }
+                return const RegisterFirstStepForm();
+              }),
+            ),
+          ],
         ),
       ),
     );

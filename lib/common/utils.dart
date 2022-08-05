@@ -52,27 +52,11 @@ class CommonUtils {
     return value;
   }
 
-  static String formatWeight(double number) {
-    final fmt = NumberFormat('#,##0.000', 'en_US');
-    return CommonUtils.trimZero(fmt.format(number));
-  }
-
-  static String? emptyValidator(String? value) {
-    String str = value ?? '';
-    return str.isEmpty ? '必填项不能为空' : null;
-  }
-
-  static String? emilValidator(String? value) {
+  static bool isEmail(String? value) {
     String str = value ?? '';
     String regexEmail =
         "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}\$";
-    bool hasMatch = RegExp(regexEmail).hasMatch(str);
-    if (str.isEmpty) {
-      return 'please enter';
-    } else if (!hasMatch) {
-      return 'error';
-    }
-    return null;
+    return RegExp(regexEmail).hasMatch(str);
   }
 
   static String? noSpacesValidator(String? value) {
