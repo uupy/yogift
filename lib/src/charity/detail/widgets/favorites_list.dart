@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,8 +20,7 @@ class FavoritesList extends StatelessWidget {
         return Column(
           children: c.list.map((item) {
             final isDone = item.quantityGet == item.quantity;
-            final widthFactor =
-                (item.quantityGet ?? 0) / (item.quantity ?? 1);
+            final widthFactor = (item.quantityGet ?? 0) / (item.quantity ?? 1);
 
             return AppCard(
               margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 12.w),
