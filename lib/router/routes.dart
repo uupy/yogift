@@ -12,6 +12,7 @@ import 'package:yo_gift/src/register/register_page.dart';
 import 'package:yo_gift/src/search/result/result_page.dart';
 import 'package:yo_gift/src/shop/all_brands/all_brands_page.dart';
 import 'package:yo_gift/src/shop/detail/detail_page.dart';
+import 'package:yo_gift/src/user/wish/wish_page.dart';
 
 import 'route.dart';
 
@@ -34,6 +35,7 @@ final List<AppRoute> routes = [
   const AppRoute(name: '/pages/search/result/index', page: SearchResultPage()),
   const AppRoute(
       name: '/pages/charity/detail/index', page: CharityDetailPage()),
+  const AppRoute(name: '/pages/wish/index/index', page: UserWishPage()),
   const AppRoute(name: '/clause', page: ClausePage()),
   const AppRoute(name: '/problem', page: ProblemPage())
 ];

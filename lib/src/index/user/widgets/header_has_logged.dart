@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 
@@ -54,7 +55,9 @@ class HeaderHasLogged extends StatelessWidget {
         ),
         SizedBox(width: 10.w),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed('/pages/wish/index/index');
+          },
           child: Row(
             children: [
               AppAssetImage(
