@@ -11,7 +11,9 @@ import 'package:yo_gift/services/verification.dart';
 import 'package:yo_gift/src/index/index_controller.dart';
 
 class RegisterController extends GetxController {
-  final formData = RegisterFormVo();
+  final formData = RegisterFormVo(
+    acceptnotice: 1,
+  );
   final updateFormData = UpdateInfoFormVo(
     acceptnotice: 1,
   );
@@ -79,8 +81,8 @@ class RegisterController extends GetxController {
       try {
         final res = await UserService.register(formData);
         final data = res.data ?? {};
-        RegisterResultVo result = RegisterResultVo.fromJson(data['data'] ?? {});
-        app.toastSuccess('註冊成功');
+        AuthDataVo result = AuthDataVo.fromJson(data['data'] ?? {});
+        app.showToast('註冊成功');
 
         await authToken.set(result.accessToken);
         step(3);
@@ -118,13 +120,13 @@ class RegisterController extends GetxController {
   void runTimer() {
     stopTimer();
     countdown = 60;
-    update(['firstStepForm']);
+    update(['FirstStepForm']);
     _timer = Timer.periodic(_timeout, (timer) {
       countdown--;
       if (countdown <= 0) {
         stopTimer();
       }
-      update(['firstStepForm']);
+      update(['FirstStepForm']);
     });
   }
 

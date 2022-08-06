@@ -6,11 +6,11 @@ class UserService {
   UserService._();
 
   /// 登入:手机号码+密码
-  static Future loginByPassword(PhonePasswordVo data) =>
+  static Future loginByPassword(LoginFormDataVo data) =>
       http.postJson('/User/GetToken', data: data);
 
   /// 登入:手机号码+验证码
-  static Future loginByCode(PhoneCodeVo data) =>
+  static Future loginByCode(LoginFormDataVo data) =>
       http.postJson('/User/GetToken_By_Code', data: data);
 
   /// 修改密码

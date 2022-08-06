@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:yo_gift/common/app.dart';
-import 'package:yo_gift/common/app_controller.dart';
-import 'package:yo_gift/models/auth.dart';
-import 'package:yo_gift/models/verification.dart';
-import 'package:yo_gift/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/common/app_controller.dart';
+import 'package:yo_gift/common/app_storage.dart';
+import 'package:yo_gift/models/user.dart';
+import 'package:yo_gift/models/verification.dart';
+import 'package:yo_gift/services/user.dart';
 import 'package:yo_gift/services/verification.dart';
 
 class LoginController extends GetxController {
@@ -14,6 +15,7 @@ class LoginController extends GetxController {
   final appController = Get.put(AppController());
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final submitting = false.obs;
+
   /// 0 = 密碼登入， 1 = 驗證碼登入
   int loginType = 0;
 
@@ -61,12 +63,16 @@ class LoginController extends GetxController {
       form?.save();
       submitting(true);
       try {
+        dynamic res;
         if (loginType == 0) {
-          await AuthService.loginByPassword(formData);
+          res = await UserService.loginByPassword(formData);
         } else {
-          await AuthService.loginByCode(formData);
+          res = await UserService.loginByCode(formData);
         }
-        app.toastSuccess('登入成功');
+        final data = res.data ?? {};
+        AuthDataVo result = AuthDataVo.fromJson(data['data'] ?? {});
+        app.showToast('登入成功');
+        await authToken.set(result.accessToken);
         Get.back(result: true);
       } finally {
         submitting(false);
@@ -74,7 +80,6 @@ class LoginController extends GetxController {
       }
     }
   }
-
 
   /// 开启定时器
   void runTimer() {

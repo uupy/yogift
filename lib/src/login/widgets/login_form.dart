@@ -37,6 +37,7 @@ class LoginForm extends StatelessWidget {
                       keyboardType: TextInputType.phone,
                       onChanged: (value) {
                         c.formData.phone = value;
+                        c.update();
                       },
                     ),
                   ),
@@ -44,10 +45,14 @@ class LoginForm extends StatelessWidget {
               ),
               SizedBox(height: 12.w),
               if (c.loginType == 0)
-                const FormItem(
+                FormItem(
                   label: '密码',
                   hintText: '请输入密码',
                   obscureText: true,
+                  onChanged: (value) {
+                    c.formData.password = value ?? '';
+                    c.update();
+                  },
                 ),
               if (c.loginType == 1)
                 FormItem(
@@ -80,6 +85,9 @@ class LoginForm extends StatelessWidget {
                 child: AppButton(
                   disabled: !c.submitAble,
                   text: c.submitting.value ? '登入中...' : '登入',
+                  onPressed: () {
+                    c.onSubmit();
+                  },
                 ),
               ),
               Container(

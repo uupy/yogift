@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:yo_gift/src/charity/detail/detail_page.dart';
 import 'package:yo_gift/src/clause/clause_page.dart';
 import 'package:yo_gift/src/goods/ask_friend/ask_friend_page.dart';
 import 'package:yo_gift/src/goods/detail/detail_page.dart';
@@ -8,6 +9,7 @@ import 'package:yo_gift/src/login/login_page.dart';
 import 'package:yo_gift/src/p2/guide/guide_page.dart';
 import 'package:yo_gift/src/problem/problem_page.dart';
 import 'package:yo_gift/src/register/register_page.dart';
+import 'package:yo_gift/src/search/result/result_page.dart';
 import 'package:yo_gift/src/shop/all_brands/all_brands_page.dart';
 import 'package:yo_gift/src/shop/detail/detail_page.dart';
 
@@ -29,6 +31,9 @@ final List<AppRoute> routes = [
   const AppRoute(name: '/pages/goods/detail/index', page: GoodsDetailPage()),
   const AppRoute(name: '/pages/goods/ask-friend/index', page: AskFriendPage()),
   const AppRoute(name: '/pages/goods/purchase/index', page: PurchasePage()),
+  const AppRoute(name: '/pages/search/result/index', page: SearchResultPage()),
+  const AppRoute(
+      name: '/pages/charity/detail/index', page: CharityDetailPage()),
   const AppRoute(name: '/clause', page: ClausePage()),
   const AppRoute(name: '/problem', page: ProblemPage())
 ];

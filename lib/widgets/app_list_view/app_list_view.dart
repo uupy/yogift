@@ -25,7 +25,9 @@ class AppListView<T> extends StatefulWidget {
   final Widget? firstTimeLoading;
   final double? footerHeight;
   final EdgeInsetsGeometry? footerPadding;
+  final EdgeInsetsGeometry? emptyPadding;
   final int colCount;
+  final Function(List<T> list)? onLoaded;
 
   const AppListView({
     Key? key,
@@ -39,7 +41,9 @@ class AppListView<T> extends StatefulWidget {
     this.firstTimeLoading,
     this.footerHeight,
     this.footerPadding,
+    this.emptyPadding,
     this.colCount = 1,
+    this.onLoaded,
   })  : assert(fetch != null && itemBuilder != null && colCount > 0),
         super(key: key);
 
@@ -84,8 +88,14 @@ class _AppListView<T> extends State<AppListView<T>> {
     return SmartRefresher(
       enablePullUp: _controller.hasPage,
       controller: _controller.refreshController,
-      onRefresh: _controller.onRefresh,
-      onLoading: _controller.onLoading,
+      onRefresh: () async {
+        await _controller.onRefresh();
+        widget.onLoaded?.call(_controller.list);
+      },
+      onLoading: () async {
+        await _controller.onLoading();
+        widget.onLoaded?.call(_controller.list);
+      },
       header: const WaterDropHeader(
         waterDropColor: AppTheme.primaryColor,
         complete: Text("刷新成功", style: TextStyle(color: Colors.grey)),
@@ -131,7 +141,7 @@ class _AppListView<T> extends State<AppListView<T>> {
             if (_controller.loading && !_controller.isPullDown) {
               return _buildProgressIndicator();
             }
-            return widget.empty ?? const EmptyBox();
+            return widget.empty ?? EmptyBox(padding: widget.emptyPadding);
           }
 
           if (index == itemCount - 1) {

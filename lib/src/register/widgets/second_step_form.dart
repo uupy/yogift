@@ -24,7 +24,9 @@ class RegisterSecondStepForm extends StatelessWidget {
                 obscureText: true,
                 onChanged: (value) {
                   c.formData.password = value;
-                  c.formKey.currentState?.validate();
+                  if (c.confirmPassword?.isNotEmpty ?? false) {
+                    c.formKey.currentState?.validate();
+                  }
                   c.update(['SecondStepForm']);
                 },
               ),
@@ -35,12 +37,17 @@ class RegisterSecondStepForm extends StatelessWidget {
                 obscureText: true,
                 onChanged: (value) {
                   c.confirmPassword = value;
+                  c.formKey.currentState?.validate();
+                  c.update(['SecondStepForm']);
                 },
                 validator: (value) {
                   final _value = value ?? '';
                   final pwd = c.formData.password ?? '';
                   if (_value.isNotEmpty && _value != pwd) {
                     return '兩次密碼輸入不一致';
+                  }
+                  if (_value.isEmpty) {
+                    return '請輸入確認密碼';
                   }
                   return null;
                 },

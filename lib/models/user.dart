@@ -1,47 +1,24 @@
-class PhonePasswordVo {
-  String? password;
-  String? phone;
-  String? phoneprefix;
-
-  PhonePasswordVo({
-    this.password,
-    this.phone,
-    this.phoneprefix,
-  });
-
-  PhonePasswordVo.fromJson(Map<String, dynamic> json) {
-    password = json['password'];
-    phone = json['phone'];
-    phoneprefix = json['phoneprefix'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['password'] = password;
-    data['phone'] = phone;
-    data['phoneprefix'] = phoneprefix;
-    return data;
-  }
-}
-
-class PhoneCodeVo {
+class LoginFormDataVo {
   String? code;
   String? phone;
   String? phoneprefix;
   String? regfrom;
+  String? password;
 
-  PhoneCodeVo({
+  LoginFormDataVo({
     this.code,
     this.phone,
     this.phoneprefix,
     this.regfrom,
+    this.password,
   });
 
-  PhoneCodeVo.fromJson(Map<String, dynamic> json) {
+  LoginFormDataVo.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     phone = json['phone'];
     phoneprefix = json['phoneprefix'];
     regfrom = json['regfrom'];
+    password = json['password'];
   }
 
   Map<String, dynamic> toJson() {
@@ -50,6 +27,7 @@ class PhoneCodeVo {
     data['phone'] = phone;
     data['phoneprefix'] = phoneprefix;
     data['regfrom'] = regfrom;
+    data['password'] = password;
     return data;
   }
 }
@@ -109,13 +87,13 @@ class RegisterFormVo {
   RegisterFormVo({
     this.phone,
     this.phoneprefix,
-    this.password,
-    this.code,
-    this.introducer,
+    this.password = '',
+    this.code = '',
+    this.introducer = '',
     this.acceptnotice,
-    this.recommendationcode,
+    this.recommendationcode = '',
     this.gener,
-    this.birthday,
+    this.birthday = '',
   });
 
   RegisterFormVo.fromJson(Map<String, dynamic> json) {
@@ -179,20 +157,20 @@ class UpdateInfoFormVo {
   }
 }
 
-class RegisterResultVo {
+class AuthDataVo {
   String? accessToken;
   String? refreshToken;
   int? accessTokenExpires;
   int? refreshTokenExpires;
 
-  RegisterResultVo({
+  AuthDataVo({
     this.accessToken,
     this.refreshToken,
     this.accessTokenExpires,
     this.refreshTokenExpires,
   });
 
-  RegisterResultVo.fromJson(Map<String, dynamic> json) {
+  AuthDataVo.fromJson(Map<String, dynamic> json) {
     accessToken = json['AccessToken'];
     refreshToken = json['RefreshToken'];
     accessTokenExpires = json['AccessTokenExpires'];

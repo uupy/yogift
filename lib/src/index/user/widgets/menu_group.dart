@@ -32,7 +32,7 @@ class UserMenuGroup extends StatelessWidget {
             onTap: () {
               if (item.path?.isNotEmpty ?? false) {
                 Get.toNamed(item.path!);
-              } else {
+              } else if (item.key?.isNotEmpty ?? false) {
                 showModalBottomSheet<int>(
                   context: context,
                   isScrollControlled: true,

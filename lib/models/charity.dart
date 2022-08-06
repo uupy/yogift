@@ -63,3 +63,72 @@ class ChildModel {
     return data;
   }
 }
+
+class CharityItemVo {
+  int? id;
+  String? cGuid;
+  String? charityName;
+  String? cCGuid;
+  String? email;
+  String? address;
+  String? cDetail;
+  String? keywords;
+  String? charityImg;
+  String? charityBImg;
+  String? lastUpdateTime;
+  String? charityNo;
+  String? phone;
+  String? phonePrefix;
+
+  CharityItemVo(
+      {this.id,
+      this.cGuid,
+      this.charityName,
+      this.cCGuid,
+      this.email,
+      this.address,
+      this.cDetail,
+      this.keywords,
+      this.charityImg,
+      this.charityBImg,
+      this.lastUpdateTime,
+      this.charityNo,
+      this.phone,
+      this.phonePrefix});
+
+  CharityItemVo.fromJson(Map<String, dynamic> json) {
+    id = json['Id'];
+    cGuid = json['C_Guid'];
+    charityName = json['CharityName'];
+    cCGuid = json['CC_Guid'];
+    email = json['Email'];
+    address = json['Address'];
+    cDetail = json['C_Detail'];
+    keywords = json['Keywords'];
+    charityImg = json['CharityImg'];
+    charityBImg = json['CharityBImg'];
+    lastUpdateTime = json['LastUpdateTime'];
+    charityNo = json['CharityNo'];
+    phone = json['Phone'];
+    phonePrefix = json['PhonePrefix'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Id'] = id;
+    data['C_Guid'] = cGuid;
+    data['CharityName'] = charityName;
+    data['CC_Guid'] = cCGuid;
+    data['Email'] = email;
+    data['Address'] = address;
+    data['C_Detail'] = cDetail;
+    data['Keywords'] = keywords;
+    data['CharityImg'] = charityImg;
+    data['CharityBImg'] = charityBImg;
+    data['LastUpdateTime'] = lastUpdateTime;
+    data['CharityNo'] = charityNo;
+    data['Phone'] = phone;
+    data['PhonePrefix'] = phonePrefix;
+    return data;
+  }
+}

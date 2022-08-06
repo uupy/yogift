@@ -87,6 +87,8 @@ dependencies:
   flutter_html: ^2.2.1
   # 弹窗
   flutter_smart_dialog: ^4.0.9+5
+  # 下拉篩選彈出層
+  custom_pop_up_menu: ^1.2.2
   # 日期选择器
   flutter_datetime_picker:
     git:

@@ -30,37 +30,43 @@ class HeaderHasLogged extends StatelessWidget {
               Radius.circular(86.r),
             ),
           ),
-          child: AppImage(url: avatar),
+          child: AppImage(
+            url: avatar,
+            color: Colors.transparent,
+          ),
         ),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildBoldText(phone ?? ''),
-              Text(
-                birthday ?? '',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                  color: const Color.fromRGBO(0, 0, 0, 0.26),
+              if (birthday?.isNotEmpty ?? false)
+                Text(
+                  birthday ?? '',
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                    color: const Color.fromRGBO(0, 0, 0, 0.26),
+                  ),
                 ),
-              ),
             ],
           ),
         ),
-        SizedBox(width: 20.w),
+        SizedBox(width: 10.w),
         TextButton(
           onPressed: () {},
           child: Row(
             children: [
               AppAssetImage(
-                width: 24.w,
+                width: 22.w,
+                margin: EdgeInsets.only(right: 4.w),
                 img: 'icon_wishlist.png',
               ),
               Text(
                 '願望清單',
                 style: TextStyle(
                   fontSize: 14.sp,
+                  color: const Color.fromRGBO(0, 0, 0, 0.9),
                 ),
               ),
             ],

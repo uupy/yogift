@@ -47,6 +47,10 @@ class CharityListGroup extends StatelessWidget {
                         child: AppImage(
                           url: item.charityImg,
                           radius: 20.r,
+                          onTap: () {
+                            Get.toNamed('/pages/charity/detail/index',
+                                parameters: {'id': item.cGuid!});
+                          },
                         ),
                       );
                     },

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app_theme.dart';
-import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/services/user_favorites.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
@@ -184,7 +183,6 @@ class _GoodsItemState extends State<GoodsItem> {
                   text: '願望清單',
                   icon: 'icon_heart_$_favorite.png',
                   onTap: () async {
-                    logger.i('願望清單');
                     if (widget.guid != null) {
                       await UserFavoritesService.addOrDelete(widget.guid!);
                       setState(() {

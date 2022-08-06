@@ -7,8 +7,14 @@ class UserMenuItem {
   final String? icon;
   final String? label;
   final String? path;
+  final String? key;
 
-  UserMenuItem({this.icon, this.label, this.path});
+  UserMenuItem({
+    this.icon,
+    this.label,
+    this.path,
+    this.key,
+  });
 }
 
 class UserController extends GetxController {
@@ -42,6 +48,7 @@ class UserController extends GetxController {
     UserMenuItem(
       icon: 'icon_mine_contact.png',
       label: '聯絡我們',
+      key: 'contact',
     ),
     UserMenuItem(icon: 'icon_mine_terms.png', label: '條款及細則', path: './clause'),
   ];
