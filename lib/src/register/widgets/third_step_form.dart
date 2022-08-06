@@ -227,7 +227,7 @@ class RegisterThirdStepForm extends StatelessWidget {
                   text: '跳過',
                   backgroundColor: const Color(0xfffffdeb),
                   onPressed: () {
-                    Get.back(result: true);
+                    c.goBackHome();
                   },
                 ),
               ),

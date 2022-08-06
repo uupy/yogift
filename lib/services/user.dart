@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:yo_gift/common/http.dart';
 import 'package:yo_gift/models/user.dart';
 
@@ -23,4 +24,8 @@ class UserService {
   /// 修改资料-综合
   static Future updateInfo(UpdateInfoFormVo data) =>
       http.postJson('/User/Info_set', data: data);
+
+  /// 获取:用户信息
+  static Future getInfo() =>
+      http.get('/User/Info_get', options: Options(extra: {'silent': true}));
 }

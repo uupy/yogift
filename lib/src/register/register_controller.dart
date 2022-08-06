@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/models/verification.dart';
 import 'package:yo_gift/services/user.dart';
 import 'package:yo_gift/services/verification.dart';
+import 'package:yo_gift/src/index/index_controller.dart';
 
 class RegisterController extends GetxController {
   final formData = RegisterFormVo();
@@ -75,8 +77,12 @@ class RegisterController extends GetxController {
       form?.save();
       submitting(true);
       try {
-        await UserService.register(formData);
+        final res = await UserService.register(formData);
+        final data = res.data ?? {};
+        RegisterResultVo result = RegisterResultVo.fromJson(data['data'] ?? {});
         app.toastSuccess('註冊成功');
+
+        await authToken.set(result.accessToken);
         step(3);
       } finally {
         submitting(false);
@@ -94,12 +100,18 @@ class RegisterController extends GetxController {
       submitting(true);
       try {
         await UserService.updateInfo(updateFormData);
-        Get.back(result: true);
+        goBackHome();
       } finally {
         submitting(false);
         update();
       }
     }
+  }
+
+  void goBackHome() {
+    final indexController = Get.find<IndexController>();
+    indexController.switchTabBar(0);
+    Get.offAllNamed('/index');
   }
 
   /// 开启定时器

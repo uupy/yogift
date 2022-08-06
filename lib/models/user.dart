@@ -178,3 +178,114 @@ class UpdateInfoFormVo {
     return data;
   }
 }
+
+class RegisterResultVo {
+  String? accessToken;
+  String? refreshToken;
+  int? accessTokenExpires;
+  int? refreshTokenExpires;
+
+  RegisterResultVo({
+    this.accessToken,
+    this.refreshToken,
+    this.accessTokenExpires,
+    this.refreshTokenExpires,
+  });
+
+  RegisterResultVo.fromJson(Map<String, dynamic> json) {
+    accessToken = json['AccessToken'];
+    refreshToken = json['RefreshToken'];
+    accessTokenExpires = json['AccessTokenExpires'];
+    refreshTokenExpires = json['RefreshTokenExpires'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['AccessToken'] = accessToken;
+    data['RefreshToken'] = refreshToken;
+    data['AccessTokenExpires'] = accessTokenExpires;
+    data['RefreshTokenExpires'] = refreshTokenExpires;
+    return data;
+  }
+}
+
+class UserInfoVo {
+  String? id;
+  String? wGuid;
+  String? phonePrefix;
+  String? phone;
+  String? headSrc;
+  String? nickName;
+  int? gener;
+  String? birthday;
+  String? email;
+  int? acceptNotice;
+  int? area0Id;
+  int? area1Id;
+  String? area0;
+  String? area1;
+  int? favoriteOpen;
+  int? jifen;
+  int? isEnable;
+
+  UserInfoVo(
+      {this.id,
+      this.wGuid,
+      this.phonePrefix,
+      this.phone,
+      this.headSrc,
+      this.nickName,
+      this.gener,
+      this.birthday,
+      this.email,
+      this.acceptNotice,
+      this.area0Id,
+      this.area1Id,
+      this.area0,
+      this.area1,
+      this.favoriteOpen,
+      this.jifen,
+      this.isEnable});
+
+  UserInfoVo.fromJson(Map<String, dynamic> json) {
+    id = json['Id'];
+    wGuid = json['W_Guid'];
+    phonePrefix = json['PhonePrefix'];
+    phone = json['Phone'];
+    headSrc = json['Head_Src'];
+    nickName = json['NickName'];
+    gener = json['Gener'];
+    birthday = json['Birthday'];
+    email = json['Email'];
+    acceptNotice = json['AcceptNotice'];
+    area0Id = json['Area0_id'];
+    area1Id = json['Area1_id'];
+    area0 = json['Area0'];
+    area1 = json['Area1'];
+    favoriteOpen = json['Favorite_open'];
+    jifen = json['Jifen'];
+    isEnable = json['IsEnable'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Id'] = id;
+    data['W_Guid'] = wGuid;
+    data['PhonePrefix'] = phonePrefix;
+    data['Phone'] = phone;
+    data['Head_Src'] = headSrc;
+    data['NickName'] = nickName;
+    data['Gener'] = gener;
+    data['Birthday'] = birthday;
+    data['Email'] = email;
+    data['AcceptNotice'] = acceptNotice;
+    data['Area0_id'] = area0Id;
+    data['Area1_id'] = area1Id;
+    data['Area0'] = area0;
+    data['Area1'] = area1;
+    data['Favorite_open'] = favoriteOpen;
+    data['Jifen'] = jifen;
+    data['IsEnable'] = isEnable;
+    return data;
+  }
+}

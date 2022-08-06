@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:yo_gift/common/app_storage.dart';
+import 'package:yo_gift/models/user.dart';
+import 'package:yo_gift/services/user.dart';
 
 class UserMenuItem {
   final String? icon;
@@ -35,20 +38,15 @@ class UserController extends GetxController {
       label: '通知設定',
     ),
     UserMenuItem(
-      icon: 'icon_mine_question.png',
-      label: '常見問題',
-      path: './problem'
-    ),
+        icon: 'icon_mine_question.png', label: '常見問題', path: './problem'),
     UserMenuItem(
       icon: 'icon_mine_contact.png',
       label: '聯絡我們',
     ),
-    UserMenuItem(
-      icon: 'icon_mine_terms.png',
-      label: '條款及細則',
-      path: './clause'
-    ),
+    UserMenuItem(icon: 'icon_mine_terms.png', label: '條款及細則', path: './clause'),
   ];
+
+  UserInfoVo? userInfo;
 
   @override
   void onInit() {
@@ -57,6 +55,12 @@ class UserController extends GetxController {
   }
 
   Future init() async {
-    update();
+    final _token = await authToken.get();
+    if (_token?.isNotEmpty ?? false) {
+      final res = await UserService.getInfo();
+      final data = res.data ?? {};
+      userInfo = UserInfoVo.fromJson(data['data'] ?? {});
+    }
+    update(['UserHeaderInfo']);
   }
 }

@@ -49,11 +49,11 @@ Interceptor requestInterceptor() {
       bool isSilent = req.extra['silent'] ?? false;
 
       if (code != null && code != 200) {
+        if (!isSilent) {
+          app.showToast(code == 401 ? '請先登入' : msg ?? '');
+        }
         if (code == 401) {
-          app.showToast('請先登入');
           app.logout();
-        } else if (!isSilent) {
-          app.showToast(msg ?? '');
         }
 
         req.extra['silent'] = true;

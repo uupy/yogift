@@ -1,11 +1,11 @@
-import 'package:yo_gift/router/tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/router/tab_bar.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
 import 'user_controller.dart';
-import 'widgets/base_info.dart';
+import 'widgets/header_info.dart';
 import 'widgets/menu_group.dart';
 
 class UserPage extends StatelessWidget implements TabBarPage {
@@ -23,7 +23,7 @@ class UserPage extends StatelessWidget implements TabBarPage {
               Stack(
                 children: [
                   HeaderBackground(height: 210.w),
-                  const UserBaseInfo(),
+                  const UserHeaderInfo(),
                 ],
               ),
               UserMenuGroup(menus: c.menus1),
