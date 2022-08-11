@@ -11,7 +11,7 @@ class SearchRecommendTitles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GoodsController>(
-      id: 'recommendWrapper',
+      id: 'SearchRecommendTitles',
       init: GoodsController(),
       builder: (c) {
         return Padding(

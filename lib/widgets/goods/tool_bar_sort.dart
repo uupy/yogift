@@ -4,65 +4,66 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'tool_bar_button.dart';
 
-class ToolBarSort extends StatefulWidget {
+class GoodsToolBarSort extends StatefulWidget {
   final int? value;
+  final Color? buttonBorderColor;
   final Function(int index)? onChanged;
 
-  const ToolBarSort({
+  const GoodsToolBarSort({
     Key? key,
     this.value,
+    this.buttonBorderColor,
     this.onChanged,
   }) : super(key: key);
 
   @override
-  _ToolBarSortState createState() => _ToolBarSortState();
+  _GoodsToolBarSortState createState() => _GoodsToolBarSortState();
 }
 
-class _ToolBarSortState extends State<ToolBarSort> {
+class _GoodsToolBarSortState extends State<GoodsToolBarSort> {
   final sortController = CustomPopupMenuController();
   final menuItems = ['按人氣排序', '按推薦排序', '按新至舊排序', '價錢低至高排序', '價錢高至低排序'];
 
   @override
   Widget build(BuildContext context) {
     return CustomPopupMenu(
-      child: const IgnorePointer(
-        child: ToolBarButton(
+      child: IgnorePointer(
+        child: GoodsToolBarButton(
           text: '排序',
           icon: 'icon_sort.png',
+          borderColor: widget.buttonBorderColor,
         ),
       ),
       arrowColor: Colors.white,
       barrierColor: Colors.transparent,
       verticalMargin: 5.w,
-      menuBuilder: () => ClipRRect(
-        borderRadius: BorderRadius.circular(14.r),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0, 2.w),
-                blurRadius: 16.w,
-                color: const Color.fromRGBO(0, 0, 0, 0.25),
-              ),
-            ],
-          ),
-          child: IntrinsicWidth(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: menuItems.asMap().keys.map(
-                (index) {
-                  return buildMenuItem(
-                    name: menuItems[index],
-                    index: index,
-                    onTap: () {
-                      sortController.hideMenu();
-                      widget.onChanged?.call(index);
-                    },
-                  );
-                },
-              ).toList(),
+      menuBuilder: () => Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14.r),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 2.w),
+              blurRadius: 16.w,
+              color: const Color.fromRGBO(0, 0, 0, 0.25),
             ),
+          ],
+        ),
+        child: IntrinsicWidth(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: menuItems.asMap().keys.map(
+              (index) {
+                return buildMenuItem(
+                  name: menuItems[index],
+                  index: index,
+                  onTap: () {
+                    sortController.hideMenu();
+                    widget.onChanged?.call(index);
+                  },
+                );
+              },
+            ).toList(),
           ),
         ),
       ),

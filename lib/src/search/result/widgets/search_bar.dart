@@ -44,7 +44,7 @@ class SearchBar extends StatelessWidget {
               ),
             ],
             onChanged: (value) {
-              c.giftname = value ?? '';
+              c.giftName = value ?? '';
             },
             onSubmitted: (value) {
               c.listController.onReload();

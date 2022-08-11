@@ -5,78 +5,79 @@ import 'package:yo_gift/widgets/app_asset_image.dart';
 
 import 'tool_bar_button.dart';
 
-class MenuItem {
-  MenuItem({required this.name, this.icon});
+class GoodsFilterMenuItem {
+  GoodsFilterMenuItem({required this.name, this.icon});
   final String name;
   final String? icon;
 }
 
-class ToolBarFilter extends StatefulWidget {
+class GoodsToolBarFilter extends StatefulWidget {
   final int? value;
+  final Color? buttonBorderColor;
   final Function(int index)? onChanged;
 
-  const ToolBarFilter({
+  const GoodsToolBarFilter({
     Key? key,
     this.value,
+    this.buttonBorderColor,
     this.onChanged,
   }) : super(key: key);
 
   @override
-  _ToolBarFilterState createState() => _ToolBarFilterState();
+  _GoodsToolBarFilterState createState() => _GoodsToolBarFilterState();
 }
 
-class _ToolBarFilterState extends State<ToolBarFilter> {
+class _GoodsToolBarFilterState extends State<GoodsToolBarFilter> {
   final sortController = CustomPopupMenuController();
   final menuItems = [
-    MenuItem(name: '到店兌換', icon: 'icon_get_type_1_2.png'),
-    MenuItem(name: '免費送貨', icon: 'icon_get_type_2_2.png'),
-    MenuItem(name: '網上兌換', icon: 'icon_get_type_3_2.png'),
+    GoodsFilterMenuItem(name: '到店兌換', icon: 'icon_get_type_1_2.png'),
+    GoodsFilterMenuItem(name: '免費送貨', icon: 'icon_get_type_2_2.png'),
+    GoodsFilterMenuItem(name: '網上兌換', icon: 'icon_get_type_3_2.png'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return CustomPopupMenu(
-      child: const IgnorePointer(
-        child: ToolBarButton(
+      child: IgnorePointer(
+        child: GoodsToolBarButton(
           text: '篩選',
           icon: 'icon_filter.png',
+          borderColor: widget.buttonBorderColor,
         ),
       ),
       arrowColor: Colors.white,
       barrierColor: Colors.transparent,
       verticalMargin: 5,
-      menuBuilder: () => ClipRRect(
-        borderRadius: BorderRadius.circular(14.r),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0, 2.w),
-                blurRadius: 16.w,
-                color: const Color.fromRGBO(0, 0, 0, 0.25),
-              ),
-            ],
-          ),
-          child: IntrinsicWidth(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: menuItems.asMap().keys.map(
-                (index) {
-                  final item = menuItems[index];
-
-                  return buildMenuItem(
-                    name: item.name,
-                    icon: item.icon,
-                    index: index,
-                    onTap: () {
-                      sortController.hideMenu();
-                      widget.onChanged?.call(index);
-                    },
-                  );
-                },
-              ).toList(),
+      menuBuilder: () => Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14.r),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 2.w),
+              blurRadius: 16.w,
+              color: const Color.fromRGBO(0, 0, 0, 0.25),
             ),
+          ],
+        ),
+        child: IntrinsicWidth(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: menuItems.asMap().keys.map(
+              (index) {
+                final item = menuItems[index];
+
+                return buildMenuItem(
+                  name: item.name,
+                  icon: item.icon,
+                  index: index,
+                  onTap: () {
+                    sortController.hideMenu();
+                    widget.onChanged?.call(index);
+                  },
+                );
+              },
+            ).toList(),
           ),
         ),
       ),

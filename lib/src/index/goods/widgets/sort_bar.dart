@@ -11,7 +11,7 @@ class SearchSortBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GoodsController>(
-      id: 'sortBar',
+      id: 'SortBar',
       builder: (c) {
         String img = 'icon_order_none.png';
 

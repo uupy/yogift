@@ -212,12 +212,14 @@ class GiftVo {
 class GiftCategoryVo {
   int? id;
   String? gcGuid;
+  String? sGuid;
   String? className;
   String? classImg;
 
   GiftCategoryVo({
     this.id,
     this.gcGuid,
+    this.sGuid,
     this.className,
     this.classImg,
   });
@@ -225,35 +227,6 @@ class GiftCategoryVo {
   GiftCategoryVo.fromJson(Map<String, dynamic> json) {
     id = json['Id'];
     gcGuid = json['GC_Guid'];
-    className = json['ClassName'];
-    classImg = json['ClassImg'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['GC_Guid'] = gcGuid;
-    data['ClassName'] = className;
-    data['ClassImg'] = classImg;
-    return data;
-  }
-}
-
-class GiftSceneVo {
-  int? id;
-  String? sGuid;
-  String? className;
-  String? classImg;
-
-  GiftSceneVo({
-    this.id,
-    this.sGuid,
-    this.className,
-    this.classImg,
-  });
-
-  GiftSceneVo.fromJson(Map<String, dynamic> json) {
-    id = json['Id'];
     sGuid = json['S_Guid'];
     className = json['ClassName'];
     classImg = json['ClassImg'];
@@ -262,6 +235,7 @@ class GiftSceneVo {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['Id'] = id;
+    data['GC_Guid'] = gcGuid;
     data['S_Guid'] = sGuid;
     data['ClassName'] = className;
     data['ClassImg'] = classImg;

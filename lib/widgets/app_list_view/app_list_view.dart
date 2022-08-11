@@ -57,6 +57,11 @@ class _AppListView<T> extends State<AppListView<T>> {
 
   @override
   void initState() {
+    init();
+    super.initState();
+  }
+
+  void init() async {
     if (widget.controller != null) {
       _controller = widget.controller!;
     }
@@ -64,9 +69,9 @@ class _AppListView<T> extends State<AppListView<T>> {
     _controller.hasPage = widget.hasPage;
     _controller.fetch = widget.fetch;
     if (widget.immediate && mounted) {
-      _controller.onLoading();
+      await _controller.onLoading();
+      widget.onLoaded?.call(_controller.list);
     }
-    super.initState();
   }
 
   @override

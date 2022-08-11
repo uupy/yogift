@@ -7,23 +7,23 @@ import 'package:yo_gift/widgets/app_list_view/app_list_controller.dart';
 class SearchResultController extends GetxController {
   final inputController = TextEditingController();
   final listController = AppListController<GiftVo>();
-  String giftname = Get.parameters['keyword'] ?? '';
-  int? orderby;
-  int? sendingmethod;
+  String giftName = Get.parameters['keyword'] ?? '';
+  int? orderBy;
+  int? sendingMethod;
   int total = 0;
 
   void init() {
-    inputController.text = giftname;
+    inputController.text = giftName;
     update(['SearchBar']);
   }
 
   Future<List<GiftVo>> queryList(Map<String, dynamic> params) async {
-    params['giftname'] = giftname;
-    if (orderby != null) {
-      params['orderby'] = orderby;
+    params['giftname'] = giftName;
+    if (orderBy != null) {
+      params['orderby'] = orderBy;
     }
-    if (sendingmethod != null) {
-      params['sendingmethod'] = sendingmethod;
+    if (sendingMethod != null) {
+      params['sendingmethod'] = sendingMethod;
     }
     final res = await GiftService.queryPage(params);
     final data = res.data ?? {};
@@ -31,14 +31,14 @@ class SearchResultController extends GetxController {
     return items.map((e) => GiftVo.fromJson(e)).toList();
   }
 
-  void onFilterChange(int? value) {
-    sendingmethod = value;
+  void onSendingMethodChange(int? value) {
+    sendingMethod = value;
     listController.onReload();
     update(['ToolBar']);
   }
 
   void onSortChange(int? value) {
-    orderby = value;
+    orderBy = value;
     listController.onReload();
     update(['ToolBar']);
   }

@@ -8,7 +8,7 @@ import 'package:yo_gift/widgets/app_list_view/app_list_controller.dart';
 class GoodsController extends GetxController {
   List<RecommendTitleVo> recommendTitles = [];
   List<GiftCategoryVo> categoryList = [];
-  List<GiftSceneVo> sceneList = [];
+  List<GiftCategoryVo> sceneList = [];
 
   /// 1人气(默认) 2推荐值 3最新上架 4價錢低至高 5價錢高至低
   int? orderby;
@@ -48,7 +48,7 @@ class GoodsController extends GetxController {
   void onSortChange(int? value) {
     orderby = value;
     listController.onReload();
-    update(['sortBar']);
+    update(['SortBar']);
   }
 
   /// 获取推荐关键词
@@ -56,7 +56,7 @@ class GoodsController extends GetxController {
     final res = await CommonService.getRecommendList('gift');
     final List data = res.data['data'] ?? [];
     recommendTitles = data.map((e) => RecommendTitleVo.fromJson(e)).toList();
-    update(['recommendWrapper']);
+    update(['SearchRecommendTitles']);
   }
 
   /// 获取分類
@@ -64,14 +64,14 @@ class GoodsController extends GetxController {
     final res = await GiftService.queryClassList();
     final List data = res.data['data'] ?? [];
     categoryList = data.map((e) => GiftCategoryVo.fromJson(e)).toList();
-    update(['categoryList']);
+    update(['CategoryList']);
   }
 
   /// 获取場景
   Future querySceneList() async {
     final res = await GiftService.querySceneList();
     final List data = res.data['data'] ?? [];
-    sceneList = data.map((e) => GiftSceneVo.fromJson(e)).toList();
-    update(['sceneList']);
+    sceneList = data.map((e) => GiftCategoryVo.fromJson(e)).toList();
+    update(['SceneList']);
   }
 }

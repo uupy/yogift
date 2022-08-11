@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/models/gift.dart';
-import 'package:yo_gift/src/search/result/result_controller.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
 import 'package:yo_gift/widgets/goods_item.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
+import 'result_controller.dart';
 import 'widgets/search_bar.dart';
 import 'widgets/tool_bar.dart';
 
@@ -33,7 +33,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
         title: const SearchBar(),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(50.w),
-          child: ToolBar(),
+          child: const ToolBar(),
         ),
       ),
       body: Stack(
@@ -60,7 +60,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                     ...items.map((item) {
                       return Expanded(
                         child: GoodsItem(
-                          guid: item.gCGuid,
+                          guid: item.gGuid,
                           name: item.giftName,
                           desc: item.bussinessName,
                           coverImg: item.cCoverImg,
@@ -68,6 +68,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                           originalPrice: item.originalPrice,
                           buy1Get1Free: item.buy1Get1FREE,
                           sendingMethod: item.sendingMethod,
+                          favorite: item.favorite,
                           margin: EdgeInsets.all(6.w),
                         ),
                       );

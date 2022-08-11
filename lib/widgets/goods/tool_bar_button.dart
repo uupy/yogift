@@ -3,14 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/widgets/animated_button.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 
-class ToolBarButton extends StatelessWidget {
+class GoodsToolBarButton extends StatelessWidget {
   final String? text;
   final String? icon;
+  final Color? borderColor;
   final Function()? onPressed;
-  const ToolBarButton({
+  const GoodsToolBarButton({
     Key? key,
     this.text,
     this.icon,
+    this.borderColor,
     this.onPressed,
   }) : super(key: key);
 
@@ -19,7 +21,7 @@ class ToolBarButton extends StatelessWidget {
     return AnimatedButton(
       onPressed: onPressed,
       color: Colors.white,
-      borderColor: Colors.white,
+      borderColor: borderColor ?? Colors.white,
       width: 78.w,
       height: 30.w,
       child: Row(
