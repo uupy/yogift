@@ -43,6 +43,7 @@ class HomeTop7Days extends StatelessWidget {
                     originalPrice: item.originalPrice,
                     buy1Get1Free: item.buy1Get1FREE,
                     sendingMethod: item.sendingMethod,
+                    favorite: item.favorite,
                     margin: index == 0
                         ? EdgeInsets.fromLTRB(20.w, 0, 6.w, 0)
                         : (index == c.top7DaysList.length - 1

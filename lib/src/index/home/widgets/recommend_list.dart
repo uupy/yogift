@@ -84,7 +84,18 @@ class HomeRecommendList extends StatelessWidget {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  String keyword = c.currentRecommendTitle ?? '';
+
+                  if (keyword.isEmpty && c.recommendTitles.isNotEmpty) {
+                    keyword = c.recommendTitles.first.title ?? '';
+                  }
+
+                  Get.toNamed(
+                    '/pages/search/result/index',
+                    parameters: {'keyword': keyword},
+                  );
+                },
               ),
             ),
           ],

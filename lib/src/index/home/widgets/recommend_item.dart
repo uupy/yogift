@@ -154,10 +154,16 @@ class RecommendItem extends StatelessWidget {
                   text: '拜託',
                   icon: 'icon_please.png',
                   background: const Color(0xfffffdeb),
+                  onTap: () {
+                    handleAction({'buyType': '3'});
+                  },
                 ),
                 buildFooterItem(
                   text: '贈送',
                   icon: 'icon_mine_gift.png',
+                  onTap: () {
+                    handleAction({'buyType': '2'});
+                  },
                 ),
               ],
             ),
@@ -203,6 +209,7 @@ class RecommendItem extends StatelessWidget {
       height: 32.w,
       margin: EdgeInsets.only(left: 10.w),
       child: AppButton(
+        onPressed: onTap,
         backgroundColor: background,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

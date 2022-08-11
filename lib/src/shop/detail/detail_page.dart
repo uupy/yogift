@@ -114,6 +114,7 @@ class _ShopDetailPageState extends State<ShopDetailPage> {
                       ...items.map((item) {
                         return Expanded(
                           child: GoodsItem(
+                            guid: item.gGuid,
                             name: item.giftName,
                             desc: item.bussinessName,
                             coverImg: item.cCoverImg,
@@ -121,6 +122,7 @@ class _ShopDetailPageState extends State<ShopDetailPage> {
                             originalPrice: item.originalPrice,
                             buy1Get1Free: item.buy1Get1FREE,
                             sendingMethod: item.sendingMethod,
+                            favorite: item.favorite,
                             margin: EdgeInsets.all(6.w),
                           ),
                         );
