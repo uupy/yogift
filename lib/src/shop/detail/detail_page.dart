@@ -7,7 +7,7 @@ import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
 import 'package:yo_gift/widgets/app_radio.dart';
 import 'package:yo_gift/widgets/app_tag.dart';
-import 'package:yo_gift/widgets/goods_item.dart';
+import 'package:yo_gift/widgets/goods/goods_item.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
 import 'detail_controller.dart';

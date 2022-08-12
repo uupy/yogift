@@ -7,7 +7,7 @@ import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
-import 'package:yo_gift/widgets/goods_sending_tag.dart';
+import 'package:yo_gift/widgets/goods/goods_sending_tag.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
 import 'wish_controller.dart';

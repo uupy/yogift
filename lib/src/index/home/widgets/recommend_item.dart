@@ -5,7 +5,7 @@ import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/app_tag.dart';
-import 'package:yo_gift/widgets/goods_sending_tag.dart';
+import 'package:yo_gift/widgets/goods/goods_sending_tag.dart';
 
 class RecommendItem extends StatelessWidget {
   final double? width;

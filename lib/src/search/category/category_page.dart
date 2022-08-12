@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/models/gift.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
-import 'package:yo_gift/widgets/goods_item.dart';
+import 'package:yo_gift/widgets/goods/goods_item.dart';
 
 import 'category_controller.dart';
 import 'widgets/tabs_bar.dart';

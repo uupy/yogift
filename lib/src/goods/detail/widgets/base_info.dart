@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:yo_gift/src/goods/detail/detail_controller.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_row.dart';
-import 'package:yo_gift/widgets/goods_sending_tag.dart';
+import 'package:yo_gift/widgets/goods/goods_sending_tag.dart';
 
 class GoodsDetailBaseInfo extends StatelessWidget {
   const GoodsDetailBaseInfo({Key? key}) : super(key: key);

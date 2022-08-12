@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/widgets/goods_item.dart';
+import 'package:yo_gift/widgets/goods/goods_item.dart';
 import 'package:yo_gift/widgets/module_title.dart';
 
 import '../home_controller.dart';

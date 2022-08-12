@@ -5,7 +5,7 @@ import 'package:yo_gift/models/gift_detail.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/app_simple_row.dart';
-import 'package:yo_gift/widgets/goods_sending_tag.dart';
+import 'package:yo_gift/widgets/goods/goods_sending_tag.dart';
 
 class GoodsDetailCard extends StatefulWidget {
   final GiftDetailVo? data;
