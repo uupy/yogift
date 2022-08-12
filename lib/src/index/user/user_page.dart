@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/router/tab_bar.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
 import 'user_controller.dart';
@@ -9,39 +10,51 @@ import 'widgets/header_info.dart';
 import 'widgets/menu_group.dart';
 
 class UserPage extends StatelessWidget implements TabBarPage {
-  const UserPage({Key? key}) : super(key: key);
+  UserPage({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<UserController>(
-      init: UserController(),
-      builder: (c) {
-        return SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  HeaderBackground(height: 210.w),
-                  const UserHeaderInfo(),
-                ],
-              ),
-              UserMenuGroup(menus: c.menus1),
-              UserMenuGroup(menus: c.menus2),
-              UserMenuGroup(menus: c.menus3),
-              const SizedBox(height: 100),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  final controller = Get.put(UserController());
 
   @override
   PreferredSizeWidget? get appBar {
     return AppBar(
       leading: null,
       title: const Text('我的'),
+      actions: [
+        Container(
+          width: 24.w,
+          margin: EdgeInsets.only(right: 16.w),
+          child: Obx(() {
+            if (controller.isLogged.value) {
+              return AppAssetImage(
+                img: 'icon_setting.png',
+                onTap: () {},
+              );
+            }
+            return Container();
+          }),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      physics: const ClampingScrollPhysics(),
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              HeaderBackground(height: 210.w),
+              const UserHeaderInfo(),
+            ],
+          ),
+          UserMenuGroup(menus: controller.menus1),
+          UserMenuGroup(menus: controller.menus2),
+          UserMenuGroup(menus: controller.menus3),
+          const SizedBox(height: 100),
+        ],
+      ),
     );
   }
 }

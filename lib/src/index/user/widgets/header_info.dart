@@ -19,7 +19,7 @@ class UserHeaderInfo extends StatelessWidget {
         builder: (c) {
           return Column(
             children: [
-              c.userInfo == null
+              !c.isLogged.value
                   ? HeaderNotLogged(
                       onLogged: () {
                         c.init();

@@ -54,6 +54,7 @@ class UserController extends GetxController {
   ];
 
   UserInfoVo? userInfo;
+  final isLogged = false.obs;
 
   @override
   void onInit() {
@@ -67,6 +68,7 @@ class UserController extends GetxController {
       final res = await UserService.getInfo();
       final data = res.data ?? {};
       userInfo = UserInfoVo.fromJson(data['data'] ?? {});
+      isLogged(true);
     }
     update(['UserHeaderInfo']);
   }

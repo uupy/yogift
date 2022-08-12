@@ -79,7 +79,7 @@ final List<TabBarRoute> tabBarRoutes = [
     ),
   ),
   TabBarRoute(
-    page: const UserPage(),
+    page: UserPage(),
     navBarItem: BottomNavigationBarItem(
       label: '我的',
       icon: AppAssetImage(
