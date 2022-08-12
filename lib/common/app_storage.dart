@@ -27,11 +27,14 @@ class AppStorage<T> {
     } else if (<T>[] is List<double?>) {
       _value = prefs.getDouble(keyName);
     } else if (<T>[] is List<List<String>>) {
-      _value = prefs.getStringList(keyName);
+      _value = prefs.getStringList(keyName) ?? <String>[];
     } else {
       _value = prefs.getString(keyName);
+
       if (_value != null) {
         _value = json.decode(_value);
+      } else if (_value == null && <T>[] is List<List>) {
+        _value = <dynamic>[];
       }
     }
     return _value as T;
@@ -70,3 +73,6 @@ AppStorage<String?> authToken = AppStorage('authToken');
 
 /// 登录用户信息
 AppStorage<Map<String, dynamic>?> loginUser = AppStorage('loginUser');
+
+/// 搜索历史
+AppStorage<List<String>> searchHistory = AppStorage('searchHistory');

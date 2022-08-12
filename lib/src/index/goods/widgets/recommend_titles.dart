@@ -20,15 +20,14 @@ class SearchRecommendTitles extends StatelessWidget {
             spacing: 8.w,
             runSpacing: 12.w,
             children: c.recommendTitles.map((e) {
+              final keyword = e.title!;
+
               return GestureDetector(
                 onTap: () {
-                  Get.toNamed(
-                    '/pages/search/result/index',
-                    parameters: {'keyword': e.title!},
-                  );
+                  c.onSearch(keyword);
                 },
                 behavior: HitTestBehavior.opaque,
-                child: AppTag(text: '#${e.title}'),
+                child: AppTag(text: '#$keyword'),
               );
             }).toList(),
           ),

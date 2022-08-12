@@ -15,6 +15,7 @@ class AppTag extends StatelessWidget {
   final Widget? child;
   final Color? color;
   final bool showShape;
+  final EdgeInsetsGeometry? padding;
 
   const AppTag({
     Key? key,
@@ -22,6 +23,7 @@ class AppTag extends StatelessWidget {
     this.child,
     this.color,
     this.showShape = false,
+    this.padding,
   }) : super(key: key);
 
   @override
@@ -31,9 +33,12 @@ class AppTag extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 1.w),
+          padding:
+              padding ?? EdgeInsets.symmetric(horizontal: 8.w, vertical: 1.w),
           decoration: BoxDecoration(
-            color: color ?? colors[index].withOpacity(0.1),
+            color: color != null
+                ? color!.withOpacity(0.1)
+                : colors[index].withOpacity(0.1),
             borderRadius: BorderRadius.all(
               Radius.circular(12.r),
             ),

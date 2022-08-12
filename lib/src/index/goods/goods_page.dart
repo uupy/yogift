@@ -13,6 +13,7 @@ import 'widgets/price_filter_bar.dart';
 import 'widgets/recommend_titles.dart';
 import 'widgets/scene_list.dart';
 import 'widgets/search_bar.dart';
+import 'widgets/search_history_bar.dart';
 import 'widgets/sort_bar.dart';
 
 class GoodsPage extends StatelessWidget implements TabBarPage {
@@ -23,7 +24,9 @@ class GoodsPage extends StatelessWidget implements TabBarPage {
   @override
   PreferredSizeWidget? get appBar {
     return AppBar(
-      title: const SearchBar(),
+      title: SearchBar(
+        onSearch: controller.onSearch,
+      ),
     );
   }
 
@@ -39,6 +42,7 @@ class GoodsPage extends StatelessWidget implements TabBarPage {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           SearchRecommendTitles(),
+          SearchHistoryBar(),
           ModuleTitle(
             textCn: '送禮場景',
             textEn: 'SCENARIO',

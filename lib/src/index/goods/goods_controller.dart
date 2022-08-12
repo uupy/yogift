@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/models/common.dart';
 import 'package:yo_gift/models/gift.dart';
 import 'package:yo_gift/services/common.dart';
@@ -9,6 +10,7 @@ class GoodsController extends GetxController {
   List<RecommendTitleVo> recommendTitles = [];
   List<GiftCategoryVo> categoryList = [];
   List<GiftCategoryVo> sceneList = [];
+  List<String> historyList = [];
 
   /// 1人气(默认) 2推荐值 3最新上架 4價錢低至高 5價錢高至低
   int? orderby;
@@ -27,6 +29,8 @@ class GoodsController extends GetxController {
     queryRecommendTitles();
     querySceneList();
     queryCategoryList();
+    historyList = await searchHistory.get();
+    update(['SearchHistoryBar']);
   }
 
   Future<List<GiftVo>> queryList(Map<String, dynamic> params) async {
@@ -73,5 +77,24 @@ class GoodsController extends GetxController {
     final List data = res.data['data'] ?? [];
     sceneList = data.map((e) => GiftCategoryVo.fromJson(e)).toList();
     update(['SceneList']);
+  }
+
+  Future saveSearchHistory(String keyword) async {
+    if (historyList.contains(keyword)) {
+      historyList.remove(keyword);
+    }
+    historyList.insert(0, keyword);
+    if (historyList.length > 20) {
+      historyList.removeLast();
+    }
+    update(['SearchHistoryBar']);
+  }
+
+  void onSearch(String keyword) async {
+    await saveSearchHistory(keyword);
+    Get.toNamed(
+      '/pages/search/result/index',
+      parameters: {'keyword': keyword},
+    );
   }
 }

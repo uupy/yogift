@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_input.dart';
 
 class SearchBar extends StatefulWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  final Function(String value)? onSearch;
+
+  const SearchBar({Key? key, this.onSearch}) : super(key: key);
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -16,12 +17,9 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   String? keywords;
 
-  void goSearchPage() {
+  void goSearchPage() async {
     if (keywords?.isNotEmpty ?? false) {
-      Get.toNamed(
-        '/pages/search/result/index',
-        parameters: {'keyword': keywords!},
-      );
+      widget.onSearch?.call(keywords!);
     } else {
       app.showToast('請輸入搜索內容');
     }
