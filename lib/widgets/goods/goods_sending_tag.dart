@@ -18,6 +18,9 @@ class GoodsSendingTag extends StatelessWidget {
     if (method == 2) {
       background = const Color(0xffffe100);
       text = '免費送貨';
+    } else if (method == 3) {
+      background = const Color(0xff5F97FF);
+      text = '網上兌換';
     }
 
     return Container(
