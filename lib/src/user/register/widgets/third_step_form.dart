@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/common/utils.dart';
-import 'package:yo_gift/src/register/register_controller.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_row.dart';
@@ -16,6 +15,9 @@ import 'package:yo_gift/widgets/flutter_datetime_picker/src/i18n_model.dart';
 import 'package:yo_gift/widgets/form_item.dart';
 import 'package:yo_gift/widgets/gender_select.dart';
 import 'package:yo_gift/widgets/text_form_item.dart';
+
+
+import '../register_controller.dart';
 
 class RegisterThirdStepForm extends StatelessWidget {
   RegisterThirdStepForm({Key? key}) : super(key: key);

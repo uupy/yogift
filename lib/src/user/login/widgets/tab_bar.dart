@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app_theme.dart';
-import 'package:yo_gift/src/login/login_controller.dart';
+
+import '../login_controller.dart';
 
 class LoginTabBar extends StatelessWidget {
   final TabController? controller;

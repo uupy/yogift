@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/register/register_controller.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/form_item.dart';
 import 'package:yo_gift/widgets/text_form_item.dart';
+
+import '../register_controller.dart';
 
 class RegisterSecondStepForm extends StatelessWidget {
   const RegisterSecondStepForm({Key? key}) : super(key: key);

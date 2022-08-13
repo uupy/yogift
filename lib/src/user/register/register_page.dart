@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/register/widgets/second_step_form.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 
 import 'register_controller.dart';
 import 'widgets/first_step_form.dart';
+import 'widgets/second_step_form.dart';
 import 'widgets/third_step_form.dart';
 
 class RegisterPage extends StatefulWidget {
