@@ -27,4 +27,7 @@ class VerificationService {
   /// 核对-验证用户所有权(登入状态) 使用场景：更换手机号第一步
   static Future checkVerifyCode(String code) =>
       http.postJson('/VerificationCode/Verify_Check', data: {'code': code});
+
+  /// 发送-用于验证所有权
+  static Future verifySend() => http.get('/VerificationCode/Verify_Send');
 }

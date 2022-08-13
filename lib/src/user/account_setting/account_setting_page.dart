@@ -139,7 +139,14 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
                       label: '更改電話號碼',
                       content: phone,
                       showBottomBorder: false,
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed('/pages/mine/user-login/set-mobile/index')
+                            ?.then((result) {
+                          if (result == true) {
+                            c.fetchData();
+                          }
+                        });
+                      },
                     ),
                   ],
                 ),

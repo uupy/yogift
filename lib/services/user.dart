@@ -45,7 +45,7 @@ class UserService {
   static Future updateArea(data) => http.postJson('/User/Area_set', data: data);
 
   /// 修改资料-手机号码 上一步：旧手机短信获取操作码
-  static Future updatePhone(data) =>
+  static Future updatePhone(SetPhoneFormVo data) =>
       http.postJson('/User/Phone_set', data: data);
 
   /// 修改资料-同意接收推广告电邮以及好友生日提醒

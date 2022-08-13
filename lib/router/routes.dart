@@ -17,6 +17,7 @@ import 'package:yo_gift/src/user/account_setting/area/area2_page.dart';
 import 'package:yo_gift/src/user/account_setting/edit/edit_page.dart';
 import 'package:yo_gift/src/user/login/login_page.dart';
 import 'package:yo_gift/src/user/register/register_page.dart';
+import 'package:yo_gift/src/user/set_mobile/set_mobile_page.dart';
 import 'package:yo_gift/src/user/set_pwd/set_pwd_page.dart';
 import 'package:yo_gift/src/user/wish/wish_page.dart';
 
@@ -57,6 +58,8 @@ final List<AppRoute> routes = [
       page: AccountSettingArea2Page()),
   const AppRoute(
       name: '/pages/mine/user-login/set-pwd/index', page: SetPwdPage()),
+  const AppRoute(
+      name: '/pages/mine/user-login/set-mobile/index', page: SetMobilePage()),
   const AppRoute(name: '/clause', page: ClausePage()),
   const AppRoute(name: '/problem', page: ProblemPage())
 ];

@@ -103,6 +103,36 @@ class ResetPwdFormVo {
   }
 }
 
+class SetPhoneFormVo {
+  String? code;
+  String? operationcode;
+  String? phone;
+  String? phoneprefix;
+
+  SetPhoneFormVo({
+    this.code,
+    this.operationcode,
+    this.phone,
+    this.phoneprefix,
+  });
+
+  SetPhoneFormVo.fromJson(Map<String, dynamic> json) {
+    code = json['code'];
+    operationcode = json['operationcode'];
+    phone = json['phone'];
+    phoneprefix = json['phoneprefix'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['code'] = code;
+    data['operationcode'] = operationcode;
+    data['phone'] = phone;
+    data['phoneprefix'] = phoneprefix;
+    return data;
+  }
+}
+
 class RegisterFormVo {
   String? phone;
   String? phoneprefix;
