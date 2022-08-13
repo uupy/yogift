@@ -19,15 +19,17 @@ class UserPage extends StatelessWidget implements TabBarPage {
   @override
   PreferredSizeWidget? get appBar {
     return AppBar(
-      leading: null,
+      // leading: null,
       title: const Text('我的'),
       actions: [
-        Container(
-          width: 24.w,
-          margin: EdgeInsets.only(right: 16.w),
-          child: Obx(() {
-            if (controller.isLogged.value) {
+        GetBuilder<UserController>(
+          id: 'UserAppBarAction',
+          init: UserController(),
+          builder: (c) {
+            if (c.isLogged.value) {
               return AppAssetImage(
+                width: 24.w,
+                margin: EdgeInsets.only(right: 16.w),
                 img: 'icon_setting.png',
                 onTap: () {
                   Get.toNamed('/pages/mine/account-setting/index');
@@ -35,7 +37,7 @@ class UserPage extends StatelessWidget implements TabBarPage {
               );
             }
             return Container();
-          }),
+          },
         ),
       ],
     );

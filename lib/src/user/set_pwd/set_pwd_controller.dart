@@ -3,27 +3,21 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
-import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/models/verification.dart';
 import 'package:yo_gift/services/user.dart';
 import 'package:yo_gift/services/verification.dart';
-import 'package:yo_gift/src/index/index_controller.dart';
 
-class RegisterController extends GetxController {
-  final formData = RegisterFormVo(
-    acceptnotice: 1,
-  );
-  final updateFormData = UpdateInfoFormVo(
-    acceptnotice: 1,
-  );
+class SetPwdController extends GetxController {
+  final formData1 = CheckCodeDataVo();
+  final formData2 = ResetPwdFormVo();
   final formKey = GlobalKey<FormState>();
   final updateFormKey = GlobalKey<FormState>();
+  final isChecking = false.obs;
   final submitting = false.obs;
   final step = 1.obs;
 
   String? confirmPassword;
-  bool isAgreeTerms = true;
 
   /// 轮询间隔时间
   static const _timeout = Duration(seconds: 1);
@@ -35,8 +29,8 @@ class RegisterController extends GetxController {
   int countdown = 0;
 
   bool get phoneNotEmpty {
-    final prefixNotEmpty = formData.phoneprefix?.isNotEmpty ?? false;
-    final phoneNotEmpty = formData.phone?.isNotEmpty ?? false;
+    final prefixNotEmpty = formData1.prefix?.isNotEmpty ?? false;
+    final phoneNotEmpty = formData1.phone?.isNotEmpty ?? false;
     return prefixNotEmpty && phoneNotEmpty;
   }
 
@@ -45,77 +39,61 @@ class RegisterController extends GetxController {
   }
 
   bool get nextStepAble {
-    final codeNotEmpty = formData.code?.isNotEmpty ?? false;
+    final codeNotEmpty = formData1.code?.isNotEmpty ?? false;
     return codeNotEmpty && phoneNotEmpty;
   }
 
-  /// 是否可提交注册
+  /// 是否可提交修改
   bool get submitAble {
-    final pwdNotEmpty = formData.password?.isNotEmpty ?? false;
+    final pwdNotEmpty = formData2.password?.isNotEmpty ?? false;
     final pwdNotEmpty2 = confirmPassword?.isNotEmpty ?? false;
     return !submitting.value && pwdNotEmpty && pwdNotEmpty2;
   }
 
-  /// 是否可更新用户信息
-  bool get updateAble {
-    final notEmpty = updateFormData.birthday?.isNotEmpty ?? false;
-    return !submitting.value && notEmpty;
-  }
-
   Future getCode() async {
     final data = SendDataVo(
-      phone: formData.phone,
-      prefix: formData.phoneprefix,
+      phone: formData1.phone,
+      prefix: formData1.prefix,
     );
-    await VerificationService.getCodeForRegister(data);
+    await VerificationService.getCodeForResetPwd(data);
     runTimer();
+  }
+
+  Future checkCode() async {
+    isChecking(true);
+    update(['FirstStepForm']);
+    try {
+      await VerificationService.checkResetPwdCode(formData1);
+      step(2);
+    } finally {
+      isChecking(false);
+      update(['FirstStepForm']);
+    }
   }
 
   /// 提交
   Future onSubmit() async {
-    final form = formKey.currentState;
-    if (submitting.value) return;
-    if (form?.validate() ?? false) {
-      form?.save();
-      submitting(true);
-      update();
-      try {
-        final res = await UserService.register(formData);
-        final data = res.data ?? {};
-        AuthDataVo result = AuthDataVo.fromJson(data['data'] ?? {});
-        app.showToast('註冊成功');
-
-        await authToken.set(result.accessToken);
-        step(3);
-      } finally {
-        submitting(false);
-        update();
-      }
-    }
-  }
-
-  /// 更新用户信息
-  Future onSubmitUpdate() async {
     final form = updateFormKey.currentState;
     if (submitting.value) return;
     if (form?.validate() ?? false) {
       form?.save();
       submitting(true);
-      update();
+      update(['SecondStepForm']);
       try {
-        await UserService.updateInfo(updateFormData);
-        goBackHome();
+        formData2.code = formData1.code;
+        formData2.phone = formData1.phone;
+        formData2.phoneprefix = formData1.prefix;
+
+        await UserService.resetPassword(formData2);
+
+        app.showToast('修改成功');
+
+        Get.back(result: true);
       } finally {
         submitting(false);
-        update();
+        update(['SecondStepForm']);
       }
     }
-  }
-
-  void goBackHome() {
-    final indexController = Get.find<IndexController>();
-    indexController.switchTabBar(0);
-    Get.offAllNamed('/index');
   }
 
   /// 开启定时器

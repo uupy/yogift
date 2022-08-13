@@ -65,7 +65,7 @@ class UserService {
       http.postJson('/User/BindPassword', data: {'password': value});
 
   /// 重置密码:通过短信验证码进行操作
-  static Future resetPassword(data) =>
+  static Future resetPassword(ResetPwdFormVo data) =>
       http.postJson('/User/ResetPassword', data: data);
 
   /// 获取:用户信息

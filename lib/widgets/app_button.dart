@@ -1,6 +1,6 @@
-import 'package:yo_gift/common/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:yo_gift/common/app_theme.dart';
 
 class AppButton extends StatelessWidget {
   final String? text;
@@ -9,6 +9,7 @@ class AppButton extends StatelessWidget {
   final bool block;
   final bool round;
   final bool disabled;
+  final bool shadow;
   final Color? backgroundColor;
   final Color? borderColor;
   final EdgeInsetsGeometry? padding;
@@ -28,6 +29,7 @@ class AppButton extends StatelessWidget {
     this.block = false,
     this.round = true,
     this.disabled = false,
+    this.shadow = false,
     this.backgroundColor = AppTheme.primaryColor,
     this.borderColor = AppTheme.primaryColor,
     this.padding,
@@ -96,6 +98,10 @@ class AppButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(_radius),
           ),
         ),
+        shadowColor: MaterialStateProperty.all(
+          _background?.withOpacity(0.4),
+        ),
+        elevation: MaterialStateProperty.all(shadow ? 4 : 0),
         side: MaterialStateProperty.all(
           BorderSide(
             color: _borderColor ?? AppTheme.primaryColor,

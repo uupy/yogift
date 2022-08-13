@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/src/index/index_controller.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 import 'package:yo_gift/widgets/menu_row/menu_group.dart';
@@ -46,9 +47,14 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
           builder: (c) {
             final data = c.userInfo;
             String address = '';
+            String phone = '';
 
             if (data?.area0?.isNotEmpty ?? false) {
-              address = '${data?.area0} ${data?.area1}';
+              address = '${data?.area0}${data?.area1}';
+            }
+
+            if (data?.phone?.isNotEmpty ?? false) {
+              phone = '${data?.phonePrefix ?? ''} ${data?.phone ?? ''}';
             }
 
             return Column(
@@ -125,18 +131,29 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
                   children: [
                     MenuRow(
                       label: '更新密碼',
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed('/pages/mine/user-login/set-pwd/index');
+                      },
                     ),
                     AccountSettingMenuRow(
                       label: '更改電話號碼',
-                      content: '${data?.phonePrefix} ${data?.phone}',
+                      content: phone,
                       showBottomBorder: false,
                       onTap: () {},
                     ),
                   ],
                 ),
                 AppCard(
-                  onTap: () {},
+                  onTap: () async {
+                    final result = await app.confirm(contentText: '確定要退出登錄嗎？');
+                    if (result == true) {
+                      app.logout(success: () {
+                        final indexController = Get.find<IndexController>();
+                        Get.offAllNamed('/index');
+                        indexController.switchTabBar(0);
+                      });
+                    }
+                  },
                   margin: EdgeInsets.all(20.w),
                   blurRadius: 2.r,
                   child: Center(

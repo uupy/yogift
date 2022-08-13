@@ -73,6 +73,36 @@ class ModifyPwdFormVo {
   }
 }
 
+class ResetPwdFormVo {
+  String? code;
+  String? password;
+  String? phone;
+  String? phoneprefix;
+
+  ResetPwdFormVo({
+    this.code,
+    this.password,
+    this.phone,
+    this.phoneprefix,
+  });
+
+  ResetPwdFormVo.fromJson(Map<String, dynamic> json) {
+    code = json['code'];
+    password = json['password'];
+    phone = json['phone'];
+    phoneprefix = json['phoneprefix'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['code'] = code;
+    data['password'] = password;
+    data['phone'] = phone;
+    data['phoneprefix'] = phoneprefix;
+    return data;
+  }
+}
+
 class RegisterFormVo {
   String? phone;
   String? phoneprefix;

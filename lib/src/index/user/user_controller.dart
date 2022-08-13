@@ -34,6 +34,7 @@ class UserController extends GetxController {
   }
 
   Future init() async {
+    isLogged(false);
     final _token = await authToken.get();
     if (_token?.isNotEmpty ?? false) {
       final res = await UserService.getInfo();
@@ -41,6 +42,6 @@ class UserController extends GetxController {
       userInfo = UserInfoVo.fromJson(data['data'] ?? {});
       isLogged(true);
     }
-    update(['UserHeaderInfo']);
+    update(['UserHeaderInfo', 'UserAppBarAction']);
   }
 }

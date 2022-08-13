@@ -1,15 +1,16 @@
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/assets/fonts/iconfont.dart';
-import 'package:yo_gift/common/app_theme.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
+import 'package:yo_gift/widgets/app_button.dart';
 
 import 'app_storage.dart';
+import 'custom_dialog/custom_dialog.dart';
 
 class App {
   App._internal();
@@ -122,81 +123,110 @@ class App {
     void Function()? onCancel,
     void Function()? onConfirm,
   }) async {
-    Widget cancelBtn = Text(
-      cancelText ?? '取消',
-      style: const TextStyle(
-        color: AppTheme.contentColor,
-      ),
-    );
-    Widget confirmBtn = Text(
-      confirmText ?? '确认',
-      style: const TextStyle(
-        color: AppTheme.primaryColor,
-      ),
-    );
-
-    if (cupertinoStyle ?? false) {
-      return await showDialog(
-        context: context ?? Get.context!,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: Text(title ?? '温馨提示'),
-            content: content ?? Text(contentText ?? ''),
-            actions: [
-              CupertinoDialogAction(
-                onPressed: () {
-                  onCancel?.call();
-                  Get.back(result: false);
-                },
-                child: cancelBtn,
+    return await showAnimationDialog<bool>(
+      context: Get.context!,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            height: 182.w,
+            margin: EdgeInsets.all(20.w),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(20.w),
               ),
-              CupertinoDialogAction(
-                onPressed: () {
-                  onConfirm?.call();
-                  Get.back(result: true);
-                },
-                child: confirmBtn,
-              ),
-            ],
-          );
-        },
-      );
-    }
-
-    return await Get.defaultDialog(
-      title: title ?? '温馨提示',
-      content: content ?? Text(contentText ?? ''),
-      radius: 8,
-      barrierDismissible: barrierDismissible ?? true,
-      actions: [
-        TextButton(
-          onPressed: () {
-            onCancel?.call();
-            Get.back(result: false);
-          },
-          child: cancelBtn,
-        ),
-        TextButton(
-          onPressed: () {
-            onConfirm?.call();
-            Get.back(result: true);
-          },
-          child: confirmBtn,
-        ),
-      ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 50.w,
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Text(title ?? ''),
+                      ),
+                      Positioned(
+                        top: 15.w,
+                        right: 20.w,
+                        child: AppAssetImage(
+                          width: 16.w,
+                          img: 'icon_close.png',
+                          onTap: () {
+                            Get.back(result: false);
+                            onCancel?.call();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: content ??
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Center(
+                          child: Text(
+                            contentText ?? '',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20.w, 10.w, 20.w, 28.w),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: AppButton(
+                          text: cancelText ?? '取消',
+                          backgroundColor: const Color(0xfffffdeb),
+                          onPressed: () {
+                            Get.back(result: false);
+                            onCancel?.call();
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 15.w),
+                      Expanded(
+                        child: AppButton(
+                          text: confirmText ?? '確定',
+                          shadow: true,
+                          onPressed: () {
+                            Get.back(result: true);
+                            onConfirm?.call();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   /// 退出登录
-  Future logout() async {
+  Future logout({Function()? success}) async {
     await authToken.remove();
     await loginUser.remove();
-    if (Get.currentRoute != '/login') {
-      Get.toNamed('/login');
+    if (success != null) {
+      success.call();
+    } else {
+      if (Get.currentRoute != '/login') {
+        Get.toNamed('/login');
+      }
     }
   }
 
-  /// 检查相机权限
+  /// 底部彈出層
   Future showBottomModal<T>({
     required BuildContext context,
     required Widget Function(BuildContext) builder,

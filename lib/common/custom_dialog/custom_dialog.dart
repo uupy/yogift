@@ -11,7 +11,7 @@ enum TransitionType {
   size,
 }
 
-Future<Object?> showAnimationDialog<T>({
+Future showAnimationDialog<T>({
   required BuildContext context,
   bool barrierDismissible = true,
   Widget? child,
@@ -20,7 +20,7 @@ Future<Object?> showAnimationDialog<T>({
   RouteSettings? routeSettings,
   TransitionType transitionType = TransitionType.inFromBottom,
 }) {
-  assert(child == null && builder == null);
+  // assert(child == null && builder == null);
   assert(debugCheckHasMaterialLocalizations(context));
 
   final ThemeData theme = Theme.of(context);

@@ -62,6 +62,7 @@ class LoginController extends GetxController {
     if (form?.validate() ?? false) {
       form?.save();
       submitting(true);
+      update();
       try {
         dynamic res;
         if (loginType == 0) {
