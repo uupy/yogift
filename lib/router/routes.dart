@@ -13,6 +13,10 @@ import 'package:yo_gift/src/search/category/category_page.dart';
 import 'package:yo_gift/src/search/result/result_page.dart';
 import 'package:yo_gift/src/shop/all_brands/all_brands_page.dart';
 import 'package:yo_gift/src/shop/detail/detail_page.dart';
+import 'package:yo_gift/src/user/account_setting/account_setting_page.dart';
+import 'package:yo_gift/src/user/account_setting/area/area1_page.dart';
+import 'package:yo_gift/src/user/account_setting/area/area2_page.dart';
+import 'package:yo_gift/src/user/account_setting/edit/edit_page.dart';
 import 'package:yo_gift/src/user/wish/wish_page.dart';
 
 import 'route.dart';
@@ -39,6 +43,17 @@ final List<AppRoute> routes = [
   const AppRoute(
       name: '/pages/charity/detail/index', page: CharityDetailPage()),
   const AppRoute(name: '/pages/wish/index/index', page: UserWishPage()),
+  const AppRoute(
+      name: '/pages/mine/account-setting/index', page: AccountSettingPage()),
+  const AppRoute(
+      name: '/pages/mine/account-setting/set-txt-val/index',
+      page: AccountSettingEditPage()),
+  const AppRoute(
+      name: '/pages/mine/account-setting/select-area/index',
+      page: AccountSettingArea1Page()),
+  const AppRoute(
+      name: '/pages/mine/account-setting/select-area/index2',
+      page: AccountSettingArea2Page()),
   const AppRoute(name: '/clause', page: ClausePage()),
   const AppRoute(name: '/problem', page: ProblemPage())
 ];

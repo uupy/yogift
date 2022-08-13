@@ -8,6 +8,7 @@ class MenuRow extends StatelessWidget {
   final String? label;
   final bool arrow;
   final bool showBottomBorder;
+  final Widget? suffix;
   final Function()? onTap;
 
   const MenuRow({
@@ -16,6 +17,7 @@ class MenuRow extends StatelessWidget {
     this.label,
     this.arrow = true,
     this.showBottomBorder = true,
+    this.suffix,
     this.onTap,
   }) : super(key: key);
 
@@ -38,11 +40,12 @@ class MenuRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       border: _border,
       prefix: [
-        AppAssetImage(
-          img: icon,
-          width: 20.w,
-          margin: EdgeInsets.only(right: 8.w),
-        ),
+        if (icon?.isNotEmpty ?? false)
+          AppAssetImage(
+            img: icon,
+            width: 20.w,
+            margin: EdgeInsets.only(right: 8.w),
+          ),
       ],
       expanded: Text(
         label ?? '',
@@ -51,6 +54,7 @@ class MenuRow extends StatelessWidget {
         ),
       ),
       suffix: [
+        if (suffix != null) suffix!,
         if (arrow)
           AppAssetImage(
             img: 'icon_arrow_right2.png',

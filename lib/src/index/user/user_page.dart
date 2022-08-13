@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/router/tab_bar.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/header_background.dart';
+import 'package:yo_gift/widgets/menu_row/menu_group.dart';
 
 import 'user_controller.dart';
+import 'widgets/contact_details.dart';
 import 'widgets/header_info.dart';
-import 'widgets/menu_group.dart';
 
 class UserPage extends StatelessWidget implements TabBarPage {
   UserPage({Key? key}) : super(key: key);
@@ -27,7 +29,9 @@ class UserPage extends StatelessWidget implements TabBarPage {
             if (controller.isLogged.value) {
               return AppAssetImage(
                 img: 'icon_setting.png',
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed('/pages/mine/account-setting/index');
+                },
               );
             }
             return Container();
@@ -49,9 +53,21 @@ class UserPage extends StatelessWidget implements TabBarPage {
               const UserHeaderInfo(),
             ],
           ),
-          UserMenuGroup(menus: controller.menus1),
-          UserMenuGroup(menus: controller.menus2),
-          UserMenuGroup(menus: controller.menus3),
+          MenuGroup(menus: controller.menus1),
+          MenuGroup(menus: controller.menus2),
+          MenuGroup(
+            menus: controller.menus3,
+            onTap: (key) {
+              if (key == 'contact') {
+                app.showBottomModal(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const ContactDetails();
+                  },
+                );
+              }
+            },
+          ),
           const SizedBox(height: 100),
         ],
       ),

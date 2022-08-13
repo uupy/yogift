@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
-import 'package:yo_gift/assets/fonts/iconfont.dart';
-import 'package:yo_gift/common/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:yo_gift/assets/fonts/iconfont.dart';
+import 'package:yo_gift/common/app_theme.dart';
 
 import 'app_storage.dart';
 
@@ -197,22 +197,21 @@ class App {
   }
 
   /// 检查相机权限
-  Future<bool> checkCameraPermission() async {
-    final permission = Permission.camera;
-    final status = await permission.status;
-    if (status.isPermanentlyDenied) {
-      toastError('请打开相机权限');
-      openAppSettings();
-      return false;
-    } else if (status.isDenied) {
-      final result = await permission.request();
-      if (!result.isGranted) {
-        toastError('请打开相机权限');
-        openAppSettings();
-        return false;
-      }
-    }
-    return true;
+  Future showBottomModal<T>({
+    required BuildContext context,
+    required Widget Function(BuildContext) builder,
+  }) async {
+    return await showModalBottomSheet<T>(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.w),
+          topRight: Radius.circular(20.w),
+        ),
+      ),
+      builder: builder,
+    );
   }
 }
 

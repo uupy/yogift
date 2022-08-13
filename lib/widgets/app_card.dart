@@ -11,6 +11,8 @@ class AppCard extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final BoxBorder? border;
   final bool showBorder;
+  final HitTestBehavior? behavior;
+  final Function()? onTap;
 
   const AppCard({
     Key? key,
@@ -23,10 +25,24 @@ class AppCard extends StatelessWidget {
     this.padding,
     this.border,
     this.showBorder = true,
+    this.behavior,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (onTap != null) {
+      return GestureDetector(
+        onTap: onTap,
+        behavior: behavior ?? HitTestBehavior.opaque,
+        child: buildContainer(),
+      );
+    }
+
+    return buildContainer();
+  }
+
+  Widget buildContainer() {
     BoxBorder? _border = border;
 
     if (showBorder && border == null) {
