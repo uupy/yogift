@@ -117,6 +117,7 @@ class App {
     String? cancelText,
     String? confirmText,
     Widget? content,
+    List<Widget>? actions,
     bool? barrierDismissible,
     bool? cupertinoStyle,
     BuildContext? context,
@@ -180,29 +181,31 @@ class App {
                 Padding(
                   padding: EdgeInsets.fromLTRB(20.w, 10.w, 20.w, 28.w),
                   child: Row(
-                    children: [
-                      Expanded(
-                        child: AppButton(
-                          text: cancelText ?? '取消',
-                          backgroundColor: const Color(0xfffffdeb),
-                          onPressed: () {
-                            Get.back(result: false);
-                            onCancel?.call();
-                          },
-                        ),
-                      ),
-                      SizedBox(width: 15.w),
-                      Expanded(
-                        child: AppButton(
-                          text: confirmText ?? '確定',
-                          shadow: true,
-                          onPressed: () {
-                            Get.back(result: true);
-                            onConfirm?.call();
-                          },
-                        ),
-                      ),
-                    ],
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: actions ??
+                        [
+                          Expanded(
+                            child: AppButton(
+                              text: cancelText ?? '取消',
+                              backgroundColor: const Color(0xfffffdeb),
+                              onPressed: () {
+                                Get.back(result: false);
+                                onCancel?.call();
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 15.w),
+                          Expanded(
+                            child: AppButton(
+                              text: confirmText ?? '確定',
+                              shadow: true,
+                              onPressed: () {
+                                Get.back(result: true);
+                                onConfirm?.call();
+                              },
+                            ),
+                          ),
+                        ],
                   ),
                 ),
               ],

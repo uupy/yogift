@@ -16,6 +16,7 @@ import 'package:yo_gift/src/user/account_setting/area/area1_page.dart';
 import 'package:yo_gift/src/user/account_setting/area/area2_page.dart';
 import 'package:yo_gift/src/user/account_setting/edit/edit_page.dart';
 import 'package:yo_gift/src/user/login/login_page.dart';
+import 'package:yo_gift/src/user/notify_setting/notify_setting_page.dart';
 import 'package:yo_gift/src/user/register/register_page.dart';
 import 'package:yo_gift/src/user/set_mobile/set_mobile_page.dart';
 import 'package:yo_gift/src/user/set_pwd/set_pwd_page.dart';
@@ -60,6 +61,8 @@ final List<AppRoute> routes = [
       name: '/pages/mine/user-login/set-pwd/index', page: SetPwdPage()),
   const AppRoute(
       name: '/pages/mine/user-login/set-mobile/index', page: SetMobilePage()),
+  const AppRoute(
+      name: '/pages/mine/notify-setting/index', page: NotifySettingPage()),
   const AppRoute(name: '/clause', page: ClausePage()),
   const AppRoute(name: '/problem', page: ProblemPage())
 ];

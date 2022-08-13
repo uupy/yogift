@@ -14,7 +14,11 @@ class UserController extends GetxController {
     MenuItem(icon: 'icon_mine_invitation.png', label: '邀請朋友即時有禮'),
   ];
   final menus3 = [
-    MenuItem(icon: 'icon_mine_notify.png', label: '通知設定'),
+    MenuItem(
+      icon: 'icon_mine_notify.png',
+      label: '通知設定',
+      path: '/pages/mine/notify-setting/index',
+    ),
     MenuItem(icon: 'icon_mine_question.png', label: '常見問題', path: './problem'),
     MenuItem(
       icon: 'icon_mine_contact.png',
