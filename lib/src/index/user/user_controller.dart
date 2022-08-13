@@ -19,13 +19,21 @@ class UserController extends GetxController {
       label: '通知設定',
       path: '/pages/mine/notify-setting/index',
     ),
-    MenuItem(icon: 'icon_mine_question.png', label: '常見問題', path: './problem'),
+    MenuItem(
+      icon: 'icon_mine_question.png',
+      label: '常見問題',
+      path: '/pages/common/rich-txt/index?type=help',
+    ),
     MenuItem(
       icon: 'icon_mine_contact.png',
       label: '聯絡我們',
       key: 'contact',
     ),
-    MenuItem(icon: 'icon_mine_terms.png', label: '條款及細則', path: './clause'),
+    MenuItem(
+      icon: 'icon_mine_terms.png',
+      label: '條款及細則',
+      path: '/pages/common/rich-txt/index?type=clause',
+    ),
   ];
 
   UserInfoVo? userInfo;

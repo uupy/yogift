@@ -109,7 +109,9 @@ class LoginForm extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(top: 14.w),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed('/pages/mine/user-login/set-pwd/index');
+                  },
                   child: Text(
                     '無法登入？',
                     style: TextStyle(

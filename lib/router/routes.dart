@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
 import 'package:yo_gift/src/charity/detail/detail_page.dart';
-import 'package:yo_gift/src/clause/clause_page.dart';
+import 'package:yo_gift/src/common/rich_text/rich_txt_page.dart';
 import 'package:yo_gift/src/goods/ask_friend/ask_friend_page.dart';
 import 'package:yo_gift/src/goods/detail/detail_page.dart';
 import 'package:yo_gift/src/goods/purchase/purchase_page.dart';
 import 'package:yo_gift/src/index/index_page.dart';
 import 'package:yo_gift/src/p2/guide/guide_page.dart';
-import 'package:yo_gift/src/problem/problem_page.dart';
 import 'package:yo_gift/src/search/category/category_page.dart';
 import 'package:yo_gift/src/search/result/result_page.dart';
 import 'package:yo_gift/src/shop/all_brands/all_brands_page.dart';
@@ -63,6 +62,5 @@ final List<AppRoute> routes = [
       name: '/pages/mine/user-login/set-mobile/index', page: SetMobilePage()),
   const AppRoute(
       name: '/pages/mine/notify-setting/index', page: NotifySettingPage()),
-  const AppRoute(name: '/clause', page: ClausePage()),
-  const AppRoute(name: '/problem', page: ProblemPage())
+  const AppRoute(name: '/pages/common/rich-txt/index', page: RichTxtPage()),
 ];

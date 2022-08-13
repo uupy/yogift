@@ -133,7 +133,10 @@ class _SenderInfoState extends State<SenderInfo> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed(
+                              '/pages/common/rich-txt/index?type=clause');
+                        },
                         child: Text(
                           '用户私隱及使用條款',
                           style: TextStyle(
