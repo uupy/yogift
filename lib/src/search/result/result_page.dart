@@ -44,6 +44,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
           ),
           AppListView<GiftVo>(
             emptyPadding: EdgeInsets.fromLTRB(50.w, 100.w, 50.w, 0),
+            waterDropColor: const Color.fromRGBO(0, 0, 0, 0.26),
             fetch: controller.queryList,
             controller: controller.listController,
             colCount: 2,
@@ -51,7 +52,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
               controller.total = list.length;
               controller.update(['ToolBar']);
             },
-            itemBuilder: (items, index, list) {
+            itemsBuilder: (items, index, list) {
               return Container(
                 height: 308.w,
                 margin: EdgeInsets.symmetric(horizontal: 12.w),

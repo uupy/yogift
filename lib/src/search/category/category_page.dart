@@ -55,7 +55,7 @@ class _SearchCategoryPageState extends State<SearchCategoryPage> {
           controller.total = list.length;
           controller.update(['ToolBar']);
         },
-        itemBuilder: (items, index, list) {
+        itemsBuilder: (items, index, list) {
           return Container(
             height: 308.w,
             margin: EdgeInsets.symmetric(horizontal: 12.w),

@@ -41,15 +41,11 @@ class _UserWishPageState extends State<UserWishPage> {
           ),
           AppListView<UserFavoritesItemVo>(
             emptyPadding: EdgeInsets.fromLTRB(50.w, 100.w, 50.w, 0),
+            waterDropColor: const Color.fromRGBO(0, 0, 0, 0.26),
             fetch: controller.queryList,
             controller: controller.listController,
             colCount: 1,
-            itemBuilder: (items, index, list) {
-              if (items.isEmpty) {
-                return Container();
-              }
-
-              final item = items.first;
+            itemBuilder: (item, index, list) {
               final buyPrice = item.buyPrice;
 
               return AppCard(

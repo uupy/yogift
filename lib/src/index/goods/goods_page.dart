@@ -62,7 +62,7 @@ class GoodsPage extends StatelessWidget implements TabBarPage {
           SizedBox(height: 20),
         ],
       ),
-      itemBuilder: (items, index, list) {
+      itemsBuilder: (items, index, list) {
         return Container(
           height: 308.w,
           margin: EdgeInsets.symmetric(horizontal: 12.w),

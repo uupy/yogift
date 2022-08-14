@@ -8,7 +8,9 @@ import 'app_list_controller.dart';
 
 typedef FetchRequest<T> = Future<List<T>> Function(Map<String, dynamic> params);
 
-typedef ItemBuilder<T> = Widget Function(
+typedef ItemBuilder<T> = Widget Function(T item, int index, List<T> list);
+
+typedef ItemsBuilder<T> = Widget Function(
     List<T> items, int index, List<T> list);
 
 /// 实现上拉加载，下拉刷新
@@ -16,35 +18,42 @@ typedef ItemBuilder<T> = Widget Function(
 ///
 class AppListView<T> extends StatefulWidget {
   final FetchRequest<T>? fetch;
+  final AppListController<T>? controller;
   final ItemBuilder<T>? itemBuilder;
+  final ItemsBuilder<T>? itemsBuilder;
+  final int colCount;
   final bool immediate;
   final bool hasPage;
-  final AppListController<T>? controller;
   final Widget? prefix;
   final Widget? empty;
   final Widget? firstTimeLoading;
   final double? footerHeight;
   final EdgeInsetsGeometry? footerPadding;
   final EdgeInsetsGeometry? emptyPadding;
-  final int colCount;
+  final Color? waterDropColor;
+  final Color? waterDropTextColor;
   final Function(List<T> list)? onLoaded;
 
   const AppListView({
     Key? key,
     @required this.fetch,
-    @required this.itemBuilder,
+    this.controller,
+    this.itemBuilder,
+    this.itemsBuilder,
+    this.colCount = 1,
     this.immediate = true,
     this.hasPage = true,
-    this.controller,
     this.prefix,
     this.empty,
     this.firstTimeLoading,
     this.footerHeight,
     this.footerPadding,
     this.emptyPadding,
-    this.colCount = 1,
+    this.waterDropColor,
+    this.waterDropTextColor,
     this.onLoaded,
-  })  : assert(fetch != null && itemBuilder != null && colCount > 0),
+  })  : assert(fetch != null && colCount > 0),
+        assert(colCount > 1 ? itemsBuilder != null : itemBuilder != null),
         super(key: key);
 
   @override
@@ -101,10 +110,13 @@ class _AppListView<T> extends State<AppListView<T>> {
         await _controller.onLoading();
         widget.onLoaded?.call(_controller.list);
       },
-      header: const WaterDropHeader(
-        waterDropColor: AppTheme.primaryColor,
-        complete: Text("刷新成功", style: TextStyle(color: Colors.grey)),
-        refresh: AppListLoading(),
+      header: WaterDropHeader(
+        waterDropColor: widget.waterDropColor ?? AppTheme.primaryColor,
+        complete: Text(
+          "刷新成功",
+          style: TextStyle(color: widget.waterDropTextColor ?? Colors.grey),
+        ),
+        refresh: const AppListLoading(),
       ),
       footer: CustomFooter(
         height: widget.footerHeight ?? 60,
@@ -146,7 +158,7 @@ class _AppListView<T> extends State<AppListView<T>> {
             if (_controller.loading && !_controller.isPullDown) {
               return _buildProgressIndicator();
             }
-            return widget.empty ?? EmptyBox(padding: widget.emptyPadding);
+            return widget.empty ?? const EmptyBox();
           }
 
           if (index == itemCount - 1) {
@@ -159,7 +171,11 @@ class _AppListView<T> extends State<AppListView<T>> {
             }
           }
 
-          return widget.itemBuilder!(items, index, list);
+          if (widget.colCount == 1) {
+            return widget.itemBuilder!(items[0], index, list);
+          }
+
+          return widget.itemsBuilder!(items, index, list);
         },
       ),
     );
