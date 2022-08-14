@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:like_button/like_button.dart';
 import 'package:yo_gift/common/app_theme.dart';
 import 'package:yo_gift/services/user_favorites.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
@@ -167,29 +168,49 @@ class _GoodsItemState extends State<GoodsItem> {
               children: [
                 buildFooterItem(
                   text: '贈送好友',
-                  icon: 'icon_mine_gift.png',
+                  iconImg: 'icon_mine_gift.png',
                   onTap: () {
                     handleAction({'buyType': '2'});
                   },
                 ),
                 buildFooterItem(
                   text: '拜託好友',
-                  icon: 'icon_please.png',
+                  iconImg: 'icon_please.png',
                   onTap: () {
                     handleAction({'buyType': '3'});
                   },
                 ),
                 buildFooterItem(
+                  custom: LikeButton(
+                    size: 20.w,
+                    onTap: (isLike) async {
+                      if (widget.guid != null) {
+                        await UserFavoritesService.addOrDelete(widget.guid!);
+                        setState(() {
+                          _favorite = _favorite == 0 ? 1 : 0;
+                        });
+                      }
+                      return _favorite == 1;
+                    },
+                    likeBuilder: (isLike) {
+                      return AppAssetImage(
+                        img: 'icon_heart_$_favorite.png',
+                        width: 20.w,
+                      );
+                    },
+                    likeCount: 1,
+                    countPostion: CountPostion.bottom,
+                    countBuilder: (count, isLiked, text) {
+                      return Text(
+                        '願望清單',
+                        style: TextStyle(
+                          fontSize: 11.sp,
+                          color: const Color.fromRGBO(0, 0, 0, 0.9),
+                        ),
+                      );
+                    },
+                  ),
                   text: '願望清單',
-                  icon: 'icon_heart_$_favorite.png',
-                  onTap: () async {
-                    if (widget.guid != null) {
-                      await UserFavoritesService.addOrDelete(widget.guid!);
-                      setState(() {
-                        _favorite = _favorite == 0 ? 1 : 0;
-                      });
-                    }
-                  },
                 ),
               ],
             ),
@@ -228,17 +249,19 @@ class _GoodsItemState extends State<GoodsItem> {
     );
   }
 
-  Widget buildFooterItem({String? text, String? icon, Function()? onTap}) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        behavior: HitTestBehavior.opaque,
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 12.w),
-          child: Column(
+  Widget buildFooterItem({
+    String? text,
+    String? iconImg,
+    Widget? custom,
+    Function()? onTap,
+  }) {
+    final child = Padding(
+      padding: EdgeInsets.symmetric(vertical: 12.w),
+      child: custom ??
+          Column(
             children: [
               AppAssetImage(
-                img: icon,
+                img: iconImg,
                 width: 20.w,
               ),
               Text(
@@ -250,7 +273,17 @@ class _GoodsItemState extends State<GoodsItem> {
               ),
             ],
           ),
-        ),
+    );
+
+    if (onTap == null) {
+      return Expanded(child: child);
+    }
+
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: child,
       ),
     );
   }
