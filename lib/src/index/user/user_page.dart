@@ -19,14 +19,13 @@ class UserPage extends StatelessWidget implements TabBarPage {
   @override
   PreferredSizeWidget? get appBar {
     return AppBar(
-      // leading: null,
       title: const Text('我的'),
       actions: [
         GetBuilder<UserController>(
           id: 'UserAppBarAction',
           init: UserController(),
           builder: (c) {
-            if (c.isLogged.value) {
+            if (c.isLogged) {
               return AppAssetImage(
                 width: 24.w,
                 margin: EdgeInsets.only(right: 16.w),

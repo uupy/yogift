@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
-import 'package:yo_gift/common/app_storage.dart';
+import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/models/user.dart';
-import 'package:yo_gift/services/user.dart';
 import 'package:yo_gift/widgets/menu_row/menu_item.dart';
 
 class UserController extends GetxController {
@@ -36,8 +35,11 @@ class UserController extends GetxController {
     ),
   ];
 
-  UserInfoVo? userInfo;
-  final isLogged = false.obs;
+  UserInfoVo? userInfo = app.userInfo;
+
+  bool get isLogged {
+    return userInfo?.id?.isNotEmpty ?? false;
+  }
 
   @override
   void onInit() {
@@ -46,14 +48,8 @@ class UserController extends GetxController {
   }
 
   Future init() async {
-    isLogged(false);
-    final _token = await authToken.get();
-    if (_token?.isNotEmpty ?? false) {
-      final res = await UserService.getInfo();
-      final data = res.data ?? {};
-      userInfo = UserInfoVo.fromJson(data['data'] ?? {});
-      isLogged(true);
-    }
+    await app.updateUserInfo();
+    userInfo = app.userInfo;
     update(['UserHeaderInfo', 'UserAppBarAction']);
   }
 }

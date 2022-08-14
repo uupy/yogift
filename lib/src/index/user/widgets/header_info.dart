@@ -16,11 +16,10 @@ class UserHeaderInfo extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 20.w),
       child: GetBuilder<UserController>(
         id: 'UserHeaderInfo',
-        init: UserController(),
         builder: (c) {
           return Column(
             children: [
-              !c.isLogged.value
+              !c.isLogged
                   ? HeaderNotLogged(
                       onLogged: () {
                         c.init();

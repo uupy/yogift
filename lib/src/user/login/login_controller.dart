@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_controller.dart';
-import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/models/verification.dart';
 import 'package:yo_gift/services/user.dart';
@@ -71,9 +70,9 @@ class LoginController extends GetxController {
           res = await UserService.loginByCode(formData);
         }
         final data = res.data ?? {};
-        AuthDataVo result = AuthDataVo.fromJson(data['data'] ?? {});
+        await app.updateAuthData(data['data'] ?? {});
+        await app.updateUserInfo();
         app.showToast('登入成功');
-        await authToken.set(result.accessToken);
         Get.back(result: true);
       } finally {
         submitting(false);

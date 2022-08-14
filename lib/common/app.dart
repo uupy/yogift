@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/assets/fonts/iconfont.dart';
+import 'package:yo_gift/models/user.dart';
+import 'package:yo_gift/services/user.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 
@@ -24,13 +26,17 @@ class App {
   /// 是否有网络
   bool hasNetWork = true;
   String deviceModel = '';
+  AuthDataVo? authData;
+  UserInfoVo? userInfo;
 
+  /// 初始化
   Future init(BuildContext context) async {
     fToast ??= FToast();
     fToast?.init(context);
     await getDeviceModel();
   }
 
+  /// 获取设备型号
   Future getDeviceModel() async {
     final deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
@@ -111,6 +117,7 @@ class App {
     toast(msg, iconData: IconFont.icon_fail);
   }
 
+  /// 确认弹窗
   Future<bool?> confirm({
     String? title,
     String? contentText,
@@ -216,19 +223,6 @@ class App {
     );
   }
 
-  /// 退出登录
-  Future logout({Function()? success}) async {
-    await authToken.remove();
-    await loginUser.remove();
-    if (success != null) {
-      success.call();
-    } else {
-      if (Get.currentRoute != '/login') {
-        Get.toNamed('/login');
-      }
-    }
-  }
-
   /// 底部彈出層
   Future showBottomModal<T>({
     required BuildContext context,
@@ -245,6 +239,60 @@ class App {
       ),
       builder: builder,
     );
+  }
+
+  /// 退出登录
+  Future logout({Function()? success}) async {
+    await authDataStorage.remove();
+    await accessToken.remove();
+    await loginUser.remove();
+
+    authData = null;
+    userInfo = null;
+
+    if (success != null) {
+      success.call();
+    } else {
+      if (Get.currentRoute != '/login') {
+        Get.toNamed('/login');
+      }
+    }
+  }
+
+  /// 更新登录用户信息
+  Future updateUserInfo() async {
+    if (authData?.accessToken?.isNotEmpty ?? false) {
+      final res = await UserService.getInfo();
+      final resData = res.data ?? {};
+      final _data = resData['data'] ?? {};
+      await loginUser.set(_data);
+      userInfo = UserInfoVo.fromJson(_data);
+    } else {
+      await loginUser.set(null);
+      userInfo = null;
+    }
+  }
+
+  Future setAuthData(Map<String, dynamic>? data) async {
+    await authDataStorage.set(data);
+    authData = AuthDataVo.fromJson(data ?? {});
+  }
+
+  /// 更新登录信息
+  Future updateAuthData([Map<String, dynamic>? data]) async {
+    if (data != null) {
+      await setAuthData(data);
+    } else {
+      final _authData = await authDataStorage.get() ?? {};
+      authData = AuthDataVo.fromJson(_authData);
+      if (authData?.refreshToken?.isNotEmpty ?? false) {
+        final res = await UserService.refreshToken(authData!.refreshToken!);
+        final resData = res.data ?? {};
+        await setAuthData(resData['data'] ?? {});
+      }
+    }
+
+    await accessToken.set(authData?.accessToken);
   }
 }
 

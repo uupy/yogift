@@ -69,7 +69,10 @@ class AppStorage<T> {
 AppStorage<bool?> firstEntryApp = AppStorage('firstEntryApp');
 
 /// 认证token
-AppStorage<String?> authToken = AppStorage('authToken');
+AppStorage<String?> accessToken = AppStorage('accessToken');
+
+/// 认证data
+AppStorage<Map<String, dynamic>?> authDataStorage = AppStorage('authData');
 
 /// 登录用户信息
 AppStorage<Map<String, dynamic>?> loginUser = AppStorage('loginUser');

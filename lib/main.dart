@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:yo_gift/common/app_theme_data.dart';
-import 'package:yo_gift/config/env_config.dart';
-import 'package:yo_gift/router/router.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:yo_gift/common/app_theme_data.dart';
+import 'package:yo_gift/config/env_config.dart';
+import 'package:yo_gift/router/router.dart';
 
 import 'common/app.dart';
 import 'common/app_controller.dart';
@@ -106,6 +106,7 @@ class _MaterialHome extends State<MaterialHome> {
     await app.init(context);
     appController.init(
       onComplete: (data) async {
+        app.updateAuthData();
         Get.offNamed('index');
       },
     );

@@ -24,7 +24,7 @@ class NotifySettingController extends GetxController {
   }
 
   Future fetchData() async {
-    final _token = await authToken.get() ?? '';
+    final _token = await accessToken.get() ?? '';
     if (_token.isNotEmpty) {
       final res = await UserService.getInfo();
       final data = res.data ?? {};

@@ -22,7 +22,7 @@ Interceptor requestInterceptor() {
   return InterceptorsWrapper(
     onRequest: (options, handler) async {
       if (app.hasNetWork) {
-        _token = await authToken.get() ?? '';
+        _token = await accessToken.get() ?? '';
 
         if (_token.isNotEmpty) {
           options.headers['Authorization'] = 'Bearer $_token';
@@ -51,9 +51,9 @@ Interceptor requestInterceptor() {
       if (code != null && code != 200) {
         if (!isSilent) {
           app.showToast(code == 401 ? '請先登入' : msg ?? '');
-        }
-        if (code == 401) {
-          app.logout();
+          if (code == 401) {
+            app.logout();
+          }
         }
 
         req.extra['silent'] = true;

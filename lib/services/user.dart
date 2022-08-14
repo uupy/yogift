@@ -71,4 +71,13 @@ class UserService {
   /// 获取:用户信息
   static Future getInfo() =>
       http.get('/User/Info_get', options: Options(extra: {'silent': true}));
+
+  /// 刷新token
+  static Future refreshToken(String refreshToken) => http.postJson(
+        '/User/RefreshToken',
+        data: {'refreshtoken': refreshToken},
+        options: Options(
+          extra: {'silent': true},
+        ),
+      );
 }

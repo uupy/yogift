@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:yo_gift/common/app.dart';
-import 'package:yo_gift/common/app_theme.dart';
-import 'package:yo_gift/common/logger.dart';
-import 'package:yo_gift/common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ota_update/ota_update.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/common/app_theme.dart';
+import 'package:yo_gift/common/logger.dart';
+import 'package:yo_gift/common/utils.dart';
 import 'package:yo_gift/models/common.dart';
 import 'package:yo_gift/services/common.dart';
 
@@ -30,6 +30,7 @@ class AppController extends GetxController {
   /// 包的下载地址
   String fileUrl = '';
 
+  /// 全局配置信息
   AppConfigVo? config;
 
   /// 完成回调（不论成功，失败，还是取消）

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
-import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/models/verification.dart';
 import 'package:yo_gift/services/user.dart';
@@ -82,10 +81,8 @@ class RegisterController extends GetxController {
       try {
         final res = await UserService.register(formData);
         final data = res.data ?? {};
-        AuthDataVo result = AuthDataVo.fromJson(data['data'] ?? {});
+        await app.updateAuthData(data['data'] ?? {});
         app.showToast('註冊成功');
-
-        await authToken.set(result.accessToken);
         step(3);
       } finally {
         submitting(false);
@@ -104,6 +101,7 @@ class RegisterController extends GetxController {
       update();
       try {
         await UserService.updateInfo(updateFormData);
+        await app.updateUserInfo();
         goBackHome();
       } finally {
         submitting(false);
