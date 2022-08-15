@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
+import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/models/gift_detail.dart';
 import 'package:yo_gift/services/gift.dart';
 
 import 'widgets/free_one_tips.dart';
+import 'widgets/sku_select_view.dart';
 
 class GoodsDetailController extends GetxController {
   final goodsId = Get.parameters['id'];
@@ -12,6 +14,7 @@ class GoodsDetailController extends GetxController {
   bool loading = false;
   int currentImageIndex = 0;
   GiftDetailVo? detail;
+  Skus selectSku = Skus(id: 0);
 
   void init() async {
     if (goodsId != null) {
@@ -36,6 +39,16 @@ class GoodsDetailController extends GetxController {
     }
   }
 
+  void showSkuModal() {
+    app.showBottomModal(
+      context: Get.context!,
+      // isScrollControlled: false,
+      builder: (context) {
+        return SkuSelectView();
+      },
+    );
+  }
+
   /// 显示买一赠一提示弹窗
   void showTips() {
     if (detail!.buy1Get1FREE == 1) {
@@ -56,7 +69,11 @@ class GoodsDetailController extends GetxController {
     update();
 
     if (buyType != null) {
-      navTo(buyType!, showTips);
+      if (detail!.skuType == 1) {
+        showSkuModal();
+      } else {
+        navTo(buyType!, showTips);
+      }
     } else {
       showTips();
     }

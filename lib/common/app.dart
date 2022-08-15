@@ -227,10 +227,12 @@ class App {
   Future showBottomModal<T>({
     required BuildContext context,
     required Widget Function(BuildContext) builder,
+    bool isScrollControlled = true,
   }) async {
     return await showModalBottomSheet<T>(
       context: context,
-      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      isScrollControlled: isScrollControlled,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20.w),
