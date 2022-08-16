@@ -22,8 +22,10 @@ class AppRadioGroup extends StatefulWidget {
   final List<AppRadio>? items;
   final Color? color;
   final Color? labelColor;
+  final Color? borderColor;
   final Color? selectedColor;
   final Color? selectedLabelColor;
+  final Color? selectedBorderColor;
   final double? spacing;
   final double? runSpacing;
   final EdgeInsetsGeometry? itemPadding;
@@ -37,9 +39,11 @@ class AppRadioGroup extends StatefulWidget {
     this.value,
     this.onChanged,
     this.color,
-    this.selectedColor,
     this.labelColor,
+    this.borderColor,
+    this.selectedColor,
     this.selectedLabelColor,
+    this.selectedBorderColor,
     this.cancelAble = false,
     this.spacing,
     this.runSpacing,
@@ -79,13 +83,15 @@ class _AppRadioGroup extends State<AppRadioGroup> {
           final item = items[index];
           Color background = widget.color ?? Colors.white;
           Color borderColor =
-              widget.color ?? const Color.fromRGBO(203, 203, 203, 0.4);
+              widget.borderColor ?? const Color.fromRGBO(203, 203, 203, 0.4);
           Color labelColor =
               widget.labelColor ?? const Color.fromRGBO(0, 0, 0, 0.6);
 
           if (currentValue == item.value) {
             background = widget.selectedColor ?? AppTheme.primaryColor;
-            borderColor = widget.selectedColor ?? AppTheme.primaryColor;
+            borderColor = widget.selectedBorderColor ??
+                widget.selectedColor ??
+                AppTheme.primaryColor;
             labelColor =
                 widget.selectedLabelColor ?? const Color.fromRGBO(0, 0, 0, 0.9);
           }

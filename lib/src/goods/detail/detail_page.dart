@@ -72,7 +72,9 @@ class _GoodsDetailPageState extends State<GoodsDetailPage>
           ],
         ),
       ),
-      bottomNavigationBar: const GoodsDetailFooter(),
+      bottomNavigationBar: GoodsDetailFooter(
+        onTap: controller.navHandling,
+      ),
     );
   }
 }

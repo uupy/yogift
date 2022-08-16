@@ -4,7 +4,9 @@ import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 
 class GoodsDetailFooter extends StatelessWidget {
-  const GoodsDetailFooter({Key? key}) : super(key: key);
+  final Function(int type)? onTap;
+
+  const GoodsDetailFooter({Key? key, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +26,17 @@ class GoodsDetailFooter extends StatelessWidget {
             text: '拜託',
             icon: 'icon_please.png',
             background: const Color(0xfffffdeb),
+            onTap: () {
+              onTap?.call(3);
+            },
           ),
           SizedBox(width: 15.w),
           buildFooterItem(
             text: '贈送',
             icon: 'icon_mine_gift.png',
+            onTap: () {
+              onTap?.call(0);
+            },
           ),
         ],
       ),
@@ -43,6 +51,7 @@ class GoodsDetailFooter extends StatelessWidget {
   }) {
     return Expanded(
       child: AppButton(
+        onPressed: onTap,
         backgroundColor: background,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
