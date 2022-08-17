@@ -45,7 +45,7 @@ class GreetingCard extends StatelessWidget {
                     controller: c.msgController,
                     isEdit: c.isEditMsg,
                     onChanged: (value) {
-                      c.formData.msgGive = value;
+                      c.add4StepsForm.msgGive = value;
                     },
                   ),
                   ...textList.map((e) {
@@ -64,9 +64,9 @@ class GreetingCard extends StatelessWidget {
                             radius: 8.w,
                             padding: EdgeInsets.symmetric(horizontal: 12.w),
                             backgroundColor: const Color.fromRGBO(0, 0, 0, 0.6),
-                            borderColor: const Color.fromRGBO(0, 0, 0, 0.6),
+                            borderColor: const Color.fromRGBO(0, 0, 0, 0),
                             onPressed: () {
-                              c.formData.msgGive = e;
+                              c.add4StepsForm.msgGive = e;
                               c.msgController.text = e;
                             },
                           ),

@@ -38,7 +38,7 @@ class GreetingCardTop extends StatelessWidget {
         width: 64.w,
         height: 26.w,
         color: const Color.fromRGBO(0, 0, 0, 0.6),
-        borderColor: const Color.fromRGBO(0, 0, 0, 0.6),
+        borderColor: const Color.fromRGBO(0, 0, 0, 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

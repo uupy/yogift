@@ -6,7 +6,9 @@ import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 
 class PurchaseFooter extends StatelessWidget {
-  const PurchaseFooter({Key? key}) : super(key: key);
+  final Function()? onTap;
+
+  const PurchaseFooter({Key? key, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +49,9 @@ class PurchaseFooter extends StatelessWidget {
               ),
               SizedBox(width: 15.w),
               buildFooterItem(
-                text: '贈送好友',
+                text: c.isGiveToSelf ? '贈送自己' : '贈送好友',
                 icon: 'icon_mine_gift.png',
+                onTap: onTap,
               ),
             ],
           );
@@ -65,6 +68,7 @@ class PurchaseFooter extends StatelessWidget {
   }) {
     return Expanded(
       child: AppButton(
+        onPressed: onTap,
         backgroundColor: background,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

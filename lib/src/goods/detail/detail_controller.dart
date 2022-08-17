@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
-import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/models/gift_detail.dart';
 import 'package:yo_gift/services/gift.dart';
 
@@ -97,7 +96,6 @@ class GoodsDetailController extends GetxController {
       orElse: () => Skus(id: 0),
     );
     selectSkuKeys = sku?.skey?.split('-') ?? [];
-    logger.i(selectSkuKeys);
     update(['SkuSelectView']);
     app.showBottomModal(
       context: Get.context!,
@@ -117,6 +115,7 @@ class GoodsDetailController extends GetxController {
       context: Get.context!,
       builder: (context) {
         return GiftMethodSelectView(
+          isBuy1Get1Free: detail?.buy1Get1FREE == 1,
           onTap: (type) {
             Get.back();
             navHandling(type);

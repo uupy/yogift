@@ -37,7 +37,7 @@ class OrderRemark extends StatelessWidget {
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.w),
                 onChanged: (value) {
-                  c.formData.content2 = value;
+                  c.add4StepsForm.content2 = value;
                 },
               ),
             ],

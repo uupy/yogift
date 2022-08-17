@@ -1,4 +1,4 @@
-class UserOrderFormVo {
+class Add4StepsVo {
   String? phone;
   String? phoneprefix;
 
@@ -39,7 +39,7 @@ class UserOrderFormVo {
   String? recommendationcode;
   String? content2;
 
-  UserOrderFormVo(
+  Add4StepsVo(
       {this.phone,
       this.phoneprefix,
       this.logintype,
@@ -62,7 +62,7 @@ class UserOrderFormVo {
       this.recommendationcode,
       this.content2});
 
-  UserOrderFormVo.fromJson(Map<String, dynamic> json) {
+  Add4StepsVo.fromJson(Map<String, dynamic> json) {
     phone = json['phone'];
     phoneprefix = json['phoneprefix'];
     logintype = json['logintype'];

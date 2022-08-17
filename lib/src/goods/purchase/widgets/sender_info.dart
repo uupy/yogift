@@ -22,12 +22,16 @@ class _SenderInfoState extends State<SenderInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
-      child: GetBuilder<PurchaseController>(
-        id: 'SenderInfo',
-        builder: (c) {
-          return Column(
+    return GetBuilder<PurchaseController>(
+      id: 'SenderInfo',
+      builder: (c) {
+        if (c.isLogged) {
+          return Container();
+        }
+
+        return Container(
+          margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -56,7 +60,7 @@ class _SenderInfoState extends State<SenderInfo> {
                     label: '區號',
                     customInput: PhonePrefixSelect(
                       onChanged: (value) {
-                        c.formData.phoneprefix = value;
+                        c.add4StepsForm.phoneprefix = value;
                         c.update(['SenderInfo']);
                       },
                     ),
@@ -67,7 +71,7 @@ class _SenderInfoState extends State<SenderInfo> {
                       hintText: '請輸入手機號碼',
                       keyboardType: TextInputType.phone,
                       onChanged: (value) {
-                        c.formData.phone = value;
+                        c.add4StepsForm.phone = value;
                         c.update(['SenderInfo']);
                       },
                     ),
@@ -96,7 +100,7 @@ class _SenderInfoState extends State<SenderInfo> {
                   ),
                 ],
                 onChanged: (value) {
-                  c.formData.codePassword = value;
+                  c.add4StepsForm.codePassword = value;
                   c.update(['SenderInfo']);
                 },
               ),
@@ -106,7 +110,7 @@ class _SenderInfoState extends State<SenderInfo> {
                   label: '推薦碼（選填）',
                   hintText: '請輸入推薦碼',
                   onChanged: (value) {
-                    c.formData.recommendationcode = value;
+                    c.add4StepsForm.recommendationcode = value;
                   },
                 ),
               if (c.isNewUser)
@@ -151,8 +155,8 @@ class _SenderInfoState extends State<SenderInfo> {
               if (c.isNewUser)
                 AppRow(
                   onTap: () {
-                    final v = c.formData.acceptnotice;
-                    c.formData.acceptnotice = v == 1 ? 0 : 1;
+                    final v = c.add4StepsForm.acceptnotice;
+                    c.add4StepsForm.acceptnotice = v == 1 ? 0 : 1;
                     c.update(['SenderInfo']);
                   },
                   margin: EdgeInsets.only(top: 12.w),
@@ -161,7 +165,7 @@ class _SenderInfoState extends State<SenderInfo> {
                       width: 16.w,
                       margin: EdgeInsets.only(right: 8.w),
                       img:
-                          'icon_cb_${c.formData.acceptnotice == 1 ? 1 : 0}.png',
+                          'icon_cb_${c.add4StepsForm.acceptnotice == 1 ? 1 : 0}.png',
                     ),
                   ],
                   expanded: Text(
@@ -173,9 +177,9 @@ class _SenderInfoState extends State<SenderInfo> {
                   ),
                 ),
             ],
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
