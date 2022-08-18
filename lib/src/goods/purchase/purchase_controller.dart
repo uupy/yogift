@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app_storage.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/models/address_list.dart';
 import 'package:yo_gift/models/gift_detail.dart';
 import 'package:yo_gift/models/greeting_card.dart';
@@ -14,17 +15,22 @@ import 'package:yo_gift/models/verification.dart';
 import 'package:yo_gift/services/address_list.dart';
 import 'package:yo_gift/services/gift.dart';
 import 'package:yo_gift/services/greeting_card.dart';
+import 'package:yo_gift/services/user_order.dart';
 import 'package:yo_gift/services/verification.dart';
 
 class PurchaseController extends GetxController {
   final goodsId = Get.parameters['id'];
+  final skuId = int.tryParse(Get.parameters['skuId'] ?? '');
 
   /// 1 买给自己， 2 送给别人
   final buyType = Get.parameters['buyType'];
   final msgController = TextEditingController();
 
   /// 下单，买给自己（已登录状态）
-  final addForm = AddVo();
+  late final baseForm = AddVo(
+    num: 1,
+    skuid: skuId,
+  );
 
   /// 下单，送给好友（已登录状态）
   final addToFriendForm = AddToFriendVo();
@@ -36,11 +42,6 @@ class PurchaseController extends GetxController {
   late final add4StepsForm = Add4StepsVo(
     giftIdGuid: goodsId,
     acceptnotice: 0,
-    receivingaddressArea0Id: 0,
-    receivingaddressArea1Id: 0,
-    receivingaddressAddress: '',
-    receivingaddressContact: '',
-    receivingaddressPhone: '',
     introducer: '',
     logintype: 1,
     num: 1,
@@ -173,10 +174,13 @@ class PurchaseController extends GetxController {
   void switchCard(GreetingCardVo? card) {
     currentCard = card;
     if (currentCard!.content1?.isNotEmpty ?? false) {
-      add4StepsForm.msgGive = currentCard!.content1!.first;
-      msgController.text = add4StepsForm.msgGive ?? '';
+      final msg = currentCard!.content1!.first;
+      add4StepsForm.msgGive = msg;
+      addToFriendForm.msgGive = msg;
+      msgController.text = msg;
     }
     add4StepsForm.bgGive = card?.gCGuid;
+    addToFriendForm.bgGive = card?.gCGuid;
     update(['GreetingCard']);
   }
 
@@ -197,7 +201,23 @@ class PurchaseController extends GetxController {
   }
 
   /// 提交下单
-  Future onSubmit() async {}
+  Future onSubmit() async {
+    if (!isGiveToSelf) {
+      await onAddToFriend();
+    }
+  }
+
+  Future onAddToFriend() async {
+    addToFriendForm.giftIdGuid = goodsId;
+    addToFriendForm.skuid = skuId;
+    addToFriendForm.num = 1;
+    addToFriendForm.money = (detail?.buyPrice ?? 0).toDouble();
+    addToFriendForm.skuid = skuId;
+    addToFriendForm.content2 = baseForm.content2 ?? '';
+    final res = await UserOrderService.addToFriend(addToFriendForm);
+    final data = res.data['data'] ?? {};
+    logger.i(data);
+  }
 
   /// 获取短信验证码
   Future getCode() async {

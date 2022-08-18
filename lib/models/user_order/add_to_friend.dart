@@ -2,11 +2,11 @@ class AddToFriendVo {
   int? num;
   String? giftIdGuid;
   int? skuid;
-  int? money;
+  double? money;
   String? bgGive;
   String? msgGive;
   String? content2;
-  int? ygcoupon1id;
+  // int? ygcoupon1id;
 
   AddToFriendVo({
     this.num,
@@ -16,7 +16,7 @@ class AddToFriendVo {
     this.bgGive,
     this.msgGive,
     this.content2,
-    this.ygcoupon1id,
+    // this.ygcoupon1id,
   });
 
   AddToFriendVo.fromJson(Map<String, dynamic> json) {
@@ -27,7 +27,7 @@ class AddToFriendVo {
     bgGive = json['bg_give'];
     msgGive = json['msg_give'];
     content2 = json['content2'];
-    ygcoupon1id = json['ygcoupon1id'];
+    // ygcoupon1id = json['ygcoupon1id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,7 +39,7 @@ class AddToFriendVo {
     data['bg_give'] = bgGive;
     data['msg_give'] = msgGive;
     data['content2'] = content2;
-    data['ygcoupon1id'] = ygcoupon1id;
+    // data['ygcoupon1id'] = ygcoupon1id;
     return data;
   }
 }
