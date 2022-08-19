@@ -9,6 +9,7 @@ import 'menu_row.dart';
 class MenuGroup extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
+  final double? blurRadius;
   final List<MenuItem>? menus;
   final List<Widget>? children;
   final Function(String key)? onTap;
@@ -17,6 +18,7 @@ class MenuGroup extends StatelessWidget {
     Key? key,
     this.margin,
     this.padding,
+    this.blurRadius,
     this.menus,
     this.children,
     this.onTap,
@@ -30,7 +32,7 @@ class MenuGroup extends StatelessWidget {
       width: double.maxFinite,
       margin: margin ?? EdgeInsets.fromLTRB(20.w, 0, 20.w, 12.w),
       padding: padding ?? EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.w),
-      blurRadius: 2.r,
+      blurRadius: blurRadius ?? 2.r,
       child: Column(
         children: children ??
             _items.asMap().keys.map((index) {

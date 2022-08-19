@@ -8,6 +8,7 @@ class MenuRow extends StatelessWidget {
   final String? label;
   final bool arrow;
   final bool showBottomBorder;
+  final Widget? prefix;
   final Widget? suffix;
   final Function()? onTap;
 
@@ -17,6 +18,7 @@ class MenuRow extends StatelessWidget {
     this.label,
     this.arrow = true,
     this.showBottomBorder = true,
+    this.prefix,
     this.suffix,
     this.onTap,
   }) : super(key: key);
@@ -40,6 +42,7 @@ class MenuRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       border: _border,
       prefix: [
+        if (prefix != null) prefix!,
         if (icon?.isNotEmpty ?? false)
           AppAssetImage(
             img: icon,

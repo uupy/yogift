@@ -1,4 +1,4 @@
-class OrderItemVo {
+class OrderListItemVo {
   int? orderStatus;
   int? id;
   String? oGuid;
@@ -15,7 +15,7 @@ class OrderItemVo {
   String? expirationTime;
   int? payStatus;
 
-  OrderItemVo(
+  OrderListItemVo(
       {this.orderStatus,
       this.id,
       this.oGuid,
@@ -32,7 +32,7 @@ class OrderItemVo {
       this.expirationTime,
       this.payStatus});
 
-  OrderItemVo.fromJson(Map<String, dynamic> json) {
+  OrderListItemVo.fromJson(Map<String, dynamic> json) {
     orderStatus = json['OrderStatus'];
     id = json['Id'];
     oGuid = json['O_Guid'];

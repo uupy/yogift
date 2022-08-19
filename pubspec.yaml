@@ -91,6 +91,12 @@ dependencies:
   flutter_datetime_picker:
     git:
       url: https://github.com/uupy/flutter_datetime_picker.git
+  # 支付宝支出
+  tobias: ^2.4.1
+  # 微信支付
+  fluwx: ^3.9.1
+  # stripe支付
+  flutter_stripe: ^2.5.0
 
 dev_dependencies:
   flutter_test:

@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app_storage.dart';
-import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/models/address_list.dart';
 import 'package:yo_gift/models/gift_detail.dart';
 import 'package:yo_gift/models/greeting_card.dart';
 import 'package:yo_gift/models/user_order/add.dart';
 import 'package:yo_gift/models/user_order/add_4_steps.dart';
 import 'package:yo_gift/models/user_order/add_to_friend.dart';
+import 'package:yo_gift/models/user_order/order_detail_item.dart';
 import 'package:yo_gift/models/user_order/receiving_address.dart';
 import 'package:yo_gift/models/verification.dart';
 import 'package:yo_gift/services/address_list.dart';
@@ -17,6 +17,7 @@ import 'package:yo_gift/services/gift.dart';
 import 'package:yo_gift/services/greeting_card.dart';
 import 'package:yo_gift/services/user_order.dart';
 import 'package:yo_gift/services/verification.dart';
+import 'package:yo_gift/src/order/pay/pay_controller.dart';
 
 class PurchaseController extends GetxController {
   final goodsId = Get.parameters['id'];
@@ -50,6 +51,9 @@ class PurchaseController extends GetxController {
 
   /// 商品信息
   GiftDetailVo? detail;
+
+  /// 下单成功信息
+  OrderDetailItemVo? orderInfo;
 
   /// 下单步骤： 1 填写心愿卡，2 结账
   int currentStep = 1;
@@ -202,8 +206,12 @@ class PurchaseController extends GetxController {
 
   /// 提交下单
   Future onSubmit() async {
-    if (!isGiveToSelf) {
-      await onAddToFriend();
+    if (orderInfo != null) {
+      onPay();
+    } else {
+      if (!isGiveToSelf) {
+        await onAddToFriend();
+      }
     }
   }
 
@@ -214,9 +222,19 @@ class PurchaseController extends GetxController {
     addToFriendForm.money = (detail?.buyPrice ?? 0).toDouble();
     addToFriendForm.skuid = skuId;
     addToFriendForm.content2 = baseForm.content2 ?? '';
+
     final res = await UserOrderService.addToFriend(addToFriendForm);
     final data = res.data['data'] ?? {};
-    logger.i(data);
+
+    orderInfo = OrderDetailItemVo.fromJson(data);
+    onPay();
+  }
+
+  Future onPay() async {
+    if (orderInfo != null) {
+      final payController = Get.put(PayController());
+      await payController.showModal(orderInfo!.oGuid!);
+    }
   }
 
   /// 获取短信验证码

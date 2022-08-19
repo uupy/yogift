@@ -4,6 +4,7 @@ import 'package:yo_gift/models/user_order/add_4_steps.dart';
 import 'package:yo_gift/models/user_order/add_for_charity_favorite.dart';
 import 'package:yo_gift/models/user_order/add_for_request.dart';
 import 'package:yo_gift/models/user_order/add_to_friend.dart';
+import 'package:yo_gift/models/user_order/pay_type.dart';
 import 'package:yo_gift/models/user_order/receiving_address.dart';
 
 class UserOrderService {
@@ -31,4 +32,20 @@ class UserOrderService {
   /// 修改收货人资料-直接提交资料
   static Future setReceivingaddress(ReceivingAddressVo data) =>
       http.postJson('/UserOrder/Receivingaddress', data: data);
+
+  /// 获取訂單的支付方式列表
+  static Future getPayTypes(GetPayTypeDataVo data) =>
+      http.postJson('/UserOrder/Get_PayType', data: data);
+
+  /// 获取支付参数-微信 app支付
+  static Future getWxPayParameters(data) =>
+      http.postJson('/UserOrder/Get_Parameters_WxApp', data: data);
+
+  /// 获取支付参数-Alipay app支付
+  static Future getAliPayParameters(data) =>
+      http.postJson('/UserOrder/Get_Parameters_AlipayApp', data: data);
+
+  /// 获取stripe支付参数
+  static Future getStripePayParameters(data) =>
+      http.postJson('/UserOrder/Get_Parameters_Stripe', data: data);
 }
