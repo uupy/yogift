@@ -25,7 +25,7 @@ class _SenderInfoState extends State<SenderInfo> {
     return GetBuilder<PurchaseController>(
       id: 'SenderInfo',
       builder: (c) {
-        if (c.isLogged) {
+        if (!c.isLogged) {
           return Container();
         }
 

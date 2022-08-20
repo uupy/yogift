@@ -34,13 +34,18 @@ class _AreaSelectState extends State<AreaSelect> {
   Widget build(BuildContext context) {
     return DropdownButton<int>(
       value: _value,
-      hint: const Text('請選擇'),
+      hint: const Text(
+        '請選擇',
+        style: TextStyle(
+          color: Colors.grey,
+        ),
+      ),
       isExpanded: true,
       underline: Container(),
       elevation: 1,
       icon: AppAssetImage(
         width: 12.w,
-        margin: EdgeInsets.only(left: 14.w),
+        margin: EdgeInsets.only(left: 8.w),
         img: 'icon_arrow_down.png',
       ),
       items: widget.items.map((e) {

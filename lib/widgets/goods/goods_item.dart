@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:like_button/like_button.dart';
 import 'package:yo_gift/common/app_theme.dart';
-import 'package:yo_gift/services/user_favorites.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 
+import 'favorite_button.dart';
 import 'goods_sending_tag.dart';
 import 'goods_top_tag.dart';
 
@@ -25,6 +24,7 @@ class GoodsItem extends StatefulWidget {
   final int? topIndex;
   final String? guid;
   final Function()? onTap;
+  final Function(int value)? onFavoriteChanged;
 
   const GoodsItem({
     Key? key,
@@ -42,6 +42,7 @@ class GoodsItem extends StatefulWidget {
     this.topIndex,
     this.guid,
     this.onTap,
+    this.onFavoriteChanged,
   }) : super(key: key);
 
   @override
@@ -49,16 +50,6 @@ class GoodsItem extends StatefulWidget {
 }
 
 class _GoodsItemState extends State<GoodsItem> {
-  int _favorite = 0;
-
-  @override
-  void initState() {
-    setState(() {
-      _favorite = widget.favorite ?? 0;
-    });
-    super.initState();
-  }
-
   void handleAction([Map<String, String>? params]) {
     final parameters = params ?? {};
     if (widget.guid != null) {
@@ -181,36 +172,11 @@ class _GoodsItemState extends State<GoodsItem> {
                   },
                 ),
                 buildFooterItem(
-                  custom: LikeButton(
-                    size: 20.w,
-                    onTap: (isLike) async {
-                      if (widget.guid != null) {
-                        await UserFavoritesService.addOrDelete(widget.guid!);
-                        setState(() {
-                          _favorite = _favorite == 0 ? 1 : 0;
-                        });
-                      }
-                      return _favorite == 1;
-                    },
-                    likeBuilder: (isLike) {
-                      return AppAssetImage(
-                        img: 'icon_heart_$_favorite.png',
-                        width: 20.w,
-                      );
-                    },
-                    likeCount: 1,
-                    countPostion: CountPostion.bottom,
-                    countBuilder: (count, isLiked, text) {
-                      return Text(
-                        '願望清單',
-                        style: TextStyle(
-                          fontSize: 11.sp,
-                          color: const Color.fromRGBO(0, 0, 0, 0.9),
-                        ),
-                      );
-                    },
+                  custom: FavoriteButton(
+                    guid: widget.guid,
+                    favorite: widget.favorite,
+                    onChanged: widget.onFavoriteChanged,
                   ),
-                  text: '願望清單',
                 ),
               ],
             ),

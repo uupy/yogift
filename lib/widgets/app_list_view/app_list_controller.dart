@@ -13,6 +13,7 @@ class AppListController<T> {
   RefreshController refreshController = RefreshController();
   FetchRequest<T>? fetch;
   Function(Function())? setState;
+  Function(List<T> list)? onLoaded;
 
   Future onRefresh() async {
     await onReload(pullDown: true);
@@ -60,6 +61,7 @@ class AppListController<T> {
       refreshController.loadComplete();
       loading = false;
       isPullDown = false;
+      onLoaded?.call(list);
       update();
     }
   }

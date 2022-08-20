@@ -6,7 +6,9 @@ import 'package:yo_gift/common/app_theme.dart';
 import '../category_controller.dart';
 
 class GoodsCategoryTabsBar extends StatelessWidget {
-  const GoodsCategoryTabsBar({Key? key}) : super(key: key);
+  final TabController? controller;
+
+  const GoodsCategoryTabsBar({Key? key, this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +17,16 @@ class GoodsCategoryTabsBar extends StatelessWidget {
       builder: (c) {
         final tabs = c.categoryList;
 
+        if (tabs.isEmpty) {
+          return Container();
+        }
+
         return DefaultTabController(
           length: tabs.length,
           initialIndex: c.tabIndex,
           child: TabBar(
             onTap: c.onCategoryChanged,
+            controller: controller,
             isScrollable: true,
             indicator: const BoxDecoration(),
             labelColor: const Color.fromRGBO(0, 0, 0, 0.9),

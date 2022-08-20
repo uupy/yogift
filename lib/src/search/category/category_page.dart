@@ -64,6 +64,7 @@ class _SearchCategoryPageState extends State<SearchCategoryPage> {
                 ...items.map((item) {
                   return Expanded(
                     child: GoodsItem(
+                      margin: EdgeInsets.all(6.w),
                       guid: item.gGuid,
                       name: item.giftName,
                       desc: item.bussinessName,
@@ -73,7 +74,6 @@ class _SearchCategoryPageState extends State<SearchCategoryPage> {
                       buy1Get1Free: item.buy1Get1FREE,
                       sendingMethod: item.sendingMethod,
                       favorite: item.favorite,
-                      margin: EdgeInsets.all(6.w),
                     ),
                   );
                 }).toList(),

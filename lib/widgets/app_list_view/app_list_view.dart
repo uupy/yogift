@@ -77,9 +77,9 @@ class _AppListView<T> extends State<AppListView<T>> {
     _controller.setState = setState;
     _controller.hasPage = widget.hasPage;
     _controller.fetch = widget.fetch;
+    _controller.onLoaded = widget.onLoaded;
     if (widget.immediate && mounted) {
       await _controller.onLoading();
-      widget.onLoaded?.call(_controller.list);
     }
   }
 
@@ -102,14 +102,8 @@ class _AppListView<T> extends State<AppListView<T>> {
     return SmartRefresher(
       enablePullUp: _controller.hasPage,
       controller: _controller.refreshController,
-      onRefresh: () async {
-        await _controller.onRefresh();
-        widget.onLoaded?.call(_controller.list);
-      },
-      onLoading: () async {
-        await _controller.onLoading();
-        widget.onLoaded?.call(_controller.list);
-      },
+      onRefresh: _controller.onRefresh,
+      onLoading: _controller.onLoading,
       header: WaterDropHeader(
         waterDropColor: widget.waterDropColor ?? AppTheme.primaryColor,
         complete: Text(

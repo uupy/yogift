@@ -7,6 +7,8 @@ import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
+import 'package:yo_gift/widgets/app_simple_row.dart';
+import 'package:yo_gift/widgets/goods/favorite_button.dart';
 import 'package:yo_gift/widgets/goods/goods_sending_tag.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
@@ -62,15 +64,26 @@ class _UserWishPageState extends State<UserWishPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: 20.w,
-                                child: Text(
+                              AppSimpleRow(
+                                expanded: Text(
                                   item.giftName ?? '',
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
+                                ),
+                                suffix: FavoriteButton(
+                                  guid: item.gGuid,
+                                  favorite: 1,
+                                  showText: false,
+                                  onChanged: (value) {
+                                    controller.listController.setState
+                                        ?.call(() {
+                                      controller.listController.list
+                                          .remove(item);
+                                    });
+                                  },
                                 ),
                               ),
                               Padding(
