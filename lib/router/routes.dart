@@ -17,6 +17,7 @@ import 'package:yo_gift/src/user/account_setting/account_setting_page.dart';
 import 'package:yo_gift/src/user/account_setting/area/area1_page.dart';
 import 'package:yo_gift/src/user/account_setting/area/area2_page.dart';
 import 'package:yo_gift/src/user/account_setting/edit/edit_page.dart';
+import 'package:yo_gift/src/user/donation_record/donation_record_page.dart';
 import 'package:yo_gift/src/user/gift/list/list_page.dart';
 import 'package:yo_gift/src/user/invite_friend/invite_friend_page.dart';
 import 'package:yo_gift/src/user/login/login_page.dart';
@@ -71,6 +72,8 @@ final List<AppRoute> routes = [
       name: '/pages/mine/invite-friend/index', page: InviteFriendPage()),
   const AppRoute(name: '/pages/mine/order/index', page: OrderListPage()),
   const AppRoute(name: '/pages/mine/gift/mine/index', page: GiftListPage()),
+  const AppRoute(
+      name: '/pages/mine/donation-record/index', page: DonationRecordPage()),
   const AppRoute(name: '/pages/friend/detail/index', page: FriendDetailPage()),
   const AppRoute(name: '/pages/common/rich-txt/index', page: RichTxtPage()),
   const AppRoute(name: '/pages/common/webview/index', page: WebviewPage()),
