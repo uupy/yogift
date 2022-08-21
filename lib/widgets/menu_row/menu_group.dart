@@ -13,6 +13,7 @@ class MenuGroup extends StatelessWidget {
   final List<MenuItem>? menus;
   final List<Widget>? children;
   final Function(String key)? onTap;
+  final Function(dynamic value)? onBack;
 
   const MenuGroup({
     Key? key,
@@ -22,6 +23,7 @@ class MenuGroup extends StatelessWidget {
     this.menus,
     this.children,
     this.onTap,
+    this.onBack,
   }) : super(key: key);
 
   @override
@@ -44,7 +46,10 @@ class MenuGroup extends StatelessWidget {
                 showBottomBorder: index != _items.length - 1,
                 onTap: () {
                   if (item.path?.isNotEmpty ?? false) {
-                    Get.toNamed(item.path!, parameters: item.parameters);
+                    Get.toNamed(item.path!, parameters: item.parameters)
+                        ?.then((value) {
+                      onBack?.call(value);
+                    });
                   } else if (item.key?.isNotEmpty ?? false) {
                     onTap?.call(item.key!);
                   }

@@ -54,10 +54,23 @@ class UserPage extends StatelessWidget implements TabBarPage {
               const UserHeaderInfo(),
             ],
           ),
-          MenuGroup(menus: controller.menus1),
-          MenuGroup(menus: controller.menus2),
+          MenuGroup(
+            menus: controller.menus1,
+            onBack: (value) {
+              controller.init();
+            },
+          ),
+          MenuGroup(
+            menus: controller.menus2,
+            onBack: (value) {
+              controller.init();
+            },
+          ),
           MenuGroup(
             menus: controller.menus3,
+            onBack: (value) {
+              controller.init();
+            },
             onTap: (key) {
               if (key == 'contact') {
                 app.showBottomModal(

@@ -2,9 +2,10 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 
 /// 图片
 ///
@@ -39,6 +40,7 @@ class AppImage extends StatelessWidget {
   final BoxConstraints? constraints;
   final Widget? child;
   final BoxFit? fit;
+  final bool withOutDecoration;
   final Function()? onTap;
 
   const AppImage({
@@ -62,6 +64,7 @@ class AppImage extends StatelessWidget {
     this.constraints,
     this.child,
     this.fit,
+    this.withOutDecoration = false,
     this.onTap,
   }) : super(key: key);
 
@@ -73,15 +76,15 @@ class AppImage extends StatelessWidget {
         _image.image
             .resolve(const ImageConfiguration())
             .addListener(ImageStreamListener((ImageInfo info, bool _) {}));
-        return buildGestureDetector(
-          child: _image,
-        );
+        return buildGestureDetector(child: _image);
       }
       return buildGestureDetector();
     }
+
     String urlPrefix = url!.split('/').first;
     bool isRemote = urlPrefix.contains('http');
     bool isAssets = url!.contains('lib/assets');
+
     if (isRemote) {
       String imageUrl = url ?? '';
       if (crop) {
@@ -95,18 +98,15 @@ class AppImage extends StatelessWidget {
       return CachedNetworkImage(
         imageUrl: imageUrl,
         imageBuilder: (context, imageProvider) {
-          return buildGestureDetector(
-            image: DecorationImage(
-              image: imageProvider,
-              fit: fit ?? BoxFit.cover,
-              scale: imageScale,
-            ),
-            child: child,
-          );
+          return buildImage(image: imageProvider);
         },
         placeholder: (context, url) {
           return buildGestureDetector(
-            child: const Center(child: CupertinoActivityIndicator()),
+            child: const Center(
+              child: AppAssetImage(
+                img: 'img_loding.png',
+              ),
+            ),
           );
         },
         errorWidget: (context, url, error) {
@@ -121,14 +121,7 @@ class AppImage extends StatelessWidget {
         },
       );
     } else if (isAssets) {
-      return buildGestureDetector(
-        image: DecorationImage(
-          image: AssetImage(url!),
-          fit: fit ?? BoxFit.cover,
-          scale: imageScale,
-        ),
-        child: child,
-      );
+      return buildImage(image: AssetImage(url!));
     }
 
     return buildGestureDetector(
@@ -146,15 +139,20 @@ class AppImage extends StatelessWidget {
     DecorationImage? image,
     Widget? child,
   }) {
+    Widget _child = buildWrapper(image: image, child: child);
+
+    if (heroTag != null) {
+      _child = Hero(tag: heroTag!, child: _child);
+    }
+
+    if (onTap == null) {
+      return _child;
+    }
+
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
-      child: heroTag != null
-          ? Hero(
-              tag: heroTag!,
-              child: buildWrapper(image: image, child: child),
-            )
-          : buildWrapper(image: image, child: child),
+      child: _child,
     );
   }
 
@@ -176,7 +174,26 @@ class AppImage extends StatelessWidget {
             BorderRadius.all(
               Radius.circular(radius ?? 4.r),
             ),
+        image: withOutDecoration ? null : image,
+      ),
+      child: child,
+    );
+  }
+
+  Widget buildImage({required ImageProvider image}) {
+    if (withOutDecoration) {
+      return buildGestureDetector(
+        child: Image(
+          image: image,
+          fit: fit ?? BoxFit.cover,
+        ),
+      );
+    }
+    return buildGestureDetector(
+      image: DecorationImage(
         image: image,
+        fit: fit ?? BoxFit.cover,
+        scale: imageScale,
       ),
       child: child,
     );

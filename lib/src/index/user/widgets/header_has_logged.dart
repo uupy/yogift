@@ -6,14 +6,14 @@ import 'package:yo_gift/widgets/app_image/app_image.dart';
 
 class HeaderHasLogged extends StatelessWidget {
   final String? avatar;
-  final String? nickname;
+  final String nickname;
   final String? phone;
   final String? birthday;
 
   const HeaderHasLogged({
     Key? key,
     this.avatar,
-    this.nickname,
+    this.nickname = '',
     this.phone,
     this.birthday,
   }) : super(key: key);
@@ -42,7 +42,7 @@ class HeaderHasLogged extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildBoldText(nickname ?? phone ?? ''),
+              buildBoldText(nickname.isNotEmpty ? nickname : phone ?? ''),
               if (birthday?.isNotEmpty ?? false)
                 Text(
                   birthday ?? '',

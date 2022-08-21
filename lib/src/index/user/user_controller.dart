@@ -10,7 +10,11 @@ class UserController extends GetxController {
     MenuItem(icon: 'icon_contribute.png', label: '捐贈記錄'),
   ];
   final menus2 = [
-    MenuItem(icon: 'icon_mine_invitation.png', label: '邀請朋友即時有禮'),
+    MenuItem(
+      icon: 'icon_mine_invitation.png',
+      label: '邀請朋友即時有禮',
+      path: '/pages/mine/invite-friend/index',
+    ),
   ];
   final menus3 = [
     MenuItem(

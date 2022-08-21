@@ -73,6 +73,7 @@ class LoginController extends GetxController {
         await app.updateAuthData(data['data'] ?? {});
         await app.updateUserInfo();
         app.showToast('登入成功');
+        app.loginCallback?.call();
         Get.back(result: true);
       } finally {
         submitting(false);

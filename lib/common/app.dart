@@ -28,6 +28,7 @@ class App {
   String deviceModel = '';
   AuthDataVo? authData;
   UserInfoVo? userInfo;
+  Function()? loginCallback;
 
   /// 初始化
   Future init(BuildContext context) async {

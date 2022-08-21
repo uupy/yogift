@@ -68,6 +68,9 @@ class AppStorage<T> {
 /// 记录是否首次打开app
 AppStorage<bool?> firstEntryApp = AppStorage('firstEntryApp');
 
+/// 最新广告弹窗时间
+AppStorage<int?> lastOpenAdTime = AppStorage('lastOpenAdTime');
+
 /// 认证token
 AppStorage<String?> accessToken = AppStorage('accessToken');
 

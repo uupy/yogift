@@ -97,6 +97,8 @@ dependencies:
   fluwx: ^3.9.1
   # stripe支付
   flutter_stripe: ^2.5.0
+  # webview
+  webview_flutter: ^2.8.0
 
 dev_dependencies:
   flutter_test:

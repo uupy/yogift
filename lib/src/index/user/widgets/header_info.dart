@@ -27,7 +27,7 @@ class UserHeaderInfo extends StatelessWidget {
                     )
                   : HeaderHasLogged(
                       avatar: c.userInfo?.headSrc,
-                      nickname: c.userInfo?.nickName,
+                      nickname: c.userInfo?.nickName ?? '',
                       phone: c.userInfo?.phone,
                       birthday: c.userInfo?.birthday,
                     ),

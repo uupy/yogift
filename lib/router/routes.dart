@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:yo_gift/src/charity/detail/detail_page.dart';
 import 'package:yo_gift/src/common/rich_text/rich_txt_page.dart';
+import 'package:yo_gift/src/common/webview/webview_page.dart';
 import 'package:yo_gift/src/goods/ask_friend/ask_friend_page.dart';
 import 'package:yo_gift/src/goods/detail/detail_page.dart';
 import 'package:yo_gift/src/goods/purchase/purchase_page.dart';
@@ -14,6 +15,7 @@ import 'package:yo_gift/src/user/account_setting/account_setting_page.dart';
 import 'package:yo_gift/src/user/account_setting/area/area1_page.dart';
 import 'package:yo_gift/src/user/account_setting/area/area2_page.dart';
 import 'package:yo_gift/src/user/account_setting/edit/edit_page.dart';
+import 'package:yo_gift/src/user/invite_friend/invite_friend_page.dart';
 import 'package:yo_gift/src/user/login/login_page.dart';
 import 'package:yo_gift/src/user/notify_setting/notify_setting_page.dart';
 import 'package:yo_gift/src/user/register/register_page.dart';
@@ -62,5 +64,8 @@ final List<AppRoute> routes = [
       name: '/pages/mine/user-login/set-mobile/index', page: SetMobilePage()),
   const AppRoute(
       name: '/pages/mine/notify-setting/index', page: NotifySettingPage()),
+  const AppRoute(
+      name: '/pages/mine/invite-friend/index', page: InviteFriendPage()),
   const AppRoute(name: '/pages/common/rich-txt/index', page: RichTxtPage()),
+  const AppRoute(name: '/pages/common/webview/index', page: WebviewPage()),
 ];

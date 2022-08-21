@@ -1,7 +1,14 @@
-import 'package:yo_gift/assets/fonts/iconfont.dart';
-import 'package:yo_gift/router/tab_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
+import 'package:yo_gift/assets/fonts/iconfont.dart';
+import 'package:yo_gift/common/app_controller.dart';
+import 'package:yo_gift/common/app_storage.dart';
+import 'package:yo_gift/common/custom_dialog/custom_dialog.dart';
+import 'package:yo_gift/router/tab_bar.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
+import 'package:yo_gift/widgets/app_image/app_image.dart';
 
 class IndexController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -27,6 +34,7 @@ class IndexController extends GetxController {
   @override
   void onInit() async {
     initIndex();
+    showAdDialog();
     super.onInit();
   }
 
@@ -47,6 +55,90 @@ class IndexController extends GetxController {
           ));
     }
     update();
+  }
+
+  /// 广告弹窗
+  Future showAdDialog() async {
+    final now = DateTime.now();
+    final lastTimestamp = await lastOpenAdTime.get();
+    final appController = Get.find<AppController>();
+    final ads = appController.config?.popupWindow ?? [];
+
+    bool shouldShow = lastTimestamp == null;
+
+    if (lastTimestamp != null) {
+      final lastTime = DateTime.fromMillisecondsSinceEpoch(lastTimestamp);
+      final inDays = now.difference(lastTime).inDays;
+      final inHours = now.difference(lastTime).inHours;
+      shouldShow = inDays > 0 && inHours > 2;
+    }
+
+    if (ads.isNotEmpty && shouldShow) {
+      final ad = ads.last;
+      final nowTimestamp = now.millisecondsSinceEpoch;
+
+      await lastOpenAdTime.set(nowTimestamp);
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      return await showAnimationDialog<bool>(
+        context: Get.context!,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppImage(
+              crop: false,
+              color: Colors.transparent,
+              width: Get.width - 40.w,
+              fit: BoxFit.fitWidth,
+              withOutDecoration: true,
+              url: ad.bannerImg,
+              onTap: () async {
+                final link = ad.link ?? '';
+                final links = link.split('|');
+                String argument = '';
+
+                if (link.isNotEmpty) {
+                  argument = links.last;
+                }
+
+                Get.back();
+
+                await Future.delayed(const Duration(milliseconds: 100));
+
+                if (argument.isNotEmpty) {
+                  switch (ad.linkType) {
+                    case 1:
+                      Get.toNamed('/pages/common/webview/index', parameters: {
+                        'src': argument,
+                      });
+                      break;
+                    case 2:
+                      Get.toNamed(argument);
+                      break;
+                    case 3:
+                      fluwx.launchWeChatMiniProgram(username: argument);
+                      break;
+                    case 4:
+                      Get.toNamed('/pages/goods/detail/index', parameters: {
+                        'id': argument,
+                      });
+                      break;
+                  }
+                }
+              },
+            ),
+            AppAssetImage(
+              width: 24.w,
+              margin: EdgeInsets.only(top: 10.w),
+              img: 'icon_close2.png',
+              onTap: () {
+                Get.back();
+              },
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   /// 切换导航tab

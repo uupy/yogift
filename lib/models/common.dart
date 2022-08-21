@@ -63,17 +63,22 @@ class PopupWindow {
   String? bannerImg;
   String? link;
 
-  PopupWindow({this.bannerImg, this.link});
+  /// 1 = h5网址，用webview打开, 2 = 特定栏目， 3 = 外部小程序， 4 = 指定商品， 0 = 其他（不处理）
+  int? linkType;
+
+  PopupWindow({this.bannerImg, this.link, this.linkType});
 
   PopupWindow.fromJson(Map<String, dynamic> json) {
     bannerImg = json['BannerImg'];
     link = json['Link'];
+    linkType = json['LinkType'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['BannerImg'] = bannerImg;
     data['Link'] = link;
+    data['LinkType'] = linkType;
     return data;
   }
 }
@@ -94,6 +99,7 @@ class SetupConfig {
   EnumVo? recommendationCodeUrl;
   EnumVo? mobileAreaCodeList;
   EnumVo? introduceGifts;
+  EnumVo? introduceGiftTips;
   EnumVo? introduceGiftTitle;
   EnumVo? introduceGiftStatus;
 
@@ -113,6 +119,7 @@ class SetupConfig {
       this.recommendationCodeUrl,
       this.mobileAreaCodeList,
       this.introduceGifts,
+      this.introduceGiftTips,
       this.introduceGiftTitle,
       this.introduceGiftStatus});
 
@@ -153,6 +160,9 @@ class SetupConfig {
     introduceGifts = json['IntroduceGifts'] != null
         ? EnumVo.fromJson(json['IntroduceGifts'])
         : null;
+    introduceGiftTips = json['introduceGiftTips'] != null
+        ? EnumVo.fromJson(json['introduceGiftTips'])
+        : null;
     introduceGiftTitle = json['introduceGiftTitle'] != null
         ? EnumVo.fromJson(json['introduceGiftTitle'])
         : null;
@@ -178,6 +188,7 @@ class SetupConfig {
     data['RecommendationCodeUrl'] = recommendationCodeUrl?.toJson();
     data['MobileAreaCodeList'] = mobileAreaCodeList?.toJson();
     data['IntroduceGifts'] = introduceGifts?.toJson();
+    data['introduceGiftTips'] = introduceGiftTips?.toJson();
     data['introduceGiftTitle'] = introduceGiftTitle?.toJson();
     data['introduceGiftStatus'] = introduceGiftStatus?.toJson();
     return data;
