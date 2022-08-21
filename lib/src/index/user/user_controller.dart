@@ -10,7 +10,11 @@ class UserController extends GetxController {
       label: '我購買的禮物',
       path: '/pages/mine/order/index',
     ),
-    MenuItem(icon: 'icon_mine_gift.png', label: '我收到的禮物'),
+    MenuItem(
+      icon: 'icon_mine_gift.png',
+      label: '我收到的禮物',
+      path: '/pages/mine/gift/mine/index',
+    ),
     MenuItem(icon: 'icon_contribute.png', label: '捐贈記錄'),
   ];
   final menus2 = [
