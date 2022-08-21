@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:yo_gift/src/charity/detail/detail_page.dart';
 import 'package:yo_gift/src/common/rich_text/rich_txt_page.dart';
 import 'package:yo_gift/src/common/webview/webview_page.dart';
+import 'package:yo_gift/src/friend/detail/detail_page.dart';
 import 'package:yo_gift/src/goods/ask_friend/ask_friend_page.dart';
 import 'package:yo_gift/src/goods/detail/detail_page.dart';
 import 'package:yo_gift/src/goods/purchase/purchase_page.dart';
@@ -66,6 +67,7 @@ final List<AppRoute> routes = [
       name: '/pages/mine/notify-setting/index', page: NotifySettingPage()),
   const AppRoute(
       name: '/pages/mine/invite-friend/index', page: InviteFriendPage()),
+  const AppRoute(name: '/pages/friend/detail/index', page: FriendDetailPage()),
   const AppRoute(name: '/pages/common/rich-txt/index', page: RichTxtPage()),
   const AppRoute(name: '/pages/common/webview/index', page: WebviewPage()),
 ];

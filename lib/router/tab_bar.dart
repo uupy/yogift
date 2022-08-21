@@ -65,7 +65,7 @@ final List<TabBarRoute> tabBarRoutes = [
     ),
   ),
   TabBarRoute(
-    page: const FriendsPage(),
+    page: FriendsPage(),
     navBarItem: BottomNavigationBarItem(
       label: '好友',
       icon: AppAssetImage(

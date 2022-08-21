@@ -30,6 +30,7 @@ class AppListView<T> extends StatefulWidget {
   final double? footerHeight;
   final EdgeInsetsGeometry? footerPadding;
   final EdgeInsetsGeometry? emptyPadding;
+  final EdgeInsetsGeometry? padding;
   final Color? waterDropColor;
   final Color? waterDropTextColor;
   final Function(List<T> list)? onLoaded;
@@ -49,6 +50,7 @@ class AppListView<T> extends StatefulWidget {
     this.footerHeight,
     this.footerPadding,
     this.emptyPadding,
+    this.padding,
     this.waterDropColor,
     this.waterDropTextColor,
     this.onLoaded,
@@ -138,6 +140,7 @@ class _AppListView<T> extends State<AppListView<T>> {
         },
       ),
       child: ListView.builder(
+        padding: widget.padding,
         itemCount: itemCount,
         itemBuilder: (c, index) {
           final n = widget.prefix != null ? 1 : 0;
@@ -152,7 +155,7 @@ class _AppListView<T> extends State<AppListView<T>> {
             if (_controller.loading && !_controller.isPullDown) {
               return _buildProgressIndicator();
             }
-            return widget.empty ?? const EmptyBox();
+            return widget.empty ?? EmptyBox(padding: widget.emptyPadding);
           }
 
           if (index == itemCount - 1) {
