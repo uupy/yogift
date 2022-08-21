@@ -54,6 +54,7 @@ class _PurchasePageState extends State<PurchasePage> {
       ),
       extendBody: true,
       body: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
         controller: _scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -18,6 +18,11 @@ class UserOrderService {
   static Future queryPageForCharity(data) =>
       http.postJson('/UserOrder/List_For_Charity', data: data);
 
+  /// 我的捐贈单
+  static Future getItem(String id) => http.postJson('/UserOrder/Item', data: {
+        'id_guid': id,
+      });
+
   /// 多步合一下单:买给自己 注册/登入->修改资料 ->购买 ->修改地址
   static Future add4Steps(Add4StepsVo data) =>
       http.postJson('/UserOrder/Add_4Steps', data: data);
