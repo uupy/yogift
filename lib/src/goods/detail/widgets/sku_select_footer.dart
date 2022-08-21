@@ -26,7 +26,7 @@ class SkuSelectFooter extends StatelessWidget {
       buttonName = '拜托好友';
     }
 
-    if (sku.amount == 0) {
+    if (sku.amount == 0 || sku.id == 0) {
       return Container(
         height: 68.w,
         margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
@@ -37,8 +37,8 @@ class SkuSelectFooter extends StatelessWidget {
             SizedBox(
               width: 140.w,
               height: 40.w,
-              child: const AppButton(
-                text: '暫無庫存',
+              child: AppButton(
+                text: sku.id == 0 ? '暫未上架' : '暫無庫存',
                 disabled: true,
               ),
             ),

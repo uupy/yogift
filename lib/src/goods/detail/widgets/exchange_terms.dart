@@ -9,6 +9,7 @@ class ExchangeTerms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GoodsDetailController>(
+      id: 'ExchangeTerms',
       builder: (c) {
         return Html(data: c.detail?.exchangeTerms ?? '');
       },

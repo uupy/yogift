@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/models/gift_detail.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/app_simple_row.dart';
 
@@ -23,6 +24,23 @@ class SkuSelectHeader extends StatelessWidget {
 
     if (img.isEmpty) {
       img = defaultCoverImg ?? '';
+    }
+
+    if (sku.id == 0) {
+      return SizedBox(
+        height: 40.w,
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: AppAssetImage(
+            width: 24.w,
+            margin: EdgeInsets.only(right: 20.w, top: 6.w),
+            img: 'icon_close.png',
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+      );
     }
 
     return IntrinsicHeight(

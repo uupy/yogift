@@ -15,6 +15,7 @@ class GoodsDetailImages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GoodsDetailController>(
+      id: 'GoodsDetailImages',
       builder: (c) {
         final images = c.detail?.cDetailImg ?? [];
 
@@ -29,6 +30,7 @@ class GoodsDetailImages extends StatelessWidget {
                 items: images,
                 onChanged: (index) {
                   c.onImageChanged(index);
+                  c.update(['GoodsDetailImages']);
                 },
               ),
               CarouselPagination(
@@ -93,6 +95,8 @@ class GoodsDetailImages extends StatelessWidget {
       child: AppImage(
         url: image,
         radius: 24.r,
+        cropWidth: 670,
+        cropHeight: 670,
       ),
     );
   }

@@ -10,6 +10,10 @@ import 'package:yo_gift/models/user_order/receiving_address.dart';
 class UserOrderService {
   UserOrderService._();
 
+  /// 用于訂單筛选
+  static Future queryPage(data) =>
+      http.postJson('/UserOrder/List_By_OrderStatus', data: data);
+
   /// 多步合一下单:买给自己 注册/登入->修改资料 ->购买 ->修改地址
   static Future add4Steps(Add4StepsVo data) =>
       http.postJson('/UserOrder/Add_4Steps', data: data);

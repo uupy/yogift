@@ -5,7 +5,11 @@ import 'package:yo_gift/widgets/menu_row/menu_item.dart';
 
 class UserController extends GetxController {
   final menus1 = [
-    MenuItem(icon: 'icon_mine_order.png', label: '我購買的禮物'),
+    MenuItem(
+      icon: 'icon_mine_order.png',
+      label: '我購買的禮物',
+      path: '/pages/mine/order/index',
+    ),
     MenuItem(icon: 'icon_mine_gift.png', label: '我收到的禮物'),
     MenuItem(icon: 'icon_contribute.png', label: '捐贈記錄'),
   ];

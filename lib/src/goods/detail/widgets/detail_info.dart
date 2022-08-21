@@ -9,6 +9,7 @@ class GoodsDetailInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GoodsDetailController>(
+      id: 'GoodsDetailInfo',
       builder: (c) {
         return Html(data: c.detail?.cDetail ?? '');
       },

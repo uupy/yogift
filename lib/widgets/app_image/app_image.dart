@@ -55,8 +55,8 @@ class AppImage extends StatelessWidget {
     this.height,
     this.radius,
     this.imageScale = 1.0,
-    this.cropWidth = 350,
-    this.cropHeight = 350,
+    this.cropWidth = 300,
+    this.cropHeight = 300,
     this.border,
     this.borderRadius,
     this.alignment,
@@ -88,11 +88,9 @@ class AppImage extends StatelessWidget {
     if (isRemote) {
       String imageUrl = url ?? '';
       if (crop) {
-        String _cropSize = 'w_$cropWidth,h_$cropHeight';
-        if (imageUrl.contains('?x-oss-process=')) {
-          imageUrl = '$url,$_cropSize';
-        } else {
-          imageUrl = '$url?x-oss-process=image/resize,m_fill,$_cropSize';
+        String _cropSize = '${cropWidth}x$cropHeight';
+        if (!imageUrl.contains('?imageMogr2/thumbnail/')) {
+          imageUrl = '$url?imageMogr2/thumbnail/$_cropSize';
         }
       }
       return CachedNetworkImage(

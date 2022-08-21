@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:yo_gift/src/goods/detail/detail_controller.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_row.dart';
+import 'package:yo_gift/widgets/goods/favorite_button.dart';
 import 'package:yo_gift/widgets/goods/goods_sending_tag.dart';
+import 'package:yo_gift/widgets/shop_name_link.dart';
 
 class GoodsDetailBaseInfo extends StatelessWidget {
   const GoodsDetailBaseInfo({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class GoodsDetailBaseInfo extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: GetBuilder<GoodsDetailController>(
+        id: 'GoodsDetailBaseInfo',
         builder: (c) {
           final sendingMethod = (c.detail?.sendingMethod ?? 1).toInt();
           final favorite = c.detail?.favorite ?? 0;
@@ -39,25 +42,11 @@ class GoodsDetailBaseInfo extends StatelessWidget {
                 ),
                 suffix: [
                   SizedBox(width: 15.w),
-                  GestureDetector(
-                    onTap: () {},
-                    behavior: HitTestBehavior.opaque,
-                    child: Column(
-                      children: [
-                        AppAssetImage(
-                          img: 'icon_heart_$favorite.png',
-                          width: 20.w,
-                        ),
-                        Text(
-                          '願望清單',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: const Color.fromRGBO(0, 0, 0, 0.9),
-                          ),
-                        ),
-                      ],
+                  if (c.detail != null)
+                    FavoriteButton(
+                      guid: c.detail?.gGuid,
+                      favorite: favorite,
                     ),
-                  ),
                 ],
               ),
               SizedBox(height: 8.w),
@@ -104,13 +93,9 @@ class GoodsDetailBaseInfo extends StatelessWidget {
                     img: 'icon_shop.png',
                   ),
                 ],
-                expanded: Text(
-                  c.detail?.bussinessName ?? '',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: const Color(0xff007aff),
-                    decoration: TextDecoration.underline,
-                  ),
+                expanded: ShopNameLink(
+                  name: c.detail?.bussinessName ?? '',
+                  id: c.detail?.bGuid,
                 ),
               ),
               AppRow(

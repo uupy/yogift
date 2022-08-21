@@ -142,7 +142,12 @@ class GoodsDetailController extends GetxController {
     final res = await GiftService.getGift(goodsId!);
     final data = res.data ?? {};
     detail = GiftDetailVo.fromJson(data['data'] ?? {});
-    update();
+    update([
+      'GoodsDetailImages',
+      'GoodsDetailBaseInfo',
+      'GoodsDetailInfo',
+      'ExchangeTerms'
+    ]);
 
     if (buyType.isNotEmpty) {
       navHandling(int.tryParse(buyType) ?? 0);
