@@ -33,7 +33,7 @@ class _UserWishPageState extends State<UserWishPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('我的願望清單'),
+        title: Text('${controller.friendName ?? '我'}的願望清單'),
       ),
       body: Stack(
         children: [
@@ -73,18 +73,20 @@ class _UserWishPageState extends State<UserWishPage> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                suffix: FavoriteButton(
-                                  guid: item.gGuid,
-                                  favorite: 1,
-                                  showText: false,
-                                  onChanged: (value) {
-                                    controller.listController.setState
-                                        ?.call(() {
-                                      controller.listController.list
-                                          .remove(item);
-                                    });
-                                  },
-                                ),
+                                suffix: !controller.isFriend
+                                    ? FavoriteButton(
+                                        guid: item.gGuid,
+                                        favorite: 1,
+                                        showText: false,
+                                        onChanged: (value) {
+                                          controller.listController.setState
+                                              ?.call(() {
+                                            controller.listController.list
+                                                .remove(item);
+                                          });
+                                        },
+                                      )
+                                    : null,
                               ),
                               Padding(
                                 padding: EdgeInsets.only(top: 4.w, bottom: 6.w),
@@ -113,11 +115,12 @@ class _UserWishPageState extends State<UserWishPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        buildFooterItem(
-                          text: '拜託',
-                          icon: 'icon_please.png',
-                          background: const Color(0xfffffdeb),
-                        ),
+                        if (!controller.isFriend)
+                          buildFooterItem(
+                            text: '拜託',
+                            icon: 'icon_please.png',
+                            background: const Color(0xfffffdeb),
+                          ),
                         buildFooterItem(
                           text: '購買',
                           icon: 'icon_shopping_bag.png',

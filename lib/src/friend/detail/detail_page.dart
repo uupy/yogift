@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/models/friends_list.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
 import 'package:yo_gift/widgets/app_simple_row.dart';
 
@@ -26,11 +27,39 @@ class _FriendDetailPageState extends State<FriendDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(controller.friendName ?? '好友消息'),
+        actions: [
+          AppSimpleRow(
+            onTap: () {
+              final parameters = Get.parameters.cast<String, String>();
+              Get.toNamed('/pages/wish/index/index', parameters: parameters);
+            },
+            margin: EdgeInsets.only(right: 20.w),
+            color: Colors.transparent,
+            children: [
+              AppAssetImage(
+                width: 20.w,
+                margin: EdgeInsets.only(right: 4.w),
+                img: 'icon_wishlist.png',
+              ),
+              Text(
+                '好友願望清單',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: const Color.fromRGBO(0, 0, 0, 0.9),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       body: AppListView<FriendMsgVo>(
         fetch: controller.queryList,
         controller: controller.listController,
         colCount: 1,
+        reverse: true,
+        reverseData: true,
+        enablePullDown: false,
+        enablePullUp: false,
         emptyPadding: EdgeInsets.fromLTRB(50.w, 60.w, 50.w, 0),
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.w),
         itemBuilder: (item, index, list) {

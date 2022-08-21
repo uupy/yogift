@@ -9,6 +9,7 @@ class AppListController<T> {
   bool isAllLoaded = false;
   bool isPullDown = false;
   bool hasPage = true;
+  bool reverseData = false;
   List<T> list = [];
   RefreshController refreshController = RefreshController();
   FetchRequest<T>? fetch;
@@ -42,7 +43,11 @@ class AppListController<T> {
       }
 
       if (items.isNotEmpty) {
-        list.addAll(items);
+        if (reverseData) {
+          list.insertAll(0, items.reversed);
+        } else {
+          list.addAll(items);
+        }
         page++;
       } else {
         refreshController.loadNoData();

@@ -14,6 +14,7 @@ class FriendDetailController extends GetxController {
 
   Future<List<FriendMsgVo>> queryList(Map<String, dynamic> params) async {
     params['friend_id'] = friendId;
+    params['pagesize'] = 99;
     final res = await FriendsListService.queryMsgPage(params);
     final data = res.data ?? {};
     final List items = data['data'] ?? [];

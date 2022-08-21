@@ -24,6 +24,10 @@ class AppListView<T> extends StatefulWidget {
   final int colCount;
   final bool immediate;
   final bool hasPage;
+  final bool reverse;
+  final bool reverseData;
+  final bool enablePullDown;
+  final bool enablePullUp;
   final Widget? prefix;
   final Widget? empty;
   final Widget? firstTimeLoading;
@@ -44,6 +48,10 @@ class AppListView<T> extends StatefulWidget {
     this.colCount = 1,
     this.immediate = true,
     this.hasPage = true,
+    this.reverse = false,
+    this.reverseData = false,
+    this.enablePullDown = true,
+    this.enablePullUp = true,
     this.prefix,
     this.empty,
     this.firstTimeLoading,
@@ -77,6 +85,7 @@ class _AppListView<T> extends State<AppListView<T>> {
       _controller = widget.controller!;
     }
     _controller.setState = setState;
+    _controller.reverseData = widget.reverseData;
     _controller.hasPage = widget.hasPage;
     _controller.fetch = widget.fetch;
     _controller.onLoaded = widget.onLoaded;
@@ -102,7 +111,8 @@ class _AppListView<T> extends State<AppListView<T>> {
     }
 
     return SmartRefresher(
-      enablePullUp: _controller.hasPage,
+      enablePullDown: widget.enablePullDown,
+      enablePullUp: widget.enablePullUp && _controller.hasPage,
       controller: _controller.refreshController,
       onRefresh: _controller.onRefresh,
       onLoading: _controller.onLoading,
@@ -141,6 +151,7 @@ class _AppListView<T> extends State<AppListView<T>> {
       ),
       child: ListView.builder(
         padding: widget.padding,
+        reverse: widget.reverse,
         itemCount: itemCount,
         itemBuilder: (c, index) {
           final n = widget.prefix != null ? 1 : 0;
