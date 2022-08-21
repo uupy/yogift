@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/goods/purchase/purchase_controller.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 
+import '../ask_friend_controller.dart';
 import 'greeting_card_input.dart';
 import 'greeting_card_top.dart';
 
@@ -14,7 +14,7 @@ class GreetingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PurchaseController>(
+    return GetBuilder<AskFriendController>(
       id: 'GreetingCard',
       builder: (c) {
         final list = c.currentCard?.content1 ?? [];

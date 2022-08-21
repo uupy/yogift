@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/goods/purchase/purchase_controller.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_row.dart';
 import 'package:yo_gift/widgets/form_item.dart';
 import 'package:yo_gift/widgets/phone_prefix_select.dart';
 
+import '../ask_friend_controller.dart';
 import 'sender_info_tab_bar.dart';
 
 class SenderInfo extends StatefulWidget {
@@ -22,7 +22,7 @@ class _SenderInfoState extends State<SenderInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PurchaseController>(
+    return GetBuilder<AskFriendController>(
       id: 'SenderInfo',
       builder: (c) {
         if (c.isLogged) {

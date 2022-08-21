@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/models/address_list.dart';
 import 'package:yo_gift/models/gift_detail.dart';
@@ -28,10 +29,7 @@ class PurchaseController extends GetxController {
   final msgController = TextEditingController();
 
   /// 下单，买给自己（已登录状态）
-  late final baseForm = AddVo(
-    num: 1,
-    skuid: skuId,
-  );
+  late final baseForm = AddVo();
 
   /// 下单，送给好友（已登录状态）
   final addToFriendForm = AddToFriendVo();
@@ -209,18 +207,62 @@ class PurchaseController extends GetxController {
     if (orderInfo != null) {
       onPay();
     } else {
-      if (!isGiveToSelf) {
-        await onAddToFriend();
+      if (isLogged) {
+        if (isGiveToSelf) {
+          await onAddToSelf();
+        } else {
+          await onAddToFriend();
+        }
+      } else {
+        onAdd4Steps();
       }
     }
   }
 
+  /// 未登錄狀態
+  Future onAdd4Steps() async {
+    add4StepsForm.giftIdGuid = goodsId;
+    add4StepsForm.skuid = skuId;
+    add4StepsForm.num = 1;
+    add4StepsForm.money = detail?.buyPrice ?? 0;
+    add4StepsForm.content2 = baseForm.content2 ?? '';
+    add4StepsForm.receivingaddressArea0Id =
+        receiverInfo.receivingaddressArea0Id ?? 0;
+    add4StepsForm.receivingaddressArea1Id =
+        receiverInfo.receivingaddressArea1Id ?? 0;
+
+    final res = await UserOrderService.add4Steps(add4StepsForm);
+    final data = res.data['data'] ?? {};
+    final info = data['Order'] ?? {};
+    await app.updateAuthData(data);
+    await app.updateUserInfo();
+    orderInfo = OrderDetailItemVo.fromJson(info);
+    if (!isGiveToSelf) {
+      await UserOrderService.setReceivingaddress(receiverInfo);
+    }
+    onPay();
+  }
+
+  /// 登錄狀態，買給自己
+  Future onAddToSelf() async {
+    baseForm.giftIdGuid = goodsId;
+    baseForm.skuid = skuId;
+    baseForm.num = 1;
+    baseForm.money = detail?.buyPrice ?? 0;
+
+    final res = await UserOrderService.add(baseForm);
+    final data = res.data['data'] ?? {};
+
+    orderInfo = OrderDetailItemVo.fromJson(data);
+    onPay();
+  }
+
+  /// 登錄狀態，贈送好友
   Future onAddToFriend() async {
     addToFriendForm.giftIdGuid = goodsId;
     addToFriendForm.skuid = skuId;
     addToFriendForm.num = 1;
-    addToFriendForm.money = (detail?.buyPrice ?? 0).toDouble();
-    addToFriendForm.skuid = skuId;
+    addToFriendForm.money = detail?.buyPrice ?? 0;
     addToFriendForm.content2 = baseForm.content2 ?? '';
 
     final res = await UserOrderService.addToFriend(addToFriendForm);

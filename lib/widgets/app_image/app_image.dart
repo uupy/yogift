@@ -100,8 +100,9 @@ class AppImage extends StatelessWidget {
         },
         placeholder: (context, url) {
           return buildGestureDetector(
-            child: const Center(
+            child: Center(
               child: AppAssetImage(
+                margin: EdgeInsets.all(16.w),
                 img: 'img_loding.png',
               ),
             ),

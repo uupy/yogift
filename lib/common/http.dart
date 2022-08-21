@@ -58,10 +58,12 @@ Interceptor requestInterceptor() {
 
         req.extra['silent'] = true;
 
-        handler.reject(
-          DioError(requestOptions: req, response: options),
-          true,
-        );
+        if (code != 30001) {
+          handler.reject(
+            DioError(requestOptions: req, response: options),
+            true,
+          );
+        }
       }
 
       return handler.next(options);

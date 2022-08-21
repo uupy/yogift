@@ -50,7 +50,7 @@ class _PurchasePageState extends State<PurchasePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('填寫心意卡'),
+        title: Text(controller.isGiveToSelf ? '結賬' : '填寫心意卡'),
       ),
       extendBody: true,
       body: SingleChildScrollView(
@@ -62,15 +62,16 @@ class _PurchasePageState extends State<PurchasePage> {
             Stack(
               children: [
                 const HeaderBackground(),
-                const ProgressStepBar(),
+                if (!controller.isGiveToSelf) const ProgressStepBar(),
                 Padding(
-                  padding: EdgeInsets.only(top: 70.w),
+                  padding: EdgeInsets.only(
+                      top: controller.isGiveToSelf ? 10.w : 70.w),
                   child: const DetailInfo(),
                 ),
               ],
             ),
-            SizedBox(height: 20.w),
-            const GreetingCard(),
+            if (!controller.isGiveToSelf) SizedBox(height: 20.w),
+            if (!controller.isGiveToSelf) const GreetingCard(),
             const OrderRemark(),
             SenderInfo(key: _senderWidgetKey),
             ReceiverInfo(key: _receiverWidgetKey),
