@@ -19,4 +19,8 @@ class OrderListController extends GetxController {
   Future onReload() async {
     listController.onReload();
   }
+
+  Future onCloseOrder(String orderId) async {
+    await UserOrderService.closeItem(orderId);
+  }
 }

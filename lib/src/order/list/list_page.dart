@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/models/user_order/order_list_item.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
 import 'package:yo_gift/widgets/header_background.dart';
@@ -45,7 +46,19 @@ class _OrderListPageState extends State<OrderListPage> {
             controller: controller.listController,
             colCount: 1,
             itemBuilder: (item, index, list) {
-              return OrderItemCard(item: item);
+              return OrderItemCard(
+                item: item,
+                onClosed: () async {
+                  final res = await app.confirm(contentText: '確定關閉該訂單嗎?');
+                  if (res == true) {
+                    await controller.onCloseOrder(item.oGuid!);
+                    controller.listController.setState?.call(() {
+                      controller.listController.list.remove(item);
+                    });
+                    app.showToast('該訂單已關閉');
+                  }
+                },
+              );
             },
           ),
         ],

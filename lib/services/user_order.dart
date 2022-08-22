@@ -18,9 +18,15 @@ class UserOrderService {
   static Future queryPageForCharity(data) =>
       http.postJson('/UserOrder/List_For_Charity', data: data);
 
-  /// 我的捐贈单
+  /// 单个
   static Future getItem(String id) => http.postJson('/UserOrder/Item', data: {
         'id_guid': id,
+      });
+
+  /// 关闭订单
+  static Future closeItem(String id) =>
+      http.postJson('/UserOrder/CloseOrder', data: {
+        'Id_Guid': id,
       });
 
   /// 多步合一下单:买给自己 注册/登入->修改资料 ->购买 ->修改地址

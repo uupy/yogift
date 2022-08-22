@@ -10,9 +10,7 @@ import '../detail_controller.dart';
 import 'item_image.dart';
 
 class OrderItemCard extends StatelessWidget {
-  const OrderItemCard({
-    Key? key,
-  }) : super(key: key);
+  const OrderItemCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

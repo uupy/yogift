@@ -7,11 +7,13 @@ import 'package:yo_gift/widgets/app_button.dart';
 
 class OrderItemFooter extends StatelessWidget {
   final OrderListItemVo item;
+  final Function()? onClosed;
   final Function()? onCheckDetails;
 
   const OrderItemFooter({
     Key? key,
     required this.item,
+    this.onClosed,
     this.onCheckDetails,
   }) : super(key: key);
 
@@ -33,6 +35,7 @@ class OrderItemFooter extends StatelessWidget {
         buildFooterItem(
           text: '關閉訂單',
           background: const Color(0xfffffdeb),
+          onTap: onClosed,
         ),
         buildFooterItem(
           text: '繼續支付',

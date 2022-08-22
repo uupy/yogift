@@ -11,13 +11,16 @@ import 'item_image.dart';
 
 class OrderItemCard extends StatelessWidget {
   final OrderListItemVo item;
+  final Function()? onClosed;
 
   const OrderItemCard({
     Key? key,
     required this.item,
+    this.onClosed,
   }) : super(key: key);
 
   void goOrderDetail() {
+    if (item.payStatus == 1) return;
     Get.toNamed('/pages/mine/order/detail/index', parameters: {
       'id': item.oGuid!,
     });
@@ -164,6 +167,7 @@ class OrderItemCard extends StatelessWidget {
           SizedBox(height: 15.w),
           OrderItemFooter(
             item: item,
+            onClosed: onClosed,
             onCheckDetails: goOrderDetail,
           ),
         ],
