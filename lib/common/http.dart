@@ -47,6 +47,7 @@ Interceptor requestInterceptor() {
       final code = res['code'];
       final msg = res['message'] ?? errorMessages[code];
       bool isSilent = req.extra['silent'] ?? false;
+      bool ignoreErrors = req.extra['ignoreErrors'] ?? false;
 
       if (code != null && code != 200) {
         if (!isSilent) {
@@ -58,7 +59,7 @@ Interceptor requestInterceptor() {
 
         req.extra['silent'] = true;
 
-        if (code != 30001) {
+        if (!ignoreErrors) {
           handler.reject(
             DioError(requestOptions: req, response: options),
             true,
@@ -110,7 +111,8 @@ class Http {
   }
 
   /// get请求
-  Future get(String path, {data, queryParameters, Options? options}) async {
+  Future<Response<T>> get<T>(String path,
+      {data, queryParameters, Options? options}) async {
     return await dio.get(
       path,
       queryParameters: data ?? queryParameters,
@@ -119,7 +121,7 @@ class Http {
   }
 
   /// post请求
-  Future post(String path, {data, Options? options}) async {
+  Future<Response<T>> post<T>(String path, {data, Options? options}) async {
     /// 请求的Content-Type，默认值是"application/json; charset=utf-8".
     /// 如果您想以"application/x-www-form-urlencoded"格式编码请求数据,
     /// 可以设置此选项为 `Headers.formUrlEncodedContentType`,  这样[Dio]
@@ -134,7 +136,7 @@ class Http {
   }
 
   /// post请求
-  Future postJson(String path, {data, Options? options}) async {
+  Future<Response<T>> postJson<T>(String path, {data, Options? options}) async {
     return await dio.post(
       path,
       data: data,
@@ -143,7 +145,7 @@ class Http {
   }
 
   /// post请求
-  Future put(String path, {data, Options? options}) async {
+  Future<Response<T>> put<T>(String path, {data, Options? options}) async {
     return await dio.put(
       path,
       data: data,
@@ -152,7 +154,7 @@ class Http {
   }
 
   /// post请求
-  Future delete(String path, {data, Options? options}) async {
+  Future<Response<T>> delete<T>(String path, {data, Options? options}) async {
     return await dio.delete(
       path,
       data: data,

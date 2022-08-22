@@ -28,7 +28,7 @@ class _GoodsDetailCardState extends State<GoodsDetailCard> {
   Widget build(BuildContext context) {
     final item = widget.data;
     final shopName = item?.bussinessName ?? '';
-    final buyPrice = item?.buyPrice;
+    final buyPrice = item?.buyPrice ?? 0;
     final originalPrice = item?.originalPrice;
     final buy1Get1Free = item?.buy1Get1FREE ?? 0;
 

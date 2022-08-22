@@ -23,6 +23,7 @@ class PurchaseFooter extends StatelessWidget {
         ),
       ),
       child: GetBuilder<PurchaseController>(
+        id: 'PurchaseFooter',
         builder: (c) {
           return Row(
             children: [

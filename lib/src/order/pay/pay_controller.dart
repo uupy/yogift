@@ -1,4 +1,7 @@
-import 'package:get/get.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart' hide Response;
 import 'package:tobias/tobias.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/logger.dart';
@@ -6,6 +9,7 @@ import 'package:yo_gift/models/user_order/pay_type.dart';
 import 'package:yo_gift/services/user_order.dart';
 
 import 'pay_page.dart';
+import 'widgets/stripe_form.dart';
 
 class PayController extends GetxController {
   List<PayTypeVo> payTypes = [];
@@ -41,33 +45,80 @@ class PayController extends GetxController {
     );
   }
 
+  /// 獲取支付參數
+  Future getPayParameters([Function(dynamic data)? success]) async {
+    final params = {'id_guid': idGuid};
+    Response? res;
+
+    if (selectedType!.key == 'alipayHK_app') {
+      res = await UserOrderService.getAliPayParameters(params);
+    } else if (selectedType!.key == 'weixinpay_app') {
+      res = await UserOrderService.getWxPayParameters(params);
+    } else {
+      res = await UserOrderService.getStripePayParameters(params);
+    }
+
+    final data = res.data ?? {};
+    final message = data['message'];
+    final isSuccess = data['isSuccess'] ?? false;
+    if (isSuccess) {
+      success?.call(data['data']);
+      return data['data'];
+    } else {
+      app.showToast(message ?? '服務錯誤，請稍後重試');
+      throw Error();
+    }
+  }
+
+  void onPaySuccess() {}
+
   /// 支付宝支付
   Future onAliPay() async {
-    try {
-      final res = await UserOrderService.getAliPayParameters({
-        'id_guid': idGuid,
-      });
-      final data = res.data ?? {};
-      final orderInfo = data['data'] ?? '';
-      final result = await aliPay(orderInfo);
-      logger.i(result);
-    } catch (err) {
-      String msg = '';
-      if (err is Exception) {
-        msg = err.toString();
-      } else {
-        msg = '$err';
-      }
-      logger.e(msg);
+    final orderInfo = await getPayParameters();
+    final res = await aliPay(orderInfo);
+    final code = res['resultStatus'];
+    final msg = res['memo'];
+    if (code == '9000') {
+      onPaySuccess();
+    } else {
       app.showToast(msg);
     }
   }
 
   /// 微信支付
-  Future onWxPay() async {}
+  Future onWxPay() async {
+    final data = await getPayParameters();
+    logger.i(data);
+  }
 
   /// Stripe支付
-  Future onStripePay() async {}
+  Future onStripePay() async {
+    final data = await getPayParameters() ?? {};
+    final publishableKey = data['PublishableKey'] ?? '';
+    final clientSecret = data['ClientSecret'] ?? '';
+    final accountId = data['Id'] ?? '';
+
+    SmartDialog.show(
+      alignment: Alignment.center,
+      builder: (context) {
+        return StripePayForm(
+          publishableKey: publishableKey,
+          clientSecret: clientSecret,
+          accountId: accountId,
+          onCancel: () {
+            SmartDialog.dismiss();
+          },
+          onSuccess: () {
+            SmartDialog.dismiss();
+            onPaySuccess();
+          },
+          onFailed: () {
+            app.showToast('支付失敗');
+          },
+        );
+      },
+    );
+  }
 
   Future onPay() async {
     if (selectedType != null) {
@@ -78,7 +129,7 @@ class PayController extends GetxController {
         case 'weixinpay_app':
           onWxPay();
           break;
-        case 'stripepay_app':
+        case 'stripe':
           onStripePay();
           break;
       }

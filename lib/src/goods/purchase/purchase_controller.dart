@@ -145,7 +145,7 @@ class PurchaseController extends GetxController {
     final data = res.data ?? {};
     detail = GiftDetailVo.fromJson(data['data'] ?? {});
     add4StepsForm.money = (detail?.buyPrice ?? 0).toDouble();
-    update(['DetailInfo', 'ReceiverInfo']);
+    update(['DetailInfo', 'ReceiverInfo', 'PurchaseFooter']);
     if (buyType == '2') {
       queryAreaList(0);
     }

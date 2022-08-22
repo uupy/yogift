@@ -20,17 +20,7 @@ class OrderItemFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> children = [];
 
-    if (payStatus == 1) {
-      children.addAll([
-        buildFooterItem(
-          text: '關閉訂單',
-          background: const Color(0xfffffdeb),
-        ),
-        buildFooterItem(
-          text: '繼續支付',
-        ),
-      ]);
-    } else if (payStatus == 2) {
+    if (payStatus == 2) {
       if (orderStatus == 1) {
         if (canIExchange) {
           children.add(buildFooterItem(
@@ -52,6 +42,7 @@ class OrderItemFooter extends StatelessWidget {
         ]);
       }
     }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: children,

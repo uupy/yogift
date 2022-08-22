@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:yo_gift/common/http.dart';
 import 'package:yo_gift/models/user_order/add.dart';
 import 'package:yo_gift/models/user_order/add_4_steps.dart';
@@ -11,60 +12,96 @@ class UserOrderService {
   UserOrderService._();
 
   /// 用于訂單筛选
-  static Future queryPage(data) =>
+  static Future<Response<dynamic>> queryPage(data) =>
       http.postJson('/UserOrder/List_By_OrderStatus', data: data);
 
   /// 我的捐贈单
-  static Future queryPageForCharity(data) =>
+  static Future<Response<dynamic>> queryPageForCharity(data) =>
       http.postJson('/UserOrder/List_For_Charity', data: data);
 
   /// 单个
-  static Future getItem(String id) => http.postJson('/UserOrder/Item', data: {
+  static Future<Response<dynamic>> getItem(String id) =>
+      http.postJson('/UserOrder/Item', data: {
         'id_guid': id,
       });
 
   /// 关闭订单
-  static Future closeItem(String id) =>
+  static Future<Response<dynamic>> closeItem(String id) =>
       http.postJson('/UserOrder/CloseOrder', data: {
         'Id_Guid': id,
       });
 
   /// 多步合一下单:买给自己 注册/登入->修改资料 ->购买 ->修改地址
-  static Future add4Steps(Add4StepsVo data) =>
-      http.postJson('/UserOrder/Add_4Steps', data: data);
+  static Future<Response<dynamic>> add4Steps(Add4StepsVo data) => http.postJson(
+        '/UserOrder/Add_4Steps',
+        data: data,
+        options: Options(extra: {'ignoreErrors': true}),
+      );
 
   /// 下单:买给自己
-  static Future add(AddVo data) => http.postJson('/UserOrder/Add', data: data);
+  static Future<Response<dynamic>> add(AddVo data) => http.postJson(
+        '/UserOrder/Add',
+        data: data,
+        options: Options(extra: {'ignoreErrors': true}),
+      );
 
   /// 下单:买给别人
-  static Future addToFriend(AddToFriendVo data) =>
-      http.postJson('/UserOrder/Add_To_Friend', data: data);
+  static Future<Response<dynamic>> addToFriend(AddToFriendVo data) =>
+      http.postJson(
+        '/UserOrder/Add_To_Friend',
+        data: data,
+        options: Options(extra: {'ignoreErrors': true}),
+      );
 
   /// 下单:买给某个拜託
-  static Future addForRequest(AddForRequestVo data) =>
-      http.postJson('/UserOrder/Add_For_Request', data: data);
+  static Future<Response<dynamic>> addForRequest(AddForRequestVo data) =>
+      http.postJson(
+        '/UserOrder/Add_For_Request',
+        data: data,
+        options: Options(extra: {'ignoreErrors': true}),
+      );
 
   /// 下单:买给某个慈善机构心願单
-  static Future addForCharityFavorite(AddForCharityFavoriteVo data) =>
-      http.postJson('/UserOrder/Add_For_CharityFavorite', data: data);
+  static Future<Response<dynamic>> addForCharityFavorite(
+          AddForCharityFavoriteVo data) =>
+      http.postJson(
+        '/UserOrder/Add_For_CharityFavorite',
+        data: data,
+        options: Options(extra: {'ignoreErrors': true}),
+      );
 
   /// 修改收货人资料-直接提交资料
-  static Future setReceivingaddress(ReceivingAddressVo data) =>
+  static Future<Response<dynamic>> setReceivingaddress(
+          ReceivingAddressVo data) =>
       http.postJson('/UserOrder/Receivingaddress', data: data);
 
   /// 获取訂單的支付方式列表
-  static Future getPayTypes(GetPayTypeDataVo data) =>
-      http.postJson('/UserOrder/Get_PayType', data: data);
+  static Future<Response<dynamic>> getPayTypes(GetPayTypeDataVo data) =>
+      http.postJson(
+        '/UserOrder/Get_PayType',
+        data: data,
+        options: Options(extra: {'ignoreErrors': true}),
+      );
 
   /// 获取支付参数-微信 app支付
-  static Future getWxPayParameters(data) =>
-      http.postJson('/UserOrder/Get_Parameters_WxApp', data: data);
+  static Future<Response<dynamic>> getWxPayParameters(data) => http.postJson(
+        '/UserOrder/Get_Parameters_WxApp',
+        data: data,
+        options: Options(extra: {'ignoreErrors': true}),
+      );
 
   /// 获取支付参数-Alipay app支付
-  static Future getAliPayParameters(data) =>
-      http.postJson('/UserOrder/Get_Parameters_AlipayApp', data: data);
+  static Future<Response<dynamic>> getAliPayParameters(data) => http.postJson(
+        '/UserOrder/Get_Parameters_AlipayApp',
+        data: data,
+        options: Options(extra: {'ignoreErrors': true}),
+      );
 
   /// 获取stripe支付参数
-  static Future getStripePayParameters(data) =>
-      http.postJson('/UserOrder/Get_Parameters_Stripe', data: data);
+  static Future<Response<dynamic>> getStripePayParameters(data) =>
+      http.postJson(
+        '/UserOrder/Get_Parameters_Stripe',
+        data: data,
+        options: Options(extra: {'ignoreErrors': true}),
+      );
 }
