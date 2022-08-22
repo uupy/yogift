@@ -5,7 +5,9 @@ import 'package:yo_gift/widgets/header_background.dart';
 
 import 'detail_controller.dart';
 import 'widgets/base_info.dart';
+import 'widgets/exchange_info.dart';
 import 'widgets/exchange_terms.dart';
+import 'widgets/greeting_card.dart';
 import 'widgets/item_card.dart';
 import 'widgets/page_footer.dart';
 
@@ -46,6 +48,8 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                 const OrderItemCard(),
               ],
             ),
+            const GreetingCard(),
+            const ExchangeInfo(),
             const OrderDetailBaseInfo(),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.w),

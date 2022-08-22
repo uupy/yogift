@@ -69,13 +69,9 @@ class OrderItemCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        ShopNameLink(
-                          name: item?.bussinessName ?? '',
-                          id: item?.bGuid,
-                        ),
                         if (sku.isNotEmpty)
                           AppSimpleRow(
-                            margin: EdgeInsets.only(top: 2.w),
+                            margin: EdgeInsets.only(top: 2.w, bottom: 2.w),
                             expanded: Text(
                               sku,
                               overflow: TextOverflow.ellipsis,
@@ -85,9 +81,13 @@ class OrderItemCard extends StatelessWidget {
                               ),
                             ),
                           ),
+                        ShopNameLink(
+                          name: item?.bussinessName ?? '',
+                          id: item?.bGuid,
+                        ),
                         AppSimpleRow(
                           margin: EdgeInsets.only(
-                              top: sku.isNotEmpty ? 2.w : 8.w, bottom: 2.w),
+                              top: sku.isNotEmpty ? 4.w : 10.w, bottom: 4.w),
                           expanded: Text.rich(
                             TextSpan(
                               style: TextStyle(

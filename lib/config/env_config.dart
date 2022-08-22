@@ -37,7 +37,7 @@ class Env {
   /// 生产环境
   static final _productionConfig = EnvConfig(
     appTitle: "YO!GIFT",
-    baseUrl: "https://test.api.yogift.hk",
+    baseUrl: "https://api.yogift.hk",
   );
 
   static EnvConfig get config => _getEnvConfig();

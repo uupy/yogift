@@ -20,11 +20,6 @@ class _OrderListPageState extends State<OrderListPage> {
   final controller = Get.put(OrderListController());
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

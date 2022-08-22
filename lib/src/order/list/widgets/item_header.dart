@@ -23,6 +23,15 @@ class OrderItemHeader extends StatelessWidget {
     if (payStatus == 1) {
       statusName = '待支付';
       statusColor = const Color(0xffff8d00);
+    } else {
+      switch (orderStatus) {
+        case 3:
+          statusColor = const Color(0xffff8d00);
+          break;
+        case 7:
+          statusColor = const Color(0xffff3b30);
+          break;
+      }
     }
 
     return AppSimpleRow(

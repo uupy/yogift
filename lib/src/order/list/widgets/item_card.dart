@@ -17,6 +17,12 @@ class OrderItemCard extends StatelessWidget {
     required this.item,
   }) : super(key: key);
 
+  void goOrderDetail() {
+    Get.toNamed('/pages/mine/order/detail/index', parameters: {
+      'id': item.oGuid!,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final sku = item.skuContent ?? '';
@@ -48,11 +54,7 @@ class OrderItemCard extends StatelessWidget {
               SizedBox(width: 10.w),
               Expanded(
                 child: GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/pages/mine/order/detail/index', parameters: {
-                      'id': item.oGuid!,
-                    });
-                  },
+                  onTap: goOrderDetail,
                   behavior: HitTestBehavior.opaque,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,7 +132,6 @@ class OrderItemCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 12.sp,
-                              color: const Color.fromRGBO(0, 0, 0, 0.4),
                             ),
                           ),
                           SizedBox(width: 16.w),
@@ -162,10 +163,8 @@ class OrderItemCard extends StatelessWidget {
           ),
           SizedBox(height: 15.w),
           OrderItemFooter(
-            payStatus: item.payStatus,
-            orderStatus: item.orderStatus,
-            canIGive: item.canIGive == 1,
-            canIExchange: item.canIExchange == 1,
+            item: item,
+            onCheckDetails: goOrderDetail,
           ),
         ],
       ),
