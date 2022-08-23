@@ -66,6 +66,7 @@ class PayController extends GetxController {
       return data['data'];
     } else {
       app.showToast(message ?? '服務錯誤，請稍後重試');
+      Get.back(result: false);
       throw Error();
     }
   }

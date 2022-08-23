@@ -31,12 +31,14 @@ class _LoadingButtonState extends State<LoadingButton> {
           children: [
             if (_isLoading)
               const SizedBox(
-                height: 22,
-                width: 22,
+                height: 17,
+                width: 17,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
+                  color: Color.fromRGBO(0, 0, 0, 0.5),
                 ),
               ),
+            if (_isLoading) const SizedBox(width: 4),
             Text(
               widget.text,
               style: const TextStyle(

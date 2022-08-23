@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 
 import 'loading_button.dart';
@@ -101,7 +100,7 @@ class _StripePayFormState extends State<StripePayForm> {
                       : null,
                 ),
                 onCardChanged: (card) {
-                  logger.i(card);
+                  // logger.i(card);
                 },
               ),
             ),
@@ -123,9 +122,23 @@ class _StripePayFormState extends State<StripePayForm> {
     if (!controller.complete) {
       return;
     }
+    const billingDetails = BillingDetails(
+      email: '',
+      phone: '',
+      address: Address(
+        city: 'HK',
+        country: 'ZH',
+        line1: '',
+        line2: '',
+        state: '',
+        postalCode: '',
+      ),
+    );
     final paymentIntent = await Stripe.instance.confirmPayment(
       widget.clientSecret,
-      const PaymentMethodParams.card(),
+      const PaymentMethodParams.card(
+        billingDetails: billingDetails,
+      ),
     );
     if (paymentIntent.status == PaymentIntentsStatus.Succeeded) {
       widget.onSuccess?.call();
