@@ -1,4 +1,4 @@
-class MenuItem {
+class CustomMenuItem {
   final String? icon;
   final String? label;
   final String? path;
@@ -6,7 +6,7 @@ class MenuItem {
   final bool showArrow;
   final Map<String, String>? parameters;
 
-  MenuItem({
+  CustomMenuItem({
     this.icon,
     this.label,
     this.path,

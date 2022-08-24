@@ -10,7 +10,7 @@ class MenuGroup extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
   final double? blurRadius;
-  final List<MenuItem>? menus;
+  final List<CustomMenuItem>? menus;
   final List<Widget>? children;
   final Function(String key)? onTap;
   final Function(dynamic value)? onBack;

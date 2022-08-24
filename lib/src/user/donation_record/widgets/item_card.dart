@@ -19,6 +19,10 @@ class OrderItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sku = item.skuContent ?? '';
+    final isDone = item.quantityGet == item.quantity;
+    final widthFactor = (item.quantityGet ?? 0) / (item.quantity ?? 1);
+
     return AppCard(
       margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 12.w),
       padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 20.w),
@@ -26,7 +30,6 @@ class OrderItemCard extends StatelessWidget {
         children: [
           OrderItemHeader(
             date: item.createTime,
-            payStatus: item.payStatus,
             orderStatus: item.orderStatus,
           ),
           SizedBox(height: 15.w),
@@ -66,28 +69,31 @@ class OrderItemCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
                       ),
-                      AppSimpleRow(
-                        margin: EdgeInsets.only(top: 28.w, bottom: 4.w),
-                        expanded: Text.rich(
-                          TextSpan(
+                      if (sku.isNotEmpty)
+                        AppSimpleRow(
+                          margin: EdgeInsets.only(top: 6.w),
+                          expanded: Text(
+                            sku,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 12.sp,
+                              color: const Color.fromRGBO(0, 0, 0, 0.4),
                             ),
-                            children: [
-                              const TextSpan(
-                                text: '兌換期：',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 0.4),
-                                ),
-                              ),
-                              TextSpan(
-                                text: item.expirationTime ?? '',
-                              ),
-                            ],
+                          ),
+                        ),
+                      AppSimpleRow(
+                        margin: EdgeInsets.only(top: 4.w, bottom: 4.w),
+                        expanded: Text(
+                          item.bussinessName ?? '',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: const Color(0xffff8d00),
                           ),
                         ),
                         suffix: Container(
@@ -104,13 +110,14 @@ class OrderItemCard extends StatelessWidget {
                       ),
                       AppSimpleRow(
                         mainAxisAlignment: MainAxisAlignment.end,
+                        margin:
+                            EdgeInsets.only(top: sku.isNotEmpty ? 6.w : 28.w),
                         children: [
                           Text(
                             '共${item.nums ?? 0}件',
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 12.sp,
-                              color: const Color.fromRGBO(0, 0, 0, 0.4),
                             ),
                           ),
                           SizedBox(width: 16.w),
@@ -128,6 +135,10 @@ class OrderItemCard extends StatelessWidget {
                                 ),
                                 TextSpan(
                                   text: '\$${item.orderMoney ?? 0}',
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ],
                             ),
@@ -140,12 +151,71 @@ class OrderItemCard extends StatelessWidget {
               ),
             ],
           ),
+          AppSimpleRow(
+            margin: EdgeInsets.only(top: 15.w),
+            prefix: Text(
+              '捐贈機構',
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: const Color.fromRGBO(0, 0, 0, 0.4),
+              ),
+            ),
+            expanded: Text(item.charityName ?? ''),
+          ),
+          AppSimpleRow(
+            margin: EdgeInsets.only(top: 10.w),
+            prefix: Text(
+              '捐贈進度',
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: const Color.fromRGBO(0, 0, 0, 0.4),
+              ),
+            ),
+            expanded: Container(
+              height: 5.w,
+              margin: EdgeInsets.symmetric(horizontal: 8.w),
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(125, 200, 120, 0.2),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(2.w),
+                ),
+              ),
+              child: FractionallySizedBox(
+                widthFactor: widthFactor,
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xff7dc878),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(2.w),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            suffix: Text.rich(
+              TextSpan(
+                style: TextStyle(
+                  fontSize: 11.sp,
+                  color: const Color.fromRGBO(0, 0, 0, 0.4),
+                ),
+                children: [
+                  TextSpan(
+                    text: '${item.quantityGet ?? 0}',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      color: const Color.fromRGBO(0, 0, 0, 0.9),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  TextSpan(text: '/${item.quantity ?? 0}件'),
+                ],
+              ),
+            ),
+          ),
           SizedBox(height: 15.w),
           OrderItemFooter(
-            payStatus: item.payStatus,
-            orderStatus: item.orderStatus,
-            canIGive: item.canIGive == 1,
-            canIExchange: item.canIExchange == 1,
+            date: item.estimatedDeliveryTime,
           ),
         ],
       ),

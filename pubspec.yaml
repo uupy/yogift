@@ -47,7 +47,8 @@ dependencies:
   # 本地缓存
   shared_preferences: ^2.0.7
   # 下拉刷新，上拉加载
-  pull_to_refresh: ^2.0.0
+#  pull_to_refresh: ^2.0.0
+  pull_to_refresh_flutter3: ^2.0.1
   # 工具库
   intl: ^0.17.0
   # ota升级
@@ -60,21 +61,21 @@ dependencies:
   package_info: ^2.0.2
   # 选择媒体文件
   # image_picker: ^0.8.4+9
-  crypto: ^3.0.1
+#  crypto: ^3.0.1
   # 网络图片（带加载、缓存功能）
   cached_network_image: ^3.2.0
   # 走马灯效果
   carousel_slider: ^4.0.0
   # 图片放大预览
-  photo_view: ^0.13.0
+#  photo_view: ^0.13.0
   # 收藏动画
   like_button: ^2.0.4
   # 滑动删除功能
-  flutter_slidable: ^1.2.0
+#  flutter_slidable: ^1.2.0
   # A-Z 列表
-  azlistview: ^2.0.0
+#  azlistview: ^2.0.0
   # 中文转拼音
-  lpinyin: ^2.0.2
+#  lpinyin: ^2.0.2
   # 加载动画
   flutter_easyloading: ^3.0.3
   # 网络检测
@@ -82,21 +83,22 @@ dependencies:
   # 权限请求
   permission_handler: ^9.2.0
   # 富文本
-  flutter_html: ^2.2.1
+#  flutter_html: ^2.2.1
+  flutter_html: ^3.0.0-alpha.5
   # 弹窗
   flutter_smart_dialog: ^4.0.9+5
   # 下拉篩選彈出層
   custom_pop_up_menu: ^1.2.2
   # 日期选择器
-  flutter_datetime_picker:
-    git:
-      url: https://github.com/uupy/flutter_datetime_picker.git
+#  flutter_datetime_picker:
+#    git:
+#      url: https://github.com/uupy/flutter_datetime_picker.git
   # 支付宝支出
   tobias: ^2.4.1
   # 微信支付
   fluwx: ^3.9.1
   # stripe支付
-  flutter_stripe: ^2.5.0
+  flutter_stripe: ^4.0.0
   # webview
   webview_flutter: ^2.8.0
 

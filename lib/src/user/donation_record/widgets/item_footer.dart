@@ -3,21 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 
 class OrderItemFooter extends StatelessWidget {
-  final int? orderStatus;
-  final int? payStatus;
-  final bool canIGive;
-  final bool canIExchange;
+  final String? date;
 
   const OrderItemFooter({
     Key? key,
-    this.orderStatus,
-    this.payStatus,
-    this.canIGive = false,
-    this.canIExchange = false,
+    this.date,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String tips = '預計${date ?? ''}送達';
+    Color tipsColor = const Color.fromRGBO(0, 0, 0, 0.9);
     List<Widget> children = [];
 
     children.addAll([
@@ -29,7 +25,15 @@ class OrderItemFooter extends StatelessWidget {
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      children: children,
+      children: [
+        Expanded(
+          child: Text(
+            tips,
+            style: TextStyle(color: tipsColor),
+          ),
+        ),
+        ...children,
+      ],
     );
   }
 

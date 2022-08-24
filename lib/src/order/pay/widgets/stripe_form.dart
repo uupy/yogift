@@ -28,11 +28,12 @@ class StripePayForm extends StatefulWidget {
 }
 
 class _StripePayFormState extends State<StripePayForm> {
-  final controller = CardEditController();
+  PaymentIntent? _retrievedPaymentIntent;
+  CardFieldInputDetails? _card;
+  SetupIntent? _setupIntentResult;
 
   @override
   void initState() {
-    controller.addListener(update);
     init();
     super.initState();
   }
@@ -47,8 +48,6 @@ class _StripePayFormState extends State<StripePayForm> {
 
   @override
   void dispose() {
-    controller.removeListener(update);
-    controller.dispose();
     super.dispose();
   }
 
@@ -92,7 +91,6 @@ class _StripePayFormState extends State<StripePayForm> {
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(vertical: 20.w),
               child: CardField(
-                controller: controller,
                 decoration: InputDecoration(
                   labelText: theme.inputDecorationTheme.floatingLabelBehavior ==
                           FloatingLabelBehavior.always
@@ -100,7 +98,9 @@ class _StripePayFormState extends State<StripePayForm> {
                       : null,
                 ),
                 onCardChanged: (card) {
-                  // logger.i(card);
+                  setState(() {
+                    _card = card;
+                  });
                 },
               ),
             ),
@@ -119,31 +119,36 @@ class _StripePayFormState extends State<StripePayForm> {
   }
 
   Future<void> _handlePayPress() async {
-    if (!controller.complete) {
+    final complete = _card?.complete ?? false;
+    if (!complete) {
       return;
     }
-    const billingDetails = BillingDetails(
-      email: '',
-      phone: '',
-      address: Address(
-        city: 'HK',
-        country: 'ZH',
-        line1: '',
-        line2: '',
-        state: '',
-        postalCode: '',
-      ),
-    );
-    final paymentIntent = await Stripe.instance.confirmPayment(
+    await Stripe.instance.applySettings();
+    _setupIntentResult = await Stripe.instance.confirmSetupIntent(
       widget.clientSecret,
-      const PaymentMethodParams.card(
-        billingDetails: billingDetails,
+      PaymentMethodParams.card(
+        paymentMethodData: PaymentMethodData.fromJson({}),
       ),
     );
-    if (paymentIntent.status == PaymentIntentsStatus.Succeeded) {
-      widget.onSuccess?.call();
-    } else {
-      widget.onFailed?.call();
+    final paymentIntent =
+        await Stripe.instance.retrievePaymentIntent(widget.clientSecret);
+
+    final paymentMethodId =
+        paymentIntent.paymentMethodId ?? _setupIntentResult?.paymentMethodId;
+
+    setState(() {
+      _retrievedPaymentIntent =
+          paymentIntent.copyWith(paymentMethodId: paymentMethodId);
+    });
+    if (_retrievedPaymentIntent?.paymentMethodId != null && _card != null) {
+      await Stripe.instance.confirmPayment(
+        _retrievedPaymentIntent!.clientSecret,
+        PaymentMethodParams.cardFromMethodId(
+          paymentMethodData: PaymentMethodDataCardFromMethod(
+              paymentMethodId: _retrievedPaymentIntent!.paymentMethodId!),
+        ),
+      );
     }
+    widget.onSuccess?.call();
   }
 }
