@@ -218,17 +218,20 @@ class BannerVo {
   String? type1;
   String? bannerImg;
   String? link;
+  int? linkType;
 
   BannerVo({
     this.type1,
     this.bannerImg,
     this.link,
+    this.linkType,
   });
 
   BannerVo.fromJson(Map<String, dynamic> json) {
     type1 = json['Type1'];
     bannerImg = json['BannerImg'];
     link = json['Link'];
+    linkType = json['LinkType'];
   }
 
   Map<String, dynamic> toJson() {
@@ -236,6 +239,7 @@ class BannerVo {
     data['Type1'] = type1;
     data['BannerImg'] = bannerImg;
     data['Link'] = link;
+    data['LinkType'] = linkType;
     return data;
   }
 }

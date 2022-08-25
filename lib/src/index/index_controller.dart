@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:yo_gift/assets/fonts/iconfont.dart';
+import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_controller.dart';
 import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/common/custom_dialog/custom_dialog.dart';
@@ -93,38 +93,11 @@ class IndexController extends GetxController {
               withOutDecoration: true,
               url: ad.bannerImg,
               onTap: () async {
-                final link = ad.link ?? '';
-                final links = link.split('|');
-                String argument = '';
-
-                if (link.isNotEmpty) {
-                  argument = links.last;
-                }
-
-                Get.back();
-
-                await Future.delayed(const Duration(milliseconds: 100));
-
-                if (argument.isNotEmpty) {
-                  switch (ad.linkType) {
-                    case 1:
-                      Get.toNamed('/pages/common/webview/index', parameters: {
-                        'src': argument,
-                      });
-                      break;
-                    case 2:
-                      Get.toNamed(argument);
-                      break;
-                    case 3:
-                      fluwx.launchWeChatMiniProgram(username: argument);
-                      break;
-                    case 4:
-                      Get.toNamed('/pages/goods/detail/index', parameters: {
-                        'id': argument,
-                      });
-                      break;
-                  }
-                }
+                app.navToByLinkType(
+                  link: ad.link,
+                  linkType: ad.linkType ?? 0,
+                  isDialog: true,
+                );
               },
             ),
             AppAssetImage(

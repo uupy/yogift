@@ -4,6 +4,7 @@ import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:yo_gift/assets/fonts/iconfont.dart';
 import 'package:yo_gift/models/user.dart';
@@ -296,6 +297,50 @@ class App {
     }
 
     await accessToken.set(authData?.accessToken);
+  }
+
+  void navToByLinkType({
+    int linkType = 0,
+    String? link,
+    bool isDialog = false,
+  }) async {
+    final _link = link ?? '';
+    final links = _link.split('|');
+    String argument = '';
+
+    if (links.isNotEmpty) {
+      argument = links.last;
+      if (argument.isNotEmpty && linkType != 4) {
+        argument = '/$argument';
+      }
+    }
+
+    if (isDialog) {
+      Get.back();
+    }
+
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    if (argument.isNotEmpty) {
+      switch (linkType) {
+        case 1:
+          Get.toNamed('/pages/common/webview/index', parameters: {
+            'src': argument,
+          });
+          break;
+        case 2:
+          Get.toNamed(argument);
+          break;
+        case 3:
+          fluwx.launchWeChatMiniProgram(username: argument);
+          break;
+        case 4:
+          Get.toNamed('/pages/goods/detail/index', parameters: {
+            'id': argument,
+          });
+          break;
+      }
+    }
   }
 }
 

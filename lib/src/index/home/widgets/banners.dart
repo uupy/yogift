@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/models/common.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/carousel_pagination.dart';
@@ -86,9 +87,10 @@ class HomeBanners extends StatelessWidget {
         return buildItem(
           image: item.bannerImg,
           onTap: () {
-            if (item.link?.isNotEmpty ?? false) {
-              Get.toNamed(item.link!);
-            }
+            app.navToByLinkType(
+              link: item.link,
+              linkType: item.linkType ?? 0,
+            );
           },
         );
       }).toList(),
