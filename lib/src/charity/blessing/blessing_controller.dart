@@ -17,12 +17,10 @@ import 'package:yo_gift/services/user_order.dart';
 import 'package:yo_gift/services/verification.dart';
 import 'package:yo_gift/src/order/pay/pay_controller.dart';
 
-class BlessingController extends GetxController {
+class CharityBlessingController extends GetxController {
   final goodsId = Get.parameters['id'];
   final skuId = int.tryParse(Get.parameters['skuId'] ?? '');
 
-  /// 1 买给自己， 2 送给别人
-  final buyType = Get.parameters['buyType'];
   final msgController = TextEditingController();
 
   final baseForm = AddVo();

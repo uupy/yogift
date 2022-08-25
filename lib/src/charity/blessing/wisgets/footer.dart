@@ -23,7 +23,7 @@ class AskFriendFooter extends StatelessWidget {
           Radius.circular(20.r),
         ),
       ),
-      child: GetBuilder<BlessingController>(
+      child: GetBuilder<CharityBlessingController>(
         builder: (c) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,

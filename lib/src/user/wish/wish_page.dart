@@ -120,10 +120,24 @@ class _UserWishPageState extends State<UserWishPage> {
                             text: '拜託',
                             icon: 'icon_please.png',
                             background: const Color(0xfffffdeb),
+                            onTap: () {
+                              Get.toNamed('/pages/goods/detail/index',
+                                  parameters: {
+                                    'id': item.gGuid!,
+                                    'buyType': '3',
+                                  });
+                            },
                           ),
                         buildFooterItem(
                           text: '購買',
                           icon: 'icon_shopping_bag.png',
+                          onTap: () {
+                            Get.toNamed('/pages/goods/detail/index',
+                                parameters: {
+                                  'id': item.gGuid!,
+                                  'buyType': controller.isFriend ? '2' : '1',
+                                });
+                          },
                         ),
                       ],
                     ),
@@ -173,6 +187,7 @@ class _UserWishPageState extends State<UserWishPage> {
       height: 32.w,
       margin: EdgeInsets.only(left: 10.w),
       child: AppButton(
+        onPressed: onTap,
         backgroundColor: background,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -115,7 +115,12 @@ class _FriendDetailPageState extends State<FriendDetailPage> {
                           image: item.cCoverImg ?? '',
                           content: item.msgContent ?? '',
                           color: backgroundColor,
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed('/pages/mine/order/detail/index',
+                                parameters: {
+                                  'id': '${item.msgEventId}',
+                                });
+                          },
                         ),
                     ],
                   ),

@@ -75,6 +75,13 @@ class UserOrderService {
           ReceivingAddressVo data) =>
       http.postJson('/UserOrder/Receivingaddress', data: data);
 
+  /// 查询訂單支付状态
+  static Future<Response<dynamic>> getPayResult(String orderId) =>
+      http.postJson(
+        '/UserOrder/GetQueryOrderResult',
+        data: {'O_Guid': orderId},
+      );
+
   /// 获取訂單的支付方式列表
   static Future<Response<dynamic>> getPayTypes(GetPayTypeDataVo data) =>
       http.postJson(

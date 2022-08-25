@@ -23,6 +23,8 @@ void main() async {
   );
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     ScreenUtilInit(
       // designSize: const Size(750, 1334),

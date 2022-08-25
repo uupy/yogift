@@ -9,7 +9,7 @@ class DetailInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<BlessingController>(
+    return GetBuilder<CharityBlessingController>(
       id: 'DetailInfo',
       builder: (c) {
         return GoodsDetailCard(

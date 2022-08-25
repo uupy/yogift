@@ -22,7 +22,7 @@ class _SenderInfoState extends State<SenderInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<BlessingController>(
+    return GetBuilder<CharityBlessingController>(
       id: 'SenderInfo',
       builder: (c) {
         if (c.isLogged) {

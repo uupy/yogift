@@ -65,7 +65,7 @@ class _GoodsItemState extends State<GoodsItem> {
 
     return GestureDetector(
       onTap: () {
-        handleAction();
+        handleAction({'buyType': ''});
       },
       behavior: HitTestBehavior.deferToChild,
       child: Container(

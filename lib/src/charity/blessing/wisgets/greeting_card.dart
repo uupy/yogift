@@ -14,7 +14,7 @@ class GreetingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<BlessingController>(
+    return GetBuilder<CharityBlessingController>(
       id: 'GreetingCard',
       builder: (c) {
         final list = c.currentCard?.content1 ?? [];

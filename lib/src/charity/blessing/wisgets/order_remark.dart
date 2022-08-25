@@ -13,7 +13,7 @@ class OrderRemark extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(20.w),
-      child: GetBuilder<BlessingController>(
+      child: GetBuilder<CharityBlessingController>(
         builder: (c) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

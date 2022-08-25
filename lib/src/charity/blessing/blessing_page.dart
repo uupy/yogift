@@ -11,17 +11,17 @@ import 'wisgets/greeting_card.dart';
 import 'wisgets/order_remark.dart';
 import 'wisgets/sender_info.dart';
 
-class BlessingPage extends StatefulWidget {
-  const BlessingPage({Key? key}) : super(key: key);
+class CharityBlessingPage extends StatefulWidget {
+  const CharityBlessingPage({Key? key}) : super(key: key);
 
   @override
-  _BlessingPageState createState() => _BlessingPageState();
+  _CharityBlessingPageState createState() => _CharityBlessingPageState();
 }
 
-class _BlessingPageState extends State<BlessingPage> {
+class _CharityBlessingPageState extends State<CharityBlessingPage> {
   final _scrollController = ScrollController();
   final _senderWidgetKey = GlobalKey();
-  final controller = Get.put(BlessingController());
+  final controller = Get.put(CharityBlessingController());
 
   @override
   void initState() {

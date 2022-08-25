@@ -7,6 +7,10 @@ class GiftService {
   /// 首页7天排行榜Top13
   static Future queryTop7Days() => http.get('/Gift/HomePage_List_Top7Days');
 
+  /// 首页探索更多产品,分页加载
+  static Future queryListExplore(data) =>
+      http.postJson('/Gift/HomePage_List_Explore', data: data);
+
   /// 清单(带搜索)
   static Future queryPage(data) =>
       http.postJson('/Gift/List_Search', data: data);

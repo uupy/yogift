@@ -61,6 +61,7 @@ class PayController extends GetxController {
     final data = res.data ?? {};
     final message = data['message'];
     final isSuccess = data['isSuccess'] ?? false;
+
     if (isSuccess) {
       success?.call(data['data']);
       return data['data'];
@@ -71,7 +72,12 @@ class PayController extends GetxController {
     }
   }
 
-  void onPaySuccess() {}
+  void onPaySuccess() {
+    Navigator.pop(Get.context!);
+    Get.toNamed('/pages/order/pay-result/index', parameters: {
+      'orderId': idGuid,
+    });
+  }
 
   /// 支付宝支付
   Future onAliPay() async {
@@ -99,6 +105,8 @@ class PayController extends GetxController {
     final clientSecret = data['ClientSecret'] ?? '';
     final accountId = data['Id'] ?? '';
 
+    logger.i('PayParameters: $data');
+
     SmartDialog.show(
       alignment: Alignment.center,
       builder: (context) {
@@ -113,9 +121,7 @@ class PayController extends GetxController {
             SmartDialog.dismiss();
             onPaySuccess();
           },
-          onFailed: () {
-            app.showToast('支付失敗');
-          },
+          onFailed: (err) {},
         );
       },
     );

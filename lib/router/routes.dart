@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:yo_gift/src/charity/blessing/blessing_page.dart';
 import 'package:yo_gift/src/charity/detail/detail_page.dart';
 import 'package:yo_gift/src/common/rich_text/rich_txt_page.dart';
 import 'package:yo_gift/src/common/webview/webview_page.dart';
@@ -10,6 +11,7 @@ import 'package:yo_gift/src/index/index_page.dart';
 import 'package:yo_gift/src/order/detail/detail_page.dart';
 import 'package:yo_gift/src/order/donation_detail/donation_detail_page.dart';
 import 'package:yo_gift/src/order/list/list_page.dart';
+import 'package:yo_gift/src/order/pay_result/pay_result_page.dart';
 import 'package:yo_gift/src/p2/guide/guide_page.dart';
 import 'package:yo_gift/src/search/category/category_page.dart';
 import 'package:yo_gift/src/search/result/result_page.dart';
@@ -52,6 +54,8 @@ final List<AppRoute> routes = [
       name: '/pages/search/category/index', page: SearchCategoryPage()),
   const AppRoute(
       name: '/pages/charity/detail/index', page: CharityDetailPage()),
+  const AppRoute(
+      name: '/pages/charity/blessing/index', page: CharityBlessingPage()),
   const AppRoute(name: '/pages/wish/index/index', page: UserWishPage()),
   const AppRoute(
       name: '/pages/mine/account-setting/index', page: AccountSettingPage()),
@@ -81,6 +85,7 @@ final List<AppRoute> routes = [
   const AppRoute(
       name: '/pages/mine/donation-record/detail/index',
       page: DonationDetailPage()),
+  const AppRoute(name: '/pages/order/pay-result/index', page: PayResultPage()),
   const AppRoute(name: '/pages/friend/detail/index', page: FriendDetailPage()),
   const AppRoute(name: '/pages/common/rich-txt/index', page: RichTxtPage()),
   const AppRoute(name: '/pages/common/webview/index', page: WebviewPage()),

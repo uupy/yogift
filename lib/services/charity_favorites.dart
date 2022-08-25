@@ -9,4 +9,10 @@ class CharityFavoritesService {
         '/CharityFavorites/HomePage_List',
         data: data,
       );
+
+  /// 单个
+  static Future getItem(data) => http.postJson(
+        '/CharityFavorites/Item',
+        data: data,
+      );
 }

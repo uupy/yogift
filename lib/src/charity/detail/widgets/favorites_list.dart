@@ -94,6 +94,13 @@ class FavoritesList extends StatelessWidget {
                           child: AppButton(
                             text: '已達標',
                             disabled: isDone,
+                            onPressed: () {
+                              // Get.toNamed('/pages/charity/blessing/index',
+                              //     parameters: {
+                              //       'wishId': item.fGuid!,
+                              //       'orgId': item.cGuid!,
+                              //     });
+                            },
                             child: !isDone
                                 ? Row(
                                     children: [

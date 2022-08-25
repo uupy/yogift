@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 
 import 'loading_button.dart';
@@ -10,7 +12,7 @@ class StripePayForm extends StatefulWidget {
   final String clientSecret;
   final String accountId;
   final Function()? onSuccess;
-  final Function()? onFailed;
+  final Function(dynamic err)? onFailed;
   final Function()? onCancel;
 
   const StripePayForm({
@@ -28,40 +30,27 @@ class StripePayForm extends StatefulWidget {
 }
 
 class _StripePayFormState extends State<StripePayForm> {
-  PaymentIntent? _retrievedPaymentIntent;
-  CardFieldInputDetails? _card;
-  SetupIntent? _setupIntentResult;
+  final controller = CardFormEditController();
 
   @override
   void initState() {
-    init();
+    controller.addListener(update);
     super.initState();
-  }
-
-  void init() {
-    Stripe.publishableKey = widget.publishableKey;
-    Stripe.stripeAccountId = widget.accountId;
-    Stripe.instance.applySettings();
   }
 
   void update() => setState(() {});
 
   @override
   void dispose() {
+    controller.removeListener(update);
+    controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = ThemeData.light().copyWith(
-      inputDecorationTheme: const InputDecorationTheme(
-        filled: true,
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        contentPadding: EdgeInsets.all(12),
-      ),
-    );
     return Container(
-      height: 320,
+      height: 450,
       margin: EdgeInsets.symmetric(horizontal: 20.w),
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       decoration: BoxDecoration(
@@ -83,29 +72,22 @@ class _StripePayFormState extends State<StripePayForm> {
               ),
             ),
           ),
-          Theme(
-            data: theme,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 150,
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(vertical: 20.w),
-              child: CardField(
-                decoration: InputDecoration(
-                  labelText: theme.inputDecorationTheme.floatingLabelBehavior ==
-                          FloatingLabelBehavior.always
-                      ? '卡號'
-                      : null,
-                ),
-                onCardChanged: (card) {
-                  setState(() {
-                    _card = card;
-                  });
-                },
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.symmetric(vertical: 20.w),
+            child: CardFormField(
+              controller: controller,
+              countryCode: 'HK',
+              enablePostalCode: false,
+              style: CardFormStyle(
+                borderColor: Colors.blueGrey,
+                textColor: Colors.black,
+                fontSize: 18,
+                placeholderColor: Colors.blue,
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 15),
           SizedBox(
             width: 140.w,
             child: LoadingButton(
@@ -119,36 +101,41 @@ class _StripePayFormState extends State<StripePayForm> {
   }
 
   Future<void> _handlePayPress() async {
-    final complete = _card?.complete ?? false;
+    final complete = controller.details.complete;
     if (!complete) {
       return;
     }
-    await Stripe.instance.applySettings();
-    _setupIntentResult = await Stripe.instance.confirmSetupIntent(
-      widget.clientSecret,
-      PaymentMethodParams.card(
-        paymentMethodData: PaymentMethodData.fromJson({}),
-      ),
-    );
-    final paymentIntent =
-        await Stripe.instance.retrievePaymentIntent(widget.clientSecret);
-
-    final paymentMethodId =
-        paymentIntent.paymentMethodId ?? _setupIntentResult?.paymentMethodId;
-
-    setState(() {
-      _retrievedPaymentIntent =
-          paymentIntent.copyWith(paymentMethodId: paymentMethodId);
-    });
-    if (_retrievedPaymentIntent?.paymentMethodId != null && _card != null) {
-      await Stripe.instance.confirmPayment(
-        _retrievedPaymentIntent!.clientSecret,
-        PaymentMethodParams.cardFromMethodId(
-          paymentMethodData: PaymentMethodDataCardFromMethod(
-              paymentMethodId: _retrievedPaymentIntent!.paymentMethodId!),
+    try {
+      Stripe.publishableKey = widget.publishableKey;
+      await Stripe.instance.applySettings();
+      // 2。发起支付确认付款
+      final paymentIntent = await Stripe.instance.confirmPayment(
+        widget.clientSecret,
+        const PaymentMethodParams.card(
+          paymentMethodData: PaymentMethodData(),
+          options: PaymentMethodOptions(
+            setupFutureUsage: PaymentIntentsFutureUsage.OffSession,
+          ),
         ),
       );
+
+      if (paymentIntent.status == PaymentIntentsStatus.Succeeded) {
+        widget.onSuccess?.call();
+      } else {
+        app.showToast('支付失敗');
+      }
+    } catch (err) {
+      logger.e(err.toString());
+      if (err is StripeException) {
+        app.showToast('${err.error.localizedMessage}');
+      } else if (err is StripeError) {
+        app.showToast(err.message);
+      } else if (err is Exception) {
+        app.showToast(err.toString());
+      } else {
+        app.showToast('$err');
+      }
+      widget.onFailed?.call(err);
     }
-    widget.onSuccess?.call();
   }
 }
