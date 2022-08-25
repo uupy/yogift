@@ -55,6 +55,8 @@ class OrderDetailItemVo {
   int? writeoffTimeN;
   String? writeoffCode;
   int? writeoffCodeType;
+  double? ygcoupon1Cash;
+  String? ygcoupon1Title1;
   String? writeoffCodeCreateTime;
   String? receivingaddressContact;
   String? receivingaddressArea0;
@@ -129,6 +131,8 @@ class OrderDetailItemVo {
     this.writeoffCode,
     this.writeoffCodeType,
     this.writeoffCodeCreateTime,
+    this.ygcoupon1Cash,
+    this.ygcoupon1Title1,
     this.receivingaddressContact,
     this.receivingaddressArea0,
     this.receivingaddressArea1,
@@ -202,6 +206,8 @@ class OrderDetailItemVo {
     writeoffTimeN = json['Writeoff_Time_n'];
     writeoffCode = json['Writeoff_Code'];
     writeoffCodeType = json['Writeoff_CodeType'];
+    ygcoupon1Cash = json['Ygcoupon1Cash'];
+    ygcoupon1Title1 = json['Ygcoupon1Title1'];
     writeoffCodeCreateTime = json['Writeoff_Code_CreateTime'];
     receivingaddressContact = json['Receivingaddress_contact'];
     receivingaddressArea0 = json['Receivingaddress_area0'];
@@ -277,6 +283,8 @@ class OrderDetailItemVo {
     data['Writeoff_Time_n'] = writeoffTimeN;
     data['Writeoff_Code'] = writeoffCode;
     data['Writeoff_CodeType'] = writeoffCodeType;
+    data['Ygcoupon1Cash'] = ygcoupon1Cash;
+    data['Ygcoupon1Title1'] = ygcoupon1Title1;
     data['Writeoff_Code_CreateTime'] = writeoffCodeCreateTime;
     data['Receivingaddress_contact'] = receivingaddressContact;
     data['Receivingaddress_area0'] = receivingaddressArea0;

@@ -17,10 +17,15 @@ class OrderItemCard extends StatelessWidget {
     required this.item,
   }) : super(key: key);
 
+  void onCheckDetails() {
+    Get.toNamed('/pages/mine/donation-record/detail/index', parameters: {
+      'id': item.oGuid!,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final sku = item.skuContent ?? '';
-    final isDone = item.quantityGet == item.quantity;
     final widthFactor = (item.quantityGet ?? 0) / (item.quantity ?? 1);
 
     return AppCard(
@@ -44,11 +49,7 @@ class OrderItemCard extends StatelessWidget {
               SizedBox(width: 10.w),
               Expanded(
                 child: GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/pages/mine/order/detail/index', parameters: {
-                      'id': item.oGuid!,
-                    });
-                  },
+                  onTap: onCheckDetails,
                   behavior: HitTestBehavior.opaque,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,6 +153,7 @@ class OrderItemCard extends StatelessWidget {
             ],
           ),
           AppSimpleRow(
+            onTap: onCheckDetails,
             margin: EdgeInsets.only(top: 15.w),
             prefix: Text(
               '捐贈機構',
@@ -163,6 +165,7 @@ class OrderItemCard extends StatelessWidget {
             expanded: Text(item.charityName ?? ''),
           ),
           AppSimpleRow(
+            onTap: onCheckDetails,
             margin: EdgeInsets.only(top: 10.w),
             prefix: Text(
               '捐贈進度',
@@ -216,6 +219,7 @@ class OrderItemCard extends StatelessWidget {
           SizedBox(height: 15.w),
           OrderItemFooter(
             date: item.estimatedDeliveryTime,
+            onCheckDetails: onCheckDetails,
           ),
         ],
       ),

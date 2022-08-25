@@ -8,6 +8,7 @@ import 'package:yo_gift/src/goods/detail/detail_page.dart';
 import 'package:yo_gift/src/goods/purchase/purchase_page.dart';
 import 'package:yo_gift/src/index/index_page.dart';
 import 'package:yo_gift/src/order/detail/detail_page.dart';
+import 'package:yo_gift/src/order/donation_detail/donation_detail_page.dart';
 import 'package:yo_gift/src/order/list/list_page.dart';
 import 'package:yo_gift/src/p2/guide/guide_page.dart';
 import 'package:yo_gift/src/search/category/category_page.dart';
@@ -77,6 +78,9 @@ final List<AppRoute> routes = [
   const AppRoute(name: '/pages/mine/gift/mine/index', page: GiftListPage()),
   const AppRoute(
       name: '/pages/mine/donation-record/index', page: DonationRecordPage()),
+  const AppRoute(
+      name: '/pages/mine/donation-record/detail/index',
+      page: DonationDetailPage()),
   const AppRoute(name: '/pages/friend/detail/index', page: FriendDetailPage()),
   const AppRoute(name: '/pages/common/rich-txt/index', page: RichTxtPage()),
   const AppRoute(name: '/pages/common/webview/index', page: WebviewPage()),
