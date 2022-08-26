@@ -1,9 +1,9 @@
 class AddForCharityFavoriteVo {
   String? charityfavoritesIdGuid;
-  double? money;
+  num? money;
   String? bgGive;
   String? msgGive;
-  int? num;
+  int? quantity;
   int? skuid;
   String? content2;
   int? ygcoupon1id;
@@ -13,7 +13,7 @@ class AddForCharityFavoriteVo {
       this.money,
       this.bgGive,
       this.msgGive,
-      this.num,
+      this.quantity,
       this.skuid,
       this.content2,
       this.ygcoupon1id});
@@ -23,7 +23,7 @@ class AddForCharityFavoriteVo {
     money = json['money'];
     bgGive = json['bg_give'];
     msgGive = json['msg_give'];
-    num = json['num'];
+    quantity = json['num'];
     skuid = json['skuid'];
     content2 = json['content2'];
     ygcoupon1id = json['ygcoupon1id'];
@@ -35,7 +35,7 @@ class AddForCharityFavoriteVo {
     data['money'] = money;
     data['bg_give'] = bgGive;
     data['msg_give'] = msgGive;
-    data['num'] = num;
+    data['num'] = quantity;
     data['skuid'] = skuid;
     data['content2'] = content2;
     data['ygcoupon1id'] = ygcoupon1id;

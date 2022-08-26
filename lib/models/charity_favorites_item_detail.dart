@@ -4,9 +4,9 @@ class CharityFavoritesItemDetailVo {
   int? orderStatus;
   String? bussinessName;
   String? bussinessNo;
-  int? buyPrice;
+  double? buyPrice;
   String? originalPrice;
-  int? buyPriceForCharity;
+  double? buyPriceForCharity;
   int? forCharityMin;
   int? charityId;
   String? charityImg;

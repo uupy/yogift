@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/models/gift_detail.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/app_simple_row.dart';
+import 'package:yo_gift/widgets/expandable_rich_text.dart';
 import 'package:yo_gift/widgets/goods/goods_sending_tag.dart';
 
 class GoodsDetailCard extends StatefulWidget {
@@ -22,8 +22,6 @@ class GoodsDetailCard extends StatefulWidget {
 }
 
 class _GoodsDetailCardState extends State<GoodsDetailCard> {
-  bool expendDetail = false;
-
   @override
   Widget build(BuildContext context) {
     final item = widget.data;
@@ -118,39 +116,9 @@ class _GoodsDetailCardState extends State<GoodsDetailCard> {
               color: const Color.fromRGBO(0, 0, 0, 0.4),
             ),
           ),
-          DefaultTextStyle(
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: const Color.fromRGBO(0, 0, 0, 0.4),
-            ),
-            maxLines: expendDetail ? null : 2,
-            child: Html(
-              data: item?.exchangeTerms ?? '',
-              style: {
-                'p': Style(
-                  color: const Color.fromRGBO(0, 0, 0, 0.4),
-                ),
-              },
-            ),
+          ExpandableRichText(
+            content: item?.exchangeTerms,
           ),
-          if (!expendDetail)
-            Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    expendDetail = true;
-                  });
-                },
-                child: Text(
-                  '查看更多',
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    color: const Color(0xff007aff),
-                  ),
-                ),
-              ),
-            ),
         ],
       ),
     );

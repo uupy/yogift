@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class FavoritesList extends StatelessWidget {
       builder: (c) {
         return Column(
           children: c.list.map((item) {
+            final price = item.buyPriceForCharity ?? 0;
             final isDone = item.quantityGet == item.quantity;
             final widthFactor = (item.quantityGet ?? 0) / (item.quantity ?? 1);
 
@@ -69,7 +71,7 @@ class FavoritesList extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                '\$${item.buyPriceForCharity}',
+                                '\$${Decimal.parse(price.toString())}',
                                 style: TextStyle(
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.w600,
@@ -95,11 +97,11 @@ class FavoritesList extends StatelessWidget {
                             text: '已達標',
                             disabled: isDone,
                             onPressed: () {
-                              // Get.toNamed('/pages/charity/blessing/index',
-                              //     parameters: {
-                              //       'wishId': item.fGuid!,
-                              //       'orgId': item.cGuid!,
-                              //     });
+                              Get.toNamed('/pages/charity/blessing/index',
+                                  parameters: {
+                                    'wishId': item.fGuid!,
+                                    'orgId': item.cGuid!,
+                                  });
                             },
                             child: !isDone
                                 ? Row(

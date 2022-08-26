@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -6,10 +7,10 @@ import 'package:yo_gift/widgets/app_button.dart';
 
 import '../blessing_controller.dart';
 
-class AskFriendFooter extends StatelessWidget {
+class BlessingFooter extends StatelessWidget {
   final Function()? onTap;
 
-  const AskFriendFooter({Key? key, this.onTap}) : super(key: key);
+  const BlessingFooter({Key? key, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +25,36 @@ class AskFriendFooter extends StatelessWidget {
         ),
       ),
       child: GetBuilder<CharityBlessingController>(
+        id: 'BlessingFooter',
         builder: (c) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Text(
+                      '總額 ',
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        color: const Color.fromRGBO(0, 0, 0, 0.6),
+                      ),
+                    ),
+                    Text(
+                      '\$${Decimal.parse(c.totalPrice.toString())}',
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
+                        color: const Color.fromRGBO(0, 0, 0, 0.9),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(width: 15.w),
               buildFooterItem(
-                text: '拜託好友',
-                icon: 'icon_please.png',
+                text: '確認捐贈',
+                icon: 'icon_give.png',
                 onTap: onTap,
               ),
             ],
