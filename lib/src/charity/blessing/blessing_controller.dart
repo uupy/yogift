@@ -9,7 +9,6 @@ import 'package:yo_gift/models/user_order/add_for_charity_favorite.dart';
 import 'package:yo_gift/models/user_order/order_detail_item.dart';
 import 'package:yo_gift/services/charity_favorites.dart';
 import 'package:yo_gift/services/user_order.dart';
-import 'package:yo_gift/src/order/pay/pay_controller.dart';
 
 class CharityBlessingController extends GetxController {
   final orgId = Get.parameters['orgId'];
@@ -55,17 +54,13 @@ class CharityBlessingController extends GetxController {
 
   /// 提交下单
   Future onSubmit() async {
-    if (orderInfo != null) {
-      onPay();
+    if (isLogged) {
+      await onCreateOrder();
     } else {
-      if (isLogged) {
-        await onCreateOrder();
-      } else {
-        app.showToast('請先登入');
-        Get.toNamed('/login')?.then((value) {
-          isLogged = value == true;
-        });
-      }
+      app.showToast('請先登入');
+      Get.toNamed('/login')?.then((value) {
+        isLogged = value == true;
+      });
     }
   }
 
@@ -78,16 +73,18 @@ class CharityBlessingController extends GetxController {
     addForm.ygcoupon1id = 0;
 
     final res = await UserOrderService.addForCharityFavorite(addForm);
+    final code = res.data['code'];
+    final isSuccess = res.data['isSuccess'];
     final data = res.data['data'] ?? {};
 
-    orderInfo = OrderDetailItemVo.fromJson(data);
-    onPay();
-  }
-
-  Future onPay() async {
-    if (orderInfo != null) {
-      final payController = Get.put(PayController());
-      await payController.showModal(orderInfo!.oGuid!);
+    if (isSuccess || code == 30001) {
+      orderInfo = OrderDetailItemVo.fromJson(data);
+      if (code == 30001) {
+        await Future.delayed(const Duration(seconds: 1));
+      }
+      Get.offNamed('/pages/charity/pay/index', parameters: {
+        'orderId': orderInfo!.oGuid!,
+      });
     }
   }
 }
