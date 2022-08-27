@@ -13,6 +13,7 @@ import 'widgets/stripe_form.dart';
 
 class PayController extends GetxController {
   List<PayTypeVo> payTypes = [];
+  Function(String orderId)? successCallback;
   PayTypeVo? selectedType;
   String idGuid = '';
 
@@ -63,6 +64,7 @@ class PayController extends GetxController {
     final isSuccess = data['isSuccess'] ?? false;
 
     if (isSuccess) {
+      Navigator.pop(Get.context!);
       success?.call(data['data']);
       return data['data'];
     } else {
@@ -73,10 +75,13 @@ class PayController extends GetxController {
   }
 
   void onPaySuccess() {
-    Navigator.pop(Get.context!);
-    Get.toNamed('/pages/order/pay-result/index', parameters: {
-      'orderId': idGuid,
-    });
+    if (successCallback != null) {
+      successCallback?.call(idGuid);
+    } else {
+      Get.toNamed('/pages/order/pay-result/index', parameters: {
+        'orderId': idGuid,
+      });
+    }
   }
 
   /// 支付宝支付
@@ -104,8 +109,6 @@ class PayController extends GetxController {
     final publishableKey = data['PublishableKey'] ?? '';
     final clientSecret = data['ClientSecret'] ?? '';
     final accountId = data['Id'] ?? '';
-
-    logger.i('PayParameters: $data');
 
     SmartDialog.show(
       alignment: Alignment.center,

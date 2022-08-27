@@ -24,6 +24,7 @@ class OrderItemCard extends StatelessWidget {
               EdgeInsets.only(left: 20.w, right: 20.w, top: 20.w, bottom: 12.w),
           padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 20.w),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 15.w),
               Row(

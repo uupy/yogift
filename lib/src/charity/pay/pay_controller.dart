@@ -21,9 +21,16 @@ class CharityPayController extends GetxController {
     ]);
   }
 
+  void successCallback(String oGuid) {
+    Get.toNamed('/pages/charity/pay-success/index', parameters: {
+      'orderId': oGuid,
+    });
+  }
+
   Future onPay() async {
     if (detail != null) {
       final payController = Get.put(PayController());
+      payController.successCallback = successCallback;
       await payController.showModal(detail!.oGuid!);
     }
   }

@@ -7,6 +7,7 @@ import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/app_simple_row.dart';
+import 'package:yo_gift/widgets/progress_bar.dart';
 
 import '../detail_controller.dart';
 
@@ -22,7 +23,6 @@ class FavoritesList extends StatelessWidget {
           children: c.list.map((item) {
             final price = item.buyPriceForCharity ?? 0;
             final isDone = item.quantityGet == item.quantity;
-            final widthFactor = (item.quantityGet ?? 0) / (item.quantity ?? 1);
 
             return AppCard(
               margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 12.w),
@@ -127,56 +127,9 @@ class FavoritesList extends StatelessWidget {
                       ],
                     ),
                   ),
-                  AppSimpleRow(
-                    margin: EdgeInsets.only(top: 10.w),
-                    prefix: Text(
-                      '捐贈進度',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        color: const Color.fromRGBO(0, 0, 0, 0.4),
-                      ),
-                    ),
-                    expanded: Container(
-                      height: 5.w,
-                      margin: EdgeInsets.symmetric(horizontal: 8.w),
-                      decoration: BoxDecoration(
-                        color: const Color.fromRGBO(125, 200, 120, 0.2),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(2.w),
-                        ),
-                      ),
-                      child: FractionallySizedBox(
-                        widthFactor: widthFactor,
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff7dc878),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(2.w),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    suffix: Text.rich(
-                      TextSpan(
-                        style: TextStyle(
-                          fontSize: 11.sp,
-                          color: const Color.fromRGBO(0, 0, 0, 0.4),
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '${item.quantityGet ?? 0}',
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              color: const Color.fromRGBO(0, 0, 0, 0.9),
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          TextSpan(text: '/${item.quantity ?? 0}件'),
-                        ],
-                      ),
-                    ),
+                  ProgressBar(
+                    total: item.quantity ?? 0,
+                    completed: item.quantityGet ?? 0,
                   ),
                   AppSimpleRow(
                     margin: EdgeInsets.only(top: 12.w),

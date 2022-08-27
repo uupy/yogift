@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:yo_gift/src/charity/blessing/blessing_page.dart';
 import 'package:yo_gift/src/charity/detail/detail_page.dart';
 import 'package:yo_gift/src/charity/pay/pay_page.dart';
+import 'package:yo_gift/src/charity/pay_result/pay_result_page.dart';
 import 'package:yo_gift/src/common/rich_text/rich_txt_page.dart';
 import 'package:yo_gift/src/common/webview/webview_page.dart';
 import 'package:yo_gift/src/friend/detail/detail_page.dart';
@@ -58,6 +59,8 @@ final List<AppRoute> routes = [
   const AppRoute(
       name: '/pages/charity/blessing/index', page: CharityBlessingPage()),
   const AppRoute(name: '/pages/charity/pay/index', page: CharityPayPage()),
+  const AppRoute(
+      name: '/pages/charity/pay-success/index', page: CharityPayResultPage()),
   const AppRoute(name: '/pages/wish/index/index', page: UserWishPage()),
   const AppRoute(
       name: '/pages/mine/account-setting/index', page: AccountSettingPage()),
