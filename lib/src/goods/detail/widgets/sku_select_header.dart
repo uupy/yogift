@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/models/gift_detail.dart';
@@ -20,6 +21,7 @@ class SkuSelectHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final originalPrice = sku.originalPrice ?? 0;
+    final price = sku.buyPrice ?? 0;
     String img = sku.cCoverImg ?? '';
 
     if (img.isEmpty) {
@@ -62,7 +64,7 @@ class SkuSelectHeader extends StatelessWidget {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: '\$${sku.buyPrice ?? 0} ',
+                      text: '\$${Decimal.parse(price.toString())} ',
                       style: TextStyle(
                         fontSize: 22.sp,
                         fontWeight: FontWeight.w400,
@@ -70,7 +72,7 @@ class SkuSelectHeader extends StatelessWidget {
                     ),
                     if (originalPrice > 0)
                       TextSpan(
-                        text: '\$${sku.originalPrice ?? 0}',
+                        text: '\$${Decimal.parse(originalPrice.toString())}',
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: const Color.fromRGBO(0, 0, 0, 0.26),

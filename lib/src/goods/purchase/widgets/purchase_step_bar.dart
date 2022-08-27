@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/src/goods/purchase/purchase_controller.dart';
 import 'package:yo_gift/widgets/goods/step_bar.dart';
+
+import '../purchase_controller.dart';
 
 class ProgressStepBar extends StatelessWidget {
   const ProgressStepBar({Key? key}) : super(key: key);

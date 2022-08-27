@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -25,6 +26,7 @@ class PurchaseFooter extends StatelessWidget {
       child: GetBuilder<PurchaseController>(
         id: 'PurchaseFooter',
         builder: (c) {
+          final price = c.detail?.buyPrice ?? 0;
           return Row(
             children: [
               Expanded(
@@ -38,7 +40,7 @@ class PurchaseFooter extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '\$${c.detail?.buyPrice ?? 0}',
+                      '\$${Decimal.parse(price.toString())}',
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w600,

@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/models/gift_detail.dart';
@@ -71,7 +72,7 @@ class SkuSelectFooter extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: '\$$total',
+                    text: '\$${Decimal.parse(total.toString())}',
                     style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w600,

@@ -17,21 +17,19 @@ class AskFriendFooter extends StatelessWidget {
       height: 68.w,
       margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.w),
       padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.w),
-      decoration: BoxDecoration(
-        color: const Color(0xfffffdeb),
-        borderRadius: BorderRadius.all(
-          Radius.circular(20.r),
-        ),
-      ),
+      color: Colors.transparent,
       child: GetBuilder<AskFriendController>(
         builder: (c) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              buildFooterItem(
-                text: '拜託好友',
-                icon: 'icon_please.png',
-                onTap: onTap,
+              SizedBox(
+                width: 140.w,
+                child: buildFooterItem(
+                  text: '拜託好友',
+                  icon: 'icon_please.png',
+                  onTap: onTap,
+                ),
               ),
             ],
           );
@@ -46,28 +44,27 @@ class AskFriendFooter extends StatelessWidget {
     Color? background,
     Function()? onTap,
   }) {
-    return Expanded(
-      child: AppButton(
-        onPressed: onTap,
-        backgroundColor: background,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            AppAssetImage(
-              img: icon,
-              width: 16.w,
-              margin: EdgeInsets.only(right: 5.w),
+    return AppButton(
+      onPressed: onTap,
+      backgroundColor: background,
+      shadow: true,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          AppAssetImage(
+            img: icon,
+            width: 16.w,
+            margin: EdgeInsets.only(right: 5.w),
+          ),
+          Text(
+            text ?? '',
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: const Color.fromRGBO(0, 0, 0, 0.9),
             ),
-            Text(
-              text ?? '',
-              style: TextStyle(
-                fontSize: 12.sp,
-                color: const Color.fromRGBO(0, 0, 0, 0.9),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

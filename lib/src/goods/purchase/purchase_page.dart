@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
-import 'package:yo_gift/src/goods/purchase/purchase_controller.dart';
+import 'package:yo_gift/widgets/greeting_card/greeting_card.dart';
 import 'package:yo_gift/widgets/header_background.dart';
+import 'package:yo_gift/widgets/order/order_remark.dart';
 
+import 'purchase_controller.dart';
 import 'widgets/detail_info.dart';
 import 'widgets/footer.dart';
-import 'widgets/greeting_card.dart';
-import 'widgets/order_remark.dart';
 import 'widgets/purchase_step_bar.dart';
 import 'widgets/receiver_info.dart';
 import 'widgets/sender_info.dart';
@@ -70,9 +70,20 @@ class _PurchasePageState extends State<PurchasePage> {
                 ),
               ],
             ),
-            if (!controller.isGiveToSelf) SizedBox(height: 20.w),
-            if (!controller.isGiveToSelf) const GreetingCard(),
-            const OrderRemark(),
+            if (!controller.isGiveToSelf)
+              GreetingCard(
+                type: 2,
+                margin: EdgeInsets.only(top: 20.w),
+                onChanged: (id, msg) {
+                  controller.greetingCardId = id;
+                  controller.greetingCardMsg = msg;
+                },
+              ),
+            OrderRemark(
+              onChanged: (value) {
+                controller.remark = value ?? '';
+              },
+            ),
             SenderInfo(key: _senderWidgetKey),
             ReceiverInfo(key: _receiverWidgetKey),
             SizedBox(height: 100.w),

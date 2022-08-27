@@ -74,7 +74,6 @@ class _CharityPayResultPageState extends State<CharityPayResultPage> {
                   ],
                 ),
                 AppAssetImage(
-                  width: double.maxFinite,
                   margin: EdgeInsets.symmetric(horizontal: 20.w),
                   img: 'img_love2.png',
                 ),

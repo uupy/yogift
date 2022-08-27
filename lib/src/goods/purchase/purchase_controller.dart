@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/models/address_list.dart';
 import 'package:yo_gift/models/gift_detail.dart';
-import 'package:yo_gift/models/greeting_card.dart';
 import 'package:yo_gift/models/user_order/add.dart';
 import 'package:yo_gift/models/user_order/add_4_steps.dart';
 import 'package:yo_gift/models/user_order/add_to_friend.dart';
@@ -15,7 +13,6 @@ import 'package:yo_gift/models/user_order/receiving_address.dart';
 import 'package:yo_gift/models/verification.dart';
 import 'package:yo_gift/services/address_list.dart';
 import 'package:yo_gift/services/gift.dart';
-import 'package:yo_gift/services/greeting_card.dart';
 import 'package:yo_gift/services/user_order.dart';
 import 'package:yo_gift/services/verification.dart';
 import 'package:yo_gift/src/order/pay/pay_controller.dart';
@@ -26,7 +23,6 @@ class PurchaseController extends GetxController {
 
   /// 1 买给自己， 2 送给别人
   final buyType = Get.parameters['buyType'];
-  final msgController = TextEditingController();
 
   /// 下单，买给自己（已登录状态）
   late final baseForm = AddVo();
@@ -47,6 +43,10 @@ class PurchaseController extends GetxController {
     regfrom: '2',
   );
 
+  String remark = '';
+  String greetingCardId = '';
+  String greetingCardMsg = '';
+
   /// 商品信息
   GiftDetailVo? detail;
 
@@ -55,8 +55,6 @@ class PurchaseController extends GetxController {
 
   /// 下单步骤： 1 填写心愿卡，2 结账
   int currentStep = 1;
-  List<GreetingCardVo> cards = [];
-  GreetingCardVo? currentCard;
 
   List<AreaVo> areaList1 = [];
   List<AreaVo> areaList2 = [];
@@ -66,9 +64,6 @@ class PurchaseController extends GetxController {
 
   /// 用户是否已登录
   bool isLogged = false;
-
-  /// 是否编辑卡片信息
-  bool isEditMsg = false;
 
   /// 是否新用户
   bool isNewUser = true;
@@ -136,7 +131,6 @@ class PurchaseController extends GetxController {
     update(['SenderInfo']);
 
     fetchData();
-    queryCards();
   }
 
   /// 获取礼物详情
@@ -172,36 +166,6 @@ class PurchaseController extends GetxController {
     update(['ReceiverInfo']);
   }
 
-  /// 切换心愿卡片
-  void switchCard(GreetingCardVo? card) {
-    currentCard = card;
-    if (currentCard!.content1?.isNotEmpty ?? false) {
-      final msg = currentCard!.content1!.first;
-      add4StepsForm.msgGive = msg;
-      addToFriendForm.msgGive = msg;
-      msgController.text = msg;
-    }
-    add4StepsForm.bgGive = card?.gCGuid;
-    addToFriendForm.bgGive = card?.gCGuid;
-    update(['GreetingCard']);
-  }
-
-  /// 获取礼物详情
-  Future queryCards() async {
-    final res = await GreetingCardService.queryPage({
-      'pageindex': 1,
-      'pagesize': 100,
-      'Type1': 2,
-    });
-    final data = res.data ?? {};
-    final List items = data['data'] ?? [];
-    cards = items.map((e) => GreetingCardVo.fromJson(e)).toList();
-    if (cards.isNotEmpty) {
-      switchCard(cards.first);
-    }
-    update(['GreetingCard']);
-  }
-
   /// 提交下单
   Future onSubmit() async {
     if (orderInfo != null) {
@@ -225,7 +189,7 @@ class PurchaseController extends GetxController {
     add4StepsForm.skuid = skuId;
     add4StepsForm.num = 1;
     add4StepsForm.money = detail?.buyPrice ?? 0;
-    add4StepsForm.content2 = baseForm.content2 ?? '';
+    add4StepsForm.content2 = remark;
     add4StepsForm.receivingaddressArea0Id =
         receiverInfo.receivingaddressArea0Id ?? 0;
     add4StepsForm.receivingaddressArea1Id =
@@ -237,7 +201,7 @@ class PurchaseController extends GetxController {
     await app.updateAuthData(data);
     await app.updateUserInfo();
     orderInfo = OrderDetailItemVo.fromJson(info);
-    if (!isGiveToSelf) {
+    if (!isGiveToSelf && receiverInfoMethod == 1) {
       await UserOrderService.setReceivingaddress(receiverInfo);
     }
     onPay();
@@ -249,6 +213,7 @@ class PurchaseController extends GetxController {
     baseForm.skuid = skuId;
     baseForm.num = 1;
     baseForm.money = detail?.buyPrice ?? 0;
+    baseForm.content2 = remark;
 
     final res = await UserOrderService.add(baseForm);
     final data = res.data['data'] ?? {};
@@ -263,7 +228,9 @@ class PurchaseController extends GetxController {
     addToFriendForm.skuid = skuId;
     addToFriendForm.num = 1;
     addToFriendForm.money = detail?.buyPrice ?? 0;
-    addToFriendForm.content2 = baseForm.content2 ?? '';
+    addToFriendForm.content2 = remark;
+    addToFriendForm.bgGive = greetingCardId;
+    addToFriendForm.msgGive = greetingCardMsg;
 
     final res = await UserOrderService.addToFriend(addToFriendForm);
     final data = res.data['data'] ?? {};

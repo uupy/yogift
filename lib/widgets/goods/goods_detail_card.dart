@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/models/gift_detail.dart';
@@ -9,11 +10,13 @@ import 'package:yo_gift/widgets/goods/goods_sending_tag.dart';
 
 class GoodsDetailCard extends StatefulWidget {
   final GiftDetailVo? data;
+  final bool isRequest;
   final int quantity;
 
   const GoodsDetailCard({
     Key? key,
     this.data,
+    this.isRequest = false,
     this.quantity = 1,
   }) : super(key: key);
 
@@ -73,13 +76,13 @@ class _GoodsDetailCardState extends State<GoodsDetailCard> {
                 Row(
                   children: [
                     Text(
-                      '\$$buyPrice',
+                      '\$${Decimal.parse(buyPrice.toString())}',
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    if (buy1Get1Free == 1)
+                    if (buy1Get1Free == 1 && !widget.isRequest)
                       Padding(
                         padding: EdgeInsets.only(left: 10.w),
                         child: Text(

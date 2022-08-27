@@ -22,7 +22,7 @@ class CharityPayController extends GetxController {
   }
 
   void successCallback(String oGuid) {
-    Get.toNamed('/pages/charity/pay-success/index', parameters: {
+    Get.offNamed('/pages/charity/pay-success/index', parameters: {
       'orderId': oGuid,
     });
   }

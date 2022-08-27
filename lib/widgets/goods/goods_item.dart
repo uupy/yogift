@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -62,6 +63,7 @@ class _GoodsItemState extends State<GoodsItem> {
   Widget build(BuildContext context) {
     final buy1Get1Free = widget.buy1Get1Free;
     final originalPrice = widget.originalPrice;
+    final price = widget.buyPrice ?? 0;
 
     return GestureDetector(
       onTap: () {
@@ -119,7 +121,7 @@ class _GoodsItemState extends State<GoodsItem> {
                     Row(
                       children: [
                         Text(
-                          '\$${widget.buyPrice}',
+                          '\$${Decimal.parse(price.toString())}',
                           style: TextStyle(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.bold,

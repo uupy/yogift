@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,7 @@ class GoodsDetailBaseInfo extends StatelessWidget {
           final favorite = c.detail?.favorite ?? 0;
           final buy1Get1Free = c.detail?.buy1Get1FREE;
           final originalPrice = c.detail?.originalPrice;
+          final price = c.detail?.buyPrice ?? 0;
 
           return Column(
             children: [
@@ -53,7 +55,7 @@ class GoodsDetailBaseInfo extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '\$${c.detail?.buyPrice ?? ''}',
+                    '\$${Decimal.parse(price.toString())}',
                     style: TextStyle(
                       fontSize: 22.sp,
                       fontWeight: FontWeight.bold,

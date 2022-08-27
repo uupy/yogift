@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/widgets/greeting_card/greeting_card.dart';
 import 'package:yo_gift/widgets/header_background.dart';
+import 'package:yo_gift/widgets/order/order_remark.dart';
 
 import 'ask_friend_controller.dart';
 import 'wisgets/detail_info.dart';
 import 'wisgets/footer.dart';
-import 'wisgets/greeting_card.dart';
-import 'wisgets/order_remark.dart';
-import 'wisgets/sender_info.dart';
 
 class AskFriendPage extends StatefulWidget {
   const AskFriendPage({Key? key}) : super(key: key);
@@ -19,28 +17,12 @@ class AskFriendPage extends StatefulWidget {
 }
 
 class _AskFriendPageState extends State<AskFriendPage> {
-  final _scrollController = ScrollController();
-  final _senderWidgetKey = GlobalKey();
   final controller = Get.put(AskFriendController());
 
   @override
   void initState() {
     controller.init();
     super.initState();
-  }
-
-  void animateTo(BuildContext buildContext) {
-    _scrollController.animateTo(
-      getY(buildContext),
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.ease,
-    );
-  }
-
-  double getY(BuildContext buildContext) {
-    final box = buildContext.findRenderObject();
-    final t = box?.getTransformTo(null);
-    return t?.getTranslation().y ?? 0;
   }
 
   @override
@@ -64,21 +46,25 @@ class _AskFriendPageState extends State<AskFriendPage> {
                 ),
               ],
             ),
-            SizedBox(height: 20.w),
-            const GreetingCard(),
-            const OrderRemark(),
-            SenderInfo(key: _senderWidgetKey),
+            GreetingCard(
+              type: 1,
+              margin: EdgeInsets.only(top: 20.w),
+              onChanged: (id, msg) {
+                controller.baseForm.gCGuid = id;
+                controller.baseForm.msgRequest = msg;
+              },
+            ),
+            OrderRemark(
+              onChanged: (value) {
+                controller.baseForm.content2 = value ?? '';
+              },
+            ),
             SizedBox(height: 100.w),
           ],
         ),
       ),
       bottomNavigationBar: AskFriendFooter(
         onTap: () {
-          if (controller.senderInfoNotPerfection) {
-            app.showToast('請完善送禮人資料');
-            animateTo(_senderWidgetKey.currentContext!);
-            return;
-          }
           controller.onSubmit();
         },
       ),

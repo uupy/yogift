@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -49,6 +50,8 @@ class RecommendItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final price = buyPrice ?? 0;
+
     return GestureDetector(
       onTap: () {
         handleAction();
@@ -110,7 +113,7 @@ class RecommendItem extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            '\$$buyPrice',
+                            '\$${Decimal.parse(price.toString())}',
                             style: TextStyle(
                               fontSize: 20.sp,
                             ),

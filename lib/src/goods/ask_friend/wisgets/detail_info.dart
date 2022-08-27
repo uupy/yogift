@@ -14,6 +14,7 @@ class DetailInfo extends StatelessWidget {
       builder: (c) {
         return GoodsDetailCard(
           data: c.detail,
+          isRequest: true,
         );
       },
     );

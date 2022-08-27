@@ -250,6 +250,8 @@ class App {
     await authDataStorage.remove();
     await accessToken.remove();
     await loginUser.remove();
+    await lastOpenAdTime.remove();
+    await searchHistory.remove();
 
     authData = null;
     userInfo = null;

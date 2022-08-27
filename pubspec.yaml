@@ -103,6 +103,8 @@ dependencies:
   webview_flutter: ^2.8.0
   # 精度计算
   decimal: ^2.2.0
+  # 分享插件
+  share_plus: ^4.0.10+1
 
 dev_dependencies:
   flutter_test:
