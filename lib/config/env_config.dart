@@ -7,6 +7,7 @@ class EnvConfig {
 
   /// http 请求域名
   final String baseUrl;
+  final String h5website;
 
   final bool isDebug;
 
@@ -14,6 +15,7 @@ class EnvConfig {
     required this.appTitle,
     required this.baseUrl,
     this.isDebug = false,
+    this.h5website = '',
   });
 }
 
@@ -25,6 +27,7 @@ class Env {
   static final _debugConfig = EnvConfig(
     appTitle: "YO!GIFT",
     baseUrl: "https://test.api.yogift.hk",
+    h5website: "https://test.www.yogift.hk",
     isDebug: true,
   );
 
@@ -32,12 +35,14 @@ class Env {
   static final _testConfig = EnvConfig(
     appTitle: "YO!GIFT",
     baseUrl: "https://test.api.yogift.hk",
+    h5website: "https://test.www.yogift.hk",
   );
 
   /// 生产环境
   static final _productionConfig = EnvConfig(
     appTitle: "YO!GIFT",
     baseUrl: "https://api.yogift.hk",
+    h5website: "https://www.yogift.hk",
   );
 
   static EnvConfig get config => _getEnvConfig();

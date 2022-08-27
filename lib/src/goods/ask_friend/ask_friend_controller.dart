@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/models/gift_detail.dart';
 import 'package:yo_gift/models/gift_request.dart';
 import 'package:yo_gift/services/gift.dart';
 import 'package:yo_gift/services/gift_request.dart';
+import 'package:yo_gift/widgets/share/share_modal.dart';
 
 class AskFriendController extends GetxController {
   final goodsId = Get.parameters['id'];
@@ -74,9 +74,6 @@ class AskFriendController extends GetxController {
 
   /// 下單成功
   Future onCreateSuccess() async {
-    await Share.share(
-      'bbb',
-      subject: 'aaa',
-    );
+    await ShareModal.show(title: '你想如何拜託好友？');
   }
 }

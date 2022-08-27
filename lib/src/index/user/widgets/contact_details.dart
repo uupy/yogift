@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:yo_gift/common/app_controller.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 
 class ContactDetails extends StatelessWidget {
@@ -29,10 +32,23 @@ class ContactDetails extends StatelessWidget {
                 buildItem(
                   img: 'icon_email.png',
                   name: '郵件',
+                  onTap: () {
+                    Navigator.pop(context);
+                    launchUrl(Uri.parse("mailto: 364191418@qq.com"));
+                  },
                 ),
                 buildItem(
                   img: 'icon_online.png',
                   name: '在線客服',
+                  onTap: () {
+                    final appController = Get.find<AppController>();
+                    final config = appController.config?.setupConfig;
+                    final url = config?.recommendationCodeUrl?.value ?? '';
+                    Navigator.pop(context);
+                    Get.toNamed('/pages/common/webview/index', parameters: {
+                      'src': url.replaceFirst('?rc={code}', 'webchat.html'),
+                    });
+                  },
                 ),
               ],
             ),
