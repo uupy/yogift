@@ -31,6 +31,12 @@ class UserOrderService {
         'Id_Guid': id,
       });
 
+  ///
+  static Future<Response<dynamic>> createWriteOffCode(String id) =>
+      http.postJson('/UserOrder/Create_WriteOffCode', data: {
+        'Id_Guid': id,
+      });
+
   /// 多步合一下单:买给自己 注册/登入->修改资料 ->购买 ->修改地址
   static Future<Response<dynamic>> add4Steps(Add4StepsVo data) => http.postJson(
         '/UserOrder/Add_4Steps',

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/widgets/greeting_card/greeting_card.dart';
 import 'package:yo_gift/widgets/header_background.dart';
-import 'package:yo_gift/widgets/order/order_remark.dart';
+import 'package:yo_gift/widgets/order/order_create_remark.dart';
 
 import 'purchase_controller.dart';
 import 'widgets/detail_info.dart';

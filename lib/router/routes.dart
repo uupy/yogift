@@ -24,6 +24,7 @@ import 'package:yo_gift/src/user/account_setting/area/area1_page.dart';
 import 'package:yo_gift/src/user/account_setting/area/area2_page.dart';
 import 'package:yo_gift/src/user/account_setting/edit/edit_page.dart';
 import 'package:yo_gift/src/user/donation_record/donation_record_page.dart';
+import 'package:yo_gift/src/user/gift/exchange/exchange_page.dart';
 import 'package:yo_gift/src/user/gift/list/list_page.dart';
 import 'package:yo_gift/src/user/invite_friend/invite_friend_page.dart';
 import 'package:yo_gift/src/user/login/login_page.dart';
@@ -85,6 +86,8 @@ final List<AppRoute> routes = [
   const AppRoute(
       name: '/pages/mine/order/detail/index', page: OrderDetailPage()),
   const AppRoute(name: '/pages/mine/gift/mine/index', page: GiftListPage()),
+  const AppRoute(
+      name: '/pages/mine/gift/exchange/index', page: GiftExchangePage()),
   const AppRoute(
       name: '/pages/mine/donation-record/index', page: DonationRecordPage()),
   const AppRoute(

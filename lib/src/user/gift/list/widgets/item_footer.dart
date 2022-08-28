@@ -8,6 +8,7 @@ class OrderItemFooter extends StatelessWidget {
   final int? payStatus;
   final bool canIGive;
   final bool canIExchange;
+  final Function()? onCheckDetails;
 
   const OrderItemFooter({
     Key? key,
@@ -15,6 +16,7 @@ class OrderItemFooter extends StatelessWidget {
     this.payStatus,
     this.canIGive = false,
     this.canIExchange = false,
+    this.onCheckDetails,
   }) : super(key: key);
 
   @override
@@ -28,6 +30,7 @@ class OrderItemFooter extends StatelessWidget {
         children.add(buildFooterItem(
           text: '現在兌換',
           background: const Color(0xfffffdeb),
+          onTap: onCheckDetails,
         ));
       }
       if (canIGive) {
@@ -40,6 +43,7 @@ class OrderItemFooter extends StatelessWidget {
         buildFooterItem(
           text: '查看詳情',
           background: const Color(0xfffffdeb),
+          onTap: onCheckDetails,
         ),
       ]);
     }
@@ -69,6 +73,7 @@ class OrderItemFooter extends StatelessWidget {
       height: 32.w,
       margin: EdgeInsets.only(left: 10.w),
       child: AppButton(
+        onPressed: onTap,
         backgroundColor: background,
         text: text,
         style: TextStyle(

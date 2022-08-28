@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/widgets/greeting_card/greeting_card.dart';
 import 'package:yo_gift/widgets/header_background.dart';
-import 'package:yo_gift/widgets/order/order_remark.dart';
+import 'package:yo_gift/widgets/order/order_create_remark.dart';
 
 import 'blessing_controller.dart';
 import 'wisgets/detail_info.dart';

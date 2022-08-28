@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:yo_gift/models/give.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/app_simple_row.dart';
@@ -16,6 +17,22 @@ class OrderItemCard extends StatelessWidget {
     Key? key,
     required this.item,
   }) : super(key: key);
+
+  void goOrderDetail() {
+    final status = item.orderStatus;
+    bool isDeliver = item.sendingMethod == 2 && [1, 2, 3].contains(status);
+    String path = '/pages/mine/order/detail/index';
+
+    if (status == 1) {
+      path = '/pages/mine/gift/exchange/index';
+    } else if (isDeliver) {
+      path = '/pages/mine/gift/deliver/index';
+    }
+
+    Get.toNamed(path, parameters: {
+      'id': item.oGuid!,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +121,7 @@ class OrderItemCard extends StatelessWidget {
             orderStatus: item.orderStatus,
             canIGive: item.canIGive == 1,
             canIExchange: item.canIExchange == 1,
+            onCheckDetails: goOrderDetail,
           ),
         ],
       ),
