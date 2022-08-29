@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ class OrderDetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final sku = item?.skuContent ?? '';
     final expirationTime = item?.expirationTime ?? '';
+    final price = item?.buyPrice ?? 0;
 
     return AppCard(
       margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.w, bottom: 12.w),
@@ -110,7 +112,7 @@ class OrderDetailCard extends StatelessWidget {
                     ),
                     AppSimpleRow(
                       expanded: Text(
-                        '\$${item?.buyPrice ?? 0}',
+                        '\$${Decimal.parse(price.toString())}',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 20.sp,

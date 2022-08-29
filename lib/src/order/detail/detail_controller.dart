@@ -30,6 +30,7 @@ class OrderDetailController extends GetxController {
 
     update([
       'OrderDetailBaseInfo',
+      'ExchangeCode',
       'ExchangeInfo',
       'GreetingCard',
       'ExchangeTerms',

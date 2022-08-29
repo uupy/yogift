@@ -6,51 +6,28 @@ import 'package:yo_gift/widgets/app_button.dart';
 
 import '../deliver_controller.dart';
 
-class OrderDetailFooter extends StatelessWidget {
+class GiftDeliverFooter extends StatelessWidget {
   final Function(int type)? onTap;
 
-  const OrderDetailFooter({Key? key, this.onTap}) : super(key: key);
+  const GiftDeliverFooter({Key? key, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GiftDeliverController>(
-      id: 'OrderDetailFooter',
+      id: 'GiftDeliverFooter',
       builder: (c) {
-        final payStatus = c.detail?.payStatus;
         final orderStatus = c.detail?.orderStatus;
-        final canIExchange = c.detail?.canIExchange == 1;
-        final canIGive = c.detail?.canIGive == 1;
 
         List<Widget> children = [];
 
-        if (payStatus == 1) {
+        if (orderStatus == 3) {
           children.addAll([
             buildFooterItem(
-              text: '關閉訂單',
-              background: const Color(0xfffffdeb),
-            ),
-            buildFooterItem(
-              text: '繼續支付',
+              text: '確認收貨',
+              loading: c.submitting,
+              onTap: c.onReceivingConfirm,
             ),
           ]);
-        } else if (payStatus == 2) {
-          if (orderStatus == 1) {
-            if (canIExchange) {
-              children.add(buildFooterItem(
-                text: '前往兌換',
-                background: const Color(0xfffffdeb),
-              ));
-            }
-            if (canIExchange && canIGive) {
-              children.add(SizedBox(width: 15.w));
-            }
-            if (canIGive) {
-              children.add(buildFooterItem(
-                text: '贈送好友',
-                icon: 'icon_mine_gift.png',
-              ));
-            }
-          }
         }
 
         if (children.isEmpty) {
@@ -61,12 +38,6 @@ class OrderDetailFooter extends StatelessWidget {
           height: 68.w,
           margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.w),
           padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.w),
-          decoration: BoxDecoration(
-            color: const Color(0xfffffdeb),
-            borderRadius: BorderRadius.all(
-              Radius.circular(20.r),
-            ),
-          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: children,
@@ -80,11 +51,13 @@ class OrderDetailFooter extends StatelessWidget {
     String? text,
     String? icon,
     Color? background,
+    bool loading = false,
     Function()? onTap,
   }) {
     return Expanded(
       child: AppButton(
         onPressed: onTap,
+        loading: loading,
         backgroundColor: background,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -31,6 +31,12 @@ class UserOrderService {
         'Id_Guid': id,
       });
 
+  /// 確認收貨
+  static Future<Response<dynamic>> receivingConfirm(String id) =>
+      http.postJson('/UserOrder/Receiving_Confirm', data: {
+        'Id_Guid': id,
+      });
+
   ///
   static Future<Response<dynamic>> createWriteOffCode(String id) =>
       http.postJson('/UserOrder/Create_WriteOffCode', data: {

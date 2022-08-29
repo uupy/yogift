@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/router/tab_bar.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
+import 'package:yo_gift/widgets/contact_modal.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 import 'package:yo_gift/widgets/menu_row/menu_group.dart';
 
 import 'user_controller.dart';
-import 'widgets/contact_details.dart';
 import 'widgets/header_info.dart';
 
 class UserPage extends StatelessWidget implements TabBarPage {
@@ -76,7 +76,7 @@ class UserPage extends StatelessWidget implements TabBarPage {
                 app.showBottomModal(
                   context: context,
                   builder: (BuildContext context) {
-                    return const ContactDetails();
+                    return const ContactModal();
                   },
                 );
               }

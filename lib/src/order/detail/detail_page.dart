@@ -5,6 +5,7 @@ import 'package:yo_gift/widgets/header_background.dart';
 
 import 'detail_controller.dart';
 import 'widgets/base_info.dart';
+import 'widgets/exchange_code.dart';
 import 'widgets/exchange_info.dart';
 import 'widgets/exchange_terms.dart';
 import 'widgets/greeting_card.dart';
@@ -48,6 +49,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                 const OrderItemCard(),
               ],
             ),
+            const ExchangeCode(),
             const GreetingCard(),
             const ExchangeInfo(),
             const OrderDetailBaseInfo(),

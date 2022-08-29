@@ -6,12 +6,10 @@ import 'package:yo_gift/src/order/constants.dart';
 class GiftDeliverController extends GetxController {
   final id = Get.parameters['id'];
   final title = ''.obs;
+  int currentStep = 1;
+  bool submitting = false;
 
   OrderDetailItemVo? detail;
-
-  bool get isThirdParty {
-    return detail?.sendingMethod == 3;
-  }
 
   bool get isExchanged {
     return detail?.payStatus == 2 && detail?.orderStatus == 4;
@@ -28,13 +26,34 @@ class GiftDeliverController extends GetxController {
     detail = OrderDetailItemVo.fromJson(data['data'] ?? {});
     title(OrderStatus.getLabelByValue(detail?.orderStatus));
 
+    if (detail?.orderStatus == 2) {
+      currentStep = 2;
+    } else if (detail?.orderStatus == 3) {
+      currentStep = 3;
+    } else if (detail?.orderStatus == 4) {
+      currentStep = 4;
+    }
+
     update([
-      'OrderDetailBaseInfo',
+      'DeliverProgressStepBar',
+      'GiftDeliverBaseInfo',
       'ExchangeInfo',
       'GreetingCard',
       'ExchangeTerms',
       'OrderItemCard',
-      'OrderDetailFooter'
+      'GiftDeliverFooter'
     ]);
+  }
+
+  Future onReceivingConfirm() async {
+    submitting = true;
+    update(['GiftDeliverFooter']);
+    try {
+      await UserOrderService.receivingConfirm(id!);
+      fetchData();
+    } finally {
+      submitting = false;
+      update(['GiftDeliverFooter']);
+    }
   }
 }

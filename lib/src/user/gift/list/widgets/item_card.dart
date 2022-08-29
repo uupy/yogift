@@ -20,7 +20,7 @@ class OrderItemCard extends StatelessWidget {
 
   void goOrderDetail() {
     final status = item.orderStatus;
-    bool isDeliver = item.sendingMethod == 2 && [1, 2, 3].contains(status);
+    bool isDeliver = item.sendingMethod == 2 && [1, 2, 3, 4].contains(status);
     String path = '/pages/mine/order/detail/index';
 
     if (status == 1) {

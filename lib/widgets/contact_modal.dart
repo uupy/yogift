@@ -5,8 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:yo_gift/common/app_controller.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 
-class ContactDetails extends StatelessWidget {
-  const ContactDetails({Key? key}) : super(key: key);
+class ContactModal extends StatelessWidget {
+  const ContactModal({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

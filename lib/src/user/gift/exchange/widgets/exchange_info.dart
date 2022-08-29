@@ -6,6 +6,7 @@ import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 
 import '../exchange_controller.dart';
+import 'exchange_code.dart';
 
 class ExchangeInfo extends StatelessWidget {
   const ExchangeInfo({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class ExchangeInfo extends StatelessWidget {
       id: 'ExchangeInfo',
       builder: (c) {
         if (c.detail?.writeoffCode?.isNotEmpty ?? false) {
-          return Container();
+          return const ExchangeCode();
         }
         return Container(
           width: double.maxFinite,

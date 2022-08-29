@@ -10,6 +10,7 @@ class AppButton extends StatelessWidget {
   final bool round;
   final bool disabled;
   final bool shadow;
+  final bool loading;
   final Color? backgroundColor;
   final Color? borderColor;
   final EdgeInsetsGeometry? padding;
@@ -30,6 +31,7 @@ class AppButton extends StatelessWidget {
     this.round = true,
     this.disabled = false,
     this.shadow = false,
+    this.loading = false,
     this.backgroundColor = AppTheme.primaryColor,
     this.borderColor = AppTheme.primaryColor,
     this.padding,
@@ -72,7 +74,7 @@ class AppButton extends StatelessWidget {
       }
     }
 
-    if (disabled) {
+    if (disabled || loading) {
       _background = const Color(0xffe6e6e6);
       _borderColor = const Color(0xffe6e6e6);
       _textColor = const Color.fromRGBO(0, 0, 0, 0.26);
@@ -80,7 +82,7 @@ class AppButton extends StatelessWidget {
 
     return ElevatedButton(
       onPressed: () {
-        if (disabled) return;
+        if (disabled || loading) return;
         onPressed?.call();
       },
       style: ButtonStyle(
@@ -109,16 +111,30 @@ class AppButton extends StatelessWidget {
           ),
         ),
       ),
-      child: Center(
-        child: child ??
-            Text(
-              text ?? 'button',
-              style: style ??
-                  TextStyle(
-                    fontSize: fontSize ?? 14.sp,
-                    color: _textColor,
-                  ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (loading)
+            const SizedBox(
+              height: 17,
+              width: 17,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: Color.fromRGBO(0, 0, 0, 0.5),
+              ),
             ),
+          if (loading) const SizedBox(width: 4),
+          child ??
+              Text(
+                text ?? 'button',
+                style: style ??
+                    TextStyle(
+                      fontSize: fontSize ?? 14.sp,
+                      color: _textColor,
+                    ),
+              ),
+        ],
       ),
     );
   }

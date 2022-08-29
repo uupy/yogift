@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StepBar extends StatelessWidget {
   final List<String> steps;
+  final double? padding;
 
   /// 当前步骤
   final int current;
@@ -11,6 +12,7 @@ class StepBar extends StatelessWidget {
     Key? key,
     required this.steps,
     this.current = 1,
+    this.padding,
   }) : super(key: key);
 
   bool get isLastStep {
@@ -36,8 +38,8 @@ class StepBar extends StatelessWidget {
           ),
           Positioned(
             top: -7.w,
-            left: 30.w,
-            right: 30.w,
+            left: padding ?? 30.w,
+            right: padding ?? 30.w,
             height: 62.w,
             child: Row(
               children: steps.asMap().keys.map((index) {

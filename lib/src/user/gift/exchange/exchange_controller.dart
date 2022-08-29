@@ -32,6 +32,7 @@ class GiftExchangeController extends GetxController {
 
     detail!.writeoffCode = data['Writeoff_Code'];
     detail!.writeoffCodeType = data['Writeoff_CodeType'];
-    update(['ExchangeInfo']);
+
+    update(['ExchangeInfo', 'ExchangeCode']);
   }
 }
