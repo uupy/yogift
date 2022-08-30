@@ -10,7 +10,10 @@ class OrderExchangeTerms extends StatelessWidget {
     return Html(
       data: content ?? '',
       style: {
-        'p': Style(
+        'body': Style(
+          margin: EdgeInsets.zero,
+          lineHeight: LineHeight.number(1.3),
+          fontSize: FontSize.medium,
           color: const Color.fromRGBO(0, 0, 0, 0.4),
         ),
       },

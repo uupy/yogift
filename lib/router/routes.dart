@@ -23,6 +23,8 @@ import 'package:yo_gift/src/user/account_setting/account_setting_page.dart';
 import 'package:yo_gift/src/user/account_setting/area/area1_page.dart';
 import 'package:yo_gift/src/user/account_setting/area/area2_page.dart';
 import 'package:yo_gift/src/user/account_setting/edit/edit_page.dart';
+import 'package:yo_gift/src/user/address/edit/edit_page.dart';
+import 'package:yo_gift/src/user/address/list/list_page.dart';
 import 'package:yo_gift/src/user/donation_record/donation_record_page.dart';
 import 'package:yo_gift/src/user/gift/deliver/deliver_page.dart';
 import 'package:yo_gift/src/user/gift/exchange/exchange_page.dart';
@@ -86,6 +88,9 @@ final List<AppRoute> routes = [
   const AppRoute(name: '/pages/mine/order/index', page: OrderListPage()),
   const AppRoute(
       name: '/pages/mine/order/detail/index', page: OrderDetailPage()),
+  const AppRoute(
+      name: '/pages/mine/addr-setting/index', page: AddressListPage()),
+  const AppRoute(name: '/pages/mine/addr-edit/index', page: AddressEditPage()),
   const AppRoute(name: '/pages/mine/gift/mine/index', page: GiftListPage()),
   const AppRoute(
       name: '/pages/mine/gift/deliver/index', page: GiftDeliverPage()),

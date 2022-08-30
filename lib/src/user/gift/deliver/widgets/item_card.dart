@@ -10,7 +10,6 @@ class OrderItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GiftDeliverController>(
-      id: 'OrderItemCard',
       builder: (c) {
         return OrderDetailCard(item: c.detail);
       },

@@ -11,7 +11,6 @@ class GiftDeliverBaseInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GiftDeliverController>(
-      id: 'GiftDeliverBaseInfo',
       builder: (c) {
         final expirationTime = c.detail?.expirationTime ?? '';
 

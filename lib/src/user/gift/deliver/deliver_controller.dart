@@ -34,26 +34,18 @@ class GiftDeliverController extends GetxController {
       currentStep = 4;
     }
 
-    update([
-      'DeliverProgressStepBar',
-      'GiftDeliverBaseInfo',
-      'ExchangeInfo',
-      'GreetingCard',
-      'ExchangeTerms',
-      'OrderItemCard',
-      'GiftDeliverFooter'
-    ]);
+    update();
   }
 
   Future onReceivingConfirm() async {
     submitting = true;
-    update(['GiftDeliverFooter']);
+    update();
     try {
       await UserOrderService.receivingConfirm(id!);
       fetchData();
     } finally {
       submitting = false;
-      update(['GiftDeliverFooter']);
+      update();
     }
   }
 }

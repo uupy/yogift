@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,14 +22,22 @@ class OrderItemCard extends StatelessWidget {
 
   void goOrderDetail() {
     if (item.payStatus == 1) return;
-    Get.toNamed('/pages/mine/order/detail/index', parameters: {
-      'id': item.oGuid!,
-    });
+    if (item.sendingMethod == 2) {
+      Get.toNamed('/pages/mine/gift/deliver/index', parameters: {
+        'id': item.oGuid!,
+      });
+    } else {
+      Get.toNamed('/pages/mine/order/detail/index', parameters: {
+        'id': item.oGuid!,
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final sku = item.skuContent ?? '';
+    final price = item.buyPrice ?? 0;
+    final orderMoney = item.orderMoney ?? 0;
 
     return AppCard(
       margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 12.w),
@@ -74,7 +83,7 @@ class OrderItemCard extends StatelessWidget {
                         suffix: Container(
                           margin: EdgeInsets.only(left: 10.w),
                           child: Text(
-                            '\$${item.buyPrice ?? 0}',
+                            '\$${Decimal.parse(price.toString())}',
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 14.sp,
@@ -151,7 +160,8 @@ class OrderItemCard extends StatelessWidget {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '\$${item.orderMoney ?? 0}',
+                                  text:
+                                      '\$${Decimal.parse(orderMoney.toString())}',
                                 ),
                               ],
                             ),

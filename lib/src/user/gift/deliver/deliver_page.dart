@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/common/app.dart';
-import 'package:yo_gift/widgets/contact_modal.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
 import 'deliver_controller.dart';
 import 'widgets/base_info.dart';
+import 'widgets/content_button.dart';
 import 'widgets/exchange_terms.dart';
 import 'widgets/item_card.dart';
 import 'widgets/page_footer.dart';
@@ -52,28 +51,7 @@ class _GiftDeliverPageState extends State<GiftDeliverPage> {
               ],
             ),
             const ReceivingInfo(),
-            GestureDetector(
-              onTap: () {
-                app.showBottomModal(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const ContactModal();
-                  },
-                );
-              },
-              behavior: HitTestBehavior.opaque,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.w),
-                child: Text(
-                  '聯絡客戶服務',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: const Color(0xff007aff),
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
-            ),
+            const ContentButton(),
             const GiftDeliverBaseInfo(),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.w),

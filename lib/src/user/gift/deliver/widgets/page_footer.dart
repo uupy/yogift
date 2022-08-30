@@ -14,7 +14,6 @@ class GiftDeliverFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GiftDeliverController>(
-      id: 'GiftDeliverFooter',
       builder: (c) {
         final orderStatus = c.detail?.orderStatus;
 

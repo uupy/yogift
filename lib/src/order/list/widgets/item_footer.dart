@@ -25,6 +25,9 @@ class OrderItemFooter extends StatelessWidget {
     final receivingTime = item.receivingTime ?? '';
     final canIGive = item.canIGive == 1;
     final canIExchange = item.canIExchange == 1;
+    final Map<String, String> parameters = {
+      'id': item.oGuid!,
+    };
 
     String tips = '';
     Color tipsColor = const Color(0xff7dc878);
@@ -68,9 +71,17 @@ class OrderItemFooter extends StatelessWidget {
             text: '現在兌換',
             background: const Color(0xfffffdeb),
             onTap: () {
-              Get.toNamed('/pages/mine/gift/exchange/index', parameters: {
-                'id': item.oGuid!,
-              });
+              if (item.sendingMethod == 2) {
+                Get.toNamed(
+                  '/pages/mine/gift/deliver/index',
+                  parameters: parameters,
+                );
+              } else {
+                Get.toNamed(
+                  '/pages/mine/gift/exchange/index',
+                  parameters: parameters,
+                );
+              }
             },
           ));
         }
@@ -78,9 +89,10 @@ class OrderItemFooter extends StatelessWidget {
           children.add(buildFooterItem(
             text: '贈送好友',
             onTap: () {
-              Get.toNamed('/pages/mine/order/give-friend/index', parameters: {
-                'orderId': item.oGuid!,
-              });
+              Get.toNamed(
+                '/pages/mine/order/give-friend/index',
+                parameters: parameters,
+              );
             },
           ));
         }

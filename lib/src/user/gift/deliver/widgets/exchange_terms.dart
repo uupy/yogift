@@ -10,7 +10,6 @@ class ExchangeTerms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GiftDeliverController>(
-      id: 'ExchangeTerms',
       builder: (c) {
         return OrderExchangeTerms(content: c.detail?.exchangeTerms);
       },

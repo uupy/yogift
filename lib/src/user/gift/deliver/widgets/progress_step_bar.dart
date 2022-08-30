@@ -11,7 +11,6 @@ class DeliverProgressStepBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GiftDeliverController>(
-      id: 'DeliverProgressStepBar',
       builder: (c) {
         return StepBar(
           steps: const ['填寫收貨地址', '商家準備中', '已發貨', '確認收貨'],
