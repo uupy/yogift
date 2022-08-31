@@ -26,13 +26,25 @@ class AddressItemCard extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.w),
           child: Row(
             children: [
+              if (c.selected?.id == item.id)
+                AppAssetImage(
+                  width: 16.w,
+                  margin: EdgeInsets.only(right: 8.w),
+                  img: 'icon_cb_1.png',
+                ),
               Expanded(
                 child: AppCard(
+                  onTap: () {
+                    c.selected = item;
+                    c.update();
+                  },
+                  behavior: HitTestBehavior.deferToChild,
+                  blurRadius: 0,
+                  padding: EdgeInsets.fromLTRB(20.w, 10.w, 10.w, 20.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppSimpleRow(
-                        margin: EdgeInsets.only(bottom: 4.w),
                         expanded: Text(
                           '$area0$area1$address',
                           style: TextStyle(
@@ -40,8 +52,19 @@ class AddressItemCard extends StatelessWidget {
                           ),
                         ),
                         suffix: AppAssetImage(
-                          width: 20.w,
+                          width: 40.w,
+                          padding: EdgeInsets.all(10.w),
                           img: 'icon_edit2.png',
+                          onTap: () {
+                            Get.toNamed(
+                              '/pages/mine/addr-edit/index',
+                              arguments: item,
+                            )?.then((value) {
+                              if (value == true) {
+                                c.onReload();
+                              }
+                            });
+                          },
                         ),
                       ),
                       Text(

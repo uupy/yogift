@@ -21,13 +21,12 @@ class ReceivingInfo extends StatelessWidget {
         final area1 = info?.receivingaddressArea1 ?? '';
         final name = info?.receivingaddressContact ?? '';
         final phone = info?.receivingaddressPhone ?? '';
-        bool isEmpty =
-            address.isEmpty && area0.isEmpty && name.isEmpty && phone.isEmpty;
+        final isEmpty = c.isEmptyAddress;
 
         return AppCard(
           onTap: () {
             if (orderStatus == 1) {
-              Get.toNamed('/pages/mine/addr-setting/index');
+              c.goSelectAddress();
             }
           },
           width: double.maxFinite,
@@ -43,14 +42,36 @@ class ReceivingInfo extends StatelessWidget {
               ),
               SizedBox(height: 8.w),
               AppSimpleRow(
-                expanded: Text(
-                  isEmpty
-                      ? '請填寫你的收件地址和聯繫方式'
-                      : '$area0$area1$address $name $phone',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: Color.fromRGBO(0, 0, 0, isEmpty ? 0.26 : 0.9),
-                  ),
+                expanded: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      isEmpty ? '請填寫你的收件地址和聯繫方式' : '$area0$area1$address',
+                      style: TextStyle(
+                        fontSize: isEmpty ? 14.sp : 16.sp,
+                        color: Color.fromRGBO(0, 0, 0, isEmpty ? 0.26 : 0.9),
+                      ),
+                    ),
+                    if (!isEmpty)
+                      Container(
+                        margin: EdgeInsets.only(top: 4.w, bottom: 12.w),
+                        child: Text(
+                          '$name $phone',
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: const Color.fromRGBO(0, 0, 0, 0.4),
+                          ),
+                        ),
+                      ),
+                    if (!isEmpty)
+                      Text(
+                        '預計送貨時間 ${info?.estimatedDeliveryTime ?? ''}',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: const Color(0xffff8d00),
+                        ),
+                      ),
+                  ],
                 ),
                 suffix: orderStatus == 1
                     ? AppAssetImage(

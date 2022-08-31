@@ -12,6 +12,7 @@ import 'package:yo_gift/src/goods/purchase/purchase_page.dart';
 import 'package:yo_gift/src/index/index_page.dart';
 import 'package:yo_gift/src/order/detail/detail_page.dart';
 import 'package:yo_gift/src/order/donation_detail/donation_detail_page.dart';
+import 'package:yo_gift/src/order/give_friend/give_friend_page.dart';
 import 'package:yo_gift/src/order/list/list_page.dart';
 import 'package:yo_gift/src/order/pay_result/pay_result_page.dart';
 import 'package:yo_gift/src/p2/guide/guide_page.dart';
@@ -88,6 +89,8 @@ final List<AppRoute> routes = [
   const AppRoute(name: '/pages/mine/order/index', page: OrderListPage()),
   const AppRoute(
       name: '/pages/mine/order/detail/index', page: OrderDetailPage()),
+  const AppRoute(
+      name: '/pages/mine/order/give-friend/index', page: OrderGiveFriendPage()),
   const AppRoute(
       name: '/pages/mine/addr-setting/index', page: AddressListPage()),
   const AppRoute(name: '/pages/mine/addr-edit/index', page: AddressEditPage()),

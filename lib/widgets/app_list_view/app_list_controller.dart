@@ -18,19 +18,30 @@ class AppListController<T> {
   Function(Function())? setState;
   Function(List<T> list)? onLoaded;
 
+  /// 下拉刷新
   Future onRefresh() async {
     await onReload(pullDown: true);
   }
 
+  /// 重新加載
   Future onReload({bool? pullDown}) async {
     if (loading) return;
     page = 1;
+    pageSize = 20;
     isAllLoaded = false;
     isPullDown = pullDown == true;
     await onLoading();
   }
 
-  Future onLoading() async {
+  /// 用於詳情頁返回刷新
+  Future onBackRefresh() async {
+    pageSize = list.length > 20 ? list.length : 20;
+    page = 1;
+    return await onLoading(true);
+  }
+
+  /// 加載數據
+  Future onLoading([bool isBackRefresh = false]) async {
     if (loading || isAllLoaded || fetch == null) return;
     try {
       loading = true;
@@ -42,6 +53,10 @@ class AppListController<T> {
 
       if (page == 1) {
         list.clear();
+      }
+
+      if (isBackRefresh) {
+        pageSize = 20;
       }
 
       if (items.isNotEmpty) {

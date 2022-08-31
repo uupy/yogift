@@ -30,7 +30,9 @@ class _AddressListPageState extends State<AddressListPage> {
         title: const Text('收貨地址'),
         actions: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.back(result: controller.selected);
+            },
             behavior: HitTestBehavior.opaque,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -62,7 +64,11 @@ class _AddressListPageState extends State<AddressListPage> {
         child: AppButton(
           text: '添加收貨地址',
           onPressed: () {
-            Get.toNamed('/pages/mine/addr-edit/index');
+            Get.toNamed('/pages/mine/addr-edit/index')?.then((value) {
+              if (value == true) {
+                controller.onReload();
+              }
+            });
           },
         ),
       ),

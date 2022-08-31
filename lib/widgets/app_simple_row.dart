@@ -30,6 +30,7 @@ class AppSimpleRow extends StatelessWidget {
   final double? height;
   final double? radius;
   final double? labelWidth;
+  final Color? labelColor;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final BoxBorder? border;
@@ -51,6 +52,7 @@ class AppSimpleRow extends StatelessWidget {
     this.color,
     this.radius = 4,
     this.labelWidth,
+    this.labelColor,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.border,
@@ -70,7 +72,7 @@ class AppSimpleRow extends StatelessWidget {
         width: labelWidth ?? 50.w,
         child: Text(
           label ?? '',
-          style: TextStyle(fontSize: 14.sp),
+          style: TextStyle(fontSize: 14.sp, color: labelColor),
         ),
       );
     }

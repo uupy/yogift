@@ -5,6 +5,7 @@ class AppAssetImage extends StatelessWidget {
   final double? width;
   final double? height;
   final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
   final BoxFit? fit;
   final AlignmentGeometry alignment;
   final void Function()? onTap;
@@ -15,6 +16,7 @@ class AppAssetImage extends StatelessWidget {
     this.width,
     this.height,
     this.margin,
+    this.padding,
     this.fit,
     this.alignment = Alignment.center,
     this.onTap,
@@ -39,6 +41,7 @@ class AppAssetImage extends StatelessWidget {
       width: width,
       height: height,
       margin: margin,
+      padding: padding,
       child: hasImg
           ? Image(
               image: AssetImage('lib/assets/images/$img'),

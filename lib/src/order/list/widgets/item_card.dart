@@ -12,25 +12,27 @@ import 'item_image.dart';
 
 class OrderItemCard extends StatelessWidget {
   final OrderListItemVo item;
+  final Function()? onRefresh;
   final Function()? onClosed;
 
   const OrderItemCard({
     Key? key,
     required this.item,
+    this.onRefresh,
     this.onClosed,
   }) : super(key: key);
 
   void goOrderDetail() {
+    String path = '/pages/mine/order/detail/index';
     if (item.payStatus == 1) return;
     if (item.sendingMethod == 2) {
-      Get.toNamed('/pages/mine/gift/deliver/index', parameters: {
-        'id': item.oGuid!,
-      });
-    } else {
-      Get.toNamed('/pages/mine/order/detail/index', parameters: {
-        'id': item.oGuid!,
-      });
+      path = '/pages/mine/gift/deliver/index';
     }
+    Get.toNamed(path, parameters: {
+      'id': item.oGuid!,
+    })?.then((value) {
+      onRefresh?.call();
+    });
   }
 
   @override
@@ -177,6 +179,7 @@ class OrderItemCard extends StatelessWidget {
           SizedBox(height: 15.w),
           OrderItemFooter(
             item: item,
+            onRefresh: onRefresh,
             onClosed: onClosed,
             onCheckDetails: goOrderDetail,
           ),

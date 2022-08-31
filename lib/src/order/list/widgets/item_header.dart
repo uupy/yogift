@@ -25,6 +25,7 @@ class OrderItemHeader extends StatelessWidget {
       statusColor = const Color(0xffff8d00);
     } else {
       switch (orderStatus) {
+        case 2:
         case 3:
           statusColor = const Color(0xffff8d00);
           break;

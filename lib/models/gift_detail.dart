@@ -71,7 +71,7 @@ class GiftDetailVo {
     forCharity = json['For_Charity'];
     cCoverImg = json['C_CoverImg'];
     cDetail = json['C_Detail'];
-    cDetailImg = json['C_Detail_Img'].cast<String>();
+    cDetailImg = json['C_Detail_Img']?.cast<String>();
     sendingMethod = json['SendingMethod'];
     jifenN = json['Jifen_n'];
     bussinessNo = json['BussinessNo'];
@@ -80,7 +80,7 @@ class GiftDetailVo {
     effectiveDays = json['EffectiveDays'];
     effectiveTime = json['EffectiveTime'];
     estimatedDeliveryTimeTN = json['EstimatedDeliveryTime_TN'];
-    keywords = json['Keywords'].cast<String>();
+    keywords = json['Keywords']?.cast<String>();
     commissionValue = json['Commission_value'];
     exchangeTerms = json['ExchangeTerms'];
     buy1Get1FREE = json['Buy1Get1FREE'];

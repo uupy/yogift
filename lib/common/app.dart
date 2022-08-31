@@ -126,20 +126,20 @@ class App {
     String? cancelText,
     String? confirmText,
     Widget? content,
+    double? height,
     List<Widget>? actions,
     bool? barrierDismissible,
-    bool? cupertinoStyle,
     BuildContext? context,
     void Function()? onCancel,
     void Function()? onConfirm,
   }) async {
     return await showAnimationDialog<bool>(
-      context: Get.context!,
+      context: context ?? Get.context!,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: 182.w,
+            height: height ?? 182.w,
             margin: EdgeInsets.all(20.w),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -155,7 +155,12 @@ class App {
                   child: Stack(
                     children: [
                       Center(
-                        child: Text(title ?? ''),
+                        child: Text(
+                          title ?? '',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                       Positioned(
                         top: 15.w,
@@ -165,7 +170,6 @@ class App {
                           img: 'icon_close.png',
                           onTap: () {
                             Get.back(result: false);
-                            onCancel?.call();
                           },
                         ),
                       ),

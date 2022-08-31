@@ -31,10 +31,10 @@ class _ExpandableRichTextState extends State<ExpandableRichText> {
             child: Html(
               data: _content,
               style: {
-                'div': Style(
-                  color: const Color.fromRGBO(0, 0, 0, 0.4),
-                ),
-                'p': Style(
+                'body': Style(
+                  margin: EdgeInsets.zero,
+                  lineHeight: LineHeight.number(1.3),
+                  fontSize: FontSize.medium,
                   color: const Color.fromRGBO(0, 0, 0, 0.4),
                 ),
               },

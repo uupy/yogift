@@ -54,13 +54,13 @@ class _AddressEditPageState extends State<AddressEditPage> {
             ],
           ),
           body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.w),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FormItem(
-                  label: '收件人姓名',
-                  hintText: '請輸入收件人姓名',
+                  label: '聯繫人',
+                  hintText: '請填寫聯繫人',
                   controller: c.nameController,
                   onChanged: (value) {
                     c.form.contact = value;
@@ -126,8 +126,10 @@ class _AddressEditPageState extends State<AddressEditPage> {
           bottomNavigationBar: Container(
             margin: EdgeInsets.all(20.w),
             child: AppButton(
-              text: '保存',
+              text: c.submitting ? '提交中...' : '保存',
               disabled: !c.submitAble,
+              loading: c.submitting,
+              onPressed: c.onSubmit,
             ),
           ),
         );

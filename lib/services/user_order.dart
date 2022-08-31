@@ -37,6 +37,20 @@ class UserOrderService {
         'Id_Guid': id,
       });
 
+  /// 修改訂單收貨地址
+  static Future<Response<dynamic>> updateReceivingAddressById(
+          String orderId, int addressId) =>
+      http.postJson('/UserOrder/Receivingaddress_By_Id', data: {
+        'id_guid': orderId,
+        'receivingaddress_id': addressId,
+      });
+
+  /// 確認訂單收貨地址
+  static Future<Response<dynamic>> confirmReceivingAddress(String orderId) =>
+      http.postJson('/UserOrder/Receivingaddress_Confirm', data: {
+        'id_guid': orderId,
+      });
+
   ///
   static Future<Response<dynamic>> createWriteOffCode(String id) =>
       http.postJson('/UserOrder/Create_WriteOffCode', data: {

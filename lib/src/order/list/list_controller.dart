@@ -20,7 +20,12 @@ class OrderListController extends GetxController {
     listController.onReload();
   }
 
+  Future onBackRefresh() async {
+    listController.onBackRefresh();
+  }
+
   Future onCloseOrder(String orderId) async {
     await UserOrderService.closeItem(orderId);
+    onReload();
   }
 }

@@ -11,7 +11,11 @@ class AddressListController extends GetxController {
     final res = await ReceivingAddressService.queryList(params);
     final data = res.data ?? {};
     final List items = data['data'] ?? [];
-    return items.map((e) => ReceivingAddressVo.fromJson(e)).toList();
+    final list = items.map((e) => ReceivingAddressVo.fromJson(e)).toList();
+    if (list.isNotEmpty && selected == null) {
+      selected = list.first;
+    }
+    return list;
   }
 
   Future onReload() async {

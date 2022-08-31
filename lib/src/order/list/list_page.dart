@@ -48,6 +48,7 @@ class _OrderListPageState extends State<OrderListPage> {
             itemBuilder: (item, index, list) {
               return OrderItemCard(
                 item: item,
+                onRefresh: controller.onBackRefresh,
                 onClosed: () async {
                   final res = await app.confirm(contentText: '確定關閉該訂單嗎?');
                   if (res == true) {

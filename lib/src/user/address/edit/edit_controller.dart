@@ -7,17 +7,19 @@ import 'package:yo_gift/services/address_list.dart';
 import 'package:yo_gift/services/receiving_address.dart';
 
 class AddressEditController extends GetxController {
-  final id = Get.parameters['id'] ?? '';
-  final form = ReceivingAddressAddVo();
+  final ReceivingAddressVo? item = Get.arguments;
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final addressController = TextEditingController();
+  final form = ReceivingAddressAddVo();
+
+  bool submitting = false;
 
   List<AreaVo> areaList1 = [];
   List<AreaVo> areaList2 = [];
 
   bool get isEdit {
-    return id.isNotEmpty;
+    return item != null;
   }
 
   bool get submitAble {
@@ -31,7 +33,21 @@ class AddressEditController extends GetxController {
   }
 
   void init() {
+    if (item != null) {
+      form.contact = item?.contact;
+      form.phone = item?.phone;
+      form.address = item?.address;
+      form.area0Id = item?.area0Id;
+      form.area1Id = item?.area1Id;
+      nameController.text = form.contact ?? '';
+      phoneController.text = form.phone ?? '';
+      addressController.text = form.address ?? '';
+      update();
+    }
     queryAreaList(0);
+    if (form.area0Id != null) {
+      queryAreaList(form.area0Id ?? 0);
+    }
   }
 
   Future queryAreaList(int? parentId) async {
@@ -53,18 +69,27 @@ class AddressEditController extends GetxController {
 
   Future onSubmit() async {
     final formData = form.toJson();
-    if (isEdit) {
-      formData['id'] = id;
-      await ReceivingAddressService.edit(formData);
-    } else {
-      await ReceivingAddressService.add(formData);
-    }
+    submitting = true;
+    update();
 
-    Get.back(result: true);
+    try {
+      if (isEdit) {
+        formData['id'] = item?.id;
+        await ReceivingAddressService.edit(formData);
+      } else {
+        await ReceivingAddressService.add(formData);
+      }
+      app.showToast('保存成功');
+      await Future.delayed(const Duration(milliseconds: 300));
+      Get.back(result: true);
+    } finally {
+      submitting = false;
+      update();
+    }
   }
 
   Future onRemove() async {
-    await ReceivingAddressService.remove(id);
+    await ReceivingAddressService.remove(item!.id);
     app.showToast('刪除成功');
     await Future.delayed(const Duration(milliseconds: 300));
     Get.back(result: true);

@@ -13,6 +13,7 @@ class GiftDeliverBaseInfo extends StatelessWidget {
     return GetBuilder<GiftDeliverController>(
       builder: (c) {
         final expirationTime = c.detail?.expirationTime ?? '';
+        final orderStatus = c.detail?.orderStatus ?? 0;
 
         return Container(
           margin: EdgeInsets.fromLTRB(20.w, 10.w, 20.w, 0),
@@ -36,7 +37,8 @@ class GiftDeliverBaseInfo extends StatelessWidget {
               buildRow(label: '已賺取積分', content: '${c.detail?.jifenN ?? 0}'),
               buildRow(label: '訂單編號', content: c.detail?.orderNo),
               buildRow(label: '購買時間', content: c.detail?.createTime),
-              buildRow(label: '發貨時間', content: c.detail?.deliveryTime),
+              if (orderStatus > 2)
+                buildRow(label: '發貨時間', content: c.detail?.deliveryTime),
             ],
           ),
         );

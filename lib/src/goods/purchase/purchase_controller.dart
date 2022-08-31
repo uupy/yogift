@@ -202,6 +202,7 @@ class PurchaseController extends GetxController {
     await app.updateUserInfo();
     orderInfo = OrderDetailItemVo.fromJson(info);
     if (!isGiveToSelf && receiverInfoMethod == 1) {
+      receiverInfo.idGuid = orderInfo!.oGuid!;
       await UserOrderService.setReceivingaddress(receiverInfo);
     }
     onPay();

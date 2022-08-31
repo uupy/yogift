@@ -7,12 +7,14 @@ import 'package:yo_gift/widgets/app_button.dart';
 
 class OrderItemFooter extends StatelessWidget {
   final OrderListItemVo item;
+  final Function()? onRefresh;
   final Function()? onClosed;
   final Function()? onCheckDetails;
 
   const OrderItemFooter({
     Key? key,
     required this.item,
+    this.onRefresh,
     this.onClosed,
     this.onCheckDetails,
   }) : super(key: key);
@@ -21,7 +23,7 @@ class OrderItemFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     final orderStatus = item.orderStatus;
     final payStatus = item.payStatus;
-    final deliveryTime = item.deliveryTime ?? '';
+    final deliveryTime = item.estimatedDeliveryTime ?? '';
     final receivingTime = item.receivingTime ?? '';
     final canIGive = item.canIGive == 1;
     final canIExchange = item.canIExchange == 1;
@@ -46,6 +48,7 @@ class OrderItemFooter extends StatelessWidget {
       ]);
     } else if (payStatus == 2) {
       switch (orderStatus) {
+        case 2:
         case 3:
           if (deliveryTime.isNotEmpty) {
             tips =
@@ -75,12 +78,16 @@ class OrderItemFooter extends StatelessWidget {
                 Get.toNamed(
                   '/pages/mine/gift/deliver/index',
                   parameters: parameters,
-                );
+                )?.then((value) {
+                  onRefresh?.call();
+                });
               } else {
                 Get.toNamed(
                   '/pages/mine/gift/exchange/index',
                   parameters: parameters,
-                );
+                )?.then((value) {
+                  onRefresh?.call();
+                });
               }
             },
           ));
@@ -91,8 +98,12 @@ class OrderItemFooter extends StatelessWidget {
             onTap: () {
               Get.toNamed(
                 '/pages/mine/order/give-friend/index',
-                parameters: parameters,
-              );
+                parameters: {
+                  'orderId': item.oGuid!,
+                },
+              )?.then((value) {
+                onRefresh?.call();
+              });
             },
           ));
         }
