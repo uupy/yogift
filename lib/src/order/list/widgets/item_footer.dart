@@ -44,6 +44,19 @@ class OrderItemFooter extends StatelessWidget {
         ),
         buildFooterItem(
           text: '繼續支付',
+          onTap: () {
+            Get.toNamed(
+              '/pages/goods/purchase/index',
+              parameters: {
+                'buyType': '1',
+                'id': item.gGuid!,
+                'skuId': '${item.skuId}',
+                'orderId': item.oGuid!,
+              },
+            )?.then((value) {
+              onRefresh?.call();
+            });
+          },
         ),
       ]);
     } else if (payStatus == 2) {

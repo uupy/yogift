@@ -79,11 +79,12 @@ class _PurchasePageState extends State<PurchasePage> {
                   controller.greetingCardMsg = msg;
                 },
               ),
-            OrderRemark(
-              onChanged: (value) {
-                controller.remark = value ?? '';
-              },
-            ),
+            if (controller.orderId.isEmpty)
+              OrderRemark(
+                onChanged: (value) {
+                  controller.remark = value ?? '';
+                },
+              ),
             SenderInfo(key: _senderWidgetKey),
             ReceiverInfo(key: _receiverWidgetKey),
             SizedBox(height: 100.w),

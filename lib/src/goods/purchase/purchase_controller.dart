@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_storage.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/models/address_list.dart';
 import 'package:yo_gift/models/gift_detail.dart';
 import 'package:yo_gift/models/user_order/add.dart';
@@ -19,6 +20,7 @@ import 'package:yo_gift/src/order/pay/pay_controller.dart';
 
 class PurchaseController extends GetxController {
   final goodsId = Get.parameters['id'];
+  final orderId = Get.parameters['orderId'] ?? '';
   final skuId = int.tryParse(Get.parameters['skuId'] ?? '');
 
   /// 1 买给自己， 2 送给别人
@@ -168,7 +170,8 @@ class PurchaseController extends GetxController {
 
   /// 提交下单
   Future onSubmit() async {
-    if (orderInfo != null) {
+    logger.i(orderId);
+    if (orderInfo != null || orderId.isNotEmpty) {
       onPay();
     } else {
       if (isLogged) {
@@ -241,9 +244,10 @@ class PurchaseController extends GetxController {
   }
 
   Future onPay() async {
-    if (orderInfo != null) {
+    if (orderInfo != null || orderId.isNotEmpty) {
+      final _orderId = orderInfo?.oGuid ?? orderId;
       final payController = Get.put(PayController());
-      await payController.showModal(orderInfo!.oGuid!);
+      await payController.showModal(_orderId);
     }
   }
 
