@@ -11,7 +11,14 @@ class GoodsDetailInfo extends StatelessWidget {
     return GetBuilder<GoodsDetailController>(
       id: 'GoodsDetailInfo',
       builder: (c) {
-        return Html(data: c.detail?.cDetail ?? '');
+        return Html(
+          data: c.detail?.cDetail ?? '',
+          onLinkTap: (src, context, attrs, dom) {
+            Get.toNamed('/pages/common/webview/index', parameters: {
+              'src': src!,
+            });
+          },
+        );
       },
     );
   }
