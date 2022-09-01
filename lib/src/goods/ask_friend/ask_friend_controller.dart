@@ -74,6 +74,10 @@ class AskFriendController extends GetxController {
 
   /// 下單成功
   Future onCreateSuccess() async {
-    await ShareModal.show(title: '你想如何拜託好友？');
+    await ShareModal.show(
+      title: '你想如何拜託好友？',
+      type: 3,
+      id: orderInfo!.gGuid ?? '',
+    );
   }
 }
