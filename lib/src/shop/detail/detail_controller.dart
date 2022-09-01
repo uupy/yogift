@@ -16,7 +16,12 @@ class ShopDetailController extends GetxController {
     final data = res.data ?? {};
     detail = BrandBussinessVo.fromJson(data['data'] ?? {});
     listController.onReload();
-    update();
+    update([
+      'AppBarTitle',
+      'ShopDetailInfo',
+      'HeaderBackdrop',
+      'SliverBackground'
+    ]);
   }
 
   Future<List<GiftVo>> queryList(Map<String, dynamic> params) async {
@@ -30,8 +35,8 @@ class ShopDetailController extends GetxController {
     return items.map((e) => GiftVo.fromJson(e)).toList();
   }
 
-  void onFilterChange(String value) {
+  void onFilterChange(String? value) {
     giftName = value;
-    listController.onReload();
+    listController.onReload(clean: true);
   }
 }

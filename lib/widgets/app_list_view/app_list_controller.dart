@@ -24,12 +24,15 @@ class AppListController<T> {
   }
 
   /// 重新加載
-  Future onReload({bool? pullDown}) async {
+  Future onReload({bool? pullDown, bool? clean}) async {
     if (loading) return;
     page = 1;
     pageSize = 20;
     isAllLoaded = false;
     isPullDown = pullDown == true;
+    if (clean ?? false) {
+      list.clear();
+    }
     await onLoading();
   }
 

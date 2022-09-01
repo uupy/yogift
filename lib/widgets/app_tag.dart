@@ -10,7 +10,7 @@ const List<Color> colors = [
   Color(0xffff2a5d),
 ];
 
-class AppTag extends StatelessWidget {
+class AppTag extends StatefulWidget {
   final String? text;
   final Widget? child;
   final Color? color;
@@ -27,32 +27,37 @@ class AppTag extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final index = Random().nextInt(3);
+  _AppTagState createState() => _AppTagState();
+}
 
+class _AppTagState extends State<AppTag> {
+  final index = Random().nextInt(3);
+
+  @override
+  Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
-          padding:
-              padding ?? EdgeInsets.symmetric(horizontal: 8.w, vertical: 1.w),
+          padding: widget.padding ??
+              EdgeInsets.symmetric(horizontal: 8.w, vertical: 1.w),
           decoration: BoxDecoration(
-            color: color != null
-                ? color!.withOpacity(0.1)
+            color: widget.color != null
+                ? widget.color!.withOpacity(0.1)
                 : colors[index].withOpacity(0.1),
             borderRadius: BorderRadius.all(
               Radius.circular(12.r),
             ),
           ),
           child: Text(
-            text ?? '',
+            widget.text ?? '',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: color ?? colors[index],
+              color: widget.color ?? colors[index],
               fontSize: 12.sp,
             ),
           ),
         ),
-        if (showShape)
+        if (widget.showShape)
           Positioned(
             top: 0,
             left: 0,
