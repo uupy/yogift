@@ -15,6 +15,7 @@ import 'package:yo_gift/src/order/donation_detail/donation_detail_page.dart';
 import 'package:yo_gift/src/order/give_friend/give_friend_page.dart';
 import 'package:yo_gift/src/order/list/list_page.dart';
 import 'package:yo_gift/src/order/pay_result/pay_result_page.dart';
+import 'package:yo_gift/src/p2/buy1free1/buy1free1_page.dart';
 import 'package:yo_gift/src/p2/guide/guide_page.dart';
 import 'package:yo_gift/src/search/category/category_page.dart';
 import 'package:yo_gift/src/search/result/result_page.dart';
@@ -51,6 +52,7 @@ final List<AppRoute> routes = [
   const AppRoute(name: '/login', page: LoginPage()),
   const AppRoute(name: '/register', page: RegisterPage()),
   const AppRoute(name: '/p2/guide/index', page: P2GuidePage()),
+  const AppRoute(name: '/p2/buy1free1/index', page: P2Buy1Free1Page()),
   const AppRoute(name: '/pages/shop/all-brands/index', page: AllBrandsPage()),
   const AppRoute(name: '/pages/shop/detail/index', page: ShopDetailPage()),
   const AppRoute(name: '/pages/goods/detail/index', page: GoodsDetailPage()),

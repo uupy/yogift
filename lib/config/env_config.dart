@@ -9,6 +9,9 @@ class EnvConfig {
   final String baseUrl;
   final String h5website;
 
+  /// 资源文件夹路径
+  final String resourceDirPath;
+
   final bool isDebug;
 
   EnvConfig({
@@ -16,6 +19,7 @@ class EnvConfig {
     required this.baseUrl,
     this.isDebug = false,
     this.h5website = '',
+    this.resourceDirPath = '',
   });
 }
 
@@ -28,6 +32,7 @@ class Env {
     appTitle: "YO!GIFT",
     baseUrl: "https://test.api.yogift.hk",
     h5website: "https://test.www.yogift.hk",
+    resourceDirPath: '/dev',
     isDebug: true,
   );
 
@@ -36,6 +41,7 @@ class Env {
     appTitle: "YO!GIFT",
     baseUrl: "https://test.api.yogift.hk",
     h5website: "https://test.www.yogift.hk",
+    resourceDirPath: '/dev',
   );
 
   /// 生产环境

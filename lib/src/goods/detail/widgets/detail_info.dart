@@ -11,8 +11,22 @@ class GoodsDetailInfo extends StatelessWidget {
     return GetBuilder<GoodsDetailController>(
       id: 'GoodsDetailInfo',
       builder: (c) {
+        final content = c.detail?.cDetail ?? '';
+
         return Html(
-          data: c.detail?.cDetail ?? '',
+          data: content.replaceAll('<p><br/></p>', ''),
+          // data: content,
+          style: {
+            'body': Style(
+              margin: EdgeInsets.zero,
+              lineHeight: LineHeight.number(1.5),
+              fontSize: FontSize.medium,
+              color: const Color.fromRGBO(0, 0, 0, 0.4),
+            ),
+            'p': Style(
+              margin: EdgeInsets.zero,
+            ),
+          },
           onLinkTap: (src, context, attrs, dom) {
             Get.toNamed('/pages/common/webview/index', parameters: {
               'src': src!,

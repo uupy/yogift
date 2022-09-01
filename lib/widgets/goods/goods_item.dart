@@ -196,6 +196,7 @@ class _GoodsItemState extends State<GoodsItem> {
             url: widget.coverImg,
             color: Colors.white,
             radius: 12.r,
+            fit: BoxFit.contain,
           ),
           if (index != null)
             Positioned(
