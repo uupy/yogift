@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/models/user_order/order_detail_item.dart';
 import 'package:yo_gift/services/user_order.dart';
 import 'package:yo_gift/src/order/constants.dart';
@@ -37,5 +38,14 @@ class OrderDetailController extends GetxController {
       'OrderItemCard',
       'OrderDetailFooter'
     ]);
+  }
+
+  Future onCloseOrder() async {
+    final res = await app.confirm(contentText: '確定關閉該訂單嗎?');
+    if (res == true) {
+      await UserOrderService.closeItem(detail!.oGuid!);
+      app.showToast('該訂單已關閉');
+    }
+    Get.back();
   }
 }

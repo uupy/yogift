@@ -10,10 +10,10 @@ import 'widgets/gift_method_select_view.dart';
 import 'widgets/sku_select_view.dart';
 
 class GoodsDetailController extends GetxController {
-  final goodsId = Get.parameters['id'];
+  String goodsId = '';
 
   /// '1' = 赠送给自己， '2' = 赠送给好友， '3' = 拜托好友
-  String buyType = Get.parameters['buyType'] ?? '';
+  String buyType = '';
   bool loading = false;
   int currentImageIndex = 0;
   GiftDetailVo? detail;
@@ -46,7 +46,9 @@ class GoodsDetailController extends GetxController {
   }
 
   void init() async {
-    if (goodsId != null) {
+    goodsId = Get.parameters['id'] ?? '';
+    buyType = Get.parameters['buyType'] ?? '';
+    if (goodsId.isNotEmpty) {
       fetchData();
     }
   }
@@ -139,7 +141,7 @@ class GoodsDetailController extends GetxController {
 
   /// 获取商品详情
   Future fetchData() async {
-    final res = await GiftService.getGift(goodsId!);
+    final res = await GiftService.getGift(goodsId);
     final data = res.data ?? {};
     detail = GiftDetailVo.fromJson(data['data'] ?? {});
     update([

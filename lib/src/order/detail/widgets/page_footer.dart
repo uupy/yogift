@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
+import 'package:yo_gift/widgets/share/share_modal.dart';
 
 import '../detail_controller.dart';
 
@@ -16,6 +17,7 @@ class OrderDetailFooter extends StatelessWidget {
     return GetBuilder<OrderDetailController>(
       id: 'OrderDetailFooter',
       builder: (c) {
+        final item = c.detail;
         final payStatus = c.detail?.payStatus;
         final orderStatus = c.detail?.orderStatus;
         final canIExchange = c.detail?.canIExchange == 1;
@@ -26,11 +28,24 @@ class OrderDetailFooter extends StatelessWidget {
         if (payStatus == 1) {
           children.addAll([
             buildFooterItem(
-              text: '關閉訂單',
-              background: const Color(0xfffffdeb),
-            ),
+                text: '關閉訂單',
+                background: const Color(0xfffffdeb),
+                onTap: c.onCloseOrder),
             buildFooterItem(
               text: '繼續支付',
+              onTap: () {
+                Get.toNamed(
+                  '/pages/goods/purchase/index',
+                  parameters: {
+                    'buyType': '1',
+                    'id': item!.gGuid!,
+                    'skuId': '${item.skuId}',
+                    'orderId': item.oGuid!,
+                  },
+                )?.then((value) {
+                  c.fetchData();
+                });
+              },
             ),
           ]);
         } else if (payStatus == 2) {
@@ -48,6 +63,13 @@ class OrderDetailFooter extends StatelessWidget {
               children.add(buildFooterItem(
                 text: '贈送好友',
                 icon: 'icon_mine_gift.png',
+                onTap: () {
+                  ShareModal.show(
+                    title: '你想如何贈送好友？',
+                    type: 0,
+                    id: c.detail?.oGuid ?? '',
+                  );
+                },
               ));
             }
           }

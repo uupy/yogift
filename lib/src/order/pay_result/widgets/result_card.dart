@@ -5,6 +5,7 @@ import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/app_simple_row.dart';
+import 'package:yo_gift/widgets/share/share_modal.dart';
 
 import '../pay_result_controller.dart';
 
@@ -56,7 +57,13 @@ class ResultCard extends StatelessWidget {
                     child: AppButton(
                       text: '送給好友',
                       backgroundColor: const Color(0xfffffdeb),
-                      onPressed: () {},
+                      onPressed: () {
+                        ShareModal.show(
+                          title: '你想如何贈送好友？',
+                          type: 0,
+                          id: c.orderId!,
+                        );
+                      },
                     ),
                   ),
                   SizedBox(width: 15.w),

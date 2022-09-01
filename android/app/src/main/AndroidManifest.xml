@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yo_gift">
+    <queries>
+        <package android:name="com.whatsapp" />
+    </queries>
    <application
         android:requestLegacyExternalStorage="true"
         android:networkSecurityConfig="@xml/network_security_config"
@@ -31,6 +34,9 @@
             <meta-data
                     android:name="flutterEmbedding"
                     android:value="2" />
+            <meta-data
+                    android:name="com.facebook.sdk.ApplicationId"
+                    android:value="@string/facebook_app_id" />
         </activity>
 
        <provider
@@ -42,6 +48,11 @@
                    android:name="android.support.FILE_PROVIDER_PATHS"
                    android:resource="@xml/filepaths"/>
        </provider>
+
+       <provider
+               android:name="com.facebook.FacebookContentProvider"
+               android:authorities="com.facebook.app.FacebookContentProvider[facebook_app_id]"
+               android:exported="false" />
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
