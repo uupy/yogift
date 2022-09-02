@@ -6,6 +6,7 @@ import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 
@@ -13,6 +14,52 @@ import 'share_menu_item.dart';
 
 class ShareModal {
   ShareModal._();
+
+  static final FlutterShareMe flutterShareMe = FlutterShareMe();
+
+  static Future onShare({
+    required ShareMethod method,
+    required String shareUrl,
+    String? msg,
+  }) async {
+    String shareContent = shareUrl;
+
+    if (msg?.isNotEmpty ?? false) {
+      shareContent = '【$msg】 $shareUrl';
+    }
+
+    try {
+      await Clipboard.setData(ClipboardData(text: shareContent));
+      switch (method) {
+        case ShareMethod.whatsApp:
+          await flutterShareMe.shareToWhatsApp(msg: shareContent);
+          break;
+        case ShareMethod.facebook:
+          await flutterShareMe.shareToFacebook(msg: msg ?? '', url: shareUrl);
+          break;
+        case ShareMethod.twitter:
+          await flutterShareMe.shareToTwitter(msg: msg ?? '', url: shareUrl);
+          break;
+        case ShareMethod.instagram:
+          break;
+        case ShareMethod.weChat:
+          await fluwx.shareToWeChat(
+            fluwx.WeChatShareWebPageModel(
+              shareUrl,
+              description: msg,
+            ),
+          );
+          break;
+        case ShareMethod.sms:
+          launchUrl(Uri.parse("sms:"));
+          break;
+      }
+      logger.i('shareUrl: $shareUrl');
+      app.showToast('鏈接已複製');
+    } catch (err) {
+      logger.e(err.toString());
+    }
+  }
 
   static Future show({
     /// 彈窗標題
@@ -26,17 +73,11 @@ class ShareModal {
     String msg = '',
     bool showClose = false,
   }) async {
-    final FlutterShareMe flutterShareMe = FlutterShareMe();
     final url = Env.config.baseUrl.replaceFirst('api', 'url');
     String shareUrl = '$url/s/$type/$id';
-    String shareContent = '';
 
     if (type == 0) {
       shareUrl = '$url/g/$id';
-    }
-
-    if (msg.isNotEmpty) {
-      shareContent = '【$msg】 $shareUrl';
     }
 
     app.showBottomModal(
@@ -86,58 +127,55 @@ class ShareModal {
                   ShareMenuItem(
                     name: 'WhatsApp',
                     img: 'icon_whatsapp.png',
-                    onTap: () async {
-                      // final uri = Uri.parse('whatsapp://send?link=$shareUrl');
-                      // if (!await launchUrl(uri)) {
-                      //   await Clipboard.setData(ClipboardData(text: shareUrl));
-                      //   app.showToast('打開WhatsApp失敗，分享鏈接已複製');
-                      // }
-                      await Clipboard.setData(
-                          ClipboardData(text: shareContent));
-                      await flutterShareMe.shareToWhatsApp(msg: shareContent);
+                    onTap: () {
+                      onShare(
+                        method: ShareMethod.whatsApp,
+                        shareUrl: shareUrl,
+                        msg: msg,
+                      );
                     },
                   ),
                   ShareMenuItem(
                     name: 'Facebook Messenger',
                     img: 'icon_facebook.png',
                     onTap: () async {
-                      await Clipboard.setData(
-                          ClipboardData(text: shareContent));
-                      await flutterShareMe.shareToFacebook(
-                          msg: msg, url: shareUrl);
+                      onShare(
+                        method: ShareMethod.facebook,
+                        shareUrl: shareUrl,
+                        msg: msg,
+                      );
                     },
                   ),
                   ShareMenuItem(
                     name: 'Twitter',
                     img: 'icon_twitter.jpg',
                     onTap: () async {
-                      await Clipboard.setData(
-                          ClipboardData(text: shareContent));
-                      await flutterShareMe.shareToTwitter(
-                          msg: msg, url: shareUrl);
+                      onShare(
+                        method: ShareMethod.twitter,
+                        shareUrl: shareUrl,
+                        msg: msg,
+                      );
                     },
                   ),
                   ShareMenuItem(
                     name: 'Instagram',
                     img: 'icon_instagram.png',
                     onTap: () async {
-                      await Clipboard.setData(
-                          ClipboardData(text: shareContent));
-                      app.showToast('鏈接已複製');
-                      // await flutterShareMe.shareToInstagram(msg: shareUrl);
+                      onShare(
+                        method: ShareMethod.instagram,
+                        shareUrl: shareUrl,
+                        msg: msg,
+                      );
                     },
                   ),
                   ShareMenuItem(
                     name: 'WeChat',
                     img: 'icon_wechat.png',
                     onTap: () async {
-                      await Clipboard.setData(
-                          ClipboardData(text: shareContent));
-                      await fluwx.shareToWeChat(
-                        fluwx.WeChatShareWebPageModel(
-                          shareUrl,
-                          description: msg,
-                        ),
+                      onShare(
+                        method: ShareMethod.weChat,
+                        shareUrl: shareUrl,
+                        msg: msg,
                       );
                     },
                   ),
@@ -145,9 +183,11 @@ class ShareModal {
                     name: '短訊',
                     img: 'icon_message.png',
                     onTap: () async {
-                      await Clipboard.setData(
-                          ClipboardData(text: shareContent));
-                      launchUrl(Uri.parse("sms:"));
+                      onShare(
+                        method: ShareMethod.sms,
+                        shareUrl: shareUrl,
+                        msg: msg,
+                      );
                     },
                   ),
                 ],

@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 
+enum ShareMethod { whatsApp, facebook, twitter, instagram, weChat, sms }
+
 class ShareMenuItem extends StatelessWidget {
   final String img;
   final String name;
+  final ShareMethod? method;
   final Function()? onTap;
 
   const ShareMenuItem({
     Key? key,
     required this.img,
     required this.name,
+    this.method,
     this.onTap,
   }) : super(key: key);
 
