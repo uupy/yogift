@@ -20,8 +20,8 @@ class CharityListGroup extends StatelessWidget {
           List<Widget> children = [];
 
           for (final t in c.list) {
-            if (t.childModel?.isNotEmpty ?? false) {
-              final itemCount = t.childModel?.length ?? 0;
+            final items = t.childModel ?? [];
+            if (items.isNotEmpty) {
               children.addAll([
                 ModuleTitle(
                   padding: EdgeInsets.symmetric(
@@ -32,18 +32,14 @@ class CharityListGroup extends StatelessWidget {
                   textEn: t.classNameEn,
                 ),
                 Container(
-                  height: 115.w,
-                  margin: EdgeInsets.only(bottom: 5.w),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: itemCount,
-                    itemBuilder: (context, index) {
-                      final item = t.childModel![index];
+                  margin: EdgeInsets.only(left: 14.w, bottom: 5.w),
+                  child: Wrap(
+                    children: items.map((item) {
                       return AppCard(
                         width: 105.w,
                         height: 105.w,
                         padding: EdgeInsets.zero,
-                        margin: getItemMargin(index, itemCount - 1),
+                        margin: EdgeInsets.all(6.w),
                         child: AppImage(
                           url: item.charityImg,
                           radius: 20.r,
@@ -53,7 +49,7 @@ class CharityListGroup extends StatelessWidget {
                           },
                         ),
                       );
-                    },
+                    }).toList(),
                   ),
                 ),
               ]);
