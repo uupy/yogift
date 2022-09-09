@@ -8,7 +8,7 @@ class OrderStatus {
   OrderStatus._();
   static const items = [
     OrderStatusItem(label: '全部', value: 0),
-    OrderStatusItem(label: '待支付', value: -1),
+    OrderStatusItem(label: '待支付', value: 9),
     OrderStatusItem(label: '待兌換', value: 1),
     OrderStatusItem(label: '商家準備中', value: 2),
     OrderStatusItem(label: '配送中', value: 3),

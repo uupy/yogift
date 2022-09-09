@@ -9,7 +9,7 @@ class OrderListController extends GetxController {
   int orderStatus = 0;
 
   Future<List<OrderListItemVo>> queryList(params) async {
-    params['orderstatus'] = orderStatus == -1 ? 0 : orderStatus;
+    params['orderstatus'] = orderStatus;
     final res = await UserOrderService.queryPage(params);
     final data = res.data ?? {};
     final List items = data['data'] ?? [];
