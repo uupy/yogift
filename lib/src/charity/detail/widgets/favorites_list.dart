@@ -22,7 +22,9 @@ class FavoritesList extends StatelessWidget {
         return Column(
           children: c.list.map((item) {
             final price = item.buyPriceForCharity ?? 0;
+            final buyPrice = item.buyPrice ?? 0;
             final isDone = item.quantityGet == item.quantity;
+            final showDeliveryTime = isDone && item.status == 3;
 
             return AppCard(
               margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 12.w),
@@ -78,14 +80,15 @@ class FavoritesList extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(width: 4.w),
-                              Text(
-                                '\$${item.buyPrice}',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: const Color.fromRGBO(0, 0, 0, 0.26),
-                                  decoration: TextDecoration.lineThrough,
+                              if (price != buyPrice)
+                                Text(
+                                  '\$$buyPrice',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: const Color.fromRGBO(0, 0, 0, 0.26),
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
                                 ),
-                              ),
                             ],
                           ),
                         ),
@@ -131,27 +134,41 @@ class FavoritesList extends StatelessWidget {
                     total: item.quantity ?? 0,
                     completed: item.quantityGet ?? 0,
                   ),
-                  AppSimpleRow(
-                    margin: EdgeInsets.only(top: 12.w),
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    prefix: Text(
-                      '截止時間 ${item.expiryDate}',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        color: const Color.fromRGBO(0, 0, 0, 0.4),
+                  if (!showDeliveryTime)
+                    AppSimpleRow(
+                      margin: EdgeInsets.only(top: 12.w),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      prefix: Text(
+                        '截止時間 ${item.expiryDate}',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: const Color.fromRGBO(0, 0, 0, 0.4),
+                        ),
+                      ),
+                      expanded: Container(
+                        margin: EdgeInsets.only(left: 10.w),
+                        child: Text(
+                          item.remark ?? '',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: const Color(0xffff3b30),
+                          ),
+                        ),
                       ),
                     ),
-                    expanded: Container(
-                      margin: EdgeInsets.only(left: 10.w),
-                      child: Text(
-                        item.remark ?? '',
+                  if (showDeliveryTime)
+                    AppSimpleRow(
+                      margin: EdgeInsets.only(top: 12.w),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      prefix: Text(
+                        '預計送貨日期 ${item.deliveryTime ?? ''}',
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: const Color(0xffff3b30),
                         ),
                       ),
                     ),
-                  ),
                 ],
               ),
             );

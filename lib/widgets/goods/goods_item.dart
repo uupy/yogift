@@ -85,7 +85,7 @@ class _GoodsItemState extends State<GoodsItem> {
           children: [
             Expanded(
               child: Container(
-                padding: EdgeInsets.all(16.w),
+                padding: EdgeInsets.only(top: 16.w, left: 16.w, bottom: 16.w),
                 decoration: BoxDecoration(
                   color: const Color(0xfffffdeb),
                   borderRadius: BorderRadius.all(
@@ -127,27 +127,26 @@ class _GoodsItemState extends State<GoodsItem> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        if (buy1Get1Free == 1)
+                        if ((originalPrice?.isNotEmpty ?? false))
                           Padding(
-                            padding: EdgeInsets.only(left: 10.w),
-                            child: Text(
-                              '買一送一',
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                color: const Color(0xffff3b30),
-                              ),
-                            ),
-                          ),
-                        if (buy1Get1Free == 0 &&
-                            (originalPrice?.isNotEmpty ?? false))
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.w),
+                            padding: EdgeInsets.only(left: 5.w),
                             child: Text(
                               '\$$originalPrice',
                               style: TextStyle(
                                 fontSize: 12.sp,
                                 color: const Color.fromRGBO(0, 0, 0, 0.26),
                                 decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
+                          ),
+                        if (buy1Get1Free == 1)
+                          Padding(
+                            padding: EdgeInsets.only(left: 8.w),
+                            child: Text(
+                              '買一送一',
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                color: const Color(0xffff3b30),
                               ),
                             ),
                           ),
@@ -190,30 +189,33 @@ class _GoodsItemState extends State<GoodsItem> {
 
   Widget buildImgContainer(int? index) {
     return Expanded(
-      child: Stack(
-        children: [
-          AppImage(
-            url: widget.coverImg,
-            color: Colors.white,
-            radius: 12.r,
-            fit: BoxFit.contain,
-          ),
-          if (index != null)
+      child: Container(
+        margin: EdgeInsets.only(right: 16.w),
+        child: Stack(
+          children: [
+            AppImage(
+              url: widget.coverImg,
+              color: Colors.white,
+              radius: 12.r,
+              fit: BoxFit.contain,
+            ),
+            if (index != null)
+              Positioned(
+                top: 0,
+                left: 10.w,
+                child: GoodsTopTag(
+                  index: index,
+                ),
+              ),
             Positioned(
-              top: 0,
-              left: 10.w,
-              child: GoodsTopTag(
-                index: index,
+              bottom: 0,
+              right: 0,
+              child: GoodsSendingTag(
+                method: widget.sendingMethod ?? 1,
               ),
             ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: GoodsSendingTag(
-              method: widget.sendingMethod ?? 1,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

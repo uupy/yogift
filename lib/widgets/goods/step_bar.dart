@@ -105,7 +105,7 @@ class StepBar extends StatelessWidget {
       opacity: opacity ?? 1,
       child: ClipRect(
         child: SizedBox(
-          width: 40.w,
+          width: 42.w,
           height: 24.w,
           child: CustomPaint(
             foregroundPainter: ArcLinePainter(

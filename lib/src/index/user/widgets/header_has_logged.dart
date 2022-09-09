@@ -35,6 +35,7 @@ class HeaderHasLogged extends StatelessWidget {
           ),
           child: AppImage(
             url: avatar,
+            radius: 86.r,
             color: Colors.transparent,
           ),
         ),

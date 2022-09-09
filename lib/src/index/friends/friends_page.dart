@@ -49,7 +49,8 @@ class FriendsPage extends StatelessWidget implements TabBarPage {
             AppImage(
               width: 60.w,
               height: 60.w,
-              radius: 60.w,
+              radius: 15.w,
+              color: Colors.transparent,
               margin: EdgeInsets.only(right: 12.w),
               url: item.friendHeadSrc,
             ),

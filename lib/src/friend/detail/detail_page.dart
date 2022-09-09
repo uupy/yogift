@@ -23,6 +23,12 @@ class _FriendDetailPageState extends State<FriendDetailPage> {
   final controller = Get.put(FriendDetailController());
 
   @override
+  void initState() {
+    controller.init();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -126,7 +132,7 @@ class _FriendDetailPageState extends State<FriendDetailPage> {
                   ),
                   if (isSelf)
                     FriendMsgAvatar(
-                      url: item.friendHeadSrc ?? '',
+                      url: controller.user?.headSrc ?? '',
                       isSelf: true,
                     ),
                 ],

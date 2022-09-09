@@ -25,7 +25,7 @@ class OrderListFilterButton extends StatelessWidget {
               targetContext: context,
               maskWidget: Container(
                 width: Get.width,
-                margin: EdgeInsets.only(top: Get.statusBarHeight + 40.w),
+                margin: EdgeInsets.only(top: Get.statusBarHeight + 90.w),
                 color: const Color.fromRGBO(0, 0, 0, 0.3),
               ),
               bindPage: true,

@@ -21,30 +21,35 @@ class CharityFavoritesItemVo {
   String? expiryDate;
   int? skuId;
   String? skuContent;
+  String? deliveryTime;
+  String? estimatedDeliveryTime;
 
-  CharityFavoritesItemVo(
-      {this.id,
-      this.fGuid,
-      this.charityId,
-      this.charityName,
-      this.charityImg,
-      this.cGuid,
-      this.gGuid,
-      this.giftName,
-      this.cCoverImg,
-      this.originalPrice,
-      this.buyPrice,
-      this.buyPriceForCharity,
-      this.bussinessName,
-      this.bussinessNo,
-      this.quantity,
-      this.quantityGet,
-      this.createTime,
-      this.status,
-      this.remark,
-      this.expiryDate,
-      this.skuId,
-      this.skuContent});
+  CharityFavoritesItemVo({
+    this.id,
+    this.fGuid,
+    this.charityId,
+    this.charityName,
+    this.charityImg,
+    this.cGuid,
+    this.gGuid,
+    this.giftName,
+    this.cCoverImg,
+    this.originalPrice,
+    this.buyPrice,
+    this.buyPriceForCharity,
+    this.bussinessName,
+    this.bussinessNo,
+    this.quantity,
+    this.quantityGet,
+    this.createTime,
+    this.status,
+    this.remark,
+    this.expiryDate,
+    this.skuId,
+    this.skuContent,
+    this.deliveryTime,
+    this.estimatedDeliveryTime,
+  });
 
   CharityFavoritesItemVo.fromJson(Map<String, dynamic> json) {
     id = json['Id'];
@@ -69,6 +74,8 @@ class CharityFavoritesItemVo {
     expiryDate = json['Expiry_date'];
     skuId = json['SkuId'];
     skuContent = json['SkuContent'];
+    deliveryTime = json['DeliveryTime'];
+    estimatedDeliveryTime = json['EstimatedDeliveryTime'];
   }
 
   Map<String, dynamic> toJson() {
@@ -95,6 +102,8 @@ class CharityFavoritesItemVo {
     data['Expiry_date'] = expiryDate;
     data['SkuId'] = skuId;
     data['SkuContent'] = skuContent;
+    data['DeliveryTime'] = deliveryTime;
+    data['EstimatedDeliveryTime'] = estimatedDeliveryTime;
     return data;
   }
 }
