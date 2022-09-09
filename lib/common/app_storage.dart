@@ -20,6 +20,9 @@ class AppStorage<T> {
     var _value;
     if (<T>[] is List<String?>) {
       _value = prefs.getString(keyName);
+      if (_value == 'null') {
+        _value = null;
+      }
     } else if (<T>[] is List<bool?>) {
       _value = prefs.getBool(keyName);
     } else if (<T>[] is List<int?>) {
