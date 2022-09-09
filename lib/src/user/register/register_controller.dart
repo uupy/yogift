@@ -97,6 +97,12 @@ class RegisterController extends GetxController {
     if (submitting.value) return;
     if (form?.validate() ?? false) {
       form?.save();
+
+      if (!isAgreeTerms) {
+        app.showToast('請閱讀並同意用户私隱及使用條款');
+        return;
+      }
+
       submitting(true);
       update();
       try {

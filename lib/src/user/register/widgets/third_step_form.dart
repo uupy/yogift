@@ -148,6 +148,7 @@ class RegisterThirdStepForm extends StatelessWidget {
                   } else if (!CommonUtils.isEmail(value)) {
                     return '請輸入正確的郵箱格式';
                   }
+                  return null;
                 },
                 onChanged: (value) {
                   c.updateFormData.email = value;
