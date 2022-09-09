@@ -314,7 +314,12 @@ class PurchaseController extends GetxController {
       phone: add4StepsForm.phone,
       prefix: add4StepsForm.phoneprefix,
     );
-    await VerificationService.getCodeForRegister(data);
+    if (isNewUser) {
+      await VerificationService.getCodeForRegister(data);
+    } else {
+      await VerificationService.getCodeForLogin(data);
+    }
+
     runTimer();
   }
 
