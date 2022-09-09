@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,11 +15,16 @@ class OrderDetailBaseInfo extends StatelessWidget {
       id: 'OrderDetailBaseInfo',
       builder: (c) {
         final expirationTime = c.detail?.expirationTime ?? '';
+        final orderMoney = c.detail?.orderMoney ?? 0;
 
         return Container(
           margin: EdgeInsets.fromLTRB(20.w, 10.w, 20.w, 0),
           child: Column(
             children: [
+              buildRow(
+                label: '已總付',
+                content: '\$${Decimal.parse(orderMoney.toString())}',
+              ),
               buildRow(
                 label: '使用優惠券',
                 content: '- \$${c.detail?.ygcoupon1Cash ?? 0}',

@@ -61,6 +61,18 @@ class GoodsDetailBaseInfo extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  if (originalPrice?.isNotEmpty ?? false)
+                    Padding(
+                      padding: EdgeInsets.only(left: 4.w),
+                      child: Text(
+                        '\$$originalPrice',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: const Color.fromRGBO(0, 0, 0, 0.26),
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                    ),
                   if (buy1Get1Free == 1)
                     Padding(
                       padding: EdgeInsets.only(left: 10.w),
@@ -69,18 +81,6 @@ class GoodsDetailBaseInfo extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: const Color(0xffff3b30),
-                        ),
-                      ),
-                    ),
-                  if (buy1Get1Free == 0 && (originalPrice?.isNotEmpty ?? false))
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.w),
-                      child: Text(
-                        '\$$originalPrice',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: const Color.fromRGBO(0, 0, 0, 0.26),
-                          decoration: TextDecoration.lineThrough,
                         ),
                       ),
                     ),
