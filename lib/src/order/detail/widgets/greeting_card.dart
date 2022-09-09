@@ -15,8 +15,12 @@ class GreetingCard extends StatelessWidget {
         final backgroundImage = c.detail?.greetingcardBigImg ?? '';
         final msg = c.detail?.msgGive ?? '';
         final nickName = c.detail?.nickName ?? '';
+        final isGive = c.detail?.isGive == 1;
 
-        if (!c.isGifted && !c.isExchanged) {
+        /// 是否是系统赠送
+        final isFree = c.detail?.isFree == 1;
+
+        if ((!c.isGifted && !c.isExchanged) || !isGive || isFree) {
           return Container();
         }
 

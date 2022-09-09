@@ -18,19 +18,22 @@ class OrderDetailFooter extends StatelessWidget {
       id: 'OrderDetailFooter',
       builder: (c) {
         final item = c.detail;
-        final payStatus = c.detail?.payStatus;
-        final orderStatus = c.detail?.orderStatus;
-        final canIExchange = c.detail?.canIExchange == 1;
-        final canIGive = c.detail?.canIGive == 1;
+        final payStatus = item?.payStatus;
+        final orderStatus = item?.orderStatus;
+        final isBuy1Free1 = item?.buy1Get1FREE == 1;
+        final canIExchange = !isBuy1Free1 && orderStatus == 1;
+        final canIGive = orderStatus == 1 && item?.isGive == 0;
 
         List<Widget> children = [];
 
         if (payStatus == 1) {
           children.addAll([
             buildFooterItem(
-                text: '關閉訂單',
-                background: const Color(0xfffffdeb),
-                onTap: c.onCloseOrder),
+              text: '關閉訂單',
+              background: const Color(0xfffffdeb),
+              onTap: c.onCloseOrder,
+            ),
+            SizedBox(width: 15.w),
             buildFooterItem(
               text: '繼續支付',
               onTap: () {
@@ -54,6 +57,18 @@ class OrderDetailFooter extends StatelessWidget {
               children.add(buildFooterItem(
                 text: '前往兌換',
                 background: const Color(0xfffffdeb),
+                onTap: () {
+                  final Map<String, String> parameters = {
+                    'id': item!.oGuid!,
+                  };
+                  String path = '/pages/mine/gift/exchange/index';
+                  if (item.sendingMethod == 2) {
+                    path = '/pages/mine/gift/deliver/index';
+                  }
+                  Get.toNamed(path, parameters: parameters)?.then((value) {
+                    c.fetchData();
+                  });
+                },
               ));
             }
             if (canIExchange && canIGive) {
@@ -105,7 +120,8 @@ class OrderDetailFooter extends StatelessWidget {
     Color? background,
     Function()? onTap,
   }) {
-    return Expanded(
+    return SizedBox(
+      width: 140.w,
       child: AppButton(
         onPressed: onTap,
         backgroundColor: background,
@@ -113,11 +129,12 @@ class OrderDetailFooter extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            AppAssetImage(
-              img: icon,
-              width: 16.w,
-              margin: EdgeInsets.only(right: 5.w),
-            ),
+            if (icon?.isNotEmpty ?? false)
+              AppAssetImage(
+                img: icon,
+                width: 16.w,
+                margin: EdgeInsets.only(right: 5.w),
+              ),
             Text(
               text ?? '',
               style: TextStyle(

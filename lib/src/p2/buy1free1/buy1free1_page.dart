@@ -60,6 +60,7 @@ class _P2Buy1Free1PageState extends State<P2Buy1Free1Page> {
       width: double.maxFinite,
       fit: BoxFit.fitWidth,
       withOutDecoration: true,
+      crop: false,
       url: '$baseUrl/$name.jpg',
       onTap: onTap,
     );

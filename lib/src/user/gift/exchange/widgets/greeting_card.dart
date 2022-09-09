@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/widgets/order/order_greeting_card.dart';
 
 import '../exchange_controller.dart';
@@ -17,7 +16,9 @@ class GreetingCard extends StatelessWidget {
         final msg = c.detail?.msgGive ?? '';
         final nickName = c.detail?.nickName ?? '';
 
-        logger.i(msg);
+        if (c.detail?.isGive != 1) {
+          return Container();
+        }
 
         return OrderGreetingCard(
           backgroundImage: backgroundImage,

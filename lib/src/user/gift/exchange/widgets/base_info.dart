@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,7 @@ class OrderDetailBaseInfo extends StatelessWidget {
       id: 'OrderDetailBaseInfo',
       builder: (c) {
         final expirationTime = c.detail?.expirationTime ?? '';
+        final orderMoney = c.detail?.orderMoney ?? 0;
 
         List<Widget> prefix = [];
         List<Widget> suffix = [];
@@ -23,7 +25,9 @@ class OrderDetailBaseInfo extends StatelessWidget {
           child: Column(
             children: [
               ...prefix,
-              buildRow(label: '已總付', content: '\$${c.detail?.orderMoney ?? 0}'),
+              buildRow(
+                  label: '已總付',
+                  content: '\$${Decimal.parse(orderMoney.toString())}'),
               buildRow(
                 label: '截止兌換期限',
                 suffix: Text.rich(
