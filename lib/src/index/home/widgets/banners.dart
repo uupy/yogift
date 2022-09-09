@@ -103,6 +103,8 @@ class HomeBanners extends StatelessWidget {
       onTap: onTap,
       child: AppImage(
         url: image,
+        cropWidth: 670,
+        cropHeight: 276,
         radius: 24.r,
       ),
     );

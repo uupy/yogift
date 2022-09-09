@@ -54,6 +54,7 @@ class PurchaseFooter extends StatelessWidget {
               buildFooterItem(
                 text: c.isGiveToSelf ? '贈送自己' : '贈送好友',
                 icon: 'icon_mine_gift.png',
+                loading: c.submitting,
                 onTap: onTap,
               ),
             ],
@@ -67,21 +68,34 @@ class PurchaseFooter extends StatelessWidget {
     String? text,
     String? icon,
     Color? background,
+    bool loading = false,
     Function()? onTap,
   }) {
     return Expanded(
       child: AppButton(
         onPressed: onTap,
+        disabled: loading,
         backgroundColor: background,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            AppAssetImage(
-              img: icon,
-              width: 16.w,
-              margin: EdgeInsets.only(right: 5.w),
-            ),
+            if (loading)
+              Container(
+                height: 17,
+                width: 17,
+                margin: EdgeInsets.only(right: 5.w),
+                child: const CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Color.fromRGBO(0, 0, 0, 0.5),
+                ),
+              ),
+            if (!loading)
+              AppAssetImage(
+                img: icon,
+                width: 16.w,
+                margin: EdgeInsets.only(right: 5.w),
+              ),
             Text(
               text ?? '',
               style: TextStyle(

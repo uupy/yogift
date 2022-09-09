@@ -20,7 +20,6 @@ import 'package:yo_gift/src/order/pay/pay_controller.dart';
 
 class PurchaseController extends GetxController {
   final goodsId = Get.parameters['id'];
-  final orderId = Get.parameters['orderId'] ?? '';
   final skuId = int.tryParse(Get.parameters['skuId'] ?? '');
 
   /// 1 买给自己， 2 送给别人
@@ -45,6 +44,7 @@ class PurchaseController extends GetxController {
     regfrom: '2',
   );
 
+  String orderId = Get.parameters['orderId'] ?? '';
   String remark = '';
   String greetingCardId = '';
   String greetingCardMsg = '';
@@ -72,6 +72,9 @@ class PurchaseController extends GetxController {
 
   /// 同意用户条款
   bool isAgreeTerms = true;
+
+  /// 提交中
+  bool submitting = false;
 
   /// 轮询间隔时间
   static const _timeout = Duration(seconds: 1);
@@ -129,6 +132,7 @@ class PurchaseController extends GetxController {
     final _token = await accessToken.get() ?? '';
 
     isLogged = _token.isNotEmpty;
+    orderId = Get.parameters['orderId'] ?? '';
 
     update(['SenderInfo']);
 
@@ -171,7 +175,8 @@ class PurchaseController extends GetxController {
   /// 提交下单
   Future onSubmit() async {
     logger.i(orderId);
-    if (orderInfo != null || orderId.isNotEmpty) {
+    if (submitting) return;
+    if (orderId.isNotEmpty) {
       onPay();
     } else {
       if (isLogged) {
@@ -198,17 +203,29 @@ class PurchaseController extends GetxController {
     add4StepsForm.receivingaddressArea1Id =
         receiverInfo.receivingaddressArea1Id ?? 0;
 
-    final res = await UserOrderService.add4Steps(add4StepsForm);
-    final data = res.data['data'] ?? {};
-    final info = data['Order'] ?? {};
-    await app.updateAuthData(data);
-    await app.updateUserInfo();
-    orderInfo = OrderDetailItemVo.fromJson(info);
-    if (!isGiveToSelf && receiverInfoMethod == 1) {
-      receiverInfo.idGuid = orderInfo!.oGuid!;
-      await UserOrderService.setReceivingaddress(receiverInfo);
+    submitting = true;
+    update(['PurchaseFooter']);
+    try {
+      final res = await UserOrderService.add4Steps(add4StepsForm);
+      final data = res.data['data'] ?? {};
+      final info = data['Order'] ?? {};
+      await app.updateAuthData(data);
+      await app.updateUserInfo();
+
+      isLogged = true;
+      orderInfo = OrderDetailItemVo.fromJson(info);
+      orderId = orderInfo!.oGuid ?? '';
+
+      if (!isGiveToSelf && receiverInfoMethod == 1) {
+        receiverInfo.idGuid = orderId;
+        await UserOrderService.setReceivingaddress(receiverInfo);
+      }
+
+      onPay();
+    } finally {
+      submitting = false;
+      update(['PurchaseFooter']);
     }
-    onPay();
   }
 
   /// 登錄狀態，買給自己
@@ -219,11 +236,17 @@ class PurchaseController extends GetxController {
     baseForm.money = detail?.buyPrice ?? 0;
     baseForm.content2 = remark;
 
-    final res = await UserOrderService.add(baseForm);
-    final data = res.data['data'] ?? {};
+    submitting = true;
+    update(['PurchaseFooter']);
+    try {
+      final res = await UserOrderService.add(baseForm);
+      final data = res.data ?? {};
 
-    orderInfo = OrderDetailItemVo.fromJson(data);
-    onPay();
+      onPay(data);
+    } finally {
+      submitting = false;
+      update(['PurchaseFooter']);
+    }
   }
 
   /// 登錄狀態，贈送好友
@@ -236,18 +259,52 @@ class PurchaseController extends GetxController {
     addToFriendForm.bgGive = greetingCardId;
     addToFriendForm.msgGive = greetingCardMsg;
 
-    final res = await UserOrderService.addToFriend(addToFriendForm);
-    final data = res.data['data'] ?? {};
+    submitting = true;
+    update(['PurchaseFooter']);
+    try {
+      final res = await UserOrderService.addToFriend(addToFriendForm);
+      final data = res.data ?? {};
 
-    orderInfo = OrderDetailItemVo.fromJson(data);
-    onPay();
+      onPay(data);
+    } finally {
+      submitting = false;
+      update(['PurchaseFooter']);
+    }
   }
 
-  Future onPay() async {
-    if (orderInfo != null || orderId.isNotEmpty) {
-      final _orderId = orderInfo?.oGuid ?? orderId;
+  Future onPay([Map<String, dynamic>? data]) async {
+    if (data != null) {
+      final info = data['data'] ?? {};
+      final isSuccess = data['isSuccess'] ?? false;
+      final code = data['code'];
+
+      orderInfo = OrderDetailItemVo.fromJson(info);
+      orderId = orderInfo!.oGuid ?? '';
+
+      if (isSuccess == false) {
+        if (code == 30001) {
+          Future.delayed(const Duration(seconds: 1), () {
+            final parameters = Get.parameters.cast<String, String>();
+            parameters['orderId'] = orderInfo!.oGuid ?? '';
+            parameters['buyType'] = '1';
+
+            logger.i(parameters);
+
+            Get.offNamedUntil(
+              '/pages/goods/purchase/index',
+              (route) => route.isFirst,
+              parameters: parameters,
+            );
+          });
+        }
+        return;
+      }
+    }
+    if (orderId.isNotEmpty) {
       final payController = Get.put(PayController());
-      await payController.showModal(_orderId);
+      await payController.showModal(orderId);
+    } else {
+      app.showToast('訂單id不能為空');
     }
   }
 
