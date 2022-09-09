@@ -7,7 +7,6 @@ import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/models/friends_list.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
-import 'package:yo_gift/widgets/app_input.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
 import 'package:yo_gift/widgets/app_simple_row.dart';
 
@@ -56,7 +55,7 @@ class _InviteFriendPageState extends State<InviteFriendPage> {
                             Html(
                               data: c.config?.introduceGiftTitle?.value ?? '',
                               style: {
-                                'p': Style(
+                                'body': Style(
                                   fontSize: FontSize(18.sp),
                                 ),
                               },
@@ -74,12 +73,25 @@ class _InviteFriendPageState extends State<InviteFriendPage> {
                                   left: 30.w, right: 30.w, top: 12.w),
                               padding: EdgeInsets.zero,
                               color: Colors.transparent,
-                              expanded: AppInput(
-                                hintText: c.inviteUrl,
-                                backgroundColor: Colors.white,
-                                maxLines: 1,
-                                readOnly: true,
-                                radius: Radius.circular(32.w),
+                              expanded: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(32.w),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    c.inviteUrl,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      color:
+                                          const Color.fromRGBO(0, 0, 0, 0.26),
+                                    ),
+                                  ),
+                                ),
                               ),
                               suffix: Container(
                                 width: 76.w,
