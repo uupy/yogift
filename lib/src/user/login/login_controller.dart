@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,6 +68,7 @@ class LoginController extends GetxController {
         if (loginType == 0) {
           res = await UserService.loginByPassword(formData);
         } else {
+          formData.regfrom = Platform.isAndroid ? '18' : '19';
           res = await UserService.loginByCode(formData);
         }
         final data = res.data ?? {};

@@ -12,6 +12,12 @@ class EnvConfig {
   /// 资源文件夹路径
   final String resourceDirPath;
 
+  /// 微信应用appId
+  final String wxAppId;
+
+  /// facebook appId
+  final String facebookAppId;
+
   final bool isDebug;
 
   EnvConfig({
@@ -20,6 +26,8 @@ class EnvConfig {
     this.isDebug = false,
     this.h5website = '',
     this.resourceDirPath = '',
+    this.wxAppId = '',
+    this.facebookAppId = '',
   });
 }
 
@@ -33,6 +41,7 @@ class Env {
     baseUrl: "https://test.api.yogift.hk",
     h5website: "https://test.www.yogift.hk",
     resourceDirPath: '/dev',
+    wxAppId: 'wx121ad59c9a64ccd9',
     isDebug: true,
   );
 
@@ -42,6 +51,8 @@ class Env {
     baseUrl: "https://test.api.yogift.hk",
     h5website: "https://test.www.yogift.hk",
     resourceDirPath: '/dev',
+    wxAppId: 'wx121ad59c9a64ccd9',
+    facebookAppId: '',
   );
 
   /// 生产环境
@@ -49,6 +60,8 @@ class Env {
     appTitle: "YO!GIFT",
     baseUrl: "https://api.yogift.hk",
     h5website: "https://www.yogift.hk",
+    wxAppId: 'wx121ad59c9a64ccd9',
+    facebookAppId: '',
   );
 
   static EnvConfig get config => _getEnvConfig();

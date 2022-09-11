@@ -162,7 +162,10 @@ class OrderItemCard extends StatelessWidget {
                 color: const Color.fromRGBO(0, 0, 0, 0.4),
               ),
             ),
-            expanded: Text(item.charityName ?? ''),
+            expanded: Padding(
+              padding: EdgeInsets.only(left: 5.w),
+              child: Text(item.charityName ?? ''),
+            ),
           ),
           ProgressBar(
             total: item.quantity ?? 0,

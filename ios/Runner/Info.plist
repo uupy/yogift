@@ -43,5 +43,22 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>sms</string>
+    </array>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>alipay</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>tobiasexample</string>
+            </array>
+        </dict>
+    </array>
 </dict>
 </plist>

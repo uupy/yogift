@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
@@ -41,7 +42,7 @@ class PurchaseController extends GetxController {
     introducer: '',
     logintype: 1,
     num: 1,
-    regfrom: '2',
+    regfrom: Platform.isAndroid ? '18' : '19',
   );
 
   String orderId = Get.parameters['orderId'] ?? '';

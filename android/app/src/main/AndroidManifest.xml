@@ -1,7 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.yo_gift">
+    <!-- Provide required visibility configuration for API level 30 and above -->
     <queries>
         <package android:name="com.whatsapp" />
+        <!-- If your app checks for SMS support -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="sms" />
+        </intent>
     </queries>
    <application
         android:requestLegacyExternalStorage="true"

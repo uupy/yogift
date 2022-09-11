@@ -30,6 +30,10 @@ class ShareModal {
 
     try {
       await Clipboard.setData(ClipboardData(text: shareContent));
+
+      logger.i('shareUrl: $shareUrl');
+      app.showToast('鏈接已複製');
+
       switch (method) {
         case ShareMethod.whatsApp:
           await flutterShareMe.shareToWhatsApp(msg: shareContent);
@@ -43,21 +47,37 @@ class ShareModal {
         case ShareMethod.instagram:
           break;
         case ShareMethod.weChat:
-          await fluwx.shareToWeChat(
-            fluwx.WeChatShareWebPageModel(
-              shareUrl,
-              description: msg,
-            ),
-          );
+          await shareToWechat(shareUrl, msg);
           break;
         case ShareMethod.sms:
-          launchUrl(Uri.parse("sms:"));
+          // launchUrl(Uri(
+          //   scheme: 'sms',
+          //   path: '',
+          //   queryParameters: <String, String>{
+          //     'body': Uri.encodeComponent(shareUrl),
+          //   },
+          // ));
+          launchUrl(Uri.parse('sms:?body=${Uri.encodeComponent(shareUrl)}'));
           break;
       }
-      logger.i('shareUrl: $shareUrl');
-      app.showToast('鏈接已複製');
     } catch (err) {
       logger.e(err.toString());
+    }
+  }
+
+  static Future shareToWechat(String url, String? msg) async {
+    logger.i(Env.config.wxAppId);
+    await fluwx.registerWxApi(appId: Env.config.wxAppId);
+    final isInstalled = await fluwx.isWeChatInstalled;
+    if (isInstalled) {
+      await fluwx.shareToWeChat(
+        fluwx.WeChatShareWebPageModel(
+          url,
+          description: msg,
+        ),
+      );
+    } else {
+      app.showToast('請先安裝WeChat');
     }
   }
 
