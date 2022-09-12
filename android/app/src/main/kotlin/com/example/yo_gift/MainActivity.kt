@@ -1,4 +1,4 @@
-package com.example.yo_gift
+package com.hkpayment.yogift
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity

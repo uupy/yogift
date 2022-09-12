@@ -42,6 +42,7 @@ class Env {
     h5website: "https://test.www.yogift.hk",
     resourceDirPath: '/dev',
     wxAppId: 'wx121ad59c9a64ccd9',
+    facebookAppId: '1180431849520042',
     isDebug: true,
   );
 
@@ -52,7 +53,7 @@ class Env {
     h5website: "https://test.www.yogift.hk",
     resourceDirPath: '/dev',
     wxAppId: 'wx121ad59c9a64ccd9',
-    facebookAppId: '',
+    facebookAppId: '1180431849520042',
   );
 
   /// 生产环境
@@ -61,7 +62,7 @@ class Env {
     baseUrl: "https://api.yogift.hk",
     h5website: "https://www.yogift.hk",
     wxAppId: 'wx121ad59c9a64ccd9',
-    facebookAppId: '',
+    facebookAppId: '1180431849520042',
   );
 
   static EnvConfig get config => _getEnvConfig();
