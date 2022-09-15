@@ -67,7 +67,10 @@ class ShareModal {
 
   static Future shareToWechat(String url, String? msg) async {
     logger.i(Env.config.wxAppId);
-    await fluwx.registerWxApi(appId: Env.config.wxAppId);
+    await fluwx.registerWxApi(
+      appId: Env.config.wxAppId,
+      universalLink: Env.config.universalLink,
+    );
     final isInstalled = await fluwx.isWeChatInstalled;
     if (isInstalled) {
       await fluwx.shareToWeChat(

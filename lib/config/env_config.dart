@@ -14,6 +14,7 @@ class EnvConfig {
 
   /// 微信应用appId
   final String wxAppId;
+  final String universalLink;
 
   /// facebook appId
   final String facebookAppId;
@@ -28,6 +29,7 @@ class EnvConfig {
     this.resourceDirPath = '',
     this.wxAppId = '',
     this.facebookAppId = '',
+    this.universalLink = '',
   });
 }
 
@@ -43,6 +45,7 @@ class Env {
     resourceDirPath: '/dev',
     wxAppId: 'wx121ad59c9a64ccd9',
     facebookAppId: '1180431849520042',
+    universalLink: 'https://www.yogift.hk',
     isDebug: true,
   );
 
@@ -54,6 +57,7 @@ class Env {
     resourceDirPath: '/dev',
     wxAppId: 'wx121ad59c9a64ccd9',
     facebookAppId: '1180431849520042',
+    universalLink: 'https://www.yogift.hk',
   );
 
   /// 生产环境
@@ -63,6 +67,7 @@ class Env {
     h5website: "https://www.yogift.hk",
     wxAppId: 'wx121ad59c9a64ccd9',
     facebookAppId: '1180431849520042',
+    universalLink: 'https://www.yogift.hk',
   );
 
   static EnvConfig get config => _getEnvConfig();
