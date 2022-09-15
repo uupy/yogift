@@ -15,7 +15,7 @@ class FreeOneTips extends StatelessWidget {
     final config = c.config?.setupConfig;
 
     return Container(
-      height: Get.height * 0.56,
+      height: 330.w,
       margin: EdgeInsets.symmetric(horizontal: 20.w),
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 25.w),
       decoration: BoxDecoration(
@@ -36,6 +36,7 @@ class FreeOneTips extends StatelessWidget {
             margin: EdgeInsets.only(top: 16.w),
             child: AppButton(
               backgroundColor: const Color(0xffff3b30),
+              borderColor: const Color(0xffff3b30),
               text: config?.freeOneBtnText?.value,
               style: TextStyle(
                 fontSize: 12.sp,
