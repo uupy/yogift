@@ -40,24 +40,23 @@ class _ExpandableRichTextState extends State<ExpandableRichText> {
               },
             ),
           ),
-          if (!expendDetail)
-            Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    expendDetail = true;
-                  });
-                },
-                child: Text(
-                  '查看更多',
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    color: const Color(0xff007aff),
-                  ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  expendDetail = !expendDetail;
+                });
+              },
+              child: Text(
+                expendDetail ? '收回' : '查看更多',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  color: const Color(0xff007aff),
                 ),
               ),
             ),
+          ),
         ],
       ),
     );
