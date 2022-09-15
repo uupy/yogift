@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/src/goods/detail/detail_controller.dart';
+import 'package:yo_gift/widgets/app_asset_image.dart';
+import 'package:yo_gift/widgets/app_simple_row.dart';
 import 'package:yo_gift/widgets/header_background.dart';
+import 'package:yo_gift/widgets/share/share_modal.dart';
 
 import 'widgets/base_info.dart';
 import 'widgets/deail_images.dart';
@@ -40,6 +43,35 @@ class _GoodsDetailPageState extends State<GoodsDetailPage>
     return Scaffold(
       appBar: AppBar(
         title: const Text('禮物詳情'),
+        actions: [
+          AppSimpleRow(
+            onTap: () async {
+              final goods = controller.detail;
+              await ShareModal.show(
+                type: 1,
+                id: controller.goodsId,
+                msg: goods?.giftName ?? '',
+                imageUrl: goods?.cCoverImg ?? '',
+              );
+            },
+            margin: EdgeInsets.only(right: 20.w),
+            color: Colors.transparent,
+            children: [
+              Text(
+                '分享',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: const Color.fromRGBO(0, 0, 0, 0.9),
+                ),
+              ),
+              AppAssetImage(
+                width: 24.w,
+                margin: EdgeInsets.only(left: 2.w, top: 2.w),
+                img: 'icon_share.png',
+              ),
+            ],
+          ),
+        ],
       ),
       extendBody: true,
       body: SingleChildScrollView(

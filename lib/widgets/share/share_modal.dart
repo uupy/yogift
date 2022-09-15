@@ -21,6 +21,7 @@ class ShareModal {
     required ShareMethod method,
     required String shareUrl,
     String? msg,
+    String? imageUrl,
   }) async {
     String shareContent = shareUrl;
 
@@ -47,7 +48,7 @@ class ShareModal {
         case ShareMethod.instagram:
           break;
         case ShareMethod.weChat:
-          await shareToWechat(shareUrl, msg);
+          await shareToWechat(shareUrl, msg, imageUrl: imageUrl);
           break;
         case ShareMethod.sms:
           // launchUrl(Uri(
@@ -65,18 +66,24 @@ class ShareModal {
     }
   }
 
-  static Future shareToWechat(String url, String? msg) async {
+  static Future shareToWechat(String url, String? msg,
+      {String? imageUrl}) async {
     logger.i(Env.config.wxAppId);
     await fluwx.registerWxApi(
       appId: Env.config.wxAppId,
       universalLink: Env.config.universalLink,
     );
     final isInstalled = await fluwx.isWeChatInstalled;
+    final _image = imageUrl ?? '';
+
     if (isInstalled) {
       await fluwx.shareToWeChat(
         fluwx.WeChatShareWebPageModel(
           url,
+          title: 'YO!GIFT',
           description: msg,
+          thumbnail:
+              _image.isNotEmpty ? fluwx.WeChatImage.network(_image) : null,
         ),
       );
     } else {
@@ -94,8 +101,10 @@ class ShareModal {
     /// 对应的id /订单id/商品id/拜托id/商户id
     String id = '',
     String msg = '',
+    String? imageUrl,
     bool showClose = false,
   }) async {
+    final showHeader = showClose || (title?.isNotEmpty ?? false);
     final url = Env.config.baseUrl.replaceFirst('api', 'url');
     String shareUrl = '$url/s/$type/$id';
 
@@ -111,7 +120,7 @@ class ShareModal {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 60.w,
+              height: showHeader ? 60.w : 10.w,
               child: Stack(
                 children: [
                   Center(
@@ -138,8 +147,8 @@ class ShareModal {
                 ],
               ),
             ),
-            ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: Get.height / 2 - 40.w),
+            SizedBox(
+              height: 200.w,
               child: GridView.extent(
                 padding: EdgeInsets.all(4.w),
                 maxCrossAxisExtent: 125.w,
@@ -155,6 +164,7 @@ class ShareModal {
                         method: ShareMethod.whatsApp,
                         shareUrl: shareUrl,
                         msg: msg,
+                        imageUrl: imageUrl,
                       );
                     },
                   ),
@@ -166,6 +176,7 @@ class ShareModal {
                         method: ShareMethod.facebook,
                         shareUrl: shareUrl,
                         msg: msg,
+                        imageUrl: imageUrl,
                       );
                     },
                   ),
@@ -177,6 +188,7 @@ class ShareModal {
                         method: ShareMethod.twitter,
                         shareUrl: shareUrl,
                         msg: msg,
+                        imageUrl: imageUrl,
                       );
                     },
                   ),
@@ -188,6 +200,7 @@ class ShareModal {
                         method: ShareMethod.instagram,
                         shareUrl: shareUrl,
                         msg: msg,
+                        imageUrl: imageUrl,
                       );
                     },
                   ),
@@ -199,6 +212,7 @@ class ShareModal {
                         method: ShareMethod.weChat,
                         shareUrl: shareUrl,
                         msg: msg,
+                        imageUrl: imageUrl,
                       );
                     },
                   ),
