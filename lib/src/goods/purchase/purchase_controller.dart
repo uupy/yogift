@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_storage.dart';
@@ -20,8 +21,8 @@ import 'package:yo_gift/services/verification.dart';
 import 'package:yo_gift/src/order/pay/pay_controller.dart';
 
 class PurchaseController extends GetxController {
-  final goodsId = Get.parameters['id'];
-  final skuId = int.tryParse(Get.parameters['skuId'] ?? '');
+  int? skuId = int.tryParse(Get.parameters['skuId'] ?? '0');
+  String goodsId = Get.parameters['id'] ?? '';
 
   /// 1 买给自己， 2 送给别人
   final buyType = Get.parameters['buyType'];
@@ -133,7 +134,9 @@ class PurchaseController extends GetxController {
     final _token = await accessToken.get() ?? '';
 
     isLogged = _token.isNotEmpty;
+    goodsId = Get.parameters['id'] ?? '';
     orderId = Get.parameters['orderId'] ?? '';
+    skuId = int.tryParse(Get.parameters['skuId'] ?? '0');
 
     update(['SenderInfo']);
 
@@ -142,13 +145,18 @@ class PurchaseController extends GetxController {
 
   /// 获取礼物详情
   Future fetchData() async {
-    final res = await GiftService.getGift(goodsId!);
-    final data = res.data ?? {};
-    detail = GiftDetailVo.fromJson(data['data'] ?? {});
-    add4StepsForm.money = (detail?.buyPrice ?? 0).toDouble();
-    update(['DetailInfo', 'ReceiverInfo', 'PurchaseFooter']);
-    if (buyType == '2') {
-      queryAreaList(0);
+    try {
+      SmartDialog.showLoading(msg: '加載中...');
+      final res = await GiftService.getGift(goodsId);
+      final data = res.data ?? {};
+      detail = GiftDetailVo.fromJson(data['data'] ?? {});
+      add4StepsForm.money = (detail?.buyPrice ?? 0).toDouble();
+      update(['DetailInfo', 'ReceiverInfo', 'PurchaseFooter']);
+      if (buyType == '2') {
+        queryAreaList(0);
+      }
+    } finally {
+      SmartDialog.dismiss();
     }
   }
 
@@ -285,7 +293,11 @@ class PurchaseController extends GetxController {
       if (isSuccess == false) {
         if (code == 30001) {
           Future.delayed(const Duration(seconds: 1), () {
-            final parameters = Get.parameters.cast<String, String>();
+            final Map<String, String> parameters = {
+              'id': goodsId,
+              'skuId': '${orderInfo!.skuId ?? 0}',
+            };
+
             parameters['orderId'] = orderInfo!.oGuid ?? '';
             parameters['buyType'] = '1';
 

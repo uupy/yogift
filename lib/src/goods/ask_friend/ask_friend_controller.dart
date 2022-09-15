@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_storage.dart';
@@ -29,6 +30,9 @@ class AskFriendController extends GetxController {
   /// 用户是否已登录
   bool isLogged = false;
 
+  /// 提交中
+  bool submitting = false;
+
   void init() async {
     final _token = await accessToken.get() ?? '';
 
@@ -50,10 +54,15 @@ class AskFriendController extends GetxController {
 
   /// 获取礼物详情
   Future fetchData() async {
-    final res = await GiftService.getGift(goodsId!);
-    final data = res.data ?? {};
-    detail = GiftDetailVo.fromJson(data['data'] ?? {});
-    update(['DetailInfo']);
+    try {
+      SmartDialog.showLoading(msg: '加載中...');
+      final res = await GiftService.getGift(goodsId!);
+      final data = res.data ?? {};
+      detail = GiftDetailVo.fromJson(data['data'] ?? {});
+      update(['DetailInfo']);
+    } finally {
+      SmartDialog.dismiss();
+    }
   }
 
   /// 提交下单
@@ -62,10 +71,17 @@ class AskFriendController extends GetxController {
       onCreateSuccess();
     } else {
       if (isLogged) {
-        final res = await GiftRequestService.add(baseForm);
-        final data = res.data['data'] ?? {};
-        orderInfo = GiftRequestResultVo.fromJson(data);
-        onCreateSuccess();
+        try {
+          submitting = true;
+          update();
+          final res = await GiftRequestService.add(baseForm);
+          final data = res.data['data'] ?? {};
+          orderInfo = GiftRequestResultVo.fromJson(data);
+          onCreateSuccess();
+        } finally {
+          submitting = false;
+          update();
+        }
       } else {
         goLogin();
       }

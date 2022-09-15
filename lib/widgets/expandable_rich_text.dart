@@ -16,7 +16,7 @@ class _ExpandableRichTextState extends State<ExpandableRichText> {
 
   @override
   Widget build(BuildContext context) {
-    final _content = "<div>${widget.content ?? ''}</div>";
+    final _content = widget.content ?? '';
 
     return SizedBox(
       width: double.maxFinite,
@@ -29,7 +29,8 @@ class _ExpandableRichTextState extends State<ExpandableRichText> {
             ),
             maxLines: expendDetail ? null : 2,
             child: Html(
-              data: _content,
+              data: _content.replaceAll(
+                  '<br/>', '<div style="height: 17px"> </div>'),
               style: {
                 'body': Style(
                   margin: EdgeInsets.zero,

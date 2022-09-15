@@ -28,6 +28,7 @@ class AskFriendFooter extends StatelessWidget {
                 child: buildFooterItem(
                   text: '拜託好友',
                   icon: 'icon_please.png',
+                  loading: c.submitting,
                   onTap: onTap,
                 ),
               ),
@@ -42,21 +43,34 @@ class AskFriendFooter extends StatelessWidget {
     String? text,
     String? icon,
     Color? background,
+    bool loading = false,
     Function()? onTap,
   }) {
     return AppButton(
       onPressed: onTap,
       backgroundColor: background,
+      disabled: loading,
       shadow: true,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          AppAssetImage(
-            img: icon,
-            width: 16.w,
-            margin: EdgeInsets.only(right: 5.w),
-          ),
+          if (loading)
+            Container(
+              height: 17,
+              width: 17,
+              margin: EdgeInsets.only(right: 5.w),
+              child: const CircularProgressIndicator(
+                strokeWidth: 2,
+                color: Color.fromRGBO(0, 0, 0, 0.5),
+              ),
+            ),
+          if (!loading)
+            AppAssetImage(
+              img: icon,
+              width: 16.w,
+              margin: EdgeInsets.only(right: 5.w),
+            ),
           Text(
             text ?? '',
             style: TextStyle(

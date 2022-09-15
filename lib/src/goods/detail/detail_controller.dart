@@ -10,10 +10,10 @@ import 'widgets/gift_method_select_view.dart';
 import 'widgets/sku_select_view.dart';
 
 class GoodsDetailController extends GetxController {
-  String goodsId = '';
+  String goodsId = Get.parameters['id'] ?? '';
 
   /// '1' = 赠送给自己， '2' = 赠送给好友， '3' = 拜托好友
-  String buyType = '';
+  String buyType = Get.parameters['buyType'] ?? '';
   bool loading = false;
   int currentImageIndex = 0;
   GiftDetailVo? detail;
@@ -64,10 +64,13 @@ class GoodsDetailController extends GetxController {
     }
 
     if (routeName.isNotEmpty) {
-      final parameters = Get.parameters.cast<String, String>();
-
-      parameters['buyType'] = type;
-      parameters['skuId'] = '${selectSku.id}';
+      final orderId = Get.parameters['orderId'] ?? '';
+      final Map<String, String> parameters = {
+        'id': goodsId,
+        'buyType': type,
+        'skuId': '${selectSku.id}',
+        'orderId': orderId,
+      };
 
       Get.toNamed(routeName, parameters: parameters)?.then((value) {
         cb?.call();
@@ -141,20 +144,25 @@ class GoodsDetailController extends GetxController {
 
   /// 获取商品详情
   Future fetchData() async {
-    final res = await GiftService.getGift(goodsId);
-    final data = res.data ?? {};
-    detail = GiftDetailVo.fromJson(data['data'] ?? {});
-    update([
-      'GoodsDetailImages',
-      'GoodsDetailBaseInfo',
-      'GoodsDetailInfo',
-      'ExchangeTerms'
-    ]);
+    SmartDialog.showLoading(msg: '加載中...');
+    try {
+      final res = await GiftService.getGift(goodsId);
+      final data = res.data ?? {};
+      detail = GiftDetailVo.fromJson(data['data'] ?? {});
+      update([
+        'GoodsDetailImages',
+        'GoodsDetailBaseInfo',
+        'GoodsDetailInfo',
+        'ExchangeTerms'
+      ]);
 
-    if (buyType.isNotEmpty) {
-      navHandling(int.tryParse(buyType) ?? 0);
-    } else {
-      showTips();
+      if (buyType.isNotEmpty) {
+        navHandling(int.tryParse(buyType) ?? 0);
+      } else {
+        showTips();
+      }
+    } finally {
+      SmartDialog.dismiss();
     }
   }
 
