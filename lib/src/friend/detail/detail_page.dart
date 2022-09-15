@@ -36,7 +36,10 @@ class _FriendDetailPageState extends State<FriendDetailPage> {
         actions: [
           AppSimpleRow(
             onTap: () {
-              final parameters = Get.parameters.cast<String, String>();
+              final Map<String, String> parameters = {
+                'friendId': controller.friendId ?? '',
+                'friendName': controller.friendName ?? '',
+              };
               Get.toNamed('/pages/wish/index/index', parameters: parameters);
             },
             margin: EdgeInsets.only(right: 20.w),
@@ -118,6 +121,7 @@ class _FriendDetailPageState extends State<FriendDetailPage> {
                         ),
                       if (item.msgType != 1)
                         GoodsMsgContainer(
+                          msgType: item.msgType,
                           image: item.cCoverImg ?? '',
                           content: item.msgContent ?? '',
                           color: backgroundColor,

@@ -7,6 +7,7 @@ class GoodsMsgContainer extends StatelessWidget {
   final Color? color;
   final String? content;
   final String? image;
+  final int? msgType;
   final Function()? onTap;
 
   const GoodsMsgContainer({
@@ -14,6 +15,7 @@ class GoodsMsgContainer extends StatelessWidget {
     this.color,
     this.content,
     this.image,
+    this.msgType,
     this.onTap,
   }) : super(key: key);
 
@@ -58,14 +60,15 @@ class GoodsMsgContainer extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.fromLTRB(10.w, 0, 10.w, 8.w),
-            height: 32.w,
-            child: AppButton(
-              text: '查看禮物',
-              onPressed: onTap,
+          if (msgType != 4)
+            Container(
+              margin: EdgeInsets.fromLTRB(10.w, 0, 10.w, 8.w),
+              height: 32.w,
+              child: AppButton(
+                text: '查看禮物',
+                onPressed: onTap,
+              ),
             ),
-          ),
         ],
       ),
     );
