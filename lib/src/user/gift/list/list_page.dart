@@ -35,7 +35,10 @@ class _GiftListPageState extends State<GiftListPage> {
         controller: controller.listController,
         colCount: 1,
         itemBuilder: (item, index, list) {
-          return OrderItemCard(item: item);
+          return OrderItemCard(
+            item: item,
+            onRefresh: controller.onBackRefresh,
+          );
         },
       ),
     );

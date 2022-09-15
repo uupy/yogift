@@ -9,6 +9,7 @@ class OrderItemFooter extends StatelessWidget {
   final bool canIGive;
   final bool canIExchange;
   final Function()? onCheckDetails;
+  final Function()? onGiveFriend;
 
   const OrderItemFooter({
     Key? key,
@@ -17,6 +18,7 @@ class OrderItemFooter extends StatelessWidget {
     this.canIGive = false,
     this.canIExchange = false,
     this.onCheckDetails,
+    this.onGiveFriend,
   }) : super(key: key);
 
   @override
@@ -36,6 +38,7 @@ class OrderItemFooter extends StatelessWidget {
       if (canIGive) {
         children.add(buildFooterItem(
           text: '贈送好友',
+          onTap: onGiveFriend,
         ));
       }
     } else {

@@ -16,4 +16,8 @@ class GiftListController extends GetxController {
   Future onReload() async {
     listController.onReload();
   }
+
+  Future onBackRefresh() async {
+    listController.onBackRefresh();
+  }
 }

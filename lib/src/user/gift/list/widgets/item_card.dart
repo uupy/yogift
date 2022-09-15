@@ -12,10 +12,12 @@ import 'item_text.dart';
 
 class OrderItemCard extends StatelessWidget {
   final GiveItemVo item;
+  final Function()? onRefresh;
 
   const OrderItemCard({
     Key? key,
     required this.item,
+    this.onRefresh,
   }) : super(key: key);
 
   void goOrderDetail() {
@@ -31,6 +33,8 @@ class OrderItemCard extends StatelessWidget {
 
     Get.toNamed(path, parameters: {
       'id': item.oGuid!,
+    })?.then((value) {
+      onRefresh?.call();
     });
   }
 
@@ -122,6 +126,16 @@ class OrderItemCard extends StatelessWidget {
             canIGive: item.canIGive == 1,
             canIExchange: item.canIExchange == 1,
             onCheckDetails: goOrderDetail,
+            onGiveFriend: () {
+              Get.toNamed(
+                '/pages/mine/order/give-friend/index',
+                parameters: {
+                  'orderId': item.oGuid!,
+                },
+              )?.then((value) {
+                onRefresh?.call();
+              });
+            },
           ),
         ],
       ),
