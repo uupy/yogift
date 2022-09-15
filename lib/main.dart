@@ -112,6 +112,9 @@ class _MaterialHome extends State<MaterialHome> {
         app.updateAuthData();
         Get.offNamed('index');
       },
+      onError: (e) {
+        app.showToast(e.toString());
+      },
     );
   }
 
