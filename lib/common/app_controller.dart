@@ -39,8 +39,10 @@ class AppController extends GetxController {
   }
 
   /// 应用初始化
-  Future init(
-      {Function(dynamic)? onComplete, Function(dynamic)? onError}) async {
+  Future init({
+    Function(dynamic)? onComplete,
+    Function(dynamic)? onError,
+  }) async {
     _completeCallback = onComplete;
     try {
       final res = await CommonService.getConfig();
@@ -50,7 +52,7 @@ class AppController extends GetxController {
     } catch (e) {
       onError?.call(e);
     } finally {
-      handleComplete();
+      handleComplete(config);
     }
   }
 

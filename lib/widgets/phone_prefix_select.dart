@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_controller.dart';
 import 'package:yo_gift/models/common.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
@@ -22,14 +23,26 @@ class PhonePrefixSelect extends StatefulWidget {
 class _PhonePrefixSelectState extends State<PhonePrefixSelect> {
   List<AreaCodeVo> list = [];
   String? _value;
+  bool loading = false;
 
   @override
   void initState() {
     final appController = Get.put(AppController());
-    final config = appController.config;
+
     setState(() {
-      _value = widget.value;
-      list = config?.areacodelist ?? [];
+      loading = true;
+    });
+
+    appController.init(onComplete: (data) {
+      final config = appController.config;
+
+      setState(() {
+        _value = widget.value;
+        list = config?.areacodelist ?? [];
+        loading = false;
+      });
+    }, onError: (err) {
+      app.showToast('獲取應用配置失敗');
     });
     super.initState();
   }
@@ -41,11 +54,21 @@ class _PhonePrefixSelectState extends State<PhonePrefixSelect> {
       hint: const Text('請選擇'),
       underline: Container(),
       elevation: 1,
-      icon: AppAssetImage(
-        width: 12.w,
-        margin: EdgeInsets.only(left: 14.w),
-        img: 'icon_arrow_down.png',
-      ),
+      icon: loading
+          ? Container(
+              height: 15.w,
+              width: 15.w,
+              margin: EdgeInsets.only(left: 14.w),
+              child: CircularProgressIndicator(
+                strokeWidth: 2.w,
+                color: const Color.fromRGBO(0, 0, 0, 0.5),
+              ),
+            )
+          : AppAssetImage(
+              width: 12.w,
+              margin: EdgeInsets.only(left: 14.w),
+              img: 'icon_arrow_down.png',
+            ),
       items: list.map((e) {
         return DropdownMenuItem(
           child: Text(e.code ?? ''),
