@@ -150,6 +150,14 @@ class PurchaseController extends GetxController {
       final res = await GiftService.getGift(goodsId);
       final data = res.data ?? {};
       detail = GiftDetailVo.fromJson(data['data'] ?? {});
+
+      if (skuId != null && skuId != 0) {
+        final sku = detail?.skus?.firstWhereOrNull((e) => e.id == skuId);
+        if (sku != null) {
+          detail!.buyPrice = (sku.buyPrice ?? 0).toDouble();
+        }
+      }
+
       add4StepsForm.money = (detail?.buyPrice ?? 0).toDouble();
       update(['DetailInfo', 'ReceiverInfo', 'PurchaseFooter']);
       if (buyType == '2') {

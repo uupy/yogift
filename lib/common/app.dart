@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:yo_gift/assets/fonts/iconfont.dart';
+import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/services/user.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
@@ -313,11 +314,26 @@ class App {
     final _link = link ?? '';
     final links = _link.split('|');
     String argument = '';
+    // String wxAppId = '';
+
+    /// userName: "gh_4XXXXXXXXX",//原始id 小程序的 原始id 不是appid
+    String wxUsername = '';
+    String wxPath = '';
 
     if (links.isNotEmpty) {
-      argument = links.last;
-      if (argument.isNotEmpty && linkType != 4) {
-        argument = '/$argument';
+      if (linkType == 3) {
+        if (links.length < 3) {
+          app.showToast('鏈接參數有誤');
+          return;
+        }
+        // wxAppId = links[0];
+        wxUsername = links[1];
+        wxPath = links[2];
+      } else {
+        argument = links.last;
+        if (argument.isNotEmpty && linkType != 4) {
+          argument = '/$argument';
+        }
       }
     }
 
@@ -338,7 +354,14 @@ class App {
           Get.toNamed(argument);
           break;
         case 3:
-          fluwx.launchWeChatMiniProgram(username: argument);
+          await fluwx.registerWxApi(
+            appId: Env.config.wxAppId,
+            universalLink: Env.config.universalLink,
+          );
+          fluwx.launchWeChatMiniProgram(
+            username: wxUsername,
+            path: wxPath,
+          );
           break;
         case 4:
           Get.toNamed('/pages/goods/detail/index', parameters: {
