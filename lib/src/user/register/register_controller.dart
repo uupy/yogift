@@ -15,6 +15,8 @@ class RegisterController extends GetxController {
   );
   final updateFormData = UpdateInfoFormVo(
     acceptnotice: 1,
+    gener: 1,
+    email: '',
   );
   final formKey = GlobalKey<FormState>();
   final updateFormKey = GlobalKey<FormState>();
