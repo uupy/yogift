@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
+import 'package:social_share/social_share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/logger.dart';
@@ -24,6 +25,11 @@ class ShareModal {
     String? imageUrl,
   }) async {
     String shareContent = shareUrl;
+    String imagePath = imageUrl ?? '';
+
+    if (imagePath.isNotEmpty && !imagePath.contains('?imageMogr2/thumbnail/')) {
+      imagePath = '$imagePath?imageMogr2/thumbnail/200x200';
+    }
 
     if (msg?.isNotEmpty ?? false) {
       shareContent = '【$msg】 $shareUrl';
@@ -39,7 +45,7 @@ class ShareModal {
         case ShareMethod.whatsApp:
           await flutterShareMe.shareToWhatsApp(
             msg: shareContent,
-            imagePath: imageUrl ?? '',
+            imagePath: imagePath,
           );
           break;
         case ShareMethod.facebook:
@@ -49,9 +55,13 @@ class ShareModal {
           await flutterShareMe.shareToTwitter(msg: msg ?? '', url: shareUrl);
           break;
         case ShareMethod.instagram:
+          if (imagePath.isNotEmpty) {
+            SocialShare.shareInstagramStory(imagePath,
+                attributionURL: shareUrl);
+          }
           break;
         case ShareMethod.weChat:
-          await shareToWechat(shareUrl, msg, imageUrl: imageUrl);
+          await shareToWechat(shareUrl, msg, imagePath: imagePath);
           break;
         case ShareMethod.sms:
           // launchUrl(Uri(
@@ -70,18 +80,13 @@ class ShareModal {
   }
 
   static Future shareToWechat(String url, String? msg,
-      {String? imageUrl}) async {
+      {String imagePath = ''}) async {
     logger.i(Env.config.wxAppId);
     await fluwx.registerWxApi(
       appId: Env.config.wxAppId,
       universalLink: Env.config.universalLink,
     );
     final isInstalled = await fluwx.isWeChatInstalled;
-    String _image = imageUrl ?? '';
-
-    if (_image.isNotEmpty && !_image.contains('?imageMogr2/thumbnail/')) {
-      _image = '$_image?imageMogr2/thumbnail/200x200';
-    }
 
     if (isInstalled) {
       await fluwx.shareToWeChat(
@@ -89,8 +94,9 @@ class ShareModal {
           url,
           title: 'YO!GIFT',
           description: msg,
-          thumbnail:
-              _image.isNotEmpty ? fluwx.WeChatImage.network(_image) : null,
+          thumbnail: imagePath.isNotEmpty
+              ? fluwx.WeChatImage.network(imagePath)
+              : null,
         ),
       );
     } else {

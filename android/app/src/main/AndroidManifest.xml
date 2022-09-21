@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.hkpayment.yogift">
     <!-- Provide required visibility configuration for API level 30 and above -->
     <queries>
@@ -53,6 +54,17 @@
            <meta-data
                    android:name="android.support.FILE_PROVIDER_PATHS"
                    android:resource="@xml/filepaths"/>
+       </provider>
+
+       <provider
+               android:name="androidx.core.content.FileProvider"
+               android:authorities="${applicationId}.com.shekarmudaliyar.social_share"
+               android:exported="false"
+               android:grantUriPermissions="true"
+               tools:replace="android:authorities">
+           <meta-data
+                   android:name="android.support.FILE_PROVIDER_PATHS"
+                   android:resource="@xml/filepaths" />
        </provider>
 
        <provider
