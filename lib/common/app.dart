@@ -314,7 +314,7 @@ class App {
     final _link = link ?? '';
     final links = _link.split('|');
     String argument = '';
-    // String wxAppId = '';
+    String wxAppId = '';
 
     /// userName: "gh_4XXXXXXXXX",//原始id 小程序的 原始id 不是appid
     String wxUsername = '';
@@ -322,13 +322,13 @@ class App {
 
     if (links.isNotEmpty) {
       if (linkType == 3) {
-        if (links.length < 3) {
+        if (links.length < 4) {
           app.showToast('鏈接參數有誤');
           return;
         }
-        // wxAppId = links[0];
         wxUsername = links[1];
         wxPath = links[2];
+        wxAppId = links[3];
       } else {
         argument = links.last;
         if (argument.isNotEmpty && linkType != 4) {
@@ -343,7 +343,23 @@ class App {
 
     await Future.delayed(const Duration(milliseconds: 100));
 
-    if (argument.isNotEmpty) {
+    if (linkType == 3 && wxUsername.isNotEmpty) {
+      await fluwx.registerWxApi(
+        // appId: Env.config.wxAppId,
+        appId: wxAppId,
+        universalLink: Env.config.universalLink,
+      );
+      final isInstalled = await fluwx.isWeChatInstalled;
+
+      if (isInstalled) {
+        fluwx.launchWeChatMiniProgram(
+          username: wxUsername,
+          // path: wxPath,
+        );
+      } else {
+        app.showToast('請先安裝WeChat');
+      }
+    } else if (argument.isNotEmpty) {
       switch (linkType) {
         case 1:
           Get.toNamed('/pages/common/webview/index', parameters: {
@@ -352,22 +368,6 @@ class App {
           break;
         case 2:
           Get.toNamed(argument);
-          break;
-        case 3:
-          await fluwx.registerWxApi(
-            appId: Env.config.wxAppId,
-            universalLink: Env.config.universalLink,
-          );
-          final isInstalled = await fluwx.isWeChatInstalled;
-          if (isInstalled) {
-            fluwx.launchWeChatMiniProgram(
-              username: wxUsername,
-              path: wxPath,
-            );
-          } else {
-            app.showToast('請先安裝WeChat');
-          }
-
           break;
         case 4:
           Get.toNamed('/pages/goods/detail/index', parameters: {

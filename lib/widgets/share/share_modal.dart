@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:social_share/social_share.dart';
@@ -40,6 +41,7 @@ class ShareModal {
 
       logger.i('shareUrl: $shareUrl');
       app.showToast('鏈接已複製');
+      SmartDialog.showLoading(msg: '加載中...');
 
       switch (method) {
         case ShareMethod.whatsApp:
@@ -76,6 +78,8 @@ class ShareModal {
       }
     } catch (err) {
       logger.e(err.toString());
+    } finally {
+      SmartDialog.dismiss();
     }
   }
 
