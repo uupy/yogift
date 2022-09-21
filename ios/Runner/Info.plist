@@ -95,5 +95,7 @@
     <string>1180431849520042</string>
 	<key>NSCameraUsageDescription</key>
 	<string>申请相机权限描述</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>
