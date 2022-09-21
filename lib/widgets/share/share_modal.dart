@@ -77,7 +77,11 @@ class ShareModal {
       universalLink: Env.config.universalLink,
     );
     final isInstalled = await fluwx.isWeChatInstalled;
-    final _image = imageUrl ?? '';
+    String _image = imageUrl ?? '';
+
+    if (_image.isNotEmpty && !_image.contains('?imageMogr2/thumbnail/')) {
+      _image = '$_image?imageMogr2/thumbnail/200x200';
+    }
 
     if (isInstalled) {
       await fluwx.shareToWeChat(

@@ -65,6 +65,9 @@
       <string>fbauth</string>
       <string>fb-messenger-share-api</string>
       <string>fbshareextension</string>
+      <string>wechat</string>
+      <string>weixin</string>
+      <string>weixinULAPI</string>
     </array>
     <key>CFBundleURLTypes</key>
     <array>
@@ -76,6 +79,11 @@
             <key>CFBundleURLSchemes</key>
             <array>
                 <string>tobiasexample</string>
+            </array>
+        </dict>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
                 <string>fb1180431849520042</string>
             </array>
         </dict>
