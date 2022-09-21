@@ -37,7 +37,10 @@ class ShareModal {
 
       switch (method) {
         case ShareMethod.whatsApp:
-          await flutterShareMe.shareToWhatsApp(msg: shareContent);
+          await flutterShareMe.shareToWhatsApp(
+            msg: shareContent,
+            imagePath: imageUrl ?? '',
+          );
           break;
         case ShareMethod.facebook:
           await flutterShareMe.shareToFacebook(msg: msg ?? '', url: shareUrl);

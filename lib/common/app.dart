@@ -358,10 +358,16 @@ class App {
             appId: Env.config.wxAppId,
             universalLink: Env.config.universalLink,
           );
-          fluwx.launchWeChatMiniProgram(
-            username: wxUsername,
-            path: wxPath,
-          );
+          final isInstalled = await fluwx.isWeChatInstalled;
+          if (isInstalled) {
+            fluwx.launchWeChatMiniProgram(
+              username: wxUsername,
+              path: wxPath,
+            );
+          } else {
+            app.showToast('請先安裝WeChat');
+          }
+
           break;
         case 4:
           Get.toNamed('/pages/goods/detail/index', parameters: {
