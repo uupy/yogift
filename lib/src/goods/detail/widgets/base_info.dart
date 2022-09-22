@@ -2,6 +2,7 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/common/utils.dart';
 import 'package:yo_gift/src/goods/detail/detail_controller.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_row.dart';
@@ -24,6 +25,8 @@ class GoodsDetailBaseInfo extends StatelessWidget {
           final buy1Get1Free = c.detail?.buy1Get1FREE;
           final originalPrice = c.detail?.originalPrice;
           final price = c.detail?.buyPrice ?? 0;
+          final effectiveDays = c.detail?.effectiveDays ?? 0;
+          final effectiveTime = c.detail?.effectiveTime ?? '';
 
           return Column(
             children: [
@@ -118,7 +121,10 @@ class GoodsDetailBaseInfo extends StatelessWidget {
                     children: [
                       const TextSpan(text: '本券之兌換期為購買當日至'),
                       TextSpan(
-                        text: '${c.detail?.effectiveDays ?? 0}天',
+                        text: effectiveTime.isEmpty
+                            ? '$effectiveDays天'
+                            : CommonUtils.formatDateByString(
+                                effectiveTime, 'yyyy-MM-dd'),
                         style: const TextStyle(
                           decoration: TextDecoration.underline,
                         ),
