@@ -16,6 +16,7 @@ class OrderDetailBaseInfo extends StatelessWidget {
       builder: (c) {
         final expirationTime = c.detail?.expirationTime ?? '';
         final orderMoney = c.detail?.orderMoney ?? 0;
+        final couponCash = c.detail?.ygcoupon1Cash ?? 0;
 
         return Container(
           margin: EdgeInsets.fromLTRB(20.w, 10.w, 20.w, 0),
@@ -25,11 +26,12 @@ class OrderDetailBaseInfo extends StatelessWidget {
                 label: '已總付',
                 content: '\$${Decimal.parse(orderMoney.toString())}',
               ),
-              buildRow(
-                label: '使用優惠券',
-                content: '- \$${c.detail?.ygcoupon1Cash ?? 0}',
-                contentColor: const Color(0xffff3b30),
-              ),
+              if (couponCash > 0)
+                buildRow(
+                  label: '使用優惠券',
+                  content: '- \$$couponCash',
+                  contentColor: const Color(0xffff3b30),
+                ),
               buildRow(
                 label: '截止兌換期限',
                 suffix: Text.rich(
