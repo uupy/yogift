@@ -13,6 +13,7 @@ class DetailInfo extends StatelessWidget {
       builder: (c) {
         return GoodsDetailCard(
           data: c.detail,
+          quantity: c.orderInfo?.nums ?? 1,
         );
       },
     );
