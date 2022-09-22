@@ -158,7 +158,14 @@ class PurchaseController extends GetxController {
         }
       }
 
-      add4StepsForm.money = (detail?.buyPrice ?? 0).toDouble();
+      if (orderId.isNotEmpty) {
+        final res1 = await UserOrderService.getItem(orderId);
+        final data1 = res1.data ?? {};
+        orderInfo = OrderDetailItemVo.fromJson(data1['data'] ?? {});
+        detail!.buyPrice = orderInfo!.buyPrice;
+      }
+
+      // add4StepsForm.money = (detail?.buyPrice ?? 0).toDouble();
       update(['DetailInfo', 'ReceiverInfo', 'PurchaseFooter']);
       if (buyType == '2') {
         queryAreaList(0);

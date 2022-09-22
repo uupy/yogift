@@ -26,7 +26,13 @@ class PurchaseFooter extends StatelessWidget {
       child: GetBuilder<PurchaseController>(
         id: 'PurchaseFooter',
         builder: (c) {
-          final price = c.detail?.buyPrice ?? 0;
+          final order = c.orderInfo;
+          double price = c.detail?.buyPrice ?? 0;
+
+          if (order != null) {
+            price = order.orderMoney ?? 0;
+          }
+
           return Row(
             children: [
               Expanded(
