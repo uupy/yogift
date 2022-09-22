@@ -27,6 +27,11 @@ class _PhonePrefixSelectState extends State<PhonePrefixSelect> {
 
   @override
   void initState() {
+    fetchData();
+    super.initState();
+  }
+
+  void fetchData() async {
     final appController = Get.put(AppController());
 
     setState(() {
@@ -36,15 +41,16 @@ class _PhonePrefixSelectState extends State<PhonePrefixSelect> {
     appController.init(onComplete: (data) {
       final config = appController.config;
 
-      setState(() {
-        _value = widget.value;
-        list = config?.areacodelist ?? [];
-        loading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _value = widget.value;
+          list = config?.areacodelist ?? [];
+          loading = false;
+        });
+      }
     }, onError: (err) {
       app.showToast('獲取應用配置失敗');
     });
-    super.initState();
   }
 
   @override
@@ -80,6 +86,13 @@ class _PhonePrefixSelectState extends State<PhonePrefixSelect> {
           _value = value;
         });
         widget.onChanged?.call(value);
+      },
+      onTap: () {
+        if (!app.hasNetWork) {
+          app.showToast('請檢查網絡設置');
+        } else if (list.isEmpty) {
+          fetchData();
+        }
       },
     );
   }

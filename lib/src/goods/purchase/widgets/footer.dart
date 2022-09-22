@@ -27,7 +27,14 @@ class PurchaseFooter extends StatelessWidget {
         id: 'PurchaseFooter',
         builder: (c) {
           final order = c.orderInfo;
+          String buttonText = '贈送好友';
           double price = c.detail?.buyPrice ?? 0;
+
+          if (c.isDonation) {
+            buttonText = '去付款';
+          } else if (c.isGiveToSelf) {
+            buttonText = '贈送自己';
+          }
 
           if (order != null) {
             price = order.orderMoney ?? 0;
@@ -58,8 +65,8 @@ class PurchaseFooter extends StatelessWidget {
               ),
               SizedBox(width: 15.w),
               buildFooterItem(
-                text: c.isGiveToSelf ? '贈送自己' : '贈送好友',
-                icon: 'icon_mine_gift.png',
+                text: buttonText,
+                icon: c.isDonation ? 'icon_give.png' : 'icon_mine_gift.png',
                 loading: c.submitting,
                 onTap: onTap,
               ),

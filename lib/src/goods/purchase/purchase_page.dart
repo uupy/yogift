@@ -7,7 +7,9 @@ import 'package:yo_gift/widgets/header_background.dart';
 import 'package:yo_gift/widgets/order/order_create_remark.dart';
 
 import 'purchase_controller.dart';
+import 'widgets/app_bar_title.dart';
 import 'widgets/detail_info.dart';
+import 'widgets/donation_charity_info.dart';
 import 'widgets/footer.dart';
 import 'widgets/purchase_step_bar.dart';
 import 'widgets/receiver_info.dart';
@@ -50,7 +52,7 @@ class _PurchasePageState extends State<PurchasePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(controller.isGiveToSelf ? '結賬' : '填寫心意卡'),
+        title: const AppBarTitle(),
       ),
       extendBody: true,
       body: SingleChildScrollView(
@@ -85,6 +87,7 @@ class _PurchasePageState extends State<PurchasePage> {
                   controller.remark = value ?? '';
                 },
               ),
+            const DonationCharityInfo(),
             SenderInfo(key: _senderWidgetKey),
             ReceiverInfo(key: _receiverWidgetKey),
             SizedBox(height: 100.w),

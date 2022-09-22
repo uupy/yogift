@@ -87,6 +87,11 @@ class PurchaseController extends GetxController {
   /// 发送验证码倒计时
   int countdown = 0;
 
+  /// 是否捐贈訂單
+  bool get isDonation {
+    return orderInfo?.charityFavoritesGuid?.isNotEmpty ?? false;
+  }
+
   bool get isGiveToSelf {
     return buyType == '1';
   }
@@ -166,7 +171,7 @@ class PurchaseController extends GetxController {
       }
 
       // add4StepsForm.money = (detail?.buyPrice ?? 0).toDouble();
-      update(['DetailInfo', 'ReceiverInfo', 'PurchaseFooter']);
+      update(['AppBarTitle', 'DetailInfo', 'ReceiverInfo', 'PurchaseFooter']);
       if (buyType == '2') {
         queryAreaList(0);
       }
