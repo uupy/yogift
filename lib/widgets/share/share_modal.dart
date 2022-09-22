@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -51,29 +52,37 @@ class ShareModal {
           );
           break;
         case ShareMethod.facebook:
-          await flutterShareMe.shareToFacebook(msg: msg ?? '', url: shareUrl);
+          // await flutterShareMe.shareToFacebook(msg: msg ?? '', url: shareUrl);
+          final filePath = await getImagePath(imagePath);
+          await SocialShare.shareFacebookStory(
+            filePath,
+            '#ffffff',
+            '#000000',
+            shareUrl,
+            appId: Env.config.facebookAppId,
+          );
           break;
         case ShareMethod.twitter:
           await flutterShareMe.shareToTwitter(msg: msg ?? '', url: shareUrl);
           break;
         case ShareMethod.instagram:
           if (imagePath.isNotEmpty) {
-            SocialShare.shareInstagramStory(imagePath,
-                attributionURL: shareUrl);
+            final filePath = await getImagePath(imagePath);
+            await SocialShare.shareInstagramStory(
+              filePath,
+              backgroundTopColor: "#ffffff",
+              backgroundBottomColor: "#000000",
+              attributionURL: shareUrl,
+            );
           }
           break;
         case ShareMethod.weChat:
           await shareToWechat(shareUrl, msg, imagePath: imagePath);
           break;
         case ShareMethod.sms:
-          // launchUrl(Uri(
-          //   scheme: 'sms',
-          //   path: '',
-          //   queryParameters: <String, String>{
-          //     'body': Uri.encodeComponent(shareUrl),
-          //   },
-          // ));
-          launchUrl(Uri.parse('sms:?body=${Uri.encodeComponent(shareUrl)}'));
+          const phone = '';
+          launchUrl(
+              Uri.parse('sms:$phone?body=${Uri.encodeComponent(shareUrl)}'));
           break;
       }
     } catch (err) {
@@ -81,6 +90,12 @@ class ShareModal {
     } finally {
       SmartDialog.dismiss();
     }
+  }
+
+  static Future<String> getImagePath(String url) async {
+    final file = await DefaultCacheManager().getSingleFile(url);
+    logger.i(file.path);
+    return file.path;
   }
 
   static Future shareToWechat(String url, String? msg,
