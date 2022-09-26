@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
+import 'package:yo_gift/widgets/focus_monitoring.dart';
 
 import 'login_controller.dart';
 import 'widgets/login_form.dart';
@@ -36,28 +37,30 @@ class _LoginPageState extends State<LoginPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('登入YO！GIFT'),
-      ),
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
-        child: Column(
-          children: [
-            const AppAssetImage(
-              img: 'bg_top2.png',
-            ),
-            LoginTabBar(
-              controller: _tabController,
-              items: _tabItems,
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 40.w),
-              padding: EdgeInsets.symmetric(horizontal: 40.w),
-              child: const LoginForm(),
-            ),
-          ],
+    return FocusMonitoring(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('登入YO！GIFT'),
+        ),
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          child: Column(
+            children: [
+              const AppAssetImage(
+                img: 'bg_top2.png',
+              ),
+              LoginTabBar(
+                controller: _tabController,
+                items: _tabItems,
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 40.w),
+                padding: EdgeInsets.symmetric(horizontal: 40.w),
+                child: const LoginForm(),
+              ),
+            ],
+          ),
         ),
       ),
     );

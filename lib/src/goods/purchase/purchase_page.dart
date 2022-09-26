@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/widgets/focus_monitoring.dart';
 import 'package:yo_gift/widgets/greeting_card/greeting_card.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 import 'package:yo_gift/widgets/order/order_create_remark.dart';
@@ -50,64 +51,66 @@ class _PurchasePageState extends State<PurchasePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const AppBarTitle(),
-      ),
-      extendBody: true,
-      body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
-        controller: _scrollController,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                const HeaderBackground(),
-                if (!controller.isGiveToSelf) const ProgressStepBar(),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: controller.isGiveToSelf ? 10.w : 70.w),
-                  child: const DetailInfo(),
-                ),
-              ],
-            ),
-            if (!controller.isGiveToSelf)
-              GreetingCard(
-                type: 2,
-                margin: EdgeInsets.only(top: 20.w),
-                onChanged: (id, msg) {
-                  controller.greetingCardId = id;
-                  controller.greetingCardMsg = msg;
-                },
-              ),
-            if (controller.orderId.isEmpty)
-              OrderRemark(
-                onChanged: (value) {
-                  controller.remark = value ?? '';
-                },
-              ),
-            const DonationCharityInfo(),
-            SenderInfo(key: _senderWidgetKey),
-            ReceiverInfo(key: _receiverWidgetKey),
-            SizedBox(height: 100.w),
-          ],
+    return FocusMonitoring(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const AppBarTitle(),
         ),
-      ),
-      bottomNavigationBar: PurchaseFooter(
-        onTap: () {
-          if (controller.senderInfoNotPerfection) {
-            app.showToast('請完善送禮人資料');
-            animateTo(_senderWidgetKey.currentContext!);
-            return;
-          }
-          if (controller.receiverInfoNotPerfection) {
-            app.showToast('請完善收禮人資料');
-            animateTo(_receiverWidgetKey.currentContext!);
-            return;
-          }
-          controller.onSubmit();
-        },
+        extendBody: true,
+        body: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          controller: _scrollController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  const HeaderBackground(),
+                  if (!controller.isGiveToSelf) const ProgressStepBar(),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: controller.isGiveToSelf ? 10.w : 70.w),
+                    child: const DetailInfo(),
+                  ),
+                ],
+              ),
+              if (!controller.isGiveToSelf)
+                GreetingCard(
+                  type: 2,
+                  margin: EdgeInsets.only(top: 20.w),
+                  onChanged: (id, msg) {
+                    controller.greetingCardId = id;
+                    controller.greetingCardMsg = msg;
+                  },
+                ),
+              if (controller.orderId.isEmpty)
+                OrderRemark(
+                  onChanged: (value) {
+                    controller.remark = value ?? '';
+                  },
+                ),
+              const DonationCharityInfo(),
+              SenderInfo(key: _senderWidgetKey),
+              ReceiverInfo(key: _receiverWidgetKey),
+              SizedBox(height: 100.w),
+            ],
+          ),
+        ),
+        bottomNavigationBar: PurchaseFooter(
+          onTap: () {
+            if (controller.senderInfoNotPerfection) {
+              app.showToast('請完善送禮人資料');
+              animateTo(_senderWidgetKey.currentContext!);
+              return;
+            }
+            if (controller.receiverInfoNotPerfection) {
+              app.showToast('請完善收禮人資料');
+              animateTo(_receiverWidgetKey.currentContext!);
+              return;
+            }
+            controller.onSubmit();
+          },
+        ),
       ),
     );
   }

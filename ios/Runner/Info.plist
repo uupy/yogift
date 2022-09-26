@@ -85,6 +85,16 @@
             </array>
         </dict>
         <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>weixin</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>wx121ad59c9a64ccd9</string>
+            </array>
+        </dict>
+        <dict>
             <key>CFBundleURLSchemes</key>
             <array>
                 <string>fb1180431849520042</string>

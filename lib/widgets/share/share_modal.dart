@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -41,7 +43,7 @@ class ShareModal {
       await Clipboard.setData(ClipboardData(text: shareContent));
 
       logger.i('shareUrl: $shareUrl');
-      app.showToast('鏈接已複製');
+      // app.showToast('鏈接已複製');
       SmartDialog.showLoading(msg: '加載中...');
 
       switch (method) {
@@ -81,8 +83,14 @@ class ShareModal {
           break;
         case ShareMethod.sms:
           const phone = '';
-          launchUrl(
-              Uri.parse('sms:$phone?body=${Uri.encodeComponent(shareUrl)}'));
+          if (Platform.isAndroid) {
+            launchUrl(
+                Uri.parse('sms:$phone?body=${Uri.encodeComponent(shareUrl)}'));
+          } else if (Platform.isIOS) {
+            launchUrl(
+                Uri.parse('sms:$phone&body=${Uri.encodeComponent(shareUrl)}'));
+          }
+
           break;
       }
     } catch (err) {
