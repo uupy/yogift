@@ -30,6 +30,7 @@ class ShareModal {
   }) async {
     String shareContent = shareUrl;
     String imagePath = imageUrl ?? '';
+    Map<dynamic, dynamic> apps = {};
 
     if (imagePath.isNotEmpty && !imagePath.contains('?imageMogr2/thumbnail/')) {
       imagePath = '$imagePath?imageMogr2/thumbnail/200x200';
@@ -40,42 +41,61 @@ class ShareModal {
     }
 
     try {
+      SmartDialog.showLoading(msg: '加載中...');
       await Clipboard.setData(ClipboardData(text: shareContent));
 
-      logger.i('shareUrl: $shareUrl');
-      // app.showToast('鏈接已複製');
-      SmartDialog.showLoading(msg: '加載中...');
+      if (method != ShareMethod.weChat || method != ShareMethod.sms) {
+        apps = await SocialShare.checkInstalledAppsForShare() ?? {};
+        logger.i(apps);
+      }
 
       switch (method) {
         case ShareMethod.whatsApp:
-          await flutterShareMe.shareToWhatsApp(
-            msg: shareContent,
-            imagePath: imagePath,
-          );
+          if (apps['whatsapp'] == true) {
+            final filePath = await getImagePath(imagePath);
+            await flutterShareMe.shareToWhatsApp(
+              msg: shareContent,
+              imagePath: filePath,
+            );
+          } else {
+            app.showToast('請先安裝WhatsApp');
+          }
+
           break;
         case ShareMethod.facebook:
-          // await flutterShareMe.shareToFacebook(msg: msg ?? '', url: shareUrl);
-          final filePath = await getImagePath(imagePath);
-          await SocialShare.shareFacebookStory(
-            filePath,
-            '#ffffff',
-            '#000000',
-            shareUrl,
-            appId: Env.config.facebookAppId,
-          );
+          if (apps['facebook'] == true) {
+            final filePath = await getImagePath(imagePath);
+            await SocialShare.shareFacebookStory(
+              filePath,
+              '#ffffff',
+              '#000000',
+              shareUrl,
+              appId: Env.config.facebookAppId,
+            );
+          } else {
+            app.showToast('請先安裝Facebook');
+          }
           break;
         case ShareMethod.twitter:
-          await flutterShareMe.shareToTwitter(msg: msg ?? '', url: shareUrl);
+          if (apps['twitter'] == true) {
+            await flutterShareMe.shareToTwitter(msg: msg ?? '', url: shareUrl);
+          } else {
+            app.showToast('請先安裝Twitter');
+          }
           break;
         case ShareMethod.instagram:
-          if (imagePath.isNotEmpty) {
-            final filePath = await getImagePath(imagePath);
-            await SocialShare.shareInstagramStory(
-              filePath,
-              backgroundTopColor: "#ffffff",
-              backgroundBottomColor: "#000000",
-              attributionURL: shareUrl,
-            );
+          if (apps['instagram'] == true) {
+            if (imagePath.isNotEmpty) {
+              final filePath = await getImagePath(imagePath);
+              await SocialShare.shareInstagramStory(
+                filePath,
+                backgroundTopColor: "#ffffff",
+                backgroundBottomColor: "#000000",
+                attributionURL: shareUrl,
+              );
+            }
+          } else {
+            app.showToast('請先安裝Instagram');
           }
           break;
         case ShareMethod.weChat:
@@ -90,7 +110,6 @@ class ShareModal {
             launchUrl(
                 Uri.parse('sms:$phone&body=${Uri.encodeComponent(shareUrl)}'));
           }
-
           break;
       }
     } catch (err) {
@@ -102,7 +121,6 @@ class ShareModal {
 
   static Future<String> getImagePath(String url) async {
     final file = await DefaultCacheManager().getSingleFile(url);
-    logger.i(file.path);
     return file.path;
   }
 

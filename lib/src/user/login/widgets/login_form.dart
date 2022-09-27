@@ -47,7 +47,7 @@ class LoginForm extends StatelessWidget {
               SizedBox(height: 12.w),
               if (c.loginType == 0)
                 FormItem(
-                  label: '密码',
+                  label: '密碼',
                   hintText: '请输入密码',
                   obscureText: true,
                   onChanged: (value) {
