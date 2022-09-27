@@ -172,7 +172,7 @@ class AppController extends GetxController {
       },
     );
     try {
-      OtaUpdate().execute(fileUrl, destinationFilename: 'warehouse.apk').listen(
+      OtaUpdate().execute(fileUrl, destinationFilename: 'yo_gift.apk').listen(
         (OtaEvent event) {
           if (event.value != '' && event.value != null) {
             updateProgress.value = event.value!;

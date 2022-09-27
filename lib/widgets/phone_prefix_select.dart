@@ -49,7 +49,7 @@ class _PhonePrefixSelectState extends State<PhonePrefixSelect> {
         });
       }
     }, onError: (err) {
-      app.showToast('獲取應用配置失敗');
+      app.showToast('系統繁忙，請稍後再試');
     });
   }
 

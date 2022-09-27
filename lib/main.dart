@@ -7,8 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
-// import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:yo_gift/common/app_theme_data.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/router/router.dart';
 
@@ -34,6 +34,8 @@ void main() async {
   );
 }
 
+final networkResults = [ConnectivityResult.mobile, ConnectivityResult.wifi];
+
 class RootApp extends StatefulWidget {
   const RootApp({Key? key}) : super(key: key);
 
@@ -53,8 +55,7 @@ class _RootApp extends State<RootApp> {
   }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-    final networks = [ConnectivityResult.mobile, ConnectivityResult.wifi];
-    app.hasNetWork = networks.contains(result);
+    app.hasNetWork = networkResults.contains(result);
   }
 
   @override
@@ -106,6 +107,8 @@ class _MaterialHome extends State<MaterialHome> {
   }
 
   void init() async {
+    final result = await (Connectivity().checkConnectivity());
+    app.hasNetWork = networkResults.contains(result);
     await app.init(context);
     appController.init(
       onComplete: (data) async {
@@ -113,7 +116,7 @@ class _MaterialHome extends State<MaterialHome> {
         Get.offNamed('index');
       },
       onError: (e) {
-        app.showToast(e.toString());
+        logger.e(e);
       },
     );
   }

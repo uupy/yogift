@@ -337,7 +337,7 @@ class PurchaseController extends GetxController {
       final payController = Get.put(PayController());
       await payController.showModal(orderId);
     } else {
-      app.showToast('訂單id不能為空');
+      app.showToast('操作異常，請稍後再試');
     }
   }
 

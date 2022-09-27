@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:yo_gift/config/env_config.dart';
 
@@ -8,10 +6,11 @@ import 'app_storage.dart';
 import 'logger.dart';
 
 Map<int, String> errorMessages = {
-  400: 'Bad Request',
-  401: 'Login expired',
-  403: 'No access',
-  502: '502 Bad Gateway',
+  400: '錯誤的請求',
+  401: '繪畫已過期，請重新登入',
+  403: '操作無權限，請聯繫客服',
+  500: '系統繁忙，請稍後再試',
+  502: '系統繁忙，請稍後再試',
 };
 
 /// dio interceptor
@@ -70,11 +69,10 @@ Interceptor requestInterceptor() {
       return handler.next(options);
     },
     onError: (error, handler) {
-      RequestOptions errReq = error.requestOptions;
-      Response? errRes = error.response;
-      Map<String, dynamic>? errMap = json.decode(errRes.toString());
+      final errReq = error.requestOptions;
+      final errRes = error.response;
       code = errRes?.statusCode;
-      msg = errMap?['message'] ?? errorMessages[code] ?? 'Server exception';
+      msg = errorMessages[code] ?? '系統繁忙，請稍後再試';
       bool isSilent = errReq.extra['silent'] ?? false;
 
       if (!app.hasNetWork) {

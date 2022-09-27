@@ -323,7 +323,7 @@ class App {
     if (links.isNotEmpty) {
       if (linkType == 3) {
         if (links.length < 4) {
-          app.showToast('鏈接參數有誤');
+          app.showToast('操作異常，請稍後再試');
           return;
         }
         wxUsername = links[1];
