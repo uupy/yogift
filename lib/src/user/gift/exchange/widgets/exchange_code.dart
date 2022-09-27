@@ -17,6 +17,7 @@ class ExchangeCode extends StatelessWidget {
         final code = c.detail?.writeoffCode ?? '';
         final codeType = c.detail?.writeoffCodeType ?? 0;
         final expirationTime = c.detail?.expirationTime ?? '';
+        final time = c.detail?.writeoffTimeN ?? 0;
 
         return OrderExchangeCode(
           expirationTime: expirationTime,
@@ -24,6 +25,10 @@ class ExchangeCode extends StatelessWidget {
           nums: nums,
           code: code,
           codeType: codeType,
+          time: time,
+          onTimeout: () {
+            Get.back();
+          },
         );
       },
     );

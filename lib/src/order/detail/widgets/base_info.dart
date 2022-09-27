@@ -31,7 +31,7 @@ class OrderDetailBaseInfo extends StatelessWidget {
           ];
         }
 
-        if (!c.isThirdParty && c.isExchanged) {
+        if (!c.isOnline && c.isExchanged) {
           suffix = [
             buildRow(
               label: '發貨時間',

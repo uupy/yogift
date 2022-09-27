@@ -12,13 +12,14 @@ class ExchangeCode extends StatelessWidget {
     return GetBuilder<OrderDetailController>(
       id: 'ExchangeCode',
       builder: (c) {
+        final orderStatus = c.detail?.orderStatus;
         final giftName = c.detail?.giftName ?? '';
         final nums = c.detail?.nums ?? 1;
         final code = c.detail?.writeoffCode ?? '';
         final codeType = c.detail?.writeoffCodeType ?? 0;
         final expirationTime = c.detail?.expirationTime ?? '';
 
-        if (!c.isExchanged || c.isThirdParty) {
+        if (!c.isThirdParty || ![2, 3].contains(orderStatus)) {
           return Container();
         }
 
@@ -28,6 +29,7 @@ class ExchangeCode extends StatelessWidget {
           nums: nums,
           code: code,
           codeType: codeType,
+          time: c.detail?.writeoffTimeN ?? 0,
         );
       },
     );

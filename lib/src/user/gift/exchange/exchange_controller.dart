@@ -19,6 +19,7 @@ class GiftExchangeController extends GetxController {
     update([
       'OrderDetailBaseInfo',
       'ExchangeInfo',
+      'ExchangeCode',
       'GreetingCard',
       'ExchangeTerms',
       'OrderItemCard',
@@ -34,5 +35,6 @@ class GiftExchangeController extends GetxController {
     detail!.writeoffCodeType = data['Writeoff_CodeType'];
 
     update(['ExchangeInfo', 'ExchangeCode']);
+    fetchData();
   }
 }

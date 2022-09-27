@@ -17,7 +17,7 @@ class ExchangeInfo extends StatelessWidget {
       builder: (c) {
         final code = c.detail?.writeoffCode ?? '';
 
-        if (!c.isExchanged || !c.isThirdParty) {
+        if (!c.isExchanged || !c.isOnline) {
           return Container();
         }
 

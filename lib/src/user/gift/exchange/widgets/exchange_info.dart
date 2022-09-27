@@ -49,6 +49,18 @@ class ExchangeInfo extends StatelessWidget {
                   final res = await app.confirm(
                     title: '確認現在兌換？',
                     contentText: '請確保到達店鋪準備好領取禮物時才按「現在兌換」',
+                    content: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Center(
+                        child: Text(
+                          '請確保到達店鋪準備好領取禮物時才按「現在兌換」',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: const Color.fromRGBO(0, 0, 0, 0.6),
+                          ),
+                        ),
+                      ),
+                    ),
                     cancelText: '下次再兌換',
                     confirmText: '現在兌換',
                   );

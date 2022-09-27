@@ -11,6 +11,10 @@ class OrderDetailController extends GetxController {
   OrderDetailItemVo? detail;
 
   bool get isThirdParty {
+    return detail?.sendingMethod == 1;
+  }
+
+  bool get isOnline {
     return detail?.sendingMethod == 3;
   }
 
