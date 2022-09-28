@@ -8,6 +8,9 @@ class AppAssetImage extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final BoxFit? fit;
   final AlignmentGeometry alignment;
+  final Color? color;
+  final BlendMode? colorBlendMode;
+  final bool noWrapper;
   final void Function()? onTap;
 
   const AppAssetImage({
@@ -19,6 +22,9 @@ class AppAssetImage extends StatelessWidget {
     this.padding,
     this.fit,
     this.alignment = Alignment.center,
+    this.color,
+    this.colorBlendMode,
+    this.noWrapper = false,
     this.onTap,
   }) : super(key: key);
 
@@ -37,18 +43,28 @@ class AppAssetImage extends StatelessWidget {
   Widget buildContainer() {
     final hasImg = img?.isNotEmpty ?? false;
 
+    if (noWrapper) {
+      return buildImg(width: width, height: height);
+    }
+
     return Container(
       width: width,
       height: height,
       margin: margin,
       padding: padding,
-      child: hasImg
-          ? Image(
-              image: AssetImage('lib/assets/images/$img'),
-              alignment: alignment,
-              fit: fit ?? BoxFit.fitWidth,
-            )
-          : null,
+      child: hasImg ? buildImg() : null,
+    );
+  }
+
+  Widget buildImg({double? width, double? height}) {
+    return Image(
+      image: AssetImage('lib/assets/images/$img'),
+      width: width,
+      height: height,
+      alignment: alignment,
+      fit: fit ?? BoxFit.fitWidth,
+      color: color,
+      colorBlendMode: colorBlendMode,
     );
   }
 }

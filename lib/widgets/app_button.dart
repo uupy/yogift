@@ -12,6 +12,7 @@ class AppButton extends StatelessWidget {
   final bool shadow;
   final bool loading;
   final Color? backgroundColor;
+  final Color? disabledBackgroundColor;
   final Color? borderColor;
   final EdgeInsetsGeometry? padding;
   final Size? fixedSize;
@@ -32,6 +33,7 @@ class AppButton extends StatelessWidget {
     this.disabled = false,
     this.shadow = false,
     this.loading = false,
+    this.disabledBackgroundColor,
     this.backgroundColor = AppTheme.primaryColor,
     this.borderColor = AppTheme.primaryColor,
     this.padding,
@@ -75,7 +77,7 @@ class AppButton extends StatelessWidget {
     }
 
     if (disabled || loading) {
-      _background = const Color(0xffe6e6e6);
+      _background = disabledBackgroundColor ?? const Color(0xffe6e6e6);
       _borderColor = const Color(0xffe6e6e6);
       _textColor = const Color.fromRGBO(0, 0, 0, 0.26);
     }

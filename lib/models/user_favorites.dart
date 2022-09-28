@@ -4,6 +4,7 @@ class UserFavoritesItemVo {
   String? cCoverImg;
   int? sendingMethod;
   String? giftName;
+  String? giftOk;
   String? gGuid;
   double? buyPrice;
   String? bussinessName;
@@ -14,6 +15,7 @@ class UserFavoritesItemVo {
       this.cCoverImg,
       this.sendingMethod,
       this.giftName,
+      this.giftOk,
       this.gGuid,
       this.buyPrice,
       this.bussinessName});
@@ -24,6 +26,7 @@ class UserFavoritesItemVo {
     cCoverImg = json['C_CoverImg'];
     sendingMethod = json['SendingMethod'];
     giftName = json['GiftName'];
+    giftOk = json['GiftOk'];
     gGuid = json['G_Guid'];
     buyPrice = json['BuyPrice'];
     bussinessName = json['BussinessName'];
@@ -36,6 +39,7 @@ class UserFavoritesItemVo {
     data['C_CoverImg'] = cCoverImg;
     data['SendingMethod'] = sendingMethod;
     data['GiftName'] = giftName;
+    data['GiftOk'] = giftOk;
     data['G_Guid'] = gGuid;
     data['BuyPrice'] = buyPrice;
     data['BussinessName'] = bussinessName;

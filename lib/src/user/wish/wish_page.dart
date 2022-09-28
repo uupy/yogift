@@ -2,16 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/models/user_favorites.dart';
-import 'package:yo_gift/widgets/app_asset_image.dart';
-import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_card.dart';
-import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
-import 'package:yo_gift/widgets/app_simple_row.dart';
-import 'package:yo_gift/widgets/goods/favorite_button.dart';
-import 'package:yo_gift/widgets/goods/goods_sending_tag.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
+import 'widgets/list_item.dart';
 import 'wish_controller.dart';
 
 class UserWishPage extends StatefulWidget {
@@ -48,165 +43,26 @@ class _UserWishPageState extends State<UserWishPage> {
             controller: controller.listController,
             colCount: 1,
             itemBuilder: (item, index, list) {
-              final buyPrice = item.buyPrice;
-
               return AppCard(
                 margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 12.w),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        buildImgContainer(item.cCoverImg, item.sendingMethod),
-                        SizedBox(width: 10.w),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AppSimpleRow(
-                                expanded: Text(
-                                  item.giftName ?? '',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                suffix: !controller.isFriend
-                                    ? FavoriteButton(
-                                        guid: item.gGuid,
-                                        favorite: 1,
-                                        showText: false,
-                                        onChanged: (value) {
-                                          controller.listController.setState
-                                              ?.call(() {
-                                            controller.listController.list
-                                                .remove(item);
-                                          });
-                                        },
-                                      )
-                                    : null,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 4.w, bottom: 6.w),
-                                child: Text(
-                                  item.bussinessName ?? '',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: const Color.fromRGBO(0, 0, 0, .4),
-                                    fontSize: 12.sp,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 10.w),
-                              Text(
-                                '\$$buyPrice',
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 15.w),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        if (!controller.isFriend)
-                          buildFooterItem(
-                            text: '拜託',
-                            icon: 'icon_please.png',
-                            background: const Color(0xfffffdeb),
-                            onTap: () {
-                              Get.toNamed('/pages/goods/detail/index',
-                                  parameters: {
-                                    'id': item.gGuid!,
-                                    'buyType': '3',
-                                  });
-                            },
-                          ),
-                        buildFooterItem(
-                          text: '購買',
-                          icon: 'icon_shopping_bag.png',
-                          onTap: () {
-                            Get.toNamed('/pages/goods/detail/index',
-                                parameters: {
-                                  'id': item.gGuid!,
-                                  'buyType': controller.isFriend ? '2' : '1',
-                                });
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
+                onTap: () {
+                  Get.toNamed('/pages/goods/detail/index', parameters: {
+                    'id': item.gGuid ?? '',
+                  });
+                },
+                child: WishListItem(
+                  item: item,
+                  isFriend: controller.isFriend,
+                  onRemoved: () {
+                    controller.listController.setState?.call(() {
+                      controller.listController.list.remove(item);
+                    });
+                  },
                 ),
               );
             },
           ),
         ],
-      ),
-    );
-  }
-
-  Widget buildImgContainer(String? url, int? sendingMethod) {
-    return Stack(
-      children: [
-        AppImage(
-          width: 90.w,
-          height: 90.w,
-          url: url,
-          color: Colors.white,
-          radius: 12.r,
-          border: Border.all(
-            width: 0.5,
-            color: const Color(0xffe6e6e6),
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: GoodsSendingTag(
-            method: sendingMethod ?? 1,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget buildFooterItem({
-    String? text,
-    String? icon,
-    Color? background,
-    Function()? onTap,
-  }) {
-    return Container(
-      width: 96.w,
-      height: 32.w,
-      margin: EdgeInsets.only(left: 10.w),
-      child: AppButton(
-        onPressed: onTap,
-        backgroundColor: background,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            AppAssetImage(
-              img: icon,
-              width: 16.w,
-              margin: EdgeInsets.only(right: 5.w),
-            ),
-            Text(
-              text ?? '',
-              style: TextStyle(
-                fontSize: 11.sp,
-                color: const Color.fromRGBO(0, 0, 0, 0.9),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

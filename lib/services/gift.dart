@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:yo_gift/common/http.dart';
 
 /// 礼物接口服务
@@ -22,6 +23,11 @@ class GiftService {
   static Future querySceneList() => http.get('/Gift/List_Scene');
 
   /// 送礼场景清单
-  static Future getGift(String id) =>
-      http.postJson('/Gift/Item', data: {'id_guid': id});
+  static Future getGift(String id) => http.postJson('/Gift/Item',
+      data: {'id_guid': id},
+      options: Options(
+        extra: {
+          'ignoreErrors': true,
+        },
+      ));
 }

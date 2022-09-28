@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/models/gift_detail.dart';
 import 'package:yo_gift/services/gift.dart';
 
@@ -148,19 +149,30 @@ class GoodsDetailController extends GetxController {
     try {
       final res = await GiftService.getGift(goodsId);
       final data = res.data ?? {};
-      detail = GiftDetailVo.fromJson(data['data'] ?? {});
-      update([
-        'GoodsDetailImages',
-        'GoodsDetailBaseInfo',
-        'GoodsDetailInfo',
-        'ExchangeTerms'
-      ]);
+      final isSuccess = data['isSuccess'];
 
-      if (buyType.isNotEmpty) {
-        navHandling(int.tryParse(buyType) ?? 0);
+      detail = GiftDetailVo.fromJson(data['data'] ?? {});
+
+      if (isSuccess == true) {
+        update([
+          'GoodsDetailImages',
+          'GoodsDetailBaseInfo',
+          'GoodsDetailInfo',
+          'ExchangeTerms'
+        ]);
+
+        if (buyType.isNotEmpty) {
+          navHandling(int.tryParse(buyType) ?? 0);
+        } else {
+          showTips();
+        }
       } else {
-        showTips();
+        Future.delayed(const Duration(seconds: 1), () {
+          Get.back();
+        });
       }
+    } catch (err) {
+      logger.e(err);
     } finally {
       SmartDialog.dismiss();
     }

@@ -10,6 +10,8 @@ class FavoriteButton extends StatefulWidget {
   final double? size;
   final int? favorite;
   final String? guid;
+  final BlendMode? colorBlendMode;
+  final bool disabled;
   final Function(int value)? onChanged;
 
   const FavoriteButton({
@@ -18,6 +20,8 @@ class FavoriteButton extends StatefulWidget {
     this.size,
     this.favorite,
     this.guid,
+    this.colorBlendMode,
+    this.disabled = false,
     this.onChanged,
   }) : super(key: key);
 
@@ -32,6 +36,9 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   void initState() {
     setState(() {
       _favorite = widget.favorite ?? 0;
+      if (widget.disabled) {
+        _favorite = 2;
+      }
     });
     super.initState();
   }

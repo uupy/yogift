@@ -37,6 +37,7 @@ class AppImage extends StatelessWidget {
   final BorderRadiusGeometry? borderRadius;
   final AlignmentGeometry? alignment;
   final Color? color;
+  final BlendMode? colorBlendMode;
   final BoxConstraints? constraints;
   final Widget? child;
   final BoxFit? fit;
@@ -61,6 +62,7 @@ class AppImage extends StatelessWidget {
     this.borderRadius,
     this.alignment,
     this.color,
+    this.colorBlendMode,
     this.constraints,
     this.child,
     this.fit,
@@ -185,6 +187,7 @@ class AppImage extends StatelessWidget {
         child: Image(
           image: image,
           fit: fit ?? BoxFit.cover,
+          colorBlendMode: colorBlendMode,
         ),
       );
     }
@@ -193,6 +196,9 @@ class AppImage extends StatelessWidget {
         image: image,
         fit: fit ?? BoxFit.cover,
         scale: imageScale,
+        colorFilter: colorBlendMode != null
+            ? ColorFilter.mode(color ?? Colors.grey, colorBlendMode!)
+            : null,
       ),
       child: child,
     );
