@@ -45,7 +45,7 @@ class UserPage extends StatelessWidget implements TabBarPage {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: const ClampingScrollPhysics(),
+      // physics: const ClampingScrollPhysics(),
       child: Column(
         children: [
           Stack(
@@ -81,6 +81,18 @@ class UserPage extends StatelessWidget implements TabBarPage {
                 );
               }
             },
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.w),
+            child: Center(
+              child: Text(
+                'v${controller.currentVersion}',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  color: const Color.fromRGBO(0, 0, 0, 0.26),
+                ),
+              ),
+            ),
           ),
           const SizedBox(height: 100),
         ],

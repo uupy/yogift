@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/common/logger.dart';
+import 'package:yo_gift/common/utils.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/widgets/menu_row/menu_item.dart';
 
@@ -52,6 +54,7 @@ class UserController extends GetxController {
   ];
 
   UserInfoVo? userInfo = app.userInfo;
+  String currentVersion = '';
 
   bool get isLogged {
     return userInfo?.id?.isNotEmpty ?? false;
@@ -66,6 +69,8 @@ class UserController extends GetxController {
   Future init() async {
     await app.updateUserInfo();
     userInfo = app.userInfo;
+    currentVersion = await CommonUtils.getCurrentVersion();
+    logger.i('currentVersion: $currentVersion');
     update(['UserHeaderInfo', 'UserAppBarAction']);
   }
 }
