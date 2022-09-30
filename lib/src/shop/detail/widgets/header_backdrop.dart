@@ -17,6 +17,7 @@ class HeaderBackdrop extends StatelessWidget {
           color: Colors.white,
           child: AppImage(
             url: c.detail?.bussinessImgBg,
+            cropWidth: 750,
           ),
         );
       },
