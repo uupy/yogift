@@ -97,6 +97,7 @@ class GoodsDetailImages extends StatelessWidget {
         radius: 24.r,
         cropWidth: 670,
         cropHeight: 670,
+        color: Colors.transparent,
       ),
     );
   }
