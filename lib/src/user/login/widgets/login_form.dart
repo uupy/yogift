@@ -48,7 +48,7 @@ class LoginForm extends StatelessWidget {
               if (c.loginType == 0)
                 FormItem(
                   label: '密碼',
-                  hintText: '请输入密码',
+                  hintText: '請輸入密碼',
                   obscureText: true,
                   onChanged: (value) {
                     c.formData.password = value ?? '';
