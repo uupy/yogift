@@ -1,3 +1,4 @@
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/models/common.dart';
@@ -38,20 +39,26 @@ class GoodsController extends GetxController {
     if (orderby != null) {
       params['orderby'] = orderby;
     }
-    final res = await GiftService.queryPage(params);
-    final data = res.data ?? {};
-    final List items = data['data'] ?? [];
-    return items.map((e) => GiftVo.fromJson(e)).toList();
+    try {
+      final res = await GiftService.queryPage(params);
+      final data = res.data ?? {};
+      final List items = data['data'] ?? [];
+      return items.map((e) => GiftVo.fromJson(e)).toList();
+    } finally {
+      SmartDialog.dismiss();
+    }
   }
 
   void onFilterChange(int value) {
     pricen = value;
+    SmartDialog.showLoading(msg: '加載中...');
     listController.onReload();
   }
 
   void onSortChange(int? value) {
     orderby = value;
     listController.onReload();
+    SmartDialog.showLoading(msg: '加載中...');
     update(['SortBar']);
   }
 
