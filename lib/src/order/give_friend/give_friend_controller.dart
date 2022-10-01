@@ -126,7 +126,7 @@ class OrderGiveFriendController extends GetxController {
       title: '你想如何贈送好友？',
       type: 0,
       id: orderId!,
-      msg: detail?.giftName ?? '',
+      goodsName: detail?.giftName ?? '',
     );
   }
 }

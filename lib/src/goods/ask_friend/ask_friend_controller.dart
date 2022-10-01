@@ -101,8 +101,8 @@ class AskFriendController extends GetxController {
       title: '你想如何拜託好友？',
       type: 3,
       id: orderInfo!.gGuid ?? '',
-      msg: orderInfo!.giftName ?? '',
-      imageUrl: orderInfo!.cCoverImg,
+      goodsName: orderInfo!.giftName ?? '',
+      goodsImageUrl: orderInfo!.cCoverImg,
     );
   }
 }

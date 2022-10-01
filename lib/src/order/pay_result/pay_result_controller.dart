@@ -45,8 +45,8 @@ class PayResultController extends GetxController {
       title: '你想如何贈送好友？',
       type: 0,
       id: orderId!,
-      msg: orderInfo!.giftName ?? '',
-      imageUrl: orderInfo!.cCoverImg,
+      goodsName: orderInfo!.giftName ?? '',
+      goodsImageUrl: orderInfo!.cCoverImg,
     );
   }
 

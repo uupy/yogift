@@ -83,7 +83,7 @@ class OrderDetailFooter extends StatelessWidget {
                     title: '你想如何贈送好友？',
                     type: 0,
                     id: c.detail?.oGuid ?? '',
-                    msg: c.detail?.giftName ?? '',
+                    goodsName: c.detail?.giftName ?? '',
                   );
                 },
               ));

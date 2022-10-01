@@ -50,8 +50,8 @@ class _GoodsDetailPageState extends State<GoodsDetailPage>
               await ShareModal.show(
                 type: 1,
                 id: controller.goodsId,
-                msg: goods?.giftName ?? '',
-                imageUrl: goods?.cCoverImg ?? '',
+                goodsName: goods?.giftName ?? '',
+                goodsImageUrl: goods?.cCoverImg ?? '',
               );
             },
             margin: EdgeInsets.only(right: 20.w),
