@@ -51,9 +51,10 @@ class _AskFriendPageState extends State<AskFriendPage> {
               GreetingCard(
                 type: 1,
                 margin: EdgeInsets.only(top: 20.w),
-                onChanged: (id, msg) {
+                onChanged: (id, msg, image) {
                   controller.baseForm.gCGuid = id;
                   controller.baseForm.msgRequest = msg;
+                  controller.cardImageUrl = image;
                 },
               ),
               OrderRemark(

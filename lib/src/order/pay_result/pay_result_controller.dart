@@ -47,6 +47,8 @@ class PayResultController extends GetxController {
       id: orderId!,
       goodsName: orderInfo!.giftName ?? '',
       goodsImageUrl: orderInfo!.cCoverImg,
+      cardImageUrl: orderInfo!.greetingcardBigImg,
+      cardMsg: orderInfo!.msgGive,
     );
   }
 

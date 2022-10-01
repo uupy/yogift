@@ -67,9 +67,10 @@ class _OrderGiveFriendPageState extends State<OrderGiveFriendPage> {
             GreetingCard(
               type: 2,
               margin: EdgeInsets.only(top: 20.w),
-              onChanged: (id, msg) {
+              onChanged: (id, msg, image) {
                 controller.greetingCardId = id;
                 controller.greetingCardMsg = msg;
+                controller.greetingCardImage = image;
               },
             ),
             ReceiverInfo(key: _receiverWidgetKey),

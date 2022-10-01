@@ -48,13 +48,17 @@ class ShareModal {
     Map<dynamic, dynamic> apps = {};
 
     if (imagePath.isNotEmpty && !imagePath.contains('?imageMogr2/thumbnail/')) {
-      imagePath = '$imagePath?imageMogr2/thumbnail/200x200';
+      String cropSize = '600';
+      if (method == ShareMethod.weChat) {
+        cropSize = '200x200';
+      }
+      imagePath = '$imagePath?imageMogr2/thumbnail/$cropSize';
     }
 
     if (data.shareMsg?.isNotEmpty ?? false) {
-      shareContent = '${data.shareMsg} \r ${data.shareUrl}';
+      shareContent = '${data.shareMsg}\r\n${data.shareUrl}';
     } else if (data.goodsName?.isNotEmpty ?? false) {
-      shareContent = '【${data.goodsName}】 ${data.shareUrl}';
+      shareContent = '「${data.goodsName}」\r\n${data.shareUrl}';
     }
 
     if (imagePath.isNotEmpty) {
@@ -191,6 +195,8 @@ class ShareModal {
     String id = '',
     String goodsName = '',
     String? goodsImageUrl,
+    String? cardImageUrl,
+    String? cardMsg,
     bool showClose = false,
   }) async {
     final appController = Get.find<AppController>();
@@ -213,6 +219,17 @@ class ShareModal {
       } else if (type == 3) {
         shareMsg = config?.askFriendText?.value ?? '';
       }
+
+      shareMsg = shareMsg.replaceFirst('{0}', goodsName);
+
+      // todo： 需要用goodsImageUrl，cardImageUrl，cardMsg 合成分享图片
+      logger.i({
+        'shareMsg': shareMsg,
+        'goodsName': goodsName,
+        'goodsImageUrl': goodsImageUrl,
+        'cardImageUrl': cardImageUrl,
+        'cardMsg': cardMsg,
+      });
 
       final data = ShareData(
         shareUrl: shareUrl,

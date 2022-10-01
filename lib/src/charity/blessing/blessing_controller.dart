@@ -19,6 +19,7 @@ class CharityBlessingController extends GetxController {
   );
   String remark = '';
   int currentStep = 1;
+  String cardImageUrl = '';
 
   /// 商品信息
   CharityFavoritesItemDetailVo? detail;

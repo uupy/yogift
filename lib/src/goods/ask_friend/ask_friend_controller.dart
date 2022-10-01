@@ -27,6 +27,8 @@ class AskFriendController extends GetxController {
   /// 下单成功信息
   GiftRequestResultVo? orderInfo;
 
+  String cardImageUrl = '';
+
   /// 用户是否已登录
   bool isLogged = false;
 
@@ -103,6 +105,8 @@ class AskFriendController extends GetxController {
       id: orderInfo!.gGuid ?? '',
       goodsName: orderInfo!.giftName ?? '',
       goodsImageUrl: orderInfo!.cCoverImg,
+      cardImageUrl: cardImageUrl,
+      cardMsg: baseForm.msgRequest,
     );
   }
 }

@@ -18,6 +18,7 @@ class OrderGiveFriendController extends GetxController {
 
   String greetingCardId = '';
   String greetingCardMsg = '';
+  String greetingCardImage = '';
   bool hasSuccess = false;
   bool submitting = false;
 
@@ -127,6 +128,9 @@ class OrderGiveFriendController extends GetxController {
       type: 0,
       id: orderId!,
       goodsName: detail?.giftName ?? '',
+      goodsImageUrl: detail?.cCoverImg,
+      cardImageUrl: greetingCardImage,
+      cardMsg: greetingCardMsg,
     );
   }
 }

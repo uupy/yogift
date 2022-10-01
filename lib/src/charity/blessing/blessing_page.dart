@@ -51,9 +51,10 @@ class _CharityBlessingPageState extends State<CharityBlessingPage> {
             SizedBox(height: 20.w),
             GreetingCard(
               type: 0,
-              onChanged: (id, msg) {
+              onChanged: (id, msg, imageUrl) {
                 controller.addForm.bgGive = id;
                 controller.addForm.msgGive = msg;
+                controller.cardImageUrl = imageUrl;
               },
             ),
             OrderRemark(

@@ -10,7 +10,7 @@ class GreetingCard extends StatefulWidget {
   /// [type] 类型, 0全部，1拜托专用，2非拜托卡
   final int type;
   final EdgeInsetsGeometry? margin;
-  final Function(String cardId, String msg)? onChanged;
+  final Function(String cardId, String msg, String image)? onChanged;
 
   const GreetingCard({
     Key? key,

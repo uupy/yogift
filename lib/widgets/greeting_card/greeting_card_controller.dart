@@ -8,7 +8,7 @@ class GreetingCardController extends GetxController {
   List<GreetingCardVo> cards = [];
   GreetingCardVo? currentCard;
   String cardMsg = '';
-  Function(String cardId, String msg)? onChanged;
+  Function(String cardId, String msg, String image)? onChanged;
 
   /// 是否编辑卡片信息
   bool isEditMsg = false;
@@ -44,6 +44,6 @@ class GreetingCardController extends GetxController {
   }
 
   void onCardChanged() {
-    onChanged?.call(currentCard!.gCGuid!, cardMsg);
+    onChanged?.call(currentCard!.gCGuid!, cardMsg, currentCard!.bigImg ?? '');
   }
 }

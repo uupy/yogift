@@ -50,6 +50,7 @@ class PurchaseController extends GetxController {
   String remark = '';
   String greetingCardId = '';
   String greetingCardMsg = '';
+  String greetingCardImage = '';
 
   /// 商品信息
   GiftDetailVo? detail;
