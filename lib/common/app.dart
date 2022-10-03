@@ -1,20 +1,29 @@
+import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:yo_gift/assets/fonts/iconfont.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/services/user.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
+import 'package:yo_gift/widgets/share/share_card.dart';
 
 import 'app_storage.dart';
 import 'custom_dialog/custom_dialog.dart';
+import 'dart:ui' as ui;
+
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class App {
   App._internal();
@@ -230,6 +239,34 @@ class App {
     );
   }
 
+  /// 保存图片到本地
+  void saveImage(key) {
+    RenderRepaintBoundary boundary =
+        key.currentContext!.findRenderObject() as RenderRepaintBoundary;
+    boundary
+        .toImage(pixelRatio: ui.window.devicePixelRatio)
+        .then((value) async {
+      ByteData? byteData =
+          await value.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List? pngBytes = byteData?.buffer.asUint8List();
+
+      Permission filePermission =
+          Platform.isIOS ? Permission.photos : Permission.storage;
+      var status = await Permission.photos.status;
+
+      if (!status.isGranted) {
+        Map<Permission, PermissionStatus> statuses =
+            await [filePermission].request();
+        app.saveImage(key);
+      }
+      if (status.isGranted) {
+        final result =
+            await ImageGallerySaver.saveImage(pngBytes!, quality: 100);
+        logger.i({'result:', result.filePath});
+      }
+    });
+  }
+
   /// 底部彈出層
   Future showBottomModal<T>({
     required BuildContext context,
@@ -248,6 +285,35 @@ class App {
       ),
       builder: builder,
     );
+  }
+
+  /// 分享海报
+  Future showSharePoster<T>(
+      {required BuildContext context,
+      required data,
+      required buttonText}) async {
+    OverlayEntry entry = OverlayEntry(
+      builder: (_) {
+        return Offstage(
+          offstage: false,
+          child: Center(
+            child: ShareCard(
+              buttonText: buttonText,
+              cardImageUrl: data?.cardImageUrl,
+              cardMsg: data?.cardMsg,
+              goodsImageUrl: data?.imageUrl,
+              goodsName: data?.goodsName,
+            ),
+          ),
+        );
+      },
+    );
+
+    Overlay.of(context)?.insert(entry);
+
+    Timer(const Duration(milliseconds: 1000), () async {
+      app.saveImage(shareCardKey);
+    });
   }
 
   /// 退出登录

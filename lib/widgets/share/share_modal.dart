@@ -25,14 +25,17 @@ class ShareData {
   String? shareMsg;
   String? goodsName;
   String? imageUrl;
+  String? cardImageUrl;
+  String? cardMsg;
 
-  ShareData({
-    this.method,
-    required this.shareUrl,
-    this.shareMsg,
-    this.goodsName,
-    this.imageUrl,
-  });
+  ShareData(
+      {this.method,
+      required this.shareUrl,
+      this.shareMsg,
+      this.goodsName,
+      this.imageUrl,
+      this.cardImageUrl,
+      this.cardMsg});
 }
 
 class ShareModal {
@@ -74,6 +77,9 @@ class ShareModal {
         logger.i(apps);
       }
 
+      logger.i({
+        'filePath': filePath,
+      });
       switch (method) {
         case ShareMethod.whatsApp:
           if (apps['whatsapp'] == true) {
@@ -232,11 +238,14 @@ class ShareModal {
       });
 
       final data = ShareData(
-        shareUrl: shareUrl,
-        shareMsg: shareMsg,
-        goodsName: goodsName,
-        imageUrl: goodsImageUrl,
-      );
+          shareUrl: shareUrl,
+          shareMsg: shareMsg,
+          goodsName: goodsName,
+          imageUrl: goodsImageUrl,
+          cardImageUrl: cardImageUrl,
+          cardMsg: cardMsg);
+
+      // app.showSharePoster(context: Get.context!, data: data,buttonText: '點擊立即贈予我');
 
       app.showBottomModal(
         context: Get.context!,

@@ -75,7 +75,7 @@ dependencies:
   # 网络检测
   connectivity_plus: ^2.2.1
   # 权限请求
-#  permission_handler: ^9.2.0
+  permission_handler: ^10.0.2
   # 富文本
 #  flutter_html: ^2.2.1
   flutter_html: ^3.0.0-alpha.5
@@ -111,6 +111,7 @@ dependencies:
   flutter_cache_manager: ^3.3.0
   # 監聽鍵盤
   flutter_keyboard_visibility: ^5.3.0
+  image_gallery_saver: ^1.7.1
 
 dev_dependencies:
   flutter_test:
