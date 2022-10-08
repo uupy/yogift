@@ -1,6 +1,10 @@
-// import 'dart:io';
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +12,7 @@ import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:social_share/social_share.dart';
 // import 'package:url_launcher/url_launcher.dart';
@@ -17,6 +22,7 @@ import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 
+import 'share_card.dart';
 import 'share_menu_item.dart';
 
 class ShareData {
@@ -27,21 +33,48 @@ class ShareData {
   String? imageUrl;
   String? cardImageUrl;
   String? cardMsg;
+  int type;
 
-  ShareData(
-      {this.method,
-      required this.shareUrl,
-      this.shareMsg,
-      this.goodsName,
-      this.imageUrl,
-      this.cardImageUrl,
-      this.cardMsg});
+  ShareData({
+    this.method,
+    required this.shareUrl,
+    this.shareMsg,
+    this.goodsName,
+    this.imageUrl,
+    this.cardImageUrl,
+    this.cardMsg,
+    this.type = 0,
+  });
 }
 
 class ShareModal {
   ShareModal._();
 
   static final FlutterShareMe flutterShareMe = FlutterShareMe();
+
+  static getCropImage(String url, [String cropSize = '600']) {
+    if (url.isNotEmpty && !url.contains('?imageMogr2/thumbnail/')) {
+      url = '$url?imageMogr2/thumbnail/$cropSize';
+    }
+    return url;
+  }
+
+  static Future<File> getUiImageFile(ui.Image uiImage) async {
+    ByteData? finalByteData =
+        await uiImage.toByteData(format: ImageByteFormat.png);
+
+    Uint8List? finalPngBytes = finalByteData?.buffer.asUint8List();
+
+    final document = await getApplicationDocumentsDirectory();
+
+    final dir = Directory(document.path + '/yogift_share.png');
+
+    final imageFile = File(dir.path);
+
+    await imageFile.writeAsBytes(finalPngBytes!);
+
+    return imageFile;
+  }
 
   static Future onShare(ShareData data) async {
     final method = data.method ?? ShareMethod.sms;
@@ -50,22 +83,38 @@ class ShareModal {
     String filePath = '';
     Map<dynamic, dynamic> apps = {};
 
-    if (imagePath.isNotEmpty && !imagePath.contains('?imageMogr2/thumbnail/')) {
-      String cropSize = '600';
-      if (method == ShareMethod.weChat) {
-        cropSize = '200x200';
+    if ([0, 3].contains(data.type)) {
+      await Future.delayed(const Duration(seconds: 1));
+      final buildContext = shareCardKey.currentContext;
+
+      if (null != buildContext) {
+        final boundary =
+            buildContext.findRenderObject() as RenderRepaintBoundary?;
+
+        ui.Image? image = await boundary?.toImage();
+
+        File imageFile = await getUiImageFile(image!);
+        filePath = imageFile.path;
       }
-      imagePath = '$imagePath?imageMogr2/thumbnail/$cropSize';
-    }
+    } else {
+      if (imagePath.isNotEmpty &&
+          !imagePath.contains('?imageMogr2/thumbnail/')) {
+        String cropSize = '600';
+        if (method == ShareMethod.weChat) {
+          cropSize = '200x200';
+        }
+        imagePath = '$imagePath?imageMogr2/thumbnail/$cropSize';
+      }
 
-    if (data.shareMsg?.isNotEmpty ?? false) {
-      shareContent = '${data.shareMsg}\r\n${data.shareUrl}';
-    } else if (data.goodsName?.isNotEmpty ?? false) {
-      shareContent = '「${data.goodsName}」\r\n${data.shareUrl}';
-    }
+      if (data.shareMsg?.isNotEmpty ?? false) {
+        shareContent = '${data.shareMsg}\r\n${data.shareUrl}';
+      } else if (data.goodsName?.isNotEmpty ?? false) {
+        shareContent = '「${data.goodsName}」\r\n${data.shareUrl}';
+      }
 
-    if (imagePath.isNotEmpty) {
-      filePath = await getImagePath(imagePath);
+      if (imagePath.isNotEmpty) {
+        filePath = await getImagePath(imagePath);
+      }
     }
 
     try {
@@ -77,9 +126,7 @@ class ShareModal {
         logger.i(apps);
       }
 
-      logger.i({
-        'filePath': filePath,
-      });
+      logger.i({'filePath': filePath});
       switch (method) {
         case ShareMethod.whatsApp:
           if (apps['whatsapp'] == true) {
@@ -238,106 +285,127 @@ class ShareModal {
       });
 
       final data = ShareData(
-          shareUrl: shareUrl,
-          shareMsg: shareMsg,
-          goodsName: goodsName,
-          imageUrl: goodsImageUrl,
-          cardImageUrl: cardImageUrl,
-          cardMsg: cardMsg);
-
-      // app.showSharePoster(context: Get.context!, data: data,buttonText: '點擊立即贈予我');
+        shareUrl: shareUrl,
+        shareMsg: shareMsg,
+        goodsName: goodsName,
+        imageUrl: goodsImageUrl,
+        cardImageUrl: cardImageUrl,
+        cardMsg: cardMsg,
+        type: type,
+      );
 
       app.showBottomModal(
         context: Get.context!,
         builder: (BuildContext context) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          return Stack(
             children: [
-              SizedBox(
-                height: showHeader ? 60.w : 10.w,
-                child: Stack(
-                  children: [
-                    Center(
-                      child: Text(
-                        title ?? '',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    if (showClose)
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: AppAssetImage(
-                          width: 24.w,
-                          margin: EdgeInsets.only(right: 20.w, top: 6.w),
-                          img: 'icon_close.png',
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                  ],
+              if (type == 0 || type == 3)
+                ShareCard(
+                  buttonText: type == 3 ? '點擊立即贈予我' : '點擊立即收禮',
+                  cardImageUrl: getCropImage(cardImageUrl ?? ''),
+                  cardMsg: cardMsg ?? '',
+                  goodsImageUrl: getCropImage(goodsImageUrl ?? '', '200x200'),
+                  goodsName: goodsName,
                 ),
-              ),
-              SizedBox(
-                height: 200.w,
-                child: GridView.extent(
-                  padding: EdgeInsets.all(4.w),
-                  maxCrossAxisExtent: 125.w,
-                  childAspectRatio: 1.3,
-                  mainAxisSpacing: 4.w,
-                  crossAxisSpacing: 4.w,
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16.w),
+                    topRight: Radius.circular(16.w),
+                  ),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ShareMenuItem(
-                      name: 'WhatsApp',
-                      img: 'icon_whatsapp.png',
-                      onTap: () {
-                        data.method = ShareMethod.whatsApp;
-                        onShare(data);
-                      },
+                    SizedBox(
+                      height: showHeader ? 60.w : 10.w,
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: Text(
+                              title ?? '',
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                          if (showClose)
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: AppAssetImage(
+                                width: 24.w,
+                                margin: EdgeInsets.only(right: 20.w, top: 6.w),
+                                img: 'icon_close.png',
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
-                    ShareMenuItem(
-                      name: 'Facebook Messenger',
-                      img: 'icon_facebook.png',
-                      onTap: () {
-                        data.method = ShareMethod.facebook;
-                        onShare(data);
-                      },
-                    ),
-                    ShareMenuItem(
-                      name: 'Twitter',
-                      img: 'icon_twitter.jpg',
-                      onTap: () {
-                        data.method = ShareMethod.twitter;
-                        onShare(data);
-                      },
-                    ),
-                    ShareMenuItem(
-                      name: 'Instagram',
-                      img: 'icon_instagram.png',
-                      onTap: () {
-                        data.method = ShareMethod.instagram;
-                        onShare(data);
-                      },
-                    ),
-                    ShareMenuItem(
-                      name: 'WeChat',
-                      img: 'icon_wechat.png',
-                      onTap: () async {
-                        data.method = ShareMethod.weChat;
-                        onShare(data);
-                      },
-                    ),
-                    ShareMenuItem(
-                      name: '短訊',
-                      img: 'icon_message.png',
-                      onTap: () {
-                        data.method = ShareMethod.sms;
-                        onShare(data);
-                      },
+                    SizedBox(
+                      height: 200.w,
+                      child: GridView.extent(
+                        padding: EdgeInsets.all(4.w),
+                        maxCrossAxisExtent: 125.w,
+                        childAspectRatio: 1.3,
+                        mainAxisSpacing: 4.w,
+                        crossAxisSpacing: 4.w,
+                        children: [
+                          ShareMenuItem(
+                            name: 'WhatsApp',
+                            img: 'icon_whatsapp.png',
+                            onTap: () {
+                              data.method = ShareMethod.whatsApp;
+                              onShare(data);
+                            },
+                          ),
+                          ShareMenuItem(
+                            name: 'Facebook Messenger',
+                            img: 'icon_facebook.png',
+                            onTap: () {
+                              data.method = ShareMethod.facebook;
+                              onShare(data);
+                            },
+                          ),
+                          ShareMenuItem(
+                            name: 'Twitter',
+                            img: 'icon_twitter.jpg',
+                            onTap: () {
+                              data.method = ShareMethod.twitter;
+                              onShare(data);
+                            },
+                          ),
+                          ShareMenuItem(
+                            name: 'Instagram',
+                            img: 'icon_instagram.png',
+                            onTap: () {
+                              data.method = ShareMethod.instagram;
+                              onShare(data);
+                            },
+                          ),
+                          ShareMenuItem(
+                            name: 'WeChat',
+                            img: 'icon_wechat.png',
+                            onTap: () async {
+                              data.method = ShareMethod.weChat;
+                              onShare(data);
+                            },
+                          ),
+                          ShareMenuItem(
+                            name: '短訊',
+                            img: 'icon_message.png',
+                            onTap: () {
+                              data.method = ShareMethod.sms;
+                              onShare(data);
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
