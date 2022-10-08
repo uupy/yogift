@@ -104,17 +104,17 @@ class ShareModal {
           cropSize = '200x200';
         }
         imagePath = '$imagePath?imageMogr2/thumbnail/$cropSize';
-      }
-
-      if (data.shareMsg?.isNotEmpty ?? false) {
-        shareContent = '${data.shareMsg}\r\n${data.shareUrl}';
-      } else if (data.goodsName?.isNotEmpty ?? false) {
-        shareContent = '「${data.goodsName}」\r\n${data.shareUrl}';
-      }
+      }      
 
       if (imagePath.isNotEmpty) {
         filePath = await getImagePath(imagePath);
       }
+    }
+
+    if (data.shareMsg?.isNotEmpty ?? false) {
+      shareContent = '${data.shareMsg}\r\n${data.shareUrl}';
+    } else if (data.goodsName?.isNotEmpty ?? false) {
+      shareContent = '「${data.goodsName}」\r\n${data.shareUrl}';
     }
 
     try {
@@ -126,7 +126,7 @@ class ShareModal {
         logger.i(apps);
       }
 
-      logger.i({'filePath': filePath});
+      logger.i({'shareContent': shareContent});
       switch (method) {
         case ShareMethod.whatsApp:
           if (apps['whatsapp'] == true) {
