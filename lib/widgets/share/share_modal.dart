@@ -128,11 +128,7 @@ class ShareModal {
 
       switch (method) {
         case ShareMethod.whatsApp:
-          if (apps['whatsapp'] == true) {
-            // await flutterShareMe.shareToWhatsApp(
-            //   msg: shareContent,
-            //   imagePath: filePath,
-            // );
+          if (apps['whatsapp'] == true) {            
             await appinioSocialShare.shareToWhatsapp(shareContent,
                 filePath: filePath);
           } else {
@@ -150,8 +146,9 @@ class ShareModal {
         case ShareMethod.twitter:
           if (apps['twitter'] == true) {
             await appinioSocialShare.shareToTwitter(
-                data.shareMsg ?? data.goodsName ?? '',
-                filePath: filePath);
+              shareContent,
+              filePath: filePath
+            );
           } else {
             app.showToast('請先安裝Twitter');
           }
