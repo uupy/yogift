@@ -156,14 +156,7 @@ class ShareModal {
           break;
         case ShareMethod.instagram:
           if (apps['instagram'] == true) {
-            // await appinioSocialShare.shareToInstagram(shareContent);
-            await SocialShare.shareFacebookStory(
-              filePath,
-              '#ffffff',
-              '#000000',
-              data.shareUrl,
-              appId: Env.config.facebookAppId,
-            );
+            await appinioSocialShare.shareToInstagram(shareContent);            
           } else {
             app.showToast('請先安裝Instagram');
           }
