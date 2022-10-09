@@ -13,6 +13,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:social_share/social_share.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_controller.dart';
 import 'package:yo_gift/common/logger.dart';
@@ -155,7 +156,14 @@ class ShareModal {
           break;
         case ShareMethod.instagram:
           if (apps['instagram'] == true) {
-            await appinioSocialShare.shareToInstagram(shareContent);
+            // await appinioSocialShare.shareToInstagram(shareContent);
+            await SocialShare.shareFacebookStory(
+              filePath,
+              '#ffffff',
+              '#000000',
+              data.shareUrl,
+              appId: Env.config.facebookAppId,
+            );
           } else {
             app.showToast('請先安裝Instagram');
           }
