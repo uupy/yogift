@@ -140,6 +140,15 @@ class ShareModal {
         case ShareMethod.facebook:
           if (apps['facebook'] == true) {            
             await appinioSocialShare.shareToFacebook(shareContent, filePath);
+
+            
+            // await SocialShare.shareFacebookStory(
+            //   filePath,
+            //   '#ffffff',
+            //   '#000000',
+            //   data.shareUrl,
+            //   appId: Env.config.facebookAppId,
+            // );
           } else {
             app.showToast('請先安裝Facebook');
           }
@@ -156,7 +165,7 @@ class ShareModal {
           break;
         case ShareMethod.instagram:
           if (apps['instagram'] == true) {
-            await appinioSocialShare.shareToInstagram(shareContent);            
+            await appinioSocialShare.shareToInstagram(shareContent);
           } else {
             app.showToast('請先安裝Instagram');
           }
