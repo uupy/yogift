@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
 
@@ -8,12 +9,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_share_me/flutter_share_me.dart';
+// import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:social_share/social_share.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_controller.dart';
 import 'package:yo_gift/common/logger.dart';
@@ -48,7 +48,7 @@ class ShareData {
 class ShareModal {
   ShareModal._();
 
-  static final FlutterShareMe flutterShareMe = FlutterShareMe();
+  // static final FlutterShareMe flutterShareMe = FlutterShareMe();
 
   static getCropImage(String url, [String cropSize = '600']) {
     if (url.isNotEmpty && !url.contains('?imageMogr2/thumbnail/')) {
@@ -83,6 +83,7 @@ class ShareModal {
     AppinioSocialShare appinioSocialShare = AppinioSocialShare();
 
     if ([0, 3].contains(data.type)) {
+      SmartDialog.showLoading(msg: '加載中...');
       await Future.delayed(const Duration(seconds: 1));
       final buildContext = shareCardKey.currentContext;
 
@@ -96,17 +97,10 @@ class ShareModal {
         filePath = imageFile.path;
       }
     } else {
-      if (imagePath.isNotEmpty &&
-          !imagePath.contains('?imageMogr2/thumbnail/')) {
-        String cropSize = '600';
-        if (method == ShareMethod.weChat) {
-          cropSize = '200x200';
-        }
-        imagePath = '$imagePath?imageMogr2/thumbnail/$cropSize';
-      }
-
       if (imagePath.isNotEmpty) {
-        filePath = await getImagePath(imagePath);
+        final imageUrl = getCropImage(
+            imagePath, method == ShareMethod.weChat ? '200x200' : '600');
+        filePath = await getImagePath(imageUrl);
       }
     }
 
@@ -129,7 +123,7 @@ class ShareModal {
 
       switch (method) {
         case ShareMethod.whatsApp:
-          if (apps['whatsapp'] == true) {            
+          if (apps['whatsapp'] == true) {
             await appinioSocialShare.shareToWhatsapp(shareContent,
                 filePath: filePath);
           } else {
@@ -138,10 +132,9 @@ class ShareModal {
 
           break;
         case ShareMethod.facebook:
-          if (apps['facebook'] == true) {            
+          if (apps['facebook'] == true) {
             await appinioSocialShare.shareToFacebook(shareContent, filePath);
 
-            
             // await SocialShare.shareFacebookStory(
             //   filePath,
             //   '#ffffff',
@@ -155,10 +148,8 @@ class ShareModal {
           break;
         case ShareMethod.twitter:
           if (apps['twitter'] == true) {
-            await appinioSocialShare.shareToTwitter(
-              shareContent,
-              filePath: filePath
-            );
+            await appinioSocialShare.shareToTwitter(shareContent,
+                filePath: filePath);
           } else {
             app.showToast('請先安裝Twitter');
           }
