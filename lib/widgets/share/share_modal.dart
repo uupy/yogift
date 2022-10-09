@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
 
+import 'package:appinio_social_share/appinio_social_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -13,9 +13,6 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:social_share/social_share.dart';
-// import 'package:url_launcher/url_launcher.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_controller.dart';
 import 'package:yo_gift/common/logger.dart';
@@ -82,6 +79,7 @@ class ShareModal {
     String imagePath = data.imageUrl ?? '';
     String filePath = '';
     Map<dynamic, dynamic> apps = {};
+    AppinioSocialShare appinioSocialShare = AppinioSocialShare();
 
     if ([0, 3].contains(data.type)) {
       await Future.delayed(const Duration(seconds: 1));
@@ -104,7 +102,7 @@ class ShareModal {
           cropSize = '200x200';
         }
         imagePath = '$imagePath?imageMogr2/thumbnail/$cropSize';
-      }      
+      }
 
       if (imagePath.isNotEmpty) {
         filePath = await getImagePath(imagePath);
@@ -122,54 +120,45 @@ class ShareModal {
       await Clipboard.setData(ClipboardData(text: shareContent));
 
       if (method != ShareMethod.weChat || method != ShareMethod.sms) {
-        apps = await SocialShare.checkInstalledAppsForShare() ?? {};
+        apps = await appinioSocialShare.getInstalledApps();
         logger.i(apps);
       }
 
       logger.i({'shareContent': shareContent});
+
       switch (method) {
         case ShareMethod.whatsApp:
           if (apps['whatsapp'] == true) {
-            await flutterShareMe.shareToWhatsApp(
-              msg: shareContent,
-              imagePath: filePath,
-            );
+            // await flutterShareMe.shareToWhatsApp(
+            //   msg: shareContent,
+            //   imagePath: filePath,
+            // );
+            await appinioSocialShare.shareToWhatsapp(shareContent,
+                filePath: filePath);
           } else {
             app.showToast('請先安裝WhatsApp');
           }
 
           break;
         case ShareMethod.facebook:
-          if (apps['facebook'] == true) {
-            await SocialShare.shareFacebookStory(
-              filePath,
-              '#ffffff',
-              '#000000',
-              data.shareUrl,
-              appId: Env.config.facebookAppId,
-            );
+          if (apps['facebook'] == true) {            
+            await appinioSocialShare.shareToFacebook(shareContent, filePath);
           } else {
             app.showToast('請先安裝Facebook');
           }
           break;
         case ShareMethod.twitter:
           if (apps['twitter'] == true) {
-            await flutterShareMe.shareToTwitter(
-              msg: data.shareMsg ?? data.goodsName ?? '',
-              url: data.shareUrl,
-            );
+            await appinioSocialShare.shareToTwitter(
+                data.shareMsg ?? data.goodsName ?? '',
+                filePath: filePath);
           } else {
             app.showToast('請先安裝Twitter');
           }
           break;
         case ShareMethod.instagram:
           if (apps['instagram'] == true) {
-            await SocialShare.shareInstagramStory(
-              filePath,
-              backgroundTopColor: "#ffffff",
-              backgroundBottomColor: "#000000",
-              attributionURL: data.shareUrl,
-            );
+            await appinioSocialShare.shareToInstagram(shareContent);
           } else {
             app.showToast('請先安裝Instagram');
           }
@@ -182,19 +171,7 @@ class ShareModal {
           );
           break;
         case ShareMethod.sms:
-          // const phone = '';
-          // if (Platform.isAndroid) {
-          //   launchUrl(Uri.parse(
-          //       'sms:$phone?body=${Uri.encodeComponent(data.shareUrl)}'));
-          // } else if (Platform.isIOS) {
-          //   launchUrl(Uri.parse(
-          //       'sms:$phone&body=${Uri.encodeComponent(data.shareUrl)}'));
-          // }
-          if (filePath.isNotEmpty) {
-            Share.shareFiles([filePath], text: shareContent);
-          } else {
-            Share.share(shareContent);
-          }
+          await appinioSocialShare.shareToSMS(shareContent, filePath: filePath);
           break;
       }
     } catch (err) {

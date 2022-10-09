@@ -103,6 +103,10 @@
     </array>
     <key>FacebookAppID</key>
     <string>1180431849520042</string>
+    <key>FacebookClientToken</key>
+    <string>c1bcac15505fc7ada8beff696316577a</string>
+    <key>FacebookDisplayName</key>
+    <string>YO!GIFT</string>
 	<key>NSCameraUsageDescription</key>
 	<string>申请相机权限描述</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
