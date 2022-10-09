@@ -373,13 +373,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.1"
-  image_gallery_saver:
-    dependency: "direct main"
-    description:
-      name: image_gallery_saver
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.7.1"
   intl:
     dependency: "direct main"
     description:
@@ -597,41 +590,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.11.1"
-  permission_handler:
-    dependency: "direct main"
-    description:
-      name: permission_handler
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "10.0.2"
-  permission_handler_android:
-    dependency: transitive
-    description:
-      name: permission_handler_android
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "10.1.0"
-  permission_handler_apple:
-    dependency: transitive
-    description:
-      name: permission_handler_apple
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "9.0.4"
-  permission_handler_platform_interface:
-    dependency: transitive
-    description:
-      name: permission_handler_platform_interface
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.8.0"
-  permission_handler_windows:
-    dependency: transitive
-    description:
-      name: permission_handler_windows
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.0"
   petitparser:
     dependency: transitive
     description:
