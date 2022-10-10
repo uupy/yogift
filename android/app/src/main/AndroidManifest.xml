@@ -65,7 +65,7 @@
 
        <provider
                android:name="androidx.core.content.FileProvider"
-               android:authorities="${applicationId}.com.shekarmudaliyar.social_share"
+               android:authorities="${applicationId}.provider"
                android:exported="false"
                android:grantUriPermissions="true"
                tools:replace="android:authorities">
@@ -74,7 +74,7 @@
                    android:resource="@xml/filepaths" />
        </provider>
 
-       <provider 
+       <provider
             android:authorities="com.facebook.app.FacebookContentProvider1180431849520042"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"/>
