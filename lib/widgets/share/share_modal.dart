@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
 import 'dart:ui';
@@ -138,6 +139,12 @@ class ShareModal {
           break;
         case ShareMethod.facebook:
           if (apps['facebook'] == true) {
+            
+            const timeout = Duration(seconds: 5);
+            Timer(timeout, () {
+              SmartDialog.dismiss(force: true);
+            });
+
             await appinioSocialShare.shareToFacebook(shareContent, filePath);
           } else {
             app.showToast('請先安裝Facebook');
@@ -161,7 +168,7 @@ class ShareModal {
         case ShareMethod.weChat:
           await shareToWechat(
             data.shareUrl,
-            data.goodsName,
+            shareContent,
             imagePath: imagePath,
           );
           break;
@@ -170,7 +177,7 @@ class ShareModal {
           break;
       }
     } catch (err) {
-      logger.i({'catch':err.toString()});
+      logger.i({'catch': err.toString()});
     } finally {
       SmartDialog.dismiss(force: true);
     }
