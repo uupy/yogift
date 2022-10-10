@@ -13,7 +13,6 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:social_share/social_share.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_controller.dart';
 import 'package:yo_gift/common/logger.dart';
@@ -129,7 +128,7 @@ class ShareModal {
 
       switch (method) {
         case ShareMethod.whatsApp:
-          if (apps['whatsapp'] == true) {            
+          if (apps['whatsapp'] == true) {
             await appinioSocialShare.shareToWhatsapp(shareContent,
                 filePath: filePath);
           } else {
@@ -138,7 +137,7 @@ class ShareModal {
 
           break;
         case ShareMethod.facebook:
-          if (apps['facebook'] == true) {            
+          if (apps['facebook'] == true) {
             await appinioSocialShare.shareToFacebook(shareContent, filePath);
           } else {
             app.showToast('請先安裝Facebook');
@@ -146,17 +145,15 @@ class ShareModal {
           break;
         case ShareMethod.twitter:
           if (apps['twitter'] == true) {
-            await appinioSocialShare.shareToTwitter(
-              shareContent,
-              filePath: filePath
-            );
+            await appinioSocialShare.shareToTwitter(shareContent,
+                filePath: filePath);
           } else {
             app.showToast('請先安裝Twitter');
           }
           break;
         case ShareMethod.instagram:
           if (apps['instagram'] == true) {
-            await appinioSocialShare.shareToInstagram(shareContent);            
+            await appinioSocialShare.shareToInstagram(shareContent);
           } else {
             app.showToast('請先安裝Instagram');
           }
@@ -173,9 +170,9 @@ class ShareModal {
           break;
       }
     } catch (err) {
-      logger.e(err.toString());
+      logger.i({'catch':err.toString()});
     } finally {
-      SmartDialog.dismiss();
+      SmartDialog.dismiss(force: true);
     }
   }
 

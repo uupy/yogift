@@ -44,14 +44,14 @@
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
             <meta-data
                     android:name="flutterEmbedding"
-                    android:value="2" />
-            <meta-data
-                    android:name="com.facebook.sdk.ApplicationId"
-                    android:value="@string/facebook_app_id" />
-            <meta-data 
-                    android:name="com.facebook.sdk.ClientToken" 
-                    android:value="@string/facebook_client_token"/>
+                    android:value="2" />    
         </activity>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data 
+            android:name="com.facebook.sdk.ClientToken" 
+            android:value="@string/facebook_client_token"/>
 
        <provider
                android:name="sk.fourq.otaupdate.OtaUpdateFileProvider"
@@ -74,10 +74,10 @@
                    android:resource="@xml/filepaths" />
        </provider>
 
-       <provider
-               android:name="com.facebook.FacebookContentProvider"
-               android:authorities="com.facebook.app.FacebookContentProvider[facebook_app_id]"
-               android:exported="false" />
+       <provider 
+            android:authorities="com.facebook.app.FacebookContentProvider1180431849520042"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
