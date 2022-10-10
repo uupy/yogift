@@ -78,7 +78,7 @@ dependencies:
   # permission_handler: ^10.0.2
   # 富文本
 #  flutter_html: ^2.2.1
-  flutter_html: ^3.0.0-alpha.5
+  flutter_html: 3.0.0-alpha.5
   # 弹窗
   flutter_smart_dialog: ^4.0.9+5
   # 下拉篩選彈出層
