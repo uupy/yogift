@@ -1,0 +1,122 @@
+Target dependency graph (41 targets)
+FBSDKCoreKit_Basics in Pods, no dependencies
+FBAEMKit in Pods, depends on:
+FBSDKCoreKit_Basics in Pods (explicit)
+FBSDKCoreKit-FacebookSDKStrings in Pods, no dependencies
+FBSDKCoreKit in Pods, depends on:
+FBAEMKit in Pods (explicit)
+FBSDKCoreKit-FacebookSDKStrings in Pods (explicit)
+FBSDKCoreKit_Basics in Pods (explicit)
+FBSDKShareKit in Pods, depends on:
+FBSDKCoreKit in Pods (explicit)
+FBSDKCoreKit_Basics in Pods (explicit)
+FMDB in Pods, no dependencies
+Flutter in Pods, no dependencies
+OpenWeChatSDK in Pods, no dependencies
+ReachabilitySwift in Pods, no dependencies
+Stripe-Stripe in Pods, no dependencies
+Stripe-Stripe3DS2 in Pods, no dependencies
+StripeCore-StripeCore in Pods, no dependencies
+StripeCore in Pods, depends on:
+StripeCore-StripeCore in Pods (explicit)
+StripeApplePay in Pods, depends on:
+StripeCore in Pods (explicit)
+StripeUICore-StripeUICore in Pods, no dependencies
+StripeUICore in Pods, depends on:
+StripeCore in Pods (explicit)
+StripeUICore-StripeUICore in Pods (explicit)
+Stripe in Pods, depends on:
+Stripe-Stripe in Pods (explicit)
+Stripe-Stripe3DS2 in Pods (explicit)
+StripeApplePay in Pods (explicit)
+StripeCore in Pods (explicit)
+StripeUICore in Pods (explicit)
+StripeFinancialConnections-StripeFinancialConnections in Pods, no dependencies
+StripeFinancialConnections in Pods, depends on:
+StripeCore in Pods (explicit)
+StripeFinancialConnections-StripeFinancialConnections in Pods (explicit)
+StripeUICore in Pods (explicit)
+TikTokOpenSDK in Pods, no dependencies
+Toast in Pods, no dependencies
+TwitterCore in Pods, no dependencies
+TwitterKit in Pods, depends on:
+TwitterCore in Pods (explicit)
+appinio_social_share in Pods, depends on:
+FBSDKCoreKit in Pods (explicit)
+FBSDKShareKit in Pods (explicit)
+Flutter in Pods (explicit)
+TikTokOpenSDK in Pods (explicit)
+TwitterKit in Pods (explicit)
+connectivity_plus in Pods, depends on:
+Flutter in Pods (explicit)
+ReachabilitySwift in Pods (explicit)
+device_info in Pods, depends on:
+Flutter in Pods (explicit)
+flutter_keyboard_visibility in Pods, depends on:
+Flutter in Pods (explicit)
+fluttertoast in Pods, depends on:
+Flutter in Pods (explicit)
+Toast in Pods (explicit)
+fluwx in Pods, depends on:
+Flutter in Pods (explicit)
+OpenWeChatSDK in Pods (explicit)
+package_info in Pods, depends on:
+Flutter in Pods (explicit)
+package_info_plus in Pods, depends on:
+Flutter in Pods (explicit)
+path_provider_ios in Pods, depends on:
+Flutter in Pods (explicit)
+share_plus in Pods, depends on:
+Flutter in Pods (explicit)
+shared_preferences_ios in Pods, depends on:
+Flutter in Pods (explicit)
+social_share in Pods, depends on:
+Flutter in Pods (explicit)
+sqflite in Pods, depends on:
+FMDB in Pods (explicit)
+Flutter in Pods (explicit)
+stripe_ios in Pods, depends on:
+Flutter in Pods (explicit)
+Stripe in Pods (explicit)
+StripeFinancialConnections in Pods (explicit)
+tobias in Pods, depends on:
+Flutter in Pods (explicit)
+url_launcher_ios in Pods, depends on:
+Flutter in Pods (explicit)
+webview_flutter_wkwebview in Pods, depends on:
+Flutter in Pods (explicit)
+Pods-Runner in Pods, depends on:
+FBAEMKit in Pods (explicit)
+FBSDKCoreKit in Pods (explicit)
+FBSDKCoreKit_Basics in Pods (explicit)
+FBSDKShareKit in Pods (explicit)
+FMDB in Pods (explicit)
+Flutter in Pods (explicit)
+OpenWeChatSDK in Pods (explicit)
+ReachabilitySwift in Pods (explicit)
+Stripe in Pods (explicit)
+StripeApplePay in Pods (explicit)
+StripeCore in Pods (explicit)
+StripeFinancialConnections in Pods (explicit)
+StripeUICore in Pods (explicit)
+TikTokOpenSDK in Pods (explicit)
+Toast in Pods (explicit)
+TwitterCore in Pods (explicit)
+TwitterKit in Pods (explicit)
+appinio_social_share in Pods (explicit)
+connectivity_plus in Pods (explicit)
+device_info in Pods (explicit)
+flutter_keyboard_visibility in Pods (explicit)
+fluttertoast in Pods (explicit)
+fluwx in Pods (explicit)
+package_info in Pods (explicit)
+package_info_plus in Pods (explicit)
+path_provider_ios in Pods (explicit)
+share_plus in Pods (explicit)
+shared_preferences_ios in Pods (explicit)
+social_share in Pods (explicit)
+sqflite in Pods (explicit)
+stripe_ios in Pods (explicit)
+tobias in Pods (explicit)
+url_launcher_ios in Pods (explicit)
+webview_flutter_wkwebview in Pods (explicit)

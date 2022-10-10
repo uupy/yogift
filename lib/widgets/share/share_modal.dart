@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
 
@@ -9,7 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_share_me/flutter_share_me.dart';
+// import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
@@ -48,7 +49,7 @@ class ShareData {
 class ShareModal {
   ShareModal._();
 
-  static final FlutterShareMe flutterShareMe = FlutterShareMe();
+  // static final FlutterShareMe flutterShareMe = FlutterShareMe();
 
   static getCropImage(String url, [String cropSize = '600']) {
     if (url.isNotEmpty && !url.contains('?imageMogr2/thumbnail/')) {
@@ -139,10 +140,10 @@ class ShareModal {
           break;
         case ShareMethod.facebook:
           if (apps['facebook'] == true) {
-            
-            const timeout = Duration(seconds: 5);
+            const timeout = Duration(seconds: 2);
             Timer(timeout, () {
               SmartDialog.dismiss(force: true);
+              app.showToast('請先啟動Facebook');
             });
 
             await appinioSocialShare.shareToFacebook(shareContent, filePath);
