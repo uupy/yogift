@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
 
@@ -9,7 +9,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:flutter_share_me/flutter_share_me.dart';
+import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
@@ -48,7 +48,7 @@ class ShareData {
 class ShareModal {
   ShareModal._();
 
-  // static final FlutterShareMe flutterShareMe = FlutterShareMe();
+  static final FlutterShareMe flutterShareMe = FlutterShareMe();
 
   static getCropImage(String url, [String cropSize = '600']) {
     if (url.isNotEmpty && !url.contains('?imageMogr2/thumbnail/')) {
@@ -83,7 +83,6 @@ class ShareModal {
     AppinioSocialShare appinioSocialShare = AppinioSocialShare();
 
     if ([0, 3].contains(data.type)) {
-      SmartDialog.showLoading(msg: '加載中...');
       await Future.delayed(const Duration(seconds: 1));
       final buildContext = shareCardKey.currentContext;
 
@@ -97,10 +96,17 @@ class ShareModal {
         filePath = imageFile.path;
       }
     } else {
+      if (imagePath.isNotEmpty &&
+          !imagePath.contains('?imageMogr2/thumbnail/')) {
+        String cropSize = '600';
+        if (method == ShareMethod.weChat) {
+          cropSize = '200x200';
+        }
+        imagePath = '$imagePath?imageMogr2/thumbnail/$cropSize';
+      }
+
       if (imagePath.isNotEmpty) {
-        final imageUrl = getCropImage(
-            imagePath, method == ShareMethod.weChat ? '200x200' : '600');
-        filePath = await getImagePath(imageUrl);
+        filePath = await getImagePath(imagePath);
       }
     }
 
@@ -133,15 +139,14 @@ class ShareModal {
           break;
         case ShareMethod.facebook:
           if (apps['facebook'] == true) {
-            await appinioSocialShare.shareToFacebook(shareContent, filePath);
 
-            // await SocialShare.shareFacebookStory(
-            //   filePath,
-            //   '#ffffff',
-            //   '#000000',
-            //   data.shareUrl,
-            //   appId: Env.config.facebookAppId,
-            // );
+            const timeout = Duration(seconds: 2);
+            Timer(timeout, () {
+              SmartDialog.dismiss(force: true);
+              app.showToast('請先啟動Facebook');
+            });
+
+            await appinioSocialShare.shareToFacebook(shareContent, filePath);
           } else {
             app.showToast('請先安裝Facebook');
           }
@@ -164,7 +169,7 @@ class ShareModal {
         case ShareMethod.weChat:
           await shareToWechat(
             data.shareUrl,
-            data.goodsName,
+            shareContent,
             imagePath: imagePath,
           );
           break;
@@ -173,9 +178,9 @@ class ShareModal {
           break;
       }
     } catch (err) {
-      logger.e(err.toString());
+      logger.i({'catch': err.toString()});
     } finally {
-      SmartDialog.dismiss();
+      SmartDialog.dismiss(force: true);
     }
   }
 

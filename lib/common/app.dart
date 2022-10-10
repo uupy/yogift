@@ -331,7 +331,7 @@ class App {
         wxAppId = links[3];
       } else {
         argument = links.last;
-        if (argument.isNotEmpty && linkType != 4) {
+        if (argument.isNotEmpty && linkType == 2) {
           argument = '/$argument';
         }
       }
