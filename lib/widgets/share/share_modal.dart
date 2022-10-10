@@ -140,7 +140,6 @@ class ShareModal {
           break;
         case ShareMethod.facebook:
           if (apps['facebook'] == true) {
-
             const timeout = Duration(seconds: 2);
             Timer(timeout, () {
               SmartDialog.dismiss(force: true);
