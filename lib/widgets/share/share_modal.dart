@@ -141,12 +141,6 @@ class ShareModal {
           break;
         case ShareMethod.facebook:
           if (apps['facebook'] == true) {
-            const timeout = Duration(seconds: 2);
-            Timer(timeout, () {
-              SmartDialog.dismiss(force: true);
-              app.showToast('請先啟動Facebook');
-            });
-
             await appinioSocialShare.shareToFacebook(shareContent, filePath);
           } else {
             app.showToast('請先安裝Facebook');
