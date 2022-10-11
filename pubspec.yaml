@@ -94,7 +94,7 @@ dependencies:
   # stripe支付
   flutter_stripe: ^4.0.0
   # webview
-  webview_flutter: ^2.8.0
+  webview_flutter: ^3.0.4
   # 精度计算
   decimal: ^2.2.0
   # 分享插件
