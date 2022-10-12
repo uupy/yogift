@@ -4,10 +4,12 @@ packages:
   appinio_social_share:
     dependency: "direct main"
     description:
-      name: appinio_social_share
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.2"
+      path: "."
+      ref: HEAD
+      resolved-ref: e6178cee0ba38706f62a70007c200743236ce294
+      url: "https://github.com/uupy/flutter_social_share.git"
+    source: git
+    version: "0.2.0"
   args:
     dependency: transitive
     description:
