@@ -52,7 +52,7 @@ dependencies:
   # 工具库
   intl: ^0.17.0
   # ota升级
-  ota_update: ^3.0.2
+  # ota_update: ^3.0.2
   url_launcher: ^6.0.9
   # 獲取設備信息
   device_info: ^2.0.2

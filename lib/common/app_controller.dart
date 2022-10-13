@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ota_update/ota_update.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_theme.dart';
@@ -171,20 +170,20 @@ class AppController extends GetxController {
         );
       },
     );
-    try {
-      OtaUpdate().execute(fileUrl, destinationFilename: 'yo_gift.apk').listen(
-        (OtaEvent event) {
-          if (event.value != '' && event.value != null) {
-            updateProgress.value = event.value!;
-            if (updateProgress.value == '100') {
-              handleComplete();
-            }
-          }
-        },
-      );
-    } catch (e) {
-      logger.e('Failed to make OTA update. Details: $e');
-      handleComplete();
-    }
+    // try {
+    //   OtaUpdate().execute(fileUrl, destinationFilename: 'yo_gift.apk').listen(
+    //     (OtaEvent event) {
+    //       if (event.value != '' && event.value != null) {
+    //         updateProgress.value = event.value!;
+    //         if (updateProgress.value == '100') {
+    //           handleComplete();
+    //         }
+    //       }
+    //     },
+    //   );
+    // } catch (e) {
+    //   logger.e('Failed to make OTA update. Details: $e');
+    //   handleComplete();
+    // }
   }
 }
