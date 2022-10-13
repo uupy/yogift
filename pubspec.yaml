@@ -101,10 +101,10 @@ dependencies:
 #  share_plus: ^4.4.0
 #  flutter_share_me: ^1.3.0
 #  social_share: ^2.2.1
-  # appinio_social_share: ^0.1.2
-  appinio_social_share:
-    git:
-      url: https://github.com/uupy/flutter_social_share.git
+   appinio_social_share: ^0.1.3
+#  appinio_social_share:
+#    git:
+#      url: https://github.com/uupy/flutter_social_share.git
 #  flutter_social_content_share: ^1.0.2
   # 生成条形码、二维码
   barcode: ^2.2.3
