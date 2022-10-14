@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
 
-import 'package:appinio_social_share/appinio_social_share.dart';
+// import 'package:appinio_social_share/appinio_social_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -64,10 +64,9 @@ class ShareModal {
 
     Uint8List? finalPngBytes = finalByteData?.buffer.asUint8List();
 
-    final document = await getExternalStorageDirectory();
-    final path = document?.absolute.path;
+    final document = await getApplicationDocumentsDirectory();
 
-    final dir = Directory(path! + '/yogift_share.png');
+    final dir = Directory(document.path  + '/yogift_share.png');
 
     final imageFile = File(dir.path);
 
@@ -82,7 +81,7 @@ class ShareModal {
     String imagePath = data.imageUrl ?? '';
     String filePath = '';
     Map<dynamic, dynamic> apps = {};
-    AppinioSocialShare appinioSocialShare = AppinioSocialShare();
+    // AppinioSocialShare appinioSocialShare = AppinioSocialShare();
 
     if ([0, 3].contains(data.type)) {
       await Future.delayed(const Duration(seconds: 1));
@@ -123,55 +122,61 @@ class ShareModal {
       await Clipboard.setData(ClipboardData(text: shareContent));
 
       if (method != ShareMethod.weChat || method != ShareMethod.sms) {
-        apps = await appinioSocialShare.getInstalledApps();
+        // apps = await appinioSocialShare.getInstalledApps();
         logger.i(apps);
       }
 
       logger.i({'shareContent': shareContent});
 
-      switch (method) {
-        case ShareMethod.whatsApp:
-          if (apps['whatsapp'] == true) {
-            await appinioSocialShare.shareToWhatsapp(shareContent,
-                filePath: filePath);
-          } else {
-            app.showToast('請先安裝WhatsApp');
-          }
+      await shareToWechat(
+        data.shareUrl,
+        shareContent,
+        imagePath: imagePath,
+      );
 
-          break;
-        case ShareMethod.facebook:
-          if (apps['facebook'] == true) {
-            await appinioSocialShare.shareToFacebook(shareContent, filePath);
-          } else {
-            app.showToast('請先安裝Facebook');
-          }
-          break;
-        case ShareMethod.twitter:
-          if (apps['twitter'] == true) {
-            await appinioSocialShare.shareToTwitter(shareContent,
-                filePath: filePath);
-          } else {
-            app.showToast('請先安裝Twitter');
-          }
-          break;
-        case ShareMethod.instagram:
-          if (apps['instagram'] == true) {
-            await appinioSocialShare.shareToInstagram(shareContent);
-          } else {
-            app.showToast('請先安裝Instagram');
-          }
-          break;
-        case ShareMethod.weChat:
-          await shareToWechat(
-            data.shareUrl,
-            shareContent,
-            imagePath: imagePath,
-          );
-          break;
-        case ShareMethod.sms:
-          await appinioSocialShare.shareToSMS(shareContent, filePath: filePath);
-          break;
-      }
+      // switch (method) {
+      //   case ShareMethod.whatsApp:
+      //     if (apps['whatsapp'] == true) {
+      //       await appinioSocialShare.shareToWhatsapp(shareContent,
+      //           filePath: filePath);
+      //     } else {
+      //       app.showToast('請先安裝WhatsApp');
+      //     }
+
+      //     break;
+      //   case ShareMethod.facebook:
+      //     if (apps['facebook'] == true) {
+      //       await appinioSocialShare.shareToFacebook(shareContent, filePath);
+      //     } else {
+      //       app.showToast('請先安裝Facebook');
+      //     }
+      //     break;
+      //   case ShareMethod.twitter:
+      //     if (apps['twitter'] == true) {
+      //       await appinioSocialShare.shareToTwitter(shareContent,
+      //           filePath: filePath);
+      //     } else {
+      //       app.showToast('請先安裝Twitter');
+      //     }
+      //     break;
+      //   case ShareMethod.instagram:
+      //     if (apps['instagram'] == true) {
+      //       await appinioSocialShare.shareToInstagram(shareContent);
+      //     } else {
+      //       app.showToast('請先安裝Instagram');
+      //     }
+      //     break;
+      //   case ShareMethod.weChat:
+      //     await shareToWechat(
+      //       data.shareUrl,
+      //       shareContent,
+      //       imagePath: imagePath,
+      //     );
+      //     break;
+      //   case ShareMethod.sms:
+      //     await appinioSocialShare.shareToSMS(shareContent, filePath: filePath);
+      //     break;
+      // }
     } catch (err) {
       logger.i({'catch': err.toString()});
     } finally {
