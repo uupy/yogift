@@ -1,23 +1,22 @@
 PODS:
   - appinio_social_share (0.0.1):
-    - FBSDKCoreKit (= 13.1.0)
-    - FBSDKShareKit (= 13.1.0)
+    - FBSDKCoreKit (= 14.1.0)
+    - FBSDKShareKit (= 14.1.0)
     - Flutter
-    - TikTokOpenSDK (= 5.0.0)
     - TwitterKit (= 3.4.2)
   - connectivity_plus (0.0.1):
     - Flutter
     - ReachabilitySwift
   - device_info (0.0.1):
     - Flutter
-  - FBAEMKit (13.1.0):
-    - FBSDKCoreKit_Basics (= 13.1.0)
-  - FBSDKCoreKit (13.1.0):
-    - FBAEMKit (= 13.1.0)
-    - FBSDKCoreKit_Basics (= 13.1.0)
-  - FBSDKCoreKit_Basics (13.1.0)
-  - FBSDKShareKit (13.1.0):
-    - FBSDKCoreKit (= 13.1.0)
+  - FBAEMKit (14.1.0):
+    - FBSDKCoreKit_Basics (= 14.1.0)
+  - FBSDKCoreKit (14.1.0):
+    - FBAEMKit (= 14.1.0)
+    - FBSDKCoreKit_Basics (= 14.1.0)
+  - FBSDKCoreKit_Basics (14.1.0)
+  - FBSDKShareKit (14.1.0):
+    - FBSDKCoreKit (= 14.1.0)
   - Flutter (1.0.0)
   - flutter_keyboard_visibility (0.0.1):
     - Flutter
@@ -38,8 +37,6 @@ PODS:
   - path_provider_ios (0.0.1):
     - Flutter
   - ReachabilitySwift (5.0.0)
-  - share_plus (0.0.1):
-    - Flutter
   - shared_preferences_ios (0.0.1):
     - Flutter
   - sqflite (0.0.2):
@@ -66,7 +63,6 @@ PODS:
     - StripeUICore (= 22.5.1)
   - StripeUICore (22.5.1):
     - StripeCore (= 22.5.1)
-  - TikTokOpenSDK (5.0.0)
   - Toast (4.0.0)
   - tobias (0.0.1):
     - Flutter
@@ -89,7 +85,6 @@ DEPENDENCIES:
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
-  - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - stripe_ios (from `.symlinks/plugins/stripe_ios/ios`)
@@ -111,7 +106,6 @@ SPEC REPOS:
     - StripeCore
     - StripeFinancialConnections
     - StripeUICore
-    - TikTokOpenSDK
     - Toast
     - TwitterCore
     - TwitterKit
@@ -137,8 +131,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_ios:
     :path: ".symlinks/plugins/path_provider_ios/ios"
-  share_plus:
-    :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_ios:
     :path: ".symlinks/plugins/shared_preferences_ios/ios"
   sqflite:
@@ -153,13 +145,13 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
-  appinio_social_share: ca048a67370fa1c6c3b3eea578d6476005b75dfe
+  appinio_social_share: 478f558cf4dcd9ab33d253e44ee518c22421f5f0
   connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
-  FBAEMKit: 3be32ffb79fe7c0603fed00d81742b23241e89a5
-  FBSDKCoreKit: eff97dea778dbe6cc4498959cffb619c75675102
-  FBSDKCoreKit_Basics: c151609a1cf6976a5958febcf0043266a8fd5151
-  FBSDKShareKit: ba73d5d51af028bfc9e6fa34be16340fe055e0fa
+  FBAEMKit: a899515e45476027f73aef377b5cffadcd56ca3a
+  FBSDKCoreKit: 24f8bc8d3b5b2a8c5c656a1329492a12e8efa792
+  FBSDKCoreKit_Basics: 6e578c9bdc7aa1365dbbbde633c9ebb536bcaa98
+  FBSDKShareKit: b9c1cd1fa6a320a50f0f353cf30d589049c8db77
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
   fluttertoast: 16fbe6039d06a763f3533670197d01fc73459037
@@ -170,7 +162,6 @@ SPEC CHECKSUMS:
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   Stripe: 2b2decd03146e08a350960966d41f3028c2eac29
@@ -179,7 +170,6 @@ SPEC CHECKSUMS:
   StripeCore: 4833738f2ca4336712f279f3c2867a0a7eb67c93
   StripeFinancialConnections: 982115b82af429968d8aa78d329a42ed7ba3feab
   StripeUICore: 08c1efbd7e3c54ee7fa74334a37a1d4c08ba944d
-  TikTokOpenSDK: a63564ea4dc1fabc56352bf7aa9ddc386cdb63b6
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   tobias: 2aded9b83e3663b907360a800d8e3c13284f25c5
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
