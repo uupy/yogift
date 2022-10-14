@@ -74,10 +74,10 @@
                    android:resource="@xml/filepaths" />
        </provider>
 
-       <provider
+       <!-- <provider
             android:authorities="com.facebook.app.FacebookContentProvider1180431849520042"
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:exported="true"/> -->
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
