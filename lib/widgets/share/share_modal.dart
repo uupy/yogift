@@ -64,10 +64,9 @@ class ShareModal {
 
     Uint8List? finalPngBytes = finalByteData?.buffer.asUint8List();
 
-    final document = await getExternalStorageDirectory();
-    final path = document?.absolute.path;
+    final document = await getApplicationDocumentsDirectory();
 
-    final dir = Directory(path! + '/yogift_share.png');
+    final dir = Directory(document.path  + '/yogift_share.png');
 
     final imageFile = File(dir.path);
 
