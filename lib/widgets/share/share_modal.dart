@@ -4,7 +4,8 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
 
-import 'package:appinio_social_share/appinio_social_share.dart';
+// import 'package:appinio_social_share/appinio_social_share.dart';
+import 'package:appcheck/appcheck.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -22,6 +23,7 @@ import 'package:yo_gift/widgets/app_asset_image.dart';
 
 import 'share_card.dart';
 import 'share_menu_item.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ShareData {
   ShareMethod? method;
@@ -80,8 +82,9 @@ class ShareModal {
     String shareContent = data.shareUrl;
     String imagePath = data.imageUrl ?? '';
     String filePath = '';
-    Map<dynamic, dynamic> apps = {};
-    AppinioSocialShare appinioSocialShare = AppinioSocialShare();
+    // Map<dynamic, dynamic> apps = {};
+    List<AppInfo>? apps;
+    // AppinioSocialShare appinioSocialShare = AppinioSocialShare();
 
     if ([0, 3].contains(data.type)) {
       await Future.delayed(const Duration(seconds: 1));
@@ -122,46 +125,45 @@ class ShareModal {
       await Clipboard.setData(ClipboardData(text: shareContent));
 
       if (method != ShareMethod.weChat || method != ShareMethod.sms) {
-        apps = await appinioSocialShare.getInstalledApps();
+        apps = await AppCheck.getInstalledApps();
+        logger.i({'apps': apps});
         logger.i(apps);
       }
 
       logger.i({'shareContent': shareContent});
 
-      // await shareToWechat(
-      //   data.shareUrl,
-      //   shareContent,
-      //   imagePath: imagePath,
-      // );
-
       switch (method) {
         case ShareMethod.whatsApp:
-          if (apps['whatsapp'] == true) {
-            await appinioSocialShare.shareToWhatsapp(shareContent,
-                filePath: filePath);
+          if (apps.toString().contains('whatsapp')) {
+            // await appinioSocialShare.shareToWhatsapp(shareContent,
+            //     filePath: filePath);
+            Share.shareFiles([filePath], text: shareContent);
           } else {
             app.showToast('請先安裝WhatsApp');
           }
 
           break;
         case ShareMethod.facebook:
-          if (apps['facebook'] == true) {
-            await appinioSocialShare.shareToFacebook(shareContent, filePath);
+          if (apps.toString().contains('facebook')) {
+            // await appinioSocialShare.shareToFacebook(shareContent, filePath);
+            Share.shareFiles([filePath], text: shareContent);
           } else {
             app.showToast('請先安裝Facebook');
           }
           break;
         case ShareMethod.twitter:
-          if (apps['twitter'] == true) {
-            await appinioSocialShare.shareToTwitter(shareContent,
-                filePath: filePath);
+          if (apps.toString().contains('twitter') ) {
+            // await appinioSocialShare.shareToTwitter(shareContent,
+            //     filePath: filePath);
+            Share.shareFiles([filePath], text: shareContent);
           } else {
             app.showToast('請先安裝Twitter');
           }
           break;
         case ShareMethod.instagram:
-          if (apps['instagram'] == true) {
-            await appinioSocialShare.shareToInstagram(shareContent);
+          if (apps.toString().contains('instagram')) {
+            // await appinioSocialShare.shareToInstagram(shareContent);
+            Share.shareFiles([filePath], text: shareContent);
           } else {
             app.showToast('請先安裝Instagram');
           }
@@ -174,7 +176,8 @@ class ShareModal {
           );
           break;
         case ShareMethod.sms:
-          await appinioSocialShare.shareToSMS(shareContent, filePath: filePath);
+          // await appinioSocialShare.shareToSMS(shareContent, filePath: filePath);
+          Share.shareFiles([filePath], text: shareContent);
           break;
       }
     } catch (err) {
