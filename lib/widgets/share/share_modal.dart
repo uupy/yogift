@@ -147,9 +147,9 @@ class ShareModal {
 
           break;
         case ShareMethod.facebook:
-          if (apps['messenger'] == true || apps['messenger-lite'] == true) {
-            // await appinioSocialShare.shareToFacebook(shareContent, filePath);
-            await appinioSocialShare.shareToMessenger(shareContent);
+          if (apps['facebook'] == true) {
+            await appinioSocialShare.shareToFacebook(shareContent, filePath);
+            // await appinioSocialShare.shareToMessenger(shareContent);
           } else {
             app.showToast('請先安裝Facebook Messenger');
           }
