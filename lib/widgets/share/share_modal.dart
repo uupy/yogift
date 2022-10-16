@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 import 'dart:ui';
 
 import 'package:appinio_social_share/appinio_social_share.dart';
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_controller.dart';
 import 'package:yo_gift/common/logger.dart';
@@ -61,11 +63,11 @@ class ShareModal {
 
     Uint8List? finalPngBytes = finalByteData?.buffer.asUint8List();
 
-    // final document = await getApplicationDocumentsDirectory();
-    final document = await getExternalStorageDirectory();
-    final path = document?.absolute.path;
+    final document = await getApplicationDocumentsDirectory();
+    // final document = await getExternalStorageDirectory();
+    final path = document.absolute.path;
 
-    final dir = Directory(path! + '/yogift_share.png');
+    final dir = Directory(path + '/yogift_share.png');
     // final dir = Directory(document.path + '/yogift_share.png');
 
     final imageFile = File(dir.path);
@@ -145,16 +147,21 @@ class ShareModal {
 
           break;
         case ShareMethod.facebook:
-          if (apps['facebook'] == true) {
-            await appinioSocialShare.shareToFacebook(shareContent, filePath);
+          if (apps['messenger'] == true || apps['messenger-lite'] == true) {
+            // await appinioSocialShare.shareToFacebook(shareContent, filePath);
+            await appinioSocialShare.shareToMessenger(shareContent);
           } else {
-            app.showToast('請先安裝Facebook');
+            app.showToast('請先安裝Facebook Messenger');
           }
           break;
         case ShareMethod.twitter:
           if (apps['twitter'] == true) {
-            await appinioSocialShare.shareToTwitter(shareContent,
-                filePath: filePath);
+            if (Platform.isAndroid) {
+              await appinioSocialShare.shareToTwitter(shareContent,
+                  filePath: filePath);
+            } else {
+              Share.shareXFiles([XFile(filePath)], text: shareContent);
+            }
           } else {
             app.showToast('請先安裝Twitter');
           }
