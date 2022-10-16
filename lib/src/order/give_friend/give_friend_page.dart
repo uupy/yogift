@@ -50,7 +50,7 @@ class _OrderGiveFriendPageState extends State<OrderGiveFriendPage> {
       ),
       extendBody: true,
       body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
+        // physics: const ClampingScrollPhysics(),
         controller: _scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

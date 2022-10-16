@@ -34,7 +34,7 @@ class _CharityBlessingPageState extends State<CharityBlessingPage> {
       ),
       extendBody: true,
       body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
+        // physics: const ClampingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

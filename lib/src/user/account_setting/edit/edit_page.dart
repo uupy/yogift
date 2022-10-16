@@ -25,7 +25,7 @@ class _AccountSettingEditPageState extends State<AccountSettingEditPage> {
           title: Obx(() => Text(controller.title.value)),
         ),
         body: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
+          // physics: const ClampingScrollPhysics(),
           child: GetBuilder<AccountSettingEditController>(
             builder: (c) {
               String hintText = '請輸入暱稱';

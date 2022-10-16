@@ -42,7 +42,7 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
         title: const Text('賬戶設定'),
       ),
       body: SingleChildScrollView(
-        // physics: const ClampingScrollPhysics(),
+        // // physics: const ClampingScrollPhysics(),
         child: GetBuilder<AccountSettingController>(
           builder: (c) {
             final data = c.userInfo;

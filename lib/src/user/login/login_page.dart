@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage>
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
+          // physics: const ClampingScrollPhysics(),
           child: Column(
             children: [
               const AppAssetImage(

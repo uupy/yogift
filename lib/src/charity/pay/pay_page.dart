@@ -32,7 +32,7 @@ class _CharityPayPageState extends State<CharityPayPage> {
       ),
       extendBody: true,
       body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
+        // physics: const ClampingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

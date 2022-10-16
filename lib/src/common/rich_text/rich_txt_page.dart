@@ -23,7 +23,7 @@ class _RichTxtPageState extends State<RichTxtPage> {
             title: Obx(() => Text(c.title.value)),
           ),
           body: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
+            // physics: const ClampingScrollPhysics(),
             padding: EdgeInsets.all(20.w),
             child: Html(
               data: c.content

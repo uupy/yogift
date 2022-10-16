@@ -36,7 +36,7 @@ class _GiftDeliverPageState extends State<GiftDeliverPage> {
       ),
       extendBody: true,
       body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
+        // physics: const ClampingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

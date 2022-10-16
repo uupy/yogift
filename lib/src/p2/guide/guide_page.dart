@@ -67,7 +67,7 @@ class _P2GuidePageState extends State<P2GuidePage> {
       ),
       body: SingleChildScrollView(
         controller: scrollController,
-        physics: const ClampingScrollPhysics(),
+        // physics: const ClampingScrollPhysics(),
         child: GetBuilder<P2GuideController>(
           builder: (c) {
             return Column(

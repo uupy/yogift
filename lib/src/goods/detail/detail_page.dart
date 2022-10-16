@@ -75,7 +75,7 @@ class _GoodsDetailPageState extends State<GoodsDetailPage>
       ),
       extendBody: true,
       body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
+        // physics: const ClampingScrollPhysics(),
         child: Column(
           children: [
             Stack(

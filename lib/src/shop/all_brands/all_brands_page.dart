@@ -25,7 +25,7 @@ class _AllBrandsPageState extends State<AllBrandsPage> {
         title: const Text('所有品牌'),
       ),
       body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
+        // physics: const ClampingScrollPhysics(),
         child: Stack(
           children: [
             const HeaderBackground(),

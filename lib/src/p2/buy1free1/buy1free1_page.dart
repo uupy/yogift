@@ -34,7 +34,7 @@ class _P2Buy1Free1PageState extends State<P2Buy1Free1Page> {
       ),
       body: SingleChildScrollView(
         controller: scrollController,
-        physics: const ClampingScrollPhysics(),
+        // physics: const ClampingScrollPhysics(),
         child: GetBuilder<P2Buy1Free1Controller>(
           builder: (c) {
             return Column(

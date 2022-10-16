@@ -26,7 +26,7 @@ class _NotifySettingPageState extends State<NotifySettingPage> {
         title: const Text('通知設定'),
       ),
       body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
+        // physics: const ClampingScrollPhysics(),
         child: GetBuilder<NotifySettingController>(
           builder: (c) {
             return AppSimpleRow(

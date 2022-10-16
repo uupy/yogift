@@ -28,7 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
+          // physics: const ClampingScrollPhysics(),
           child: Column(
             children: [
               const AppAssetImage(img: 'img_gift.png'),

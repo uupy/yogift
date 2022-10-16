@@ -27,7 +27,7 @@ class _SetPwdPageState extends State<SetPwdPage> {
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
+          // physics: const ClampingScrollPhysics(),
           child: Column(
             children: [
               const AppAssetImage(img: 'bg_top2.png'),

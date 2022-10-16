@@ -54,7 +54,7 @@ class _CharityPayResultPageState extends State<CharityPayResultPage> {
         ),
       ),
       body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
+        // physics: const ClampingScrollPhysics(),
         child: GetBuilder<CharityPayResultController>(
           builder: (c) {
             final order = c.orderInfo;
