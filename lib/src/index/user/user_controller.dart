@@ -30,6 +30,13 @@ class UserController extends GetxController {
       path: '/pages/mine/invite-friend/index',
     ),
   ];
+  final menus4 = [
+    CustomMenuItem(
+      icon: 'icon_coupon.png',
+      label: '我的優惠券',
+      path: '/pages/mine/coupon/coupon-list',
+    ),
+  ];
   final menus3 = [
     CustomMenuItem(
       icon: 'icon_mine_notify.png',

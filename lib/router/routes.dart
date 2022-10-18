@@ -39,6 +39,7 @@ import 'package:yo_gift/src/user/set_mobile/set_mobile_page.dart';
 import 'package:yo_gift/src/user/set_pwd/set_pwd_page.dart';
 import 'package:yo_gift/src/user/wish/wish_page.dart';
 
+import '../src/user/coupon/coupon_list_page.dart';
 import 'route.dart';
 
 /// 路由名称 [name] , 保持和 h5 页面路径一致
@@ -84,6 +85,8 @@ final List<AppRoute> routes = [
       name: '/pages/mine/user-login/set-pwd/index', page: SetPwdPage()),
   const AppRoute(
       name: '/pages/mine/user-login/set-mobile/index', page: SetMobilePage()),
+  const AppRoute(
+  name: '/pages/mine/coupon/coupon-list', page: CouponListPage()),
   const AppRoute(
       name: '/pages/mine/notify-setting/index', page: NotifySettingPage()),
   const AppRoute(

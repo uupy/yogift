@@ -67,6 +67,12 @@ class UserPage extends StatelessWidget implements TabBarPage {
             },
           ),
           MenuGroup(
+            menus: controller.menus4,
+            onBack: (value) {
+              controller.init();
+            },
+          ),
+          MenuGroup(
             menus: controller.menus3,
             onBack: (value) {
               controller.init();
