@@ -124,17 +124,6 @@ class _ReadMoreTextState extends State<ReadMoreText> {
                                 _defaultShowMoreStyle,
                           ),
                           const SizedBox(width: 8),
-                          // if (widget.readMoreIcon != null)
-                          //   _isTextExpanded
-                          //       ? widget.readLessIcon!
-                          //       : widget.readMoreIcon!,
-                          // if (widget.readMoreIcon == null)
-                          //   Icon(
-                          //     _isTextExpanded
-                          //         ? Icons.keyboard_arrow_up
-                          //         : Icons.keyboard_arrow_down,
-                          //     color: widget.readMoreIconColor,
-                          //   )
                         ],
                       ),
                     ),

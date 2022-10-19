@@ -75,20 +75,21 @@ class _OrderListPageState extends State<CouponListPage>
             radius: 100.w,
           ),
           GetBuilder<CouponController>(
-              builder: (c) {
-                return AppListView<CouponItem>(
-                  fetch: c.queryList,
-                  controller: c.listController,
-                  colCount: 1,
-                  emptyPadding: EdgeInsets.fromLTRB(50.w, 160.w, 50.w, 0),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.w),
-                  itemBuilder: (item, index, list) {
-                    return CouponItemCard(
-                      item: item,
-                    );
-                  });
-              }),
+            builder: (c) {
+              return AppListView<CouponItem>(
+                fetch: c.queryList,
+                controller: c.listController,
+                colCount: 1,
+                emptyPadding: EdgeInsets.fromLTRB(50.w, 160.w, 50.w, 0),
+                padding:EdgeInsets.symmetric(vertical: 12.w),
+                itemBuilder: (item, index, list) {
+                  return CouponItemCard(
+                    item: item,
+                  );
+                },
+              );
+            }
+          ),
         ],
       ),
     );
