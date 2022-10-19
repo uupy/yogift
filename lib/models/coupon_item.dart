@@ -11,19 +11,18 @@ class CouponItem {
   double? cash;
   int? ygcouponType;
 
-  CouponItem({
-    this.id,
-    this.ygcouponId,
-    this.ygcouponTitle1,
-    this.status,
-    this.endTime,
-    this.addtime1,
-    this.remarks,
-    this.termsOfUse,
-    this.minimumAmount,
-    this.cash,
-    this.ygcouponType
-  });
+  CouponItem(
+      {this.id,
+      this.ygcouponId,
+      this.ygcouponTitle1,
+      this.status,
+      this.endTime,
+      this.addtime1,
+      this.remarks,
+      this.termsOfUse,
+      this.minimumAmount,
+      this.cash,
+      this.ygcouponType});
 
   CouponItem.fromJson(Map<String, dynamic> json) {
     id = json['Id'];

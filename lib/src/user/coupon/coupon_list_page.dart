@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/models/coupon_item.dart';
 import 'package:yo_gift/src/user/coupon/conpon_controller.dart';
+import 'package:yo_gift/src/user/coupon/coupon_item_card.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
@@ -65,9 +66,7 @@ class _OrderListPageState extends State<CouponListPage>
                 text: '已過期',
               ),
             ],
-            onTap: (i) => {
-              logger.i({'i': i})
-            },
+            onTap: (i) => {controller.updateList(i+1)},
           )),
       body: Stack(
         children: [
@@ -75,22 +74,22 @@ class _OrderListPageState extends State<CouponListPage>
             height: 165.w,
             radius: 100.w,
           ),
-          AppListView<CouponItem>(
-            fetch: controller.queryList,
-            controller: controller.listController,
-            colCount: 1,
-            reverse: true,
-            reverseData: true,
-            enablePullDown: false,
-            enablePullUp: false,
-            emptyPadding: EdgeInsets.fromLTRB(50.w, 60.w, 50.w, 0),
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.w),
-            itemBuilder: (item, index, list) {
-              return Text(item.id);
-            }
-          ),
+          GetBuilder<CouponController>(
+              builder: (c) {
+                return AppListView<CouponItem>(
+                  fetch: c.queryList,
+                  controller: c.listController,
+                  colCount: 1,
+                  emptyPadding: EdgeInsets.fromLTRB(50.w, 160.w, 50.w, 0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.w),
+                  itemBuilder: (item, index, list) {
+                    return CouponItemCard(
+                      item: item,
+                    );
+                  });
+              }),
         ],
-        
       ),
     );
   }
