@@ -7,16 +7,16 @@ import 'package:yo_gift/src/user/coupon/coupon_item_card.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
-/// 我的優惠券
+/// 使用優惠券
 
-class CouponListPage extends StatefulWidget {
-  const CouponListPage({Key? key}) : super(key: key);
+class PurchaseChooseCoupon extends StatefulWidget {
+  const PurchaseChooseCoupon({Key? key}) : super(key: key);
 
   @override
   _OrderListPageState createState() => _OrderListPageState();
 }
 
-class _OrderListPageState extends State<CouponListPage>
+class _OrderListPageState extends State<PurchaseChooseCoupon>
     with TickerProviderStateMixin {
   final controller = Get.put(CouponController());
   late TabController _tabController;
@@ -25,7 +25,7 @@ class _OrderListPageState extends State<CouponListPage>
   void initState() {
     super.initState();
 
-    _tabController = TabController(vsync: this, length: 3);
+    _tabController = TabController(vsync: this, length: 2);
   }
 
   @override
@@ -38,7 +38,7 @@ class _OrderListPageState extends State<CouponListPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('我的優惠券'),
+          title: const Text('使用優惠券'),
           bottom: TabBar(
             indicatorPadding: EdgeInsets.fromLTRB(35.w, 0, 35.w, 0),
             indicator: const BoxDecoration(
@@ -56,13 +56,10 @@ class _OrderListPageState extends State<CouponListPage>
                 const TextStyle(fontWeight: FontWeight.normal),
             tabs: const <Widget>[
               Tab(
-                text: '未使用',
+                text: '可用優惠券',
               ),
               Tab(
-                text: '已使用',
-              ),
-              Tab(
-                text: '已過期',
+                text: '不可用優惠券',
               ),
             ],
             onTap: (i) => {controller.updateList(i+1)},

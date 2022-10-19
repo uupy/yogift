@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/assets/fonts/iconfont.dart';
 import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/focus_monitoring.dart';
 import 'package:yo_gift/widgets/greeting_card/greeting_card.dart';
 import 'package:yo_gift/widgets/header_background.dart';
@@ -84,6 +86,40 @@ class _PurchasePageState extends State<PurchasePage> {
                     controller.greetingCardImage = image;
                   },
                 ),
+
+              ///優惠券
+              if (controller.buyType == '1' && controller.detail?.buy1Get1FREE != 1) 
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(20.w),
+                child: AppCard(
+                  onTap: () => {
+                    Get.toNamed('/pages/goods/purchase/choose_coupon')
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('使用優惠券'),
+                      Row(
+                        children:  [
+                          const Text('未選擇',
+                            style: TextStyle(
+                              color: Color.fromRGBO(163, 163, 163, 1)
+                            ),
+                          ),
+                          Icon(
+                            IconFont.icon_arrow_right,
+                            size: 12.sp,
+                            color: const Color.fromRGBO(163, 163, 163, 1),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                
+              ),
+
               if (controller.orderId.isEmpty)
                 OrderRemark(
                   onChanged: (value) {
