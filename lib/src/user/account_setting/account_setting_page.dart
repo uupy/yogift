@@ -3,8 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/common/logger.dart';
+import 'package:yo_gift/services/verification.dart';
 import 'package:yo_gift/src/index/index_controller.dart';
+import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_card.dart';
+import 'package:yo_gift/widgets/form_item.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 import 'package:yo_gift/widgets/menu_row/menu_group.dart';
 import 'package:yo_gift/widgets/menu_row/menu_row.dart';
@@ -166,6 +170,74 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
                   child: Center(
                     child: Text(
                       '登出',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: const Color(0xffff3b30),
+                      ),
+                    ),
+                  ),
+                ),
+                AppCard(
+                  onTap: () async {
+                    c.verifyCode = '';
+
+                    final result = await app.confirm(
+                      height: 240.w,
+                      title: '刪除賬號',
+                      content: Container(
+                          padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 0),
+                          margin: EdgeInsets.only(bottom: 30.w),
+                          child: GetBuilder<AccountSettingController>(
+                            id: 'accountVerifyCode',
+                            builder: (c2) {
+                              return FormItem(
+                                label: '驗證碼',
+                                hintText: '請輸入驗證碼',
+                                padding: EdgeInsets.only(left: 10.w),
+                                keyboardType: TextInputType.number,
+                                actions: [
+                                  Container(
+                                    margin: EdgeInsets.all(6.w),
+                                    child: AppButton(
+                                      round: false,
+                                      fixedSize: Size(84.w, 32.w),
+                                      fontSize: 12.sp,
+                                      text: c2.countdown > 0
+                                          ? '${c2.countdown}s'
+                                          : '獲取驗證碼',
+                                      onPressed: () async {
+                                        await VerificationService.verifySend();
+                                        c2.runTimer();
+                                      },
+                                    ),
+                                  ),
+                                ],
+                                onChanged: (value) {
+                                  c2.verifyCode = value!;
+                                  c2.update(['accountVerifyCode']);
+                                },
+                              );
+                            },
+                          )),
+                    );
+
+                    if (result == true) {
+                      if (c.verifyCode == '') {
+                        app.showToast('請輸入驗證碼！');
+                        return;
+                      }
+                      await controller.deleteAccount('code');
+
+                      app.removeAccount(success: () {
+                        Get.offAllNamed('/login');
+                      });
+                    }
+                  },
+                  margin: EdgeInsets.fromLTRB(20.w, 0, 20.w, 0),
+                  blurRadius: 2.r,
+                  child: Center(
+                    child: Text(
+                      '刪除賬號',
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: const Color(0xffff3b30),

@@ -16,6 +16,7 @@ import 'package:yo_gift/widgets/app_button.dart';
 
 import 'app_storage.dart';
 import 'custom_dialog/custom_dialog.dart';
+
 class App {
   App._internal();
 
@@ -228,7 +229,7 @@ class App {
         ],
       ),
     );
-  }  
+  }
 
   /// 底部彈出層
   Future showBottomModal<T>({
@@ -248,7 +249,7 @@ class App {
       ),
       builder: builder,
     );
-  }  
+  }
 
   /// 退出登录
   Future logout({Function()? success}) async {
@@ -267,6 +268,22 @@ class App {
       if (Get.currentRoute != '/login') {
         Get.toNamed('/login');
       }
+    }
+  }
+
+  /// 删除账号
+  Future removeAccount({Function()? success}) async {
+    await authDataStorage.remove();
+    await accessToken.remove();
+    await loginUser.remove();
+    await lastOpenAdTime.remove();
+    await searchHistory.remove();
+
+    authData = null;
+    userInfo = null;
+
+    if (success != null) {
+      success.call();
     }
   }
 
