@@ -32,7 +32,7 @@ class PurchaseFooter extends StatelessWidget {
           double price = ((c.detail?.buyPrice ?? 0) - c.discountPrice) < 0
               ? 0
               : ((c.detail?.buyPrice ?? 0) - c.discountPrice);
-          logger.i({'totalPrice': price});
+          logger.i({'totalPrice': price,'discountPrice':c.discountPrice});
 
           if (c.isDonation) {
             buttonText = '去付款';
