@@ -277,6 +277,8 @@ class PurchaseController extends GetxController {
       final data = res.data ?? {};
 
       onPay(data);
+    } catch (e) {
+      logger.e({'UserOrderServiceError':e});
     } finally {
       submitting = false;
       update(['PurchaseFooter']);
