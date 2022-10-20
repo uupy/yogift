@@ -2,6 +2,7 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/src/goods/purchase/purchase_controller.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_button.dart';
@@ -28,7 +29,10 @@ class PurchaseFooter extends StatelessWidget {
         builder: (c) {
           final order = c.orderInfo;
           String buttonText = '贈送好友';
-          double price = c.detail?.buyPrice ?? 0;
+          double price = ((c.detail?.buyPrice ?? 0) - c.discountPrice) < 0
+              ? 0
+              : ((c.detail?.buyPrice ?? 0) - c.discountPrice);
+          logger.i({'totalPrice': price});
 
           if (c.isDonation) {
             buttonText = '去付款';

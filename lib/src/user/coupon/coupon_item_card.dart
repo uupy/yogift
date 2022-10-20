@@ -6,7 +6,9 @@ import 'package:yo_gift/widgets/text_view_more.dart';
 
 /// 优惠券
 class CouponItemCard extends StatelessWidget {
-  final CouponItem item;
+  // ignore: prefer_typing_uninitialized_variables
+  final item;
+  
 
   const CouponItemCard({
     Key? key,
@@ -21,46 +23,42 @@ class CouponItemCard extends StatelessWidget {
         child: Column(children: [
           /// 上部分
           item.ygcouponType == 1
-            ? Row(
-              children: [
-                /// 優惠券
-                buildCouponTitle(item),
-                SizedBox(
-                  width: 40.w,
+              ? Row(
+                  children: [
+                    /// 優惠券
+                    buildCouponTitle(item),
+                    SizedBox(
+                      width: 40.w,
+                    ),
+                    buildRightCouponTitle(item),
+                  ],
+                )
+              : Row(
+                  children: [
+                    /// 折扣券
+                    buildDiscountTile(item),
+                    SizedBox(
+                      width: 40.w,
+                    ),
+                    buildRightCouponTitle(item),
+                  ],
                 ),
-                buildRightCouponTitle(item),
-              ],
-            )
-            : Row(
-              children: [
-                /// 折扣券
-                buildDiscountTile(item),
-                SizedBox(
-                  width: 40.w,
-                ),
-                buildRightCouponTitle(item),
-              ],
-            ),
-          
+
           /// 過期時間
           Container(
-            padding: EdgeInsets.fromLTRB(0,8.w,0,8.w),
+            padding: EdgeInsets.fromLTRB(0, 8.w, 0, 8.w),
             margin: EdgeInsets.only(bottom: 8.w),
             decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Color.fromRGBO(230, 230, 230, .5)
-                )
-              )
-            ),
-            child:  Align(
+                border: Border(
+                    bottom:
+                        BorderSide(color: Color.fromRGBO(230, 230, 230, .5)))),
+            child: Align(
               alignment: Alignment.centerRight,
               child: Text(
                 '${item.endTime}前有效',
                 style: TextStyle(
-                  fontSize: 12.sp,
-                  color: const Color.fromRGBO(255,188,100,1)
-                ),
+                    fontSize: 12.sp,
+                    color: const Color.fromRGBO(255, 188, 100, 1)),
               ),
             ),
           ),
@@ -76,9 +74,7 @@ class CouponItemCard extends StatelessWidget {
               fontSize: 12.sp,
             ),
           )
-        ]
-      )
-    );
+        ]));
   }
 }
 

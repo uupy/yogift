@@ -23,6 +23,9 @@ import 'package:yo_gift/src/order/pay/pay_controller.dart';
 class PurchaseController extends GetxController {
   int? skuId = int.tryParse(Get.parameters['skuId'] ?? '0');
   String goodsId = Get.parameters['id'] ?? '';
+  String couponText = '未選擇';
+  double discountPrice = 0;
+  int couponId = 0;
 
   /// 1 买给自己， 2 送给别人
   final buyType = Get.parameters['buyType'];
@@ -204,7 +207,7 @@ class PurchaseController extends GetxController {
 
   /// 提交下单
   Future onSubmit() async {
-    logger.i(orderId);
+    logger.i({'orderId': orderId});
     if (submitting) return;
     if (orderId.isNotEmpty) {
       onPay();
@@ -265,6 +268,7 @@ class PurchaseController extends GetxController {
     baseForm.num = 1;
     baseForm.money = detail?.buyPrice ?? 0;
     baseForm.content2 = remark;
+    baseForm.ygcoupon1id = couponId;
 
     submitting = true;
     update(['PurchaseFooter']);
@@ -369,6 +373,22 @@ class PurchaseController extends GetxController {
       }
       update(['SenderInfo']);
     });
+  }
+
+  /// 選擇優惠券后
+  updateCouponInfo(item) {
+    if (item != null) {
+      couponText = '- \$${item.cash}';
+      discountPrice = item?.cash;
+      couponId = item?.id;
+    } else {
+      couponText = '未選擇';
+      discountPrice = 0;
+      couponId = 0;
+    }
+
+    update(['PurchaseFooter']);
+    update();
   }
 
   /// 关闭定时器
