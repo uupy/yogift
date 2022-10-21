@@ -12,6 +12,7 @@ import 'package:yo_gift/src/goods/purchase/purchase_choose_coupon.dart';
 import 'package:yo_gift/src/goods/purchase/purchase_page.dart';
 import 'package:yo_gift/src/guide/guide_page.dart';
 import 'package:yo_gift/src/index/index_page.dart';
+import 'package:yo_gift/src/user/account_setting/account_remove/remove_account.dart';
 import 'package:yo_gift/src/order/detail/detail_page.dart';
 import 'package:yo_gift/src/order/donation_detail/donation_detail_page.dart';
 import 'package:yo_gift/src/order/give_friend/give_friend_page.dart';
@@ -76,6 +77,9 @@ final List<AppRoute> routes = [
   const AppRoute(
       name: '/pages/charity/pay-success/index', page: CharityPayResultPage()),
   const AppRoute(name: '/pages/wish/index/index', page: UserWishPage()),
+
+  const AppRoute(name: '/pages/user/account_setting/remove', page: RemoveAccount()),
+  
   const AppRoute(
       name: '/pages/mine/account-setting/index', page: AccountSettingPage()),
   const AppRoute(

@@ -179,59 +179,7 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
                 ),
                 AppCard(
                   onTap: () async {
-                    c.verifyCode = '';
-
-                    final result = await app.confirm(
-                      height: 240.w,
-                      title: '刪除賬號',
-                      content: Container(
-                          padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 0),
-                          margin: EdgeInsets.only(bottom: 30.w),
-                          child: GetBuilder<AccountSettingController>(
-                            id: 'accountVerifyCode',
-                            builder: (c2) {
-                              return FormItem(
-                                label: '驗證碼',
-                                hintText: '請輸入驗證碼',
-                                padding: EdgeInsets.only(left: 10.w),
-                                keyboardType: TextInputType.number,
-                                actions: [
-                                  Container(
-                                    margin: EdgeInsets.all(6.w),
-                                    child: AppButton(
-                                      round: false,
-                                      fixedSize: Size(84.w, 32.w),
-                                      fontSize: 12.sp,
-                                      text: c2.countdown > 0
-                                          ? '${c2.countdown}s'
-                                          : '獲取驗證碼',
-                                      onPressed: () async {
-                                        await VerificationService.verifySend();
-                                        c2.runTimer();
-                                      },
-                                    ),
-                                  ),
-                                ],
-                                onChanged: (value) {
-                                  c2.verifyCode = value!;
-                                  c2.update(['accountVerifyCode']);
-                                },
-                              );
-                            },
-                          )),
-                    );
-
-                    if (result == true) {
-                      if (c.verifyCode == '') {
-                        app.showToast('請輸入驗證碼！');
-                        return;
-                      }
-                      await controller.deleteAccount('code');
-
-                      app.removeAccount(success: () {
-                        Get.offAllNamed('/login');
-                      });
-                    }
+                    Get.toNamed('/pages/user/account_setting/remove');
                   },
                   margin: EdgeInsets.fromLTRB(20.w, 0, 20.w, 0),
                   blurRadius: 2.r,

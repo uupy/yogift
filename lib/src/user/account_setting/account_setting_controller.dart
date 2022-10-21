@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/services/user.dart';
 
@@ -8,10 +9,11 @@ class AccountSettingController extends GetxController {
   UserInfoVo? userInfo;
   String verifyCode = '';
   int countdown = 0;
-    /// 定时器
+
+  /// 定时器
   Timer? _timer;
 
-    /// 轮询间隔时间
+  /// 轮询间隔时间
   static const _timeout = Duration(seconds: 1);
 
   @override
@@ -54,11 +56,18 @@ class AccountSettingController extends GetxController {
 
   /// 刪除賬號
   Future deleteAccount(code) async {
-    await UserService.removeAccount({
+    final params = {
       "phone": userInfo?.phone,
       "phoneprefix": userInfo?.phonePrefix,
       "code": code
-    });
-    // update();
+    };
+
+    logger.i({'params': params});
+    try {
+      final res = await UserService.removeAccount(params);
+      return res;
+    } catch (e) {
+      logger.e('deleteAccountError', e);
+    }
   }
 }
