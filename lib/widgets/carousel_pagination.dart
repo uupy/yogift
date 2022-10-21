@@ -9,8 +9,10 @@ class CarouselPagination extends StatefulWidget {
   final double? activeSize;
   final Color? color;
   final Color? activeColor;
+  final Color? borderColor;
   final EdgeInsetsGeometry? margin;
   final double? space;
+  final double? borderWidth;
   final AlignmentGeometry? alignment;
 
   const CarouselPagination({
@@ -21,8 +23,10 @@ class CarouselPagination extends StatefulWidget {
     this.activeSize,
     this.color,
     this.activeColor,
+    this.borderColor,
     this.margin,
     this.space,
+    this.borderWidth,
     this.alignment,
   }) : super(key: key);
 
@@ -35,7 +39,9 @@ class _CarouselPagination extends State<CarouselPagination> {
   double size = 8.w;
   double activeSize = 8.w;
   Color color = const Color(0xffffffff);
+  Color borderColor = const Color(0xffffffff);
   Color activeColor = AppTheme.primaryColor;
+  Color activeBorderColor = AppTheme.primaryColor;
 
   @override
   void initState() {
@@ -43,7 +49,9 @@ class _CarouselPagination extends State<CarouselPagination> {
     size = widget.size ?? size;
     activeSize = widget.activeSize ?? activeSize;
     color = widget.color ?? color;
+    borderColor = widget.borderColor ?? color;
     activeColor = widget.activeColor ?? activeColor;
+    activeBorderColor = widget.activeColor ?? activeColor;
     super.initState();
   }
 
@@ -62,6 +70,11 @@ class _CarouselPagination extends State<CarouselPagination> {
             decoration: BoxDecoration(
               color: widget.current == index ? activeColor : color,
               borderRadius: BorderRadius.circular(size),
+              border: Border.all(
+                width: widget.borderWidth ?? 1,
+                color:
+                    widget.current == index ? activeBorderColor : borderColor,
+              ),
             ),
           );
         }),

@@ -279,6 +279,7 @@ class App {
     await loginUser.remove();
     await lastOpenAdTime.remove();
     await searchHistory.remove();
+    await firstEntryApp.remove();
 
     authData = null;
     userInfo = null;

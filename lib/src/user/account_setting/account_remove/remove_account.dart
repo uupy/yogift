@@ -83,14 +83,16 @@ class _RemoveAccount extends State<RemoveAccount> {
                     ],
                   ),
                 ),
+                SizedBox(height: 70.w),
               ],
             ),
           ),
         ),
         bottomNavigationBar: Container(
-          margin: EdgeInsets.all(30.w),
+          margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.w),
           child: AppButton(
-            borderColor: const Color.fromARGB(255, 98, 88, 1),
+            borderColor: const Color(0xffff3b30),
+            backgroundColor: const Color(0xffff3b30),
             shadow: false,
             onPressed: () async {
               controller.verifyCode = '';
@@ -147,7 +149,6 @@ class _RemoveAccount extends State<RemoveAccount> {
                 });
               }
             },
-            backgroundColor: const Color.fromARGB(255, 98, 88, 1),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
