@@ -3,8 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/common/logger.dart';
+import 'package:yo_gift/services/verification.dart';
 import 'package:yo_gift/src/index/index_controller.dart';
+import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_card.dart';
+import 'package:yo_gift/widgets/form_item.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 import 'package:yo_gift/widgets/menu_row/menu_group.dart';
 import 'package:yo_gift/widgets/menu_row/menu_row.dart';
@@ -166,6 +170,22 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
                   child: Center(
                     child: Text(
                       '登出',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: const Color(0xffff3b30),
+                      ),
+                    ),
+                  ),
+                ),
+                AppCard(
+                  onTap: () async {
+                    Get.toNamed('/pages/user/account_setting/remove');
+                  },
+                  margin: EdgeInsets.fromLTRB(20.w, 0, 20.w, 0),
+                  blurRadius: 2.r,
+                  child: Center(
+                    child: Text(
+                      '刪除賬號',
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: const Color(0xffff3b30),

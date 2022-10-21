@@ -14,6 +14,7 @@ import 'package:yo_gift/router/router.dart';
 
 import 'common/app.dart';
 import 'common/app_controller.dart';
+import 'common/app_storage.dart';
 
 void main() async {
   /// 设置沉浸式状态栏（需要在runApp前）
@@ -112,8 +113,13 @@ class _MaterialHome extends State<MaterialHome> {
     await app.init(context);
     appController.init(
       onComplete: (data) async {
-        app.updateAuthData();
-        Get.offNamed('index');
+        final firstEnter = await firstEntryApp.get() ?? true;
+        if (firstEnter) {
+          Get.offNamed('/guide');
+        } else {
+          app.updateAuthData();
+          Get.offNamed('/index');
+        }
       },
       onError: (e) {
         logger.e(e);

@@ -7,6 +7,7 @@ import 'package:yo_gift/common/app_controller.dart';
 import 'package:yo_gift/common/app_storage.dart';
 import 'package:yo_gift/common/custom_dialog/custom_dialog.dart';
 import 'package:yo_gift/router/tab_bar.dart';
+import 'package:yo_gift/src/index/user/user_controller.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 
@@ -34,7 +35,6 @@ class IndexController extends GetxController {
   @override
   void onInit() async {
     initIndex();
-    showAdDialog();
     super.onInit();
   }
 
@@ -118,6 +118,10 @@ class IndexController extends GetxController {
   void switchTabBar(int index) async {
     currentIndex = index;
     pageController?.jumpToPage(index);
+    if (index == 4) {
+      final userController = Get.put(UserController());
+      userController.init();
+    }
     update();
   }
 }

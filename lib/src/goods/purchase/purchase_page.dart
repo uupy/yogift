@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/assets/fonts/iconfont.dart';
 import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/common/app_storage.dart';
+import 'package:yo_gift/common/logger.dart';
+import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/focus_monitoring.dart';
 import 'package:yo_gift/widgets/greeting_card/greeting_card.dart';
 import 'package:yo_gift/widgets/header_background.dart';
@@ -49,6 +53,11 @@ class _PurchasePageState extends State<PurchasePage> {
     return t?.getTranslation().y ?? 0;
   }
 
+  isLogged() async {
+    final _token = await accessToken.get() ?? '';
+    return _token.isNotEmpty ? true : false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return FocusMonitoring(
@@ -84,6 +93,60 @@ class _PurchasePageState extends State<PurchasePage> {
                     controller.greetingCardImage = image;
                   },
                 ),
+
+              ///優惠券
+              GetBuilder<PurchaseController>(
+                id: 'useCouponController',
+                builder: (c) {
+                  if (c.buyType == '1' &&
+                      c.detail?.buy1Get1FREE != 1 &&
+                      c.orderId == '' &&
+                      c.isLogged) {
+                    return Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(20.w),
+                      child: GetBuilder<PurchaseController>(
+                        builder: (c) => AppCard(
+                          onTap: () => {
+                            Get.toNamed('/pages/goods/purchase/choose_coupon',
+                                arguments: {
+                                  'giftid': controller.detail?.id,
+                                  'skuid': controller.skuId,
+                                  'n': controller.orderInfo?.nums ?? 1,
+                                  'for_charity': controller.detail?.forCharity
+                                })?.then((value) => {c.updateCouponInfo(value)})
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text('使用優惠券'),
+                              Row(
+                                children: [
+                                  Text(
+                                    c.couponText,
+                                    style: TextStyle(
+                                        color: c.couponText == "未選擇"
+                                            ? const Color.fromRGBO(163, 163, 163, 1)
+                                            : const Color.fromRGBO(255, 64, 0, 1)),
+                                  ),
+                                  Icon(
+                                    IconFont.icon_arrow_right,
+                                    size: 12.sp,
+                                    color: const Color.fromRGBO(163, 163, 163, 1),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+
               if (controller.orderId.isEmpty)
                 OrderRemark(
                   onChanged: (value) {

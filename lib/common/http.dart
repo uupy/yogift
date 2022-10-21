@@ -72,6 +72,7 @@ Interceptor requestInterceptor() {
       final errReq = error.requestOptions;
       final errRes = error.response;
       code = errRes?.statusCode;
+      logger.i({'code': code,'errRes':errRes,'error':error});
       msg = errorMessages[code] ?? '系統繁忙，請稍後再試';
       bool isSilent = errReq.extra['silent'] ?? false;
 

@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:yo_gift/assets/fonts/iconfont.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/services/user.dart';
@@ -16,6 +17,7 @@ import 'package:yo_gift/widgets/app_button.dart';
 
 import 'app_storage.dart';
 import 'custom_dialog/custom_dialog.dart';
+
 class App {
   App._internal();
 
@@ -228,7 +230,7 @@ class App {
         ],
       ),
     );
-  }  
+  }
 
   /// 底部彈出層
   Future showBottomModal<T>({
@@ -248,7 +250,7 @@ class App {
       ),
       builder: builder,
     );
-  }  
+  }
 
   /// 退出登录
   Future logout({Function()? success}) async {
@@ -267,6 +269,22 @@ class App {
       if (Get.currentRoute != '/login') {
         Get.toNamed('/login');
       }
+    }
+  }
+
+  /// 删除账号
+  Future removeAccount({Function()? success}) async {
+    await authDataStorage.remove();
+    await accessToken.remove();
+    await loginUser.remove();
+    await lastOpenAdTime.remove();
+    await searchHistory.remove();
+
+    authData = null;
+    userInfo = null;
+
+    if (success != null) {
+      success.call();
     }
   }
 
@@ -291,6 +309,7 @@ class App {
 
   /// 更新登录信息
   Future updateAuthData([Map<String, dynamic>? data]) async {
+    logger.i(data);
     if (data != null) {
       await setAuthData(data);
     } else {

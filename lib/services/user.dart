@@ -80,4 +80,8 @@ class UserService {
           extra: {'silent': true},
         ),
       );
+
+/// 刪除賬號
+  static Future removeAccount(data) =>
+      http.postJson('/User/Remove', data: data);
 }

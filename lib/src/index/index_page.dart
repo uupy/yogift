@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:yo_gift/common/app_theme.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/common/app_theme.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
 
 import 'index_controller.dart';
@@ -28,6 +28,18 @@ class _IndexView extends State<IndexPage> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+    if (mounted) {
+      final redirect = Get.parameters['redirect'] ?? '';
+      if (redirect.isNotEmpty) {
+        Future.delayed(const Duration(milliseconds: 30), () {
+          Get.toNamed(redirect)?.then((value) {
+            _controller.showAdDialog();
+          });
+        });
+      } else {
+        _controller.showAdDialog();
+      }
+    }
     super.initState();
   }
 

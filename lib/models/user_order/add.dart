@@ -4,7 +4,7 @@ class AddVo {
   int? skuid;
   double? money;
   String? content2;
-  // int? ygcoupon1id;
+  int? ygcoupon1id;
 
   AddVo({
     this.num,
@@ -12,7 +12,7 @@ class AddVo {
     this.skuid,
     this.money,
     this.content2,
-    // this.ygcoupon1id,
+    this.ygcoupon1id,
   });
 
   AddVo.fromJson(Map<String, dynamic> json) {
@@ -21,7 +21,7 @@ class AddVo {
     skuid = json['skuid'];
     money = json['money'];
     content2 = json['content2'];
-    // ygcoupon1id = json['ygcoupon1id'];
+    ygcoupon1id = json['ygcoupon1id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,7 +31,7 @@ class AddVo {
     data['skuid'] = skuid;
     data['money'] = money;
     data['content2'] = content2;
-    // data['ygcoupon1id'] = ygcoupon1id;
+    data['ygcoupon1id'] = ygcoupon1id;
     return data;
   }
 }

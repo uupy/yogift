@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
-import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/common/utils.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/widgets/menu_row/menu_item.dart';
@@ -28,6 +27,13 @@ class UserController extends GetxController {
       icon: 'icon_mine_invitation.png',
       label: '邀請朋友即時有禮',
       path: '/pages/mine/invite-friend/index',
+    ),
+  ];
+  final menus4 = [
+    CustomMenuItem(
+      icon: 'icon_coupon.png',
+      label: '我的優惠券',
+      path: '/pages/mine/coupon/coupon-list',
     ),
   ];
   final menus3 = [
@@ -70,7 +76,6 @@ class UserController extends GetxController {
     await app.updateUserInfo();
     userInfo = app.userInfo;
     currentVersion = await CommonUtils.getCurrentVersion();
-    logger.i('currentVersion: $currentVersion');
     update(['UserHeaderInfo', 'UserAppBarAction']);
   }
 }

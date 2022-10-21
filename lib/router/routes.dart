@@ -8,8 +8,11 @@ import 'package:yo_gift/src/common/webview/webview_page.dart';
 import 'package:yo_gift/src/friend/detail/detail_page.dart';
 import 'package:yo_gift/src/goods/ask_friend/ask_friend_page.dart';
 import 'package:yo_gift/src/goods/detail/detail_page.dart';
+import 'package:yo_gift/src/goods/purchase/purchase_choose_coupon.dart';
 import 'package:yo_gift/src/goods/purchase/purchase_page.dart';
+import 'package:yo_gift/src/guide/guide_page.dart';
 import 'package:yo_gift/src/index/index_page.dart';
+import 'package:yo_gift/src/user/account_setting/account_remove/remove_account.dart';
 import 'package:yo_gift/src/order/detail/detail_page.dart';
 import 'package:yo_gift/src/order/donation_detail/donation_detail_page.dart';
 import 'package:yo_gift/src/order/give_friend/give_friend_page.dart';
@@ -39,6 +42,7 @@ import 'package:yo_gift/src/user/set_mobile/set_mobile_page.dart';
 import 'package:yo_gift/src/user/set_pwd/set_pwd_page.dart';
 import 'package:yo_gift/src/user/wish/wish_page.dart';
 
+import '../src/user/coupon/coupon_list_page.dart';
 import 'route.dart';
 
 /// 路由名称 [name] , 保持和 h5 页面路径一致
@@ -49,6 +53,7 @@ final List<AppRoute> routes = [
     page: IndexPage(),
     transition: Transition.noTransition,
   ),
+  const AppRoute(name: '/guide', page: GuidePage()),
   const AppRoute(name: '/login', page: LoginPage()),
   const AppRoute(name: '/register', page: RegisterPage()),
   const AppRoute(name: '/p2/guide/index', page: P2GuidePage()),
@@ -58,6 +63,9 @@ final List<AppRoute> routes = [
   const AppRoute(name: '/pages/goods/detail/index', page: GoodsDetailPage()),
   const AppRoute(name: '/pages/goods/ask-friend/index', page: AskFriendPage()),
   const AppRoute(name: '/pages/goods/purchase/index', page: PurchasePage()),
+  const AppRoute(
+      name: '/pages/goods/purchase/choose_coupon',
+      page: PurchaseChooseCoupon()),
   const AppRoute(name: '/pages/search/result/index', page: SearchResultPage()),
   const AppRoute(
       name: '/pages/search/category/index', page: SearchCategoryPage()),
@@ -69,6 +77,9 @@ final List<AppRoute> routes = [
   const AppRoute(
       name: '/pages/charity/pay-success/index', page: CharityPayResultPage()),
   const AppRoute(name: '/pages/wish/index/index', page: UserWishPage()),
+
+  const AppRoute(name: '/pages/user/account_setting/remove', page: RemoveAccount()),
+  
   const AppRoute(
       name: '/pages/mine/account-setting/index', page: AccountSettingPage()),
   const AppRoute(
@@ -84,6 +95,8 @@ final List<AppRoute> routes = [
       name: '/pages/mine/user-login/set-pwd/index', page: SetPwdPage()),
   const AppRoute(
       name: '/pages/mine/user-login/set-mobile/index', page: SetMobilePage()),
+  const AppRoute(
+      name: '/pages/mine/coupon/coupon-list', page: CouponListPage()),
   const AppRoute(
       name: '/pages/mine/notify-setting/index', page: NotifySettingPage()),
   const AppRoute(
