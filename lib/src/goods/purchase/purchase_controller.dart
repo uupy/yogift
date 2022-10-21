@@ -141,14 +141,13 @@ class PurchaseController extends GetxController {
 
   void init() async {
     final _token = await accessToken.get() ?? '';
-
     isLogged = _token.isNotEmpty;
     goodsId = Get.parameters['id'] ?? '';
     orderId = Get.parameters['orderId'] ?? '';
     skuId = int.tryParse(Get.parameters['skuId'] ?? '0');
 
     update(['SenderInfo']);
-
+    update(['useCouponController']);
     fetchData();
   }
 
