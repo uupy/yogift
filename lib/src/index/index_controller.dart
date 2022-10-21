@@ -119,7 +119,7 @@ class IndexController extends GetxController {
     currentIndex = index;
     pageController?.jumpToPage(index);
     if (index == 4) {
-      final userController = Get.find<UserController>();
+      final userController = Get.put(UserController());
       userController.init();
     }
     update();

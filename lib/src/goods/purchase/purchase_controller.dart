@@ -272,13 +272,15 @@ class PurchaseController extends GetxController {
 
     submitting = true;
     update(['PurchaseFooter']);
+
+    logger.i({'baseForm': baseForm.toJson()});
     try {
       final res = await UserOrderService.add(baseForm);
       final data = res.data ?? {};
 
       onPay(data);
     } catch (e) {
-      logger.e({'UserOrderServiceError':e});
+      logger.e({'UserOrderServiceError': e});
     } finally {
       submitting = false;
       update(['PurchaseFooter']);

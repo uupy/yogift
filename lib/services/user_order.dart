@@ -66,7 +66,7 @@ class UserOrderService {
 
   /// 下单:买给自己
   static Future<Response<dynamic>> add(AddVo data) => http.postJson(
-        'c',
+        '/UserOrder/Add',
         data: data,
         options: Options(extra: {'ignoreErrors': true}),
       );

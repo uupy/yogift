@@ -89,7 +89,7 @@ class _PurchasePageState extends State<PurchasePage> {
                 ),
 
               ///優惠券
-              if (controller.buyType == '1' && controller.detail?.buy1Get1FREE != 1) 
+              if (controller.buyType == '1' && controller.detail?.buy1Get1FREE != 1 && controller.orderId=='' && controller.isLogged) 
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(20.w),
