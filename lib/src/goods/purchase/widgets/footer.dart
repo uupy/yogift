@@ -29,10 +29,9 @@ class PurchaseFooter extends StatelessWidget {
         builder: (c) {
           final order = c.orderInfo;
           String buttonText = '贈送好友';
-          double price = ((c.detail?.buyPrice ?? 0) - c.discountPrice) < 0
+          Object price = ((c.detail?.buyPrice ?? 0) - c.discountPrice) < 0
               ? 0
-              : ((c.detail?.buyPrice ?? 0) - c.discountPrice);
-          logger.i({'totalPrice': price,'discountPrice':c.discountPrice});
+              : ((c.detail?.buyPrice ?? 0) - c.discountPrice).toStringAsFixed(2);
 
           if (c.isDonation) {
             buttonText = '去付款';
