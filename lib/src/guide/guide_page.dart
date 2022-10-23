@@ -17,6 +17,15 @@ class _GuidePageState extends State<GuidePage> {
   final carouselController = CarouselController();
   int currentIndex = 0;
 
+  Color get btnColor {
+    if (currentIndex == 1) {
+      return const Color(0xffA04A42);
+    } else if (currentIndex == 2) {
+      return const Color(0xff5070A4);
+    }
+    return const Color(0xff905D72);
+  }
+
   Future offToIndex([String redirect = '']) async {
     await firstEntryApp.set(false);
     Get.offNamed('/index', parameters: {'redirect': redirect});
@@ -56,8 +65,6 @@ class _GuidePageState extends State<GuidePage> {
                     noWrapper: true,
                   ),
                 ),
-                buildJumpToIndexBtn(const Color(0xff905D72)),
-                buildNextBtn(1),
               ],
             ),
             Stack(
@@ -75,8 +82,6 @@ class _GuidePageState extends State<GuidePage> {
                     noWrapper: true,
                   ),
                 ),
-                buildJumpToIndexBtn(const Color(0xffA04A42)),
-                buildNextBtn(2, color: const Color(0xffA04A42)),
               ],
             ),
             Stack(
@@ -96,12 +101,6 @@ class _GuidePageState extends State<GuidePage> {
                         noWrapper: true,
                       ),
                     ),
-                    buildJumpToIndexBtn(const Color(0xff5070A4)),
-                    buildNextBtn(
-                      3,
-                      text: '開始',
-                      color: const Color(0xff5070A4),
-                    ),
                     buildActionBtn(
                       onTap: () {
                         offToIndex('/p2/guide/index');
@@ -113,6 +112,8 @@ class _GuidePageState extends State<GuidePage> {
             ),
           ],
         ),
+        buildJumpToIndexBtn(),
+        buildNextBtn(),
         Align(
           alignment: Alignment.bottomCenter,
           child: CarouselPagination(
@@ -162,14 +163,15 @@ class _GuidePageState extends State<GuidePage> {
     );
   }
 
-  Widget buildNextBtn(int index, {String? text, Color? color}) {
+  Widget buildNextBtn() {
+    final width = 210.w;
     return Positioned(
       bottom: 45.w,
-      left: (Get.width - 210.w) / 2,
+      left: (Get.width - width) / 2,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         child: Container(
-          width: 210.w,
+          width: width,
           height: 42.w,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -177,20 +179,21 @@ class _GuidePageState extends State<GuidePage> {
           ),
           child: Center(
             child: Text(
-              text ?? '繼續',
+              currentIndex == 2 ? '開始' : '繼續',
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
-                color: color ?? const Color(0xffB2889D),
+                color: btnColor,
                 letterSpacing: 1.2,
               ),
             ),
           ),
         ),
         onTap: () {
-          if (index == 3) {
+          if (currentIndex == 2) {
             offToIndex();
           } else {
+            final index = currentIndex == 0 ? 1 : 2;
             carouselController.animateToPage(index);
           }
         },
@@ -198,9 +201,9 @@ class _GuidePageState extends State<GuidePage> {
     );
   }
 
-  Widget buildJumpToIndexBtn([Color? color]) {
+  Widget buildJumpToIndexBtn() {
     return Positioned(
-      top: 15,
+      top: 20,
       right: 15,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
@@ -213,7 +216,7 @@ class _GuidePageState extends State<GuidePage> {
               '跳過',
               style: TextStyle(
                 fontSize: 14.sp,
-                color: color,
+                color: btnColor,
               ),
             ),
           ),
