@@ -148,6 +148,9 @@ class ShareModal {
           break;
         case ShareMethod.facebook:
           if (apps['facebook'] == true) {
+            Future.delayed(const Duration(seconds: 3), () {
+              SmartDialog.dismiss(force: true);
+            });
             await appinioSocialShare.shareToFacebook(shareContent, filePath);
             // await appinioSocialShare.shareToMessenger(shareContent);
           } else {
