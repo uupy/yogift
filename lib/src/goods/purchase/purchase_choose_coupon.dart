@@ -1,20 +1,14 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:yo_gift/common/logger.dart';
-import 'package:yo_gift/models/coupon_item.dart';
 import 'package:yo_gift/models/gift_coupon_item.dart';
 import 'package:yo_gift/src/goods/purchase/gift_coupon_controller.dart';
-import 'package:yo_gift/src/user/coupon/conpon_controller.dart';
 import 'package:yo_gift/src/user/coupon/coupon_item_card.dart';
 import 'package:yo_gift/widgets/app_button.dart';
 import 'package:yo_gift/widgets/app_list_view/app_list_view.dart';
 import 'package:yo_gift/widgets/header_background.dart';
 
 /// 使用優惠券
-
 class PurchaseChooseCoupon extends StatefulWidget {
   const PurchaseChooseCoupon({Key? key}) : super(key: key);
 

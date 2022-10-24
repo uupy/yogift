@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:decimal/decimal.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
@@ -383,11 +382,8 @@ class PurchaseController extends GetxController {
   updateCouponInfo(item) {
     logger.i({'coupon', item});
     if (item != null) {
-      couponText = '- \$${item.cash}';
-      double discount =
-          ((detail?.buyPrice ?? 0) - ((item?.cash / 100) * detail?.buyPrice));
-
-      discountPrice = item?.ygcouponType == 1 ? item?.cash : discount;
+      couponText = '- \$${item.discountAmount}';
+      discountPrice = double.parse(item?.discountAmount);
       couponId = item?.id;
     } else {
       couponText = '未選擇';

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:yo_gift/assets/fonts/iconfont.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_storage.dart';
-import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/focus_monitoring.dart';
 import 'package:yo_gift/widgets/greeting_card/greeting_card.dart';
