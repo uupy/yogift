@@ -143,10 +143,11 @@ class _RemoveAccount extends State<RemoveAccount> {
                 }
                 final res =
                     await controller.deleteAccount(controller.verifyCode);
-                logger.i({'deleteAccountResult': res});
-                app.removeAccount(success: () {
-                  Get.offAllNamed('/login');
-                });
+                if (res != null && res?.isSuccess) {
+                  app.removeAccount(success: () {
+                    Get.offAllNamed('/login');
+                  });
+                }
               }
             },
             child: Row(

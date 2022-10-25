@@ -62,12 +62,12 @@ class AccountSettingController extends GetxController {
       "code": code
     };
 
-    logger.i({'params': params});
     try {
       final res = await UserService.removeAccount(params);
       return res;
+      // final res = await UserService.getInfo();      
     } catch (e) {
-      logger.e('deleteAccountError', e);
+      return null;
     }
   }
 }
