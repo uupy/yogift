@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/app_storage.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/models/charity_favorites_item_detail.dart';
 import 'package:yo_gift/models/user_order/add.dart';
 import 'package:yo_gift/models/user_order/add_for_charity_favorite.dart';
@@ -20,6 +22,9 @@ class CharityBlessingController extends GetxController {
   String remark = '';
   int currentStep = 1;
   String cardImageUrl = '';
+  String couponText = '未選擇';
+  double discountPrice = 0;
+  int couponId = 0;
 
   /// 商品信息
   CharityFavoritesItemDetailVo? detail;
@@ -33,7 +38,7 @@ class CharityBlessingController extends GetxController {
   num get totalPrice {
     final price = detail?.buyPriceForCharity ?? 0;
     final n = addForm.quantity ?? 1;
-    return price * n;
+    return price * n - discountPrice;
   }
 
   void init() async {
@@ -50,7 +55,7 @@ class CharityBlessingController extends GetxController {
     });
     final data = res.data ?? {};
     detail = CharityFavoritesItemDetailVo.fromJson(data['data'] ?? {});
-    update(['DetailInfo', 'BlessingFooter']);
+    update(['DetailInfo', 'BlessingFooter', 'useCouponController2']);
   }
 
   /// 提交下单
@@ -71,7 +76,7 @@ class CharityBlessingController extends GetxController {
     addForm.money = totalPrice;
     addForm.content2 = remark;
     addForm.skuid = 0;
-    addForm.ygcoupon1id = 0;
+    addForm.ygcoupon1id = couponId;
 
     final res = await UserOrderService.addForCharityFavorite(addForm);
     final code = res.data['code'];
@@ -87,5 +92,21 @@ class CharityBlessingController extends GetxController {
         'orderId': orderInfo!.oGuid!,
       });
     }
+  }
+
+  /// 選擇優惠券后
+  updateCouponInfo(item) {
+    if (item != null) {
+      couponText = '- \$${item.discountAmount}';
+      discountPrice = double.parse(item?.discountAmount);
+      couponId = item?.id;
+    } else {
+      couponText = '未選擇';
+      discountPrice = 0;
+      couponId = 0;
+    }
+
+    update(['BlessingFooter']);
+    update();
   }
 }
