@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/common/logger.dart';
+import 'package:yo_gift/services/user.dart';
 import 'package:yo_gift/services/verification.dart';
 import 'package:yo_gift/src/user/account_setting/account_setting_controller.dart';
 import 'package:yo_gift/widgets/app_button.dart';
@@ -140,10 +142,18 @@ class _RemoveAccount extends State<RemoveAccount> {
                   app.showToast('請輸入驗證碼！');
                   return;
                 }
-                
-                final res =
-                    await controller.deleteAccount(controller.verifyCode);
-                if (res != null && res?.isSuccess) {
+
+                final params = {
+                  "phone": controller.userInfo?.phone,
+                  "phoneprefix": controller.userInfo?.phonePrefix,
+                  "code": controller.verifyCode
+                };
+                logger.i({'removeAccountParams', params});
+
+                final res = await UserService.removeAccount(params);
+                logger.i({'isSuccess': res.data['isSuccess']});
+                if (res.data['isSuccess']) {
+                  app.showToast('删除成功');
                   Get.back();
                   Get.offAndToNamed('/login');
                 }

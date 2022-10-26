@@ -53,21 +53,4 @@ class AccountSettingController extends GetxController {
     userInfo = UserInfoVo.fromJson(data['data'] ?? {});
     update();
   }
-
-  /// 刪除賬號
-  Future deleteAccount(code) async {
-    final params = {
-      "phone": userInfo?.phone,
-      "phoneprefix": userInfo?.phonePrefix,
-      "code": code
-    };
-
-    try {
-      final res = await UserService.removeAccount(params);
-      return res;
-      // final res = await UserService.getInfo();      
-    } catch (e) {
-      return null;
-    }
-  }
 }
