@@ -100,10 +100,14 @@ class _ReadMoreTextState extends State<ReadMoreText> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                widget.text,
-                maxLines: _isTextExpanded ? null : widget.numLines,
-                style: widget.style,
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.text,
+                  textAlign: TextAlign.left,
+                  maxLines: _isTextExpanded ? null : widget.numLines,
+                  style: widget.style,
+                ),
               ),
               if (tp.didExceedMaxLines) const SizedBox(height: 8),
               if (tp.didExceedMaxLines)
