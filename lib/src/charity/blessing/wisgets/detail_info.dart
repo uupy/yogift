@@ -2,6 +2,7 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/app_image/app_image.dart';
 import 'package:yo_gift/widgets/app_simple_row.dart';
@@ -69,7 +70,11 @@ class DetailInfo extends StatelessWidget {
                           child: InputNumber(
                             onChanged: (value) {
                               c.addForm.quantity = value;
-                              c.update(['BlessingFooter']);
+                              if(c.couponType == 2) {
+                                c.discountPrice = c.discountAmount * value;
+                                c.couponText = '- \$${c.discountPrice}';
+                              }
+                              c.update(['BlessingFooter','useCouponController2']);
                             },
                           ),
                         ),

@@ -24,6 +24,8 @@ class CharityBlessingController extends GetxController {
   String cardImageUrl = '';
   String couponText = '未選擇';
   double discountPrice = 0;
+  double discountAmount = 0;
+  int couponType = 1;
   int couponId = 0;
 
   /// 商品信息
@@ -97,6 +99,8 @@ class CharityBlessingController extends GetxController {
   /// 選擇優惠券后
   updateCouponInfo(item) {
     if (item != null) {
+      couponType = item?.ygcouponType;
+      discountAmount = double.parse(item?.discountAmount);
       couponText = '- \$${item.discountAmount}';
       discountPrice = double.parse(item?.discountAmount);
       couponId = item?.id;
