@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/assets/fonts/iconfont.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/src/goods/purchase/purchase_controller.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/greeting_card/greeting_card.dart';
@@ -67,6 +68,12 @@ class _CharityBlessingPageState extends State<CharityBlessingPage> {
               id: 'useCouponController2',
               builder: (c) {
                 if (c.isLogged) {
+                  final params = {
+                    'giftid': c.detail?.giftId,
+                    'skuid': c.detail?.skuId,
+                    'n': c.orderInfo?.nums ?? 1,
+                    'for_charity': '1'
+                  };
                   return Container(
                     width: double.infinity,
                     padding: EdgeInsets.all(20.w),
@@ -74,9 +81,10 @@ class _CharityBlessingPageState extends State<CharityBlessingPage> {
                       init: CharityBlessingController(),
                       builder: (c) => AppCard(
                         onTap: () => {
+                          
                           Get.toNamed('/pages/goods/purchase/choose_coupon',
                               arguments: {
-                                'giftid': c.detail?.id,
+                                'giftid': c.detail?.giftId,
                                 'skuid': c.detail?.skuId,
                                 'n': c.orderInfo?.nums ?? 1,
                                 'for_charity': '1'
