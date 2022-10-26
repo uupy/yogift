@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:yo_gift/assets/fonts/iconfont.dart';
-import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/src/goods/purchase/purchase_controller.dart';
 import 'package:yo_gift/widgets/app_card.dart';
 import 'package:yo_gift/widgets/greeting_card/greeting_card.dart';
@@ -80,7 +79,7 @@ class _CharityBlessingPageState extends State<CharityBlessingPage> {
                                 'giftid': c.detail?.id,
                                 'skuid': c.detail?.skuId,
                                 'n': c.orderInfo?.nums ?? 1,
-                                'for_charity': '0'
+                                'for_charity': '1'
                               })?.then((value) => {c.updateCouponInfo(value)})
                         },
                         child: Row(
