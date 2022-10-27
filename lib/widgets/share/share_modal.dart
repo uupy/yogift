@@ -21,6 +21,7 @@ import 'package:yo_gift/common/app_controller.dart';
 import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
+import 'package:device_apps/device_apps.dart';
 
 import 'share_card.dart';
 import 'share_menu_item.dart';
@@ -82,7 +83,7 @@ class ShareModal {
     String shareContent = data.shareUrl;
     String imagePath = data.imageUrl ?? '';
     String filePath = '';
-    Map<dynamic, dynamic> apps = {};
+    List<Application> apps = [];
     AppinioSocialShare appinioSocialShare = AppinioSocialShare();
 
     if ([0, 3].contains(data.type)) {
@@ -124,21 +125,13 @@ class ShareModal {
       await Clipboard.setData(ClipboardData(text: shareContent));
 
       if (method != ShareMethod.weChat || method != ShareMethod.sms) {
-        apps = await appinioSocialShare.getInstalledApps();
-        logger.i(apps);
+        // apps = await appinioSocialShare.getInstalledApps();
+        apps = await DeviceApps.getInstalledApplications();
       }
-
-      logger.i({'shareContent': shareContent});
-
-      // await shareToWechat(
-      //   data.shareUrl,
-      //   shareContent,
-      //   imagePath: imagePath,
-      // );
 
       switch (method) {
         case ShareMethod.whatsApp:
-          if (apps['whatsapp'] == true) {
+          if (apps.toString().contains('whatsapp')) {
             await appinioSocialShare.shareToWhatsapp(shareContent,
                 filePath: filePath);
           } else {
@@ -147,7 +140,7 @@ class ShareModal {
 
           break;
         case ShareMethod.facebook:
-          if (apps['facebook'] == true) {
+          if (apps.toString().contains('facebook')) {
             Future.delayed(const Duration(seconds: 3), () {
               SmartDialog.dismiss(force: true);
             });
@@ -158,7 +151,7 @@ class ShareModal {
           }
           break;
         case ShareMethod.twitter:
-          if (apps['twitter'] == true) {
+          if (apps.toString().contains('twitter')) {
             if (Platform.isAndroid) {
               await appinioSocialShare.shareToTwitter(shareContent,
                   filePath: filePath);
@@ -170,7 +163,7 @@ class ShareModal {
           }
           break;
         case ShareMethod.instagram:
-          if (apps['instagram'] == true) {
+          if (apps.toString().contains('instagram')) {
             await appinioSocialShare.shareToInstagram(shareContent);
           } else {
             app.showToast('請先安裝Instagram');
