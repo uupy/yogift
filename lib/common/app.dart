@@ -8,7 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart';
 import 'package:yo_gift/assets/fonts/iconfont.dart';
-import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/models/user.dart';
 import 'package:yo_gift/services/user.dart';
@@ -310,7 +309,6 @@ class App {
 
   /// 更新登录信息
   Future updateAuthData([Map<String, dynamic>? data]) async {
-    logger.i(data);
     if (data != null) {
       await setAuthData(data);
     } else {

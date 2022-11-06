@@ -48,6 +48,16 @@
 				<string>fb1180431849520042</string>
 			</array>
 		</dict>
+		<dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>yogift.hk</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>dynamictheme</string>
+            </array>
+        </dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
