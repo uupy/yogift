@@ -102,6 +102,8 @@ class _GoodsItemState extends State<GoodsItem> {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: const Color.fromRGBO(0, 0, 0, .9),
                         ),
                       ),
                     ),
