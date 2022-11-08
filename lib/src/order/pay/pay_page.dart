@@ -63,6 +63,7 @@ class PayPage extends StatelessWidget {
                 child: MenuGroup(
                   padding: EdgeInsets.zero,
                   blurRadius: 0,
+                  showBorder: false,
                   children: list.map((item) {
                     final active = selected?.id == item.id;
 

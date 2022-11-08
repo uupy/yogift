@@ -63,12 +63,14 @@ class AppCard extends StatelessWidget {
           Radius.circular(radius ?? 20.r),
         ),
         border: _border,
-        boxShadow: [
-          BoxShadow(
-            color: const Color.fromRGBO(0, 0, 0, 0.08),
-            blurRadius: blurRadius ?? 6.r,
-          ),
-        ],
+        boxShadow: blurRadius == 0
+            ? null
+            : [
+                BoxShadow(
+                  color: const Color.fromRGBO(0, 0, 0, 0.08),
+                  blurRadius: blurRadius ?? 6.r,
+                ),
+              ],
       ),
       child: child,
     );

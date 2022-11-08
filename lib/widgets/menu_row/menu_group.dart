@@ -10,6 +10,7 @@ class MenuGroup extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
   final double? blurRadius;
+  final bool showBorder;
   final List<CustomMenuItem>? menus;
   final List<Widget>? children;
   final Function(String key)? onTap;
@@ -20,6 +21,7 @@ class MenuGroup extends StatelessWidget {
     this.margin,
     this.padding,
     this.blurRadius,
+    this.showBorder = true,
     this.menus,
     this.children,
     this.onTap,
@@ -35,6 +37,7 @@ class MenuGroup extends StatelessWidget {
       margin: margin ?? EdgeInsets.fromLTRB(20.w, 0, 20.w, 12.w),
       padding: padding ?? EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.w),
       blurRadius: blurRadius ?? 2.r,
+      showBorder: showBorder,
       child: Column(
         children: children ??
             _items.asMap().keys.map((index) {

@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:get/get.dart' hide Response;
 import 'package:tobias/tobias.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/logger.dart';
+import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/models/user_order/pay_type.dart';
 import 'package:yo_gift/services/user_order.dart';
 
@@ -99,8 +101,32 @@ class PayController extends GetxController {
 
   /// 微信支付
   Future onWxPay() async {
-    final data = await getPayParameters();
+    final data = await getPayParameters() ?? {};
     logger.i(data);
+    await fluwx.registerWxApi(
+      appId: Env.config.wxAppId,
+      universalLink: Env.config.universalLink,
+    );
+    final isInstalled = await fluwx.isWeChatInstalled;
+
+    if (isInstalled) {
+      final result = await fluwx.payWithWeChat(
+        appId: Env.config.wxAppId,
+        partnerId: data['partnerid'],
+        prepayId: data['prepayid'],
+        packageValue: data['package'],
+        nonceStr: data['noncestr'],
+        timeStamp: data['timestamp'],
+        sign: data['sign'],
+      );
+      if (result) {
+        onPaySuccess();
+      } else {
+        app.showToast('支付失敗，請稍後重試');
+      }
+    } else {
+      app.showToast('請先安裝WeChat');
+    }
   }
 
   /// Stripe支付
