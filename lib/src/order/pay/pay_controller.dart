@@ -1,3 +1,5 @@
+import 'dart:convert' as convert;
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -18,6 +20,7 @@ class PayController extends GetxController {
   Function(String orderId)? successCallback;
   PayTypeVo? selectedType;
   String idGuid = '';
+  bool loading = false;
 
   /// 获取支付方式列表
   Future fetchData(String idGuid) async {
@@ -52,7 +55,8 @@ class PayController extends GetxController {
   Future getPayParameters([Function(dynamic data)? success]) async {
     final params = {'id_guid': idGuid};
     Response? res;
-
+    loading = true;
+    update();
     if (selectedType!.key == 'alipayHK_app') {
       res = await UserOrderService.getAliPayParameters(params);
     } else if (selectedType!.key == 'weixinpay_app') {
@@ -64,6 +68,9 @@ class PayController extends GetxController {
     final data = res.data ?? {};
     final message = data['message'];
     final isSuccess = data['isSuccess'] ?? false;
+
+    loading = false;
+    update();
 
     if (isSuccess) {
       Navigator.pop(Get.context!);
@@ -101,28 +108,28 @@ class PayController extends GetxController {
 
   /// 微信支付
   Future onWxPay() async {
-    final data = await getPayParameters() ?? {};
-    logger.i(data);
-    await fluwx.registerWxApi(
-      appId: Env.config.wxAppId,
-      universalLink: Env.config.universalLink,
-    );
+    final data = await getPayParameters();
+    Map<String, dynamic> _data = convert.jsonDecode(data ?? '{}');
+    logger.i(_data);
     final isInstalled = await fluwx.isWeChatInstalled;
 
     if (isInstalled) {
-      final result = await fluwx.payWithWeChat(
-        appId: Env.config.wxAppId,
-        partnerId: data['partnerid'],
-        prepayId: data['prepayid'],
-        packageValue: data['package'],
-        nonceStr: data['noncestr'],
-        timeStamp: data['timestamp'],
-        sign: data['sign'],
-      );
-      if (result) {
-        onPaySuccess();
-      } else {
-        app.showToast('支付失敗，請稍後重試');
+      try {
+        SmartDialog.showLoading(msg: '加載中...');
+        final result = await fluwx.payWithWeChat(
+          appId: Env.config.wxAppId,
+          partnerId: _data['partnerid'],
+          prepayId: _data['prepayid'],
+          packageValue: _data['package'],
+          nonceStr: _data['noncestr'],
+          timeStamp: int.parse(_data['timestamp']),
+          sign: _data['sign'],
+        );
+        if (!result) {
+          app.showToast('支付失敗，請稍後重試');
+        }
+      } finally {
+        SmartDialog.dismiss();
       }
     } else {
       app.showToast('請先安裝WeChat');
