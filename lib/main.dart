@@ -66,7 +66,7 @@ class _RootApp extends State<RootApp> {
   String getJumpPath(String? link) {
     String result = '';
     if (link?.isNotEmpty ?? false) {
-      final _jumpPath = link!.replaceFirst('dynamictheme://yogift.hk', '');
+      final _jumpPath = link!.replaceFirst('yogift://yogift.hk', '');
       final toPath = _jumpPath.split('?')[0];
       final currentPath = Get.currentRoute.split('?')[0];
 
