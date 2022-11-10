@@ -48,9 +48,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
-                <data android:scheme="dynamictheme"/>
+                <data android:scheme="yogift"/>
                 <data
-                        android:scheme="dynamictheme"
+                        android:scheme="yogift"
                         android:host="yogift.hk" />
             </intent-filter>
             <!-- Don't delete the meta-data below.

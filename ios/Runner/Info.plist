@@ -55,7 +55,7 @@
             <string>yogift.hk</string>
             <key>CFBundleURLSchemes</key>
             <array>
-                <string>dynamictheme</string>
+                <string>yogift</string>
             </array>
         </dict>
 	</array>
