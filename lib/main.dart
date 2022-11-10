@@ -70,7 +70,8 @@ class _RootApp extends State<RootApp> {
       final toPath = _jumpPath.split('?')[0];
       final currentPath = Get.currentRoute.split('?')[0];
 
-      if (!['/', '/index'].contains(_jumpPath) && toPath != currentPath) {
+      if (!['/', '/index', '/pages/main/index/index'].contains(_jumpPath) &&
+          toPath != currentPath) {
         logger.i('path: $_jumpPath');
         logger.i('current: ${Get.currentRoute}');
         result = _jumpPath;
