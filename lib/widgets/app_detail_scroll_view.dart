@@ -209,11 +209,25 @@ class _AppDetailScrollView extends State<AppDetailScrollView> {
               Radius.circular(36.w),
             ),
           ),
-          child: Center(
-            child: Icon(
-              Platform.isAndroid ? Icons.arrow_back : Icons.arrow_back_ios,
-              size: 24.sp,
-            ),
+          child: Stack(
+            children: [
+              if (Platform.isAndroid)
+                Center(
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: 24.sp,
+                  ),
+                ),
+              if (Platform.isIOS)
+                Positioned(
+                  top: 6.w,
+                  right: 2.w,
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    size: 24.sp,
+                  ),
+                ),
+            ],
           ),
         ),
       ),
