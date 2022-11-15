@@ -110,12 +110,12 @@ class _StripePayFormState extends State<StripePayForm> {
       await Stripe.instance.applySettings();
       // 2。发起支付确认付款
       final paymentIntent = await Stripe.instance.confirmPayment(
-        widget.clientSecret,
-        const PaymentMethodParams.card(
+        paymentIntentClientSecret: widget.clientSecret,
+        data: const PaymentMethodParams.card(
           paymentMethodData: PaymentMethodData(),
-          options: PaymentMethodOptions(
-            setupFutureUsage: PaymentIntentsFutureUsage.OffSession,
-          ),
+        ),
+        options: const PaymentMethodOptions(
+          setupFutureUsage: PaymentIntentsFutureUsage.OffSession,
         ),
       );
 

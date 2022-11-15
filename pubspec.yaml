@@ -92,7 +92,7 @@ dependencies:
   # 微信支付
   fluwx: ^3.9.2
   # stripe支付
-  flutter_stripe: ^4.0.0
+  flutter_stripe: ^6.0.0
   # webview
   webview_flutter: ^3.0.4
   # 精度计算
