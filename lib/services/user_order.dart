@@ -137,4 +137,13 @@ class UserOrderService {
         data: data,
         options: Options(extra: {'ignoreErrors': true}),
       );
+
+
+/// 核销訂單(让店员输入四位数核销密码进行核销)
+  static Future<Response<dynamic>> writeoffByCode(data) =>
+      http.postJson(
+        '/UserOrder/Writeoff_By_Code',
+        data: data,
+        options: Options(extra: {'ignoreErrors': true}),
+      );  
 }

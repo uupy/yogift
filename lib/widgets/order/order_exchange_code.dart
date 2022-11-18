@@ -99,21 +99,33 @@ class _OrderExchangeCodeState extends State<OrderExchangeCode> {
       margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.w),
       child: Column(
         children: [
-          Text(
-            '請向店員出示以下$typeName掃描以兌換禮物',
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: const Color.fromRGBO(0, 0, 0, 0.4),
-            ),
-          ),
-          SizedBox(height: 28.w),
-          if (!isQrCode)
+          if(codeType == 0 || codeType == 1)
             Text(
-              '${widget.giftName ?? ''} X${widget.nums ?? 1}',
-              style: TextStyle(fontSize: 14.sp),
+              '請向店員出示以下$typeName掃描以兌換禮物',
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: const Color.fromRGBO(0, 0, 0, 0.4),
+              ),
             ),
-          if (!isQrCode) SizedBox(height: 12.w),
+          if(codeType == 2)
+            Text(
+              '請於店内出示此頁面，讓店員輸入YO!GIFT兌換密碼',
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: const Color.fromRGBO(0, 0, 0, 0.4),
+              ),
+            ),
+
+          SizedBox(height: 28.w),
+
+          Text(
+            '${widget.giftName ?? ''} X${widget.nums ?? 1}',
+            style: TextStyle(fontSize: 14.sp),
+          ),
+          if (codeType == 0) SizedBox(height: 12.w),
+          
           OrderQrCode(code: widget.code ?? '', type: codeType ?? 0),
+
           SizedBox(height: 6.w),
           Text(
             '$typeName將於$timeString後失效，失效後將視為已兌換',

@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
+import 'package:yo_gift/common/app.dart';
+import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/models/user_order/order_detail_item.dart';
 import 'package:yo_gift/services/user_order.dart';
 import 'package:yo_gift/src/order/constants.dart';
@@ -36,5 +40,18 @@ class GiftExchangeController extends GetxController {
 
     update(['ExchangeInfo', 'ExchangeCode']);
     fetchData();
+  }
+
+  Future onExchangeByCode(code) async {
+    logger.i({'detail': detail!.id, 'code': code});
+    final res = await UserOrderService.writeoffByCode(
+        {"code": code, "id_guid": detail!.id ?? detail!.oGuid});
+
+    if (res.data['isSuccess'] == true) {
+      app.showToast('兌換成功');
+      Future.delayed(const Duration(seconds: 2), () {
+        Get.back();
+      });
+    }
   }
 }
