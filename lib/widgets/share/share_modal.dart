@@ -6,6 +6,7 @@ import 'dart:ui';
 
 import 'package:appinio_social_share/appinio_social_share.dart';
 import 'package:cross_file/cross_file.dart';
+import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -21,7 +22,6 @@ import 'package:yo_gift/common/app_controller.dart';
 import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/config/env_config.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
-import 'package:device_apps/device_apps.dart';
 
 import 'share_card.dart';
 import 'share_menu_item.dart';
@@ -78,13 +78,24 @@ class ShareModal {
     return imageFile;
   }
 
+  static Future<bool> checkAppInstalled(String name) async {
+    if (Platform.isAndroid) {
+      final apps = await DeviceApps.getInstalledApplications();
+      return apps.toString().contains(name);
+    } else if (Platform.isIOS) {
+      final appinioSocialShare = AppinioSocialShare();
+      final apps = await appinioSocialShare.getInstalledApps();
+      return apps[name] == true;
+    }
+    return false;
+  }
+
   static Future onShare(ShareData data) async {
+    final appinioSocialShare = AppinioSocialShare();
     final method = data.method ?? ShareMethod.sms;
     String shareContent = data.shareUrl;
     String imagePath = data.imageUrl ?? '';
     String filePath = '';
-    List<Application> apps = [];
-    AppinioSocialShare appinioSocialShare = AppinioSocialShare();
 
     if ([0, 3].contains(data.type)) {
       await Future.delayed(const Duration(seconds: 1));
@@ -124,14 +135,9 @@ class ShareModal {
       SmartDialog.showLoading(msg: '加載中...');
       await Clipboard.setData(ClipboardData(text: shareContent));
 
-      if (method != ShareMethod.weChat || method != ShareMethod.sms) {
-        // apps = await appinioSocialShare.getInstalledApps();
-        apps = await DeviceApps.getInstalledApplications();
-      }
-
       switch (method) {
         case ShareMethod.whatsApp:
-          if (apps.toString().contains('whatsapp')) {
+          if (await checkAppInstalled('whatsapp')) {
             await appinioSocialShare.shareToWhatsapp(shareContent,
                 filePath: filePath);
           } else {
@@ -140,7 +146,7 @@ class ShareModal {
 
           break;
         case ShareMethod.facebook:
-          if (apps.toString().contains('facebook')) {
+          if (await checkAppInstalled('facebook')) {
             Future.delayed(const Duration(seconds: 3), () {
               SmartDialog.dismiss(force: true);
             });
@@ -151,7 +157,7 @@ class ShareModal {
           }
           break;
         case ShareMethod.twitter:
-          if (apps.toString().contains('twitter')) {
+          if (await checkAppInstalled('twitter')) {
             if (Platform.isAndroid) {
               await appinioSocialShare.shareToTwitter(shareContent,
                   filePath: filePath);
@@ -163,7 +169,7 @@ class ShareModal {
           }
           break;
         case ShareMethod.instagram:
-          if (apps.toString().contains('instagram')) {
+          if (await checkAppInstalled('instagram')) {
             await appinioSocialShare.shareToInstagram(shareContent);
           } else {
             app.showToast('請先安裝Instagram');
