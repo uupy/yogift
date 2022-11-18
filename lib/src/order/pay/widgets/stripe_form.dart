@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:yo_gift/common/app.dart';
 import 'package:yo_gift/common/logger.dart';
 import 'package:yo_gift/widgets/app_asset_image.dart';
+import 'dart:ui' as ui;
 
 import 'loading_button.dart';
 
@@ -49,8 +52,9 @@ class _StripePayFormState extends State<StripePayForm> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = ui.window.platformBrightness == Brightness.dark;
     return Container(
-      height: 450,
+      height: 500,
       margin: EdgeInsets.symmetric(horizontal: 20.w),
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       decoration: BoxDecoration(
@@ -75,6 +79,7 @@ class _StripePayFormState extends State<StripePayForm> {
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.symmetric(vertical: 20.w),
+            // padding:EdgeInsets.only(top:20.w,right: 20.w,bottom: 0,left: 20.w),
             child: CardFormField(
               controller: controller,
               countryCode: 'HK',
@@ -87,7 +92,16 @@ class _StripePayFormState extends State<StripePayForm> {
               ),
             ),
           ),
-          const SizedBox(height: 15),
+          if(isDarkMode==true && Platform.isIOS)
+            Text(
+              '部分機型深色模式下顯示異常，請關閉深色模式後嘗試',
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: const Color.fromRGBO(0, 0, 0, 0.6),
+              ),
+            ),
+          
+          const SizedBox(height: 15,),
           SizedBox(
             width: 140.w,
             child: LoadingButton(
