@@ -127,13 +127,14 @@ class _OrderExchangeCodeState extends State<OrderExchangeCode> {
           OrderQrCode(code: widget.code ?? '', type: codeType ?? 0),
 
           SizedBox(height: 6.w),
-          Text(
-            '$typeName將於$timeString後失效，失效後將視為已兌換',
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: const Color(0xffff3b30),
+          if(codeType != 2)
+            Text(
+              '$typeName將於$timeString後失效，失效後將視為已兌換',
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: const Color(0xffff3b30),
+              ),
             ),
-          ),
         ],
       ),
     );

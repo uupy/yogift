@@ -27,9 +27,11 @@ class ExchangeCode extends StatelessWidget {
           codeType: codeType,
           time: time,
           onTimeout: () {
-            Future.delayed(const Duration(seconds: 2), () {
-              Get.back();
-            });
+            if(codeType != 2) {
+              Future.delayed(const Duration(seconds: 2), () {
+                Get.back();
+              });
+            }
           },
         );
       },
