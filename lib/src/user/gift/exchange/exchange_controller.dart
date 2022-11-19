@@ -32,14 +32,20 @@ class GiftExchangeController extends GetxController {
   }
 
   Future onExchange() async {
-    final res = await UserOrderService.createWriteOffCode(id!);
-    final data = res.data['data'] ?? {};
+    if (detail!.writeoffCodeType != 2) {
+      final res = await UserOrderService.createWriteOffCode(id!);
+      final data = res.data['data'] ?? {};
 
-    detail!.writeoffCode = data['Writeoff_Code'];
-    detail!.writeoffCodeType = data['Writeoff_CodeType'];
+      detail!.writeoffCode = data['Writeoff_Code'];
+      detail!.writeoffCodeType = data['Writeoff_CodeType'];
 
-    update(['ExchangeInfo', 'ExchangeCode']);
-    fetchData();
+      update(['ExchangeInfo', 'ExchangeCode']);
+      fetchData();
+    } else {
+      detail!.writeoffCode = 'test';
+      detail!.writeoffCodeType = detail!.writeoffCodeType;
+      update(['ExchangeInfo', 'ExchangeCode']);
+    }
   }
 
   Future onExchangeByCode(code) async {

@@ -16,7 +16,7 @@ class ExchangeInfo extends StatelessWidget {
     return GetBuilder<GiftExchangeController>(
       id: 'ExchangeInfo',
       builder: (c) {
-        if (c.detail?.writeoffCode?.isNotEmpty ?? false) {
+        if ( c.detail?.writeoffCode?.isNotEmpty ?? false) {
           return const ExchangeCode();
         }
         return Container(
