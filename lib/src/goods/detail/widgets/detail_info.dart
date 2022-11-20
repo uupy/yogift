@@ -14,7 +14,8 @@ class GoodsDetailInfo extends StatelessWidget {
         final content = c.detail?.cDetail ?? '';
 
         return Html(
-          data: content.replaceAll('<p><br/></p>', ''),
+          data:
+              content.replaceAll('<p><br/></p>', '').replaceAll('\n', '<br />'),
           // data: content,
           style: {
             'body': Style(

@@ -12,7 +12,7 @@ class ExchangeTerms extends StatelessWidget {
       id: 'ExchangeTerms',
       builder: (c) {
         return Html(
-          data: c.detail?.exchangeTerms ?? '',
+          data: (c.detail?.exchangeTerms ?? '').replaceAll('\n', '<br />'),
           style: {
             'body': Style(
               margin: EdgeInsets.zero,

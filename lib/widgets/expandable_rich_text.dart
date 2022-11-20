@@ -29,8 +29,9 @@ class _ExpandableRichTextState extends State<ExpandableRichText> {
             ),
             maxLines: expendDetail ? null : 2,
             child: Html(
-              data: _content.replaceAll(
-                  '<br/>', '<div style="height: 17px"> </div>'),
+              data: _content
+                  .replaceAll('<br/>', '<div style="height: 17px"> </div>')
+                  .replaceAll('\n', '<br />'),
               style: {
                 'body': Style(
                   margin: EdgeInsets.zero,

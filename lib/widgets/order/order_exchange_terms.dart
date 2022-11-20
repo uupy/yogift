@@ -8,7 +8,7 @@ class OrderExchangeTerms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Html(
-      data: content ?? '',
+      data: (content ?? '').replaceAll('\n', '<br />'),
       style: {
         'body': Style(
           margin: EdgeInsets.zero,
