@@ -28,6 +28,10 @@ class ContentButton extends StatelessWidget {
                 addr.address = c.detail?.receivingaddressAddress;
                 addr.area0 = c.detail?.receivingaddressArea0;
                 addr.area1 = c.detail?.receivingaddressArea1;
+                if (addr.area1?.isEmpty ?? true) {
+                  app.showToast('請選擇收貨地址和聯繫方式');
+                  return;
+                }
                 c.showAddressInfo(addr);
               },
             ),

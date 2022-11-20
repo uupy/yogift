@@ -25,10 +25,10 @@ class OrderItemCard extends StatelessWidget {
     bool isDeliver = item.sendingMethod == 2 && [1, 2, 3, 4].contains(status);
     String path = '/pages/mine/order/detail/index';
 
-    if (status == 1) {
-      path = '/pages/mine/gift/exchange/index';
-    } else if (isDeliver) {
+    if (isDeliver) {
       path = '/pages/mine/gift/deliver/index';
+    } else if (status == 1) {
+      path = '/pages/mine/gift/exchange/index';
     }
 
     Get.toNamed(path, parameters: {
